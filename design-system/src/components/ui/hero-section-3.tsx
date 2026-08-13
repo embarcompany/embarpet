@@ -18,8 +18,8 @@ const ScrollFlyIn = React.forwardRef<HTMLDivElement, ScrollFlyInProps>(({ childr
   const x = useTransform(scrollYProgress, [0.1, 0.8], [`-${5 * screenWidth}px`, `${2.5 * screenWidth}px`]);
   const opacity = useTransform(scrollYProgress, [0.1, 0.25, 0.7, 0.8], [0, 1, 1, 0]);
 
-  return <div ref={targetRef} className={cn("relative h-[200vh]", className)} {...props}>
-    <div ref={ref} className="sticky top-0 flex h-screen items-center justify-center">
+  return <div ref={targetRef} className={cn("relative h-[78vh] min-h-[500px]", className)} {...props}>
+    <div ref={ref} className="sticky top-0 flex h-[68vh] min-h-[460px] items-center justify-center">
       <div className="z-10 text-center">{children}</div>
       <motion.div style={{ x, opacity }} className="pointer-events-none absolute left-0 top-0 z-20 flex h-full w-full items-center">
         <img src={imageUrl} alt={imageAlt} className="h-auto w-auto max-w-none" />

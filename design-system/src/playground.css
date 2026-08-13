@@ -28,7 +28,41 @@
 @media (max-width:900px) { .ep-home-destinations .ep-destination-selector { grid-template-columns:1fr; gap:42px; padding:52px 32px; }.ep-destination-selector__intro h2 { max-width:620px; }.ep-destination-selector__panel { width:100%; }.ep-destination-selector__choices { max-width:none; } }
 @media (max-width:600px) { .ep-home-destinations { padding-inline:8px; }.ep-home-destinations .ep-destination-selector { padding:40px 20px; border-radius:16px; }.ep-destination-selector__intro h2 { margin:17px 0; font-size:43px; }.ep-destination-selector__benefits { display:grid; grid-template-columns:1fr; gap:12px; margin-top:30px; }.ep-destination-selector__benefits > span { padding:0; border:0; }.ep-destination-selector__panel { padding:18px; border-radius:14px; }.ep-destination-selector__panel-title { margin-bottom:18px; }.ep-destination-selector__choices { grid-template-columns:1fr; gap:9px; }.ep-destination-selector__choices button { min-height:64px; font-size:12px; }.ep-destination-selector__choices button img { width:36px; height:26px; }.ep-destination-selector__other { grid-column:auto; } }
 
-.ep-final-fly-in { background:var(--ep-teal); color:var(--ep-paper); }.ep-final-impact { display:inline-flex; align-items:center; justify-content:center; gap:9px; min-height:38px; padding:3px 13px 3px 5px; border:1px solid rgba(171,239,234,.38); border-radius:999px; background:rgba(3,97,104,.6); color:var(--ep-paper); text-align:left; }.ep-final-impact__avatars { display:flex; width:88px; height:30px; align-items:center; }.ep-final-impact__avatars i { display:block; width:29px; min-width:29px; height:29px; margin-left:-7px; border:2px solid var(--ep-teal); border-radius:50%; background-image:url('/embarpet-team-avatars.png'); background-size:200% 200%; background-repeat:no-repeat; }.ep-final-impact__avatars i:first-child { margin-left:0; background-position:0 0; }.ep-final-impact__avatars i:nth-child(2) { background-position:100% 0; }.ep-final-impact__avatars i:nth-child(3) { background-position:0 100%; }.ep-final-impact__avatars i:nth-child(4) { background-position:100% 100%; }.ep-final-impact strong { font-size:clamp(22px,2.4vw,30px); letter-spacing:-.08em; line-height:1; }.ep-final-impact small { color:#bae4e1; font-size:9px; font-weight:750; line-height:1.08; }
+.ep-final-fly-in { overflow:hidden; border-radius:30px 30px 0 0; background:var(--ep-teal); color:var(--ep-paper); }.ep-final-fly-in > div { max-height:680px; }.ep-final-impact { display:inline-flex; align-items:center; justify-content:center; gap:9px; min-height:38px; padding:3px 13px 3px 5px; border:1px solid rgba(171,239,234,.38); border-radius:999px; background:rgba(3,97,104,.6); color:var(--ep-paper); text-align:left; }.ep-final-impact__avatars { display:flex; width:88px; height:30px; align-items:center; }.ep-final-impact__avatars i { display:block; width:29px; min-width:29px; height:29px; margin-left:-7px; border:2px solid var(--ep-teal); border-radius:50%; background-image:url('/embarpet-team-avatars.png'); background-size:200% 200%; background-repeat:no-repeat; }.ep-final-impact__avatars i:first-child { margin-left:0; background-position:0 0; }.ep-final-impact__avatars i:nth-child(2) { background-position:100% 0; }.ep-final-impact__avatars i:nth-child(3) { background-position:0 100%; }.ep-final-impact__avatars i:nth-child(4) { background-position:100% 100%; }.ep-final-impact strong { font-size:clamp(22px,2.4vw,30px); letter-spacing:-.08em; line-height:1; }.ep-final-impact small { color:#bae4e1; font-size:9px; font-weight:750; line-height:1.08; }
+.ep-final-fly-in__eyebrow { display:table; min-height:32px; margin:0 auto 14px; padding:7px 13px 7px 38px; border:1px solid rgba(171,239,234,.36); border-radius:999px; background:rgba(0,181,194,.16) url('/embarpet-pet-selector-grid.png') 7px center / 24px 24px no-repeat; color:#d9fffb; font-size:10px; font-weight:800; letter-spacing:.015em; }
+.ep-final-fly-in .pointer-events-none { overflow:hidden; }.ep-final-fly-in .pointer-events-none img { width:clamp(280px,30vw,440px); height:auto; max-width:none; object-fit:contain; filter:saturate(1.1) contrast(1.06); }
+
+/* Pílulas editoriais nas seções de método e autoridade. */
+.ep-home-process__intro .ep-eyebrow,
+.ep-home-authority__content .ep-eyebrow {
+  display:inline-flex;
+  min-height:34px;
+  align-items:center;
+  gap:8px;
+  margin:0 0 20px;
+  padding:4px 12px 4px 5px;
+  border:1px solid rgba(0,157,172,.22);
+  border-radius:999px;
+  background:rgba(232,249,247,.8);
+  color:var(--ep-teal);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.01em;
+  text-transform:none;
+}
+.ep-home-process__intro .ep-eyebrow::before,
+.ep-home-authority__content .ep-eyebrow::before {
+  width:24px;
+  height:24px;
+  flex:0 0 auto;
+  border-radius:50%;
+  background-image:url('/embarpet-pet-selector-grid.png');
+  background-size:200% 200%;
+  background-repeat:no-repeat;
+  content:"";
+}
+.ep-home-process__intro .ep-eyebrow::before { background-position:100% 0; }
+.ep-home-authority__content .ep-eyebrow::before { background-position:0 100%; }
 
 /* Autoridade operacional: prova, método e credenciais em uma única leitura. */
 .ep-home-authority { padding:clamp(74px,9vw,126px) 0; background:var(--ep-paper); }.ep-home-authority__grid { display:grid; grid-template-columns:minmax(0,.94fr) minmax(330px,1.06fr); align-items:center; gap:clamp(40px,7vw,108px); }.ep-home-authority__image { position:relative; min-height:430px; overflow:hidden; border:1px solid var(--ep-line); border-radius:20px; background:var(--ep-soft); }.ep-home-authority__image::after { position:absolute; inset:0; background:linear-gradient(180deg,transparent 54%,rgba(5,70,77,.42)); content:""; pointer-events:none; }.ep-home-authority__image > img { display:block; width:100%; height:430px; object-fit:cover; }.ep-home-authority__image > span { position:absolute; z-index:1; bottom:20px; left:20px; display:inline-flex; align-items:center; gap:7px; padding:8px 11px; border:1px solid rgba(255,255,255,.35); border-radius:999px; background:rgba(5,70,77,.64); color:var(--ep-paper); font-size:11px; font-weight:800; }.ep-home-authority__image i { color:var(--ep-turq); font-style:normal; }.ep-home-authority__content .ep-title-lg { max-width:600px; margin:14px 0 0; }.ep-home-authority__content > .ep-copy { max-width:540px; margin:19px 0 28px; font-size:15px; line-height:1.55; }.ep-home-authority__proof { display:grid; grid-template-columns:1.18fr 1fr 1fr; max-width:560px; margin-bottom:30px; border-top:1px solid var(--ep-line); border-bottom:1px solid var(--ep-line); }.ep-home-authority__proof > div { display:flex; min-height:82px; align-items:center; gap:8px; padding:14px 15px; border-right:1px solid var(--ep-line); }.ep-home-authority__proof > div:first-child { padding-left:0; }.ep-home-authority__proof > div:last-child { border-right:0; }.ep-home-authority__proof strong { color:var(--ep-teal); font-size:clamp(22px,2.6vw,34px); letter-spacing:-.08em; line-height:1; }.ep-home-authority__proof span { color:var(--ep-muted); font-size:9px; font-weight:750; line-height:1.25; }.ep-home-authority__proof img { display:block; width:auto; max-width:62px; max-height:27px; object-fit:contain; }.ep-home-authority__proof div:nth-child(2) img { max-width:59px; max-height:24px; }.ep-home-authority__proof div:not(:first-child) { display:grid; align-content:center; justify-items:start; gap:6px; }.ep-home-authority__content .ep-button { min-height:43px; }
@@ -44,6 +78,10 @@
 .ep-home-authority__mosaic { width:min(100%,470px); aspect-ratio:1 / 1; grid-template-rows:1fr 1fr .66fr; min-height:0; }
 @media (max-width:800px) { .ep-home-authority__mosaic { width:min(100%,470px); min-height:0; } }
 @media (max-width:480px) { .ep-home-authority__mosaic { width:100%; aspect-ratio:auto; min-height:400px; } }
+
+/* Retrato de liderança: uma presença única em vez de mosaico de placeholders. */
+.ep-home-ceo { position:relative; display:flex; min-height:clamp(500px,47vw,690px); align-self:stretch; align-items:flex-end; justify-content:center; margin:0; isolation:isolate; overflow:hidden; }.ep-home-ceo__glow { position:absolute; z-index:-1; bottom:0; width:92%; aspect-ratio:1; border-radius:50%; background:radial-gradient(circle,rgba(0,209,226,.46) 0%,rgba(44,227,199,.19) 39%,transparent 70%); filter:blur(12px); }.ep-home-ceo img { position:relative; bottom:0; display:block; width:auto; max-width:100%; height:100%; max-height:690px; object-fit:contain; object-position:center bottom; }.ep-home-ceo__fade { position:absolute; z-index:1; inset:auto 0 0; height:34%; pointer-events:none; background:linear-gradient(to top,var(--ep-teal) 0%,rgba(3,67,74,.96) 21%,rgba(3,67,74,.62) 52%,rgba(3,67,74,0) 100%); }
+@media (max-width:800px) { .ep-home-ceo { min-height:460px; } }
 
 /* Vídeo de case só recebe o arquivo pesado após a pessoa pedir som. */
 .ep-case-card__sound { position:absolute; z-index:3; top:9px; right:9px; display:inline-flex; min-height:27px; align-items:center; gap:4px; padding:0 8px; border:1px solid rgba(255,255,255,.72); border-radius:999px; background:rgba(3,67,74,.74); color:var(--ep-paper); font-size:8px; font-weight:800; backdrop-filter:blur(6px); }.ep-case-card__sound:hover { background:rgba(0,157,172,.88); }.ep-case-card video.ep-case-card__image { object-position:center; }
@@ -210,7 +248,155 @@
 
 /* Metodologia: composição fixa para preservar a leitura; a rotação fica nos detalhes vivos. */
 @media (min-width:621px) {
-  .ep-home-process__cycle > .ep-home-process__cycle-step { animation:none!important; }
-  .ep-home-process__cycle > .ep-home-process__cycle-step .ep-home-process__cycle-icon svg { animation:ep-method-step-icon-spin 4.8s linear infinite!important; transform-origin:center; }
-  .ep-home-process__cycle > .ep-home-process__cycle-step:hover .ep-home-process__cycle-icon svg,.ep-home-process__cycle > .ep-home-process__cycle-step:focus-visible .ep-home-process__cycle-icon svg { animation-play-state:paused!important; }
+  .ep-home-process__cycle > .ep-home-process__cycle-step { top:4%; right:auto; bottom:auto; left:50%; animation:ep-method-node-orbit 18s linear infinite!important; transform:translate(-50%,-50%)!important; }
+  .ep-home-process__cycle > .ep-home-process__cycle-step .ep-home-process__cycle-icon svg { animation:none!important; }
+  .ep-home-process__cycle > .ep-home-process__cycle-step:nth-of-type(2) { animation-delay:-4.5s!important; }.ep-home-process__cycle > .ep-home-process__cycle-step:nth-of-type(3) { animation-delay:-9s!important; }.ep-home-process__cycle > .ep-home-process__cycle-step:nth-of-type(4) { animation-delay:-13.5s!important; }
+  .ep-home-process__cycle > .ep-home-process__cycle-step:hover,.ep-home-process__cycle > .ep-home-process__cycle-step:focus-visible { animation-play-state:paused!important; }
 }
+
+/* Órbita da metodologia: os quatro passos percorrem o mesmo eixo circular.
+   O movimento é feito pelos eixos top/left para manter o card sempre na vertical. */
+@media (min-width:621px) {
+  .ep-home-process__cycle > .ep-home-process__cycle-step {
+    top:22%;
+    right:auto;
+    bottom:auto;
+    left:50%;
+    animation:ep-method-node-orbit 18s linear infinite!important;
+    animation-fill-mode:both!important;
+  }
+
+  .ep-home-process__cycle:has(.ep-home-process__cycle-step:hover) > .ep-home-process__cycle-step,
+  .ep-home-process__cycle:has(.ep-home-process__cycle-step:focus-visible) > .ep-home-process__cycle-step,
+  .ep-home-process__cycle:has(.ep-home-process__cycle-step:hover) > .ep-home-process__orbit,
+  .ep-home-process__cycle:has(.ep-home-process__cycle-step:focus-visible) > .ep-home-process__orbit {
+    animation-play-state:paused!important;
+  }
+}
+
+@keyframes ep-method-node-orbit {
+  0%,100% { top:22%; left:50%; }
+  12.5% { top:30.2%; left:69.8%; }
+  25% { top:50%; left:78%; }
+  37.5% { top:69.8%; left:69.8%; }
+  50% { top:78%; left:50%; }
+  62.5% { top:69.8%; left:30.2%; }
+  75% { top:50%; left:22%; }
+  87.5% { top:30.2%; left:30.2%; }
+}
+
+/* A preferência do navegador não elimina esta interação solicitada no protótipo. */
+@media (min-width:621px) and (prefers-reduced-motion:reduce) {
+  .ep-home-process__cycle > .ep-home-process__cycle-step {
+    animation:ep-method-node-orbit 18s linear infinite!important;
+  }
+}
+
+/* Metodologia: satélites externos em uma única órbita — sem oscilação vertical. */
+@media (min-width:621px) {
+  .ep-home-process__cycle {
+    width:min(100%,620px);
+    aspect-ratio:1;
+    --ep-method-satellite-radius:clamp(210px,24vw,248px);
+  }
+
+  .ep-home-process__satellite {
+    position:absolute;
+    z-index:4;
+    top:8%;
+    left:50%;
+    width:0;
+    height:0;
+    animation:ep-method-satellite-translate 18s linear infinite!important;
+    animation-delay:var(--ep-orbit-delay)!important;
+  }
+
+  .ep-home-process__satellite .ep-home-process__cycle-step {
+    position:absolute;
+    top:0;
+    left:0;
+    display:grid;
+    width:62px;
+    height:62px;
+    min-width:0;
+    padding:0;
+    place-items:center;
+    border:1px solid rgba(0,157,172,.46);
+    border-radius:50%;
+    background:var(--ep-paper);
+    animation:none!important;
+    transition:width .28s ease,height .28s ease,border-radius .28s ease,background .28s ease;
+  }
+
+  .ep-home-process__satellite .ep-home-process__cycle-step > span:last-child {
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:232px;
+    padding:14px 17px;
+    border:1px solid rgba(0,157,172,.33);
+    border-radius:18px;
+    background:var(--ep-paper);
+    opacity:0;
+    pointer-events:none;
+    transform:translate(-50%,-50%) scale(.94);
+    transition:opacity .22s ease,transform .22s ease;
+  }
+
+  .ep-home-process__satellite .ep-home-process__cycle-step:hover > span:last-child,
+  .ep-home-process__satellite .ep-home-process__cycle-step:focus-visible > span:last-child {
+    opacity:1;
+    transform:translate(-50%,-50%) scale(1);
+  }
+
+  .ep-home-process__cycle:has(.ep-home-process__satellite:hover) .ep-home-process__satellite,
+  .ep-home-process__cycle:has(.ep-home-process__cycle-step:focus-visible) .ep-home-process__satellite,
+  .ep-home-process__cycle:has(.ep-home-process__satellite:hover) .ep-home-process__orbit,
+  .ep-home-process__cycle:has(.ep-home-process__cycle-step:focus-visible) .ep-home-process__orbit {
+    animation-play-state:paused!important;
+  }
+}
+
+@keyframes ep-method-satellite-translate {
+  0%,100% { top:8%; left:50%; }
+  12.5% { top:20.3%; left:79.7%; }
+  25% { top:50%; left:92%; }
+  37.5% { top:79.7%; left:79.7%; }
+  50% { top:92%; left:50%; }
+  62.5% { top:79.7%; left:20.3%; }
+  75% { top:50%; left:8%; }
+  87.5% { top:20.3%; left:20.3%; }
+}
+
+@media (min-width:621px) and (prefers-reduced-motion:reduce) {
+  .ep-home-process__satellite { animation:ep-method-satellite-translate 18s linear infinite!important; animation-delay:var(--ep-orbit-delay)!important; }
+}
+
+/* Apenas os satélites se deslocam: ícone e conteúdo não recebem escala, giro ou pulso. */
+.ep-home-process__satellite .ep-home-process__cycle-icon,
+.ep-home-process__satellite .ep-home-process__cycle-icon svg,
+.ep-home-process__satellite .ep-home-process__cycle-step:hover .ep-home-process__cycle-icon,
+.ep-home-process__satellite .ep-home-process__cycle-step:focus-visible .ep-home-process__cycle-icon {
+  animation:none!important;
+  transform:none!important;
+}
+.ep-home-process__cta {
+  display:inline-flex;
+  width:max-content;
+  min-height:46px;
+  align-items:center;
+  gap:9px;
+  margin-top:28px;
+  padding:0 10px 0 18px;
+  border:1px solid rgba(0,157,172,.36);
+  border-radius:999px;
+  background:rgba(0,190,202,.16);
+  color:var(--ep-teal);
+  font-size:12px;
+  font-weight:850;
+  text-decoration:none;
+  transition:background .22s ease,border-color .22s ease,gap .22s ease;
+}
+.ep-home-process__cta svg { display:grid; width:28px; height:28px; padding:6px; border-radius:50%; background:var(--ep-teal); color:var(--ep-paper); transition:transform .22s ease; }
+.ep-home-process__cta:hover { gap:14px; border-color:var(--ep-turq-deep); background:rgba(0,209,226,.28); }
+.ep-home-process__cta:hover svg { transform:translateX(2px); }
