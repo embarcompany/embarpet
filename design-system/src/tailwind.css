@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { @apply box-border; }
+  html, body, #root { max-width:100%; overflow-x:clip; }
+  body { @apply m-0 bg-background font-sans text-foreground; }
+  :focus-visible { outline:3px solid #00d1e2; outline-offset:3px; }
+}

@@ -1,0 +1,62 @@
+:root {
+  --ep-turq:#00d1e2;
+  --ep-turq-deep:#009dac;
+  --ep-teal:#05434a;
+  --ep-teal-soft:#0b5b62;
+  --ep-lime:#c6d783;
+  --ep-ink:#193f43;
+  --ep-muted:#5e7f82;
+  --ep-line:#d8e8e5;
+  --ep-soft:#f4faf8;
+  --ep-paper:#fff;
+  --ep-success:#197a54;
+  --ep-danger:#b43333;
+  --ep-font:"Montserrat",Arial,sans-serif;
+  --ep-font-size-xs:11px;
+  --ep-font-size-sm:12px;
+  --ep-font-size-body:16px;
+  --ep-font-size-lead:clamp(17px,1.5vw,21px);
+  --ep-font-size-h4:clamp(17px,1.5vw,20px);
+  --ep-font-size-h3:clamp(24px,2.5vw,34px);
+  --ep-font-size-h2:clamp(34px,4.4vw,60px);
+  --ep-font-size-h1:clamp(46px,6vw,82px);
+  --ep-leading-tight:.98;
+  --ep-leading-title:1.02;
+  --ep-leading-body:1.55;
+  --ep-tracking-title:-.06em;
+  --ep-tracking-label:.13em;
+  --ep-space-0:4px;
+  --ep-space-1:8px;
+  --ep-space-2:12px;
+  --ep-space-3:18px;
+  --ep-space-4:28px;
+  --ep-space-5:44px;
+  --ep-space-6:68px;
+  --ep-space-7:104px;
+  --ep-radius-sm:7px;
+  --ep-radius-md:10px;
+  --ep-radius-lg:14px;
+  --ep-control-height:48px;
+  --ep-control-height-lg:54px;
+  --ep-content:1280px;
+}
+
+* { box-sizing:border-box; }
+body { margin:0; color:var(--ep-ink); background:var(--ep-paper); font-family:var(--ep-font); }
+button,input,select,textarea { font:inherit; }
+:focus-visible { outline:3px solid var(--ep-turq); outline-offset:3px; }
+
+.ep-container { width:min(var(--ep-content),calc(100% - 64px)); margin-inline:auto; }
+.ep-section { padding-block:clamp(56px,7vw,92px); }
+.ep-eyebrow { margin:0; color:var(--ep-turq-deep); font-size:var(--ep-font-size-xs); font-weight:800; letter-spacing:var(--ep-tracking-label); text-transform:uppercase; }
+.ep-title-xl,.ep-title-lg,.ep-title-md,.ep-title-sm { margin:var(--ep-space-2) 0 0; letter-spacing:var(--ep-tracking-title); line-height:var(--ep-leading-title); }
+.ep-title-xl { font-size:var(--ep-font-size-h1); line-height:var(--ep-leading-tight); }
+.ep-title-lg { font-size:var(--ep-font-size-h2); }
+.ep-title-md { font-size:var(--ep-font-size-h3); }
+.ep-title-sm { font-size:var(--ep-font-size-h4); }
+.ep-copy { color:var(--ep-muted); font-size:var(--ep-font-size-body); line-height:var(--ep-leading-body); }
+
+@media (max-width:700px) {
+  .ep-container { width:calc(100% - 40px); }
+  .ep-section { padding-block:58px; }
+}
