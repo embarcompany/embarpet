@@ -20,7 +20,7 @@ export function TrustStrip({ items }: { items: Array<{ icon: IconName; children:
 
 export function ModalityRail({ items }: { items: Array<{ icon: IconName; title: string; copy: string; detailHref: string; imageSrc: string; imageAlt: string; ctaLabel: string; featured?: boolean; videoSrc?: string }> }) {
   const [flying, setFlying] = useState<string | null>(null);
-  return <div className="ep-modality-rail">{items.map((item) => <article key={item.title} className={item.featured ? "is-featured" : ""}><div className="ep-modality-rail__media">{item.videoSrc ? <video className="ep-modality-rail__video" src={item.videoSrc} aria-label={item.imageAlt} autoPlay loop muted playsInline preload="metadata" /> : <img src={item.imageSrc} alt={item.imageAlt} />}<a className="ep-modality-actions__details" href={item.detailHref}>Entender esta modalidade <Icon name="arrow" /></a></div><div><h3>{item.title}</h3><p>{item.copy}</p><div className="ep-modality-actions"><a href="#analise" className={flying === item.title ? "is-flying" : ""} onMouseEnter={() => setFlying(item.title)}><span>{item.ctaLabel}</span><img className="ep-modality-actions__plane" src="/embarpet-cta-plane-top.png" alt="" aria-hidden="true" onAnimationEnd={() => setFlying((current) => current === item.title ? null : current)} /></a></div></div></article>)}</div>;
+  return <div className="ep-modality-rail">{items.map((item) => <article key={item.title} className={item.featured ? "is-featured" : ""}><div className="ep-modality-rail__media">{item.videoSrc ? <video className="ep-modality-rail__video" src={item.videoSrc} poster={item.imageSrc} aria-label={item.imageAlt} autoPlay loop muted playsInline preload="metadata" /> : <img src={item.imageSrc} alt={item.imageAlt} loading="lazy" decoding="async" />}<a className="ep-modality-actions__details" href={item.detailHref}>Entender esta modalidade <Icon name="arrow" /></a></div><div><h3>{item.title}</h3><p>{item.copy}</p><div className="ep-modality-actions"><a href="#analise" className={flying === item.title ? "is-flying" : ""} onMouseEnter={() => setFlying(item.title)}><span>{item.ctaLabel}</span><img className="ep-modality-actions__plane" src="/embarpet-cta-plane-top.png" alt="" aria-hidden="true" onAnimationEnd={() => setFlying((current) => current === item.title ? null : current)} /></a></div></div></article>)}</div>;
 }
 
 export function ProcessList({ items }: { items: Array<{ title: string; copy: string }> }) {
@@ -33,7 +33,7 @@ export function DestinationExplorer({ onSelect }: { onSelect: (destination: stri
 }
 
 export function ScrollRouteIn({ imageSrc, imageAlt, eyebrow, title }: { imageSrc: string; imageAlt: string; eyebrow: string; title: string }) {
-  return <section className="ep-scroll-route"><div className="ep-scroll-route__frame"><div><p className="ep-eyebrow">{eyebrow}</p><h2 className="ep-title-lg">{title}</h2></div><img src={imageSrc} alt={imageAlt} /></div></section>;
+  return <section className="ep-scroll-route"><div className="ep-scroll-route__frame"><div><p className="ep-eyebrow">{eyebrow}</p><h2 className="ep-title-lg">{title}</h2></div><img src={imageSrc} alt={imageAlt} loading="lazy" decoding="async" /></div></section>;
 }
 
 export function SourceBlock({ title, children }: { title: string; children: ReactNode }) {
