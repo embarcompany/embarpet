@@ -13,7 +13,7 @@ import { DiagnosticFlow } from "../../components/ui/diagnostic-flow";
 import { CaseDragCards } from "../../components/ui/case-drag-cards";
 
 const images = {
-  hero: "/embarpet-hero-pet-travel.png",
+  hero: "/embarpet-hero-pet-travel.webp",
   planning: "/embarpet-trip-planning.png",
   crate: "/embarpet-crate-preparation.png",
   documents: "/embarpet-autoridade-destino-real.jpeg",
