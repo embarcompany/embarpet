@@ -799,6 +799,15 @@
   font-style:normal;
 }
 .ep-conversion-hero__copy .ep-title-xl em { background:rgba(0,157,172,.16); color:inherit; }
+.ep-hero-highlight {
+  display:inline-block;
+  margin:0 .03em;
+  padding:.03em .15em .09em;
+  border-radius:.16em;
+  background:var(--ep-lime);
+  color:var(--ep-teal);
+  font:inherit;
+}
 
 /* Destinos prioritários entram como um detalhe vivo, sem competir com a headline. */
 .ep-hero-flags {
