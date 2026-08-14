@@ -473,6 +473,8 @@
     transform:none;
   }
 
+  .ep-home-process__core { display:none; }
+
   .ep-home-process__core::after { border-radius:14px; }
   .ep-home-process__core img { width:30px; height:30px; }
   .ep-home-process__core strong { font-size:14px; text-align:left; }
