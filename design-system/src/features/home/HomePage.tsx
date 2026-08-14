@@ -64,7 +64,6 @@ export default function EmbarpetHome() {
       <p className="ep-eyebrow">Transporte internacional de pets</p>
       <h1 className="ep-title-xl">Seu pet vai para outro país? Encontre a forma <em>mais viável</em> para essa viagem.</h1>
       <p className="ep-copy">Conte a rota e a data prevista. Analisamos as exigências do destino, o perfil do pet e as possibilidades do seu caso.</p>
-      <p className="ep-hero-premium-note">A modalidade e o escopo de acompanhamento são definidos conforme rota, pet e regras vigentes.</p>
     </ConversionHero>
     <AuthorityBand />
     {message ? <div className="ep-container ep-home-notice"><Notice kind="success">{message}</Notice></div> : null}
