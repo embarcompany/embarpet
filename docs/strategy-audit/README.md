@@ -32,6 +32,7 @@ Este diretório é uma base de consulta independente. Comece pelo documento que 
 | Como as referências de formulário e destinos viraram padrões próprios? | [19-referencias-de-interacao.md](19-referencias-de-interacao.md) |
 | Qual é a narrativa comercial da home e quais claims podem entrar? | [20-storytelling-da-home.md](20-storytelling-da-home.md) |
 | Como implementar SEO, GEO, conversão, performance e tracking? | [22-backlog-tecnico-seo-geo-e-conversao.md](22-backlog-tecnico-seo-geo-e-conversao.md) |
+| Quais eventos formam o funil e como conectar analytics com consentimento? | [23-contrato-de-eventos-de-conversao.md](23-contrato-de-eventos-de-conversao.md) |
 | Onde avaliar visualmente os componentes antes da produção? | [Playground HTML](../design-system-playground.html) |
 
 ## Convenções de evidência
