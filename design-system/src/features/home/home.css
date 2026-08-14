@@ -428,6 +428,16 @@
 /* No mobile, o Método deixa de disputar espaço com a órbita e vira uma jornada
    vertical: contexto → etapa 01 → etapa 02 → etapa 03 → etapa 04. */
 @media (max-width:620px) {
+  .ep-conversion-hero {
+    background:var(--ep-turq);
+    color:var(--ep-teal);
+  }
+
+  .ep-conversion-hero__copy .ep-eyebrow,
+  .ep-conversion-hero__copy .ep-copy {
+    color:var(--ep-teal);
+  }
+
   .ep-eyebrow {
     width:fit-content;
     margin-inline:auto!important;
