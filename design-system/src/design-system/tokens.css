@@ -7,6 +7,7 @@
   --ep-ink:#193f43;
   --ep-muted:#5e7f82;
   --ep-line:#d8e8e5;
+  --ep-page:#f7fbfb;
   --ep-soft:#f4faf8;
   --ep-paper:#fff;
   --ep-success:#197a54;
@@ -46,7 +47,7 @@
 }
 
 * { box-sizing:border-box; }
-body { margin:0; color:var(--ep-ink); background:var(--ep-paper); font-family:var(--ep-font); }
+body { margin:0; color:var(--ep-ink); background:var(--ep-page); font-family:var(--ep-font); }
 button,input,select,textarea { font:inherit; }
 :focus-visible { outline:3px solid var(--ep-turq); outline-offset:3px; }
 
