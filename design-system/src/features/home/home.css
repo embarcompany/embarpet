@@ -802,11 +802,9 @@
 .ep-hero-highlight {
   display:inline;
   color:inherit;
-}
-.ep-hero-highlight__word {
-  display:inline;
-  padding:.02em .05em .07em;
-  background:linear-gradient(transparent 60%,var(--ep-lime) 60%);
+  padding:.05em .12em .1em;
+  background:linear-gradient(transparent 52%,var(--ep-lime) 52%);
+  border-radius:.14em;
   -webkit-box-decoration-break:clone;
   box-decoration-break:clone;
 }
@@ -820,25 +818,26 @@
   vertical-align:.08em;
   font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
 }
-.ep-hero-flags > span {
+.ep-hero-flags > img {
   grid-area:1 / 1;
   opacity:0;
-  font-size:.68em;
-  line-height:1;
+  width:.76em;
+  height:.76em;
+  object-fit:contain;
   animation:ep-hero-flag-cycle 7.5s ease-in-out infinite both;
 }
-.ep-hero-flags > span:nth-child(2) { animation-delay:1.5s; }
-.ep-hero-flags > span:nth-child(3) { animation-delay:3s; }
-.ep-hero-flags > span:nth-child(4) { animation-delay:4.5s; }
-.ep-hero-flags > span:nth-child(5) { animation-delay:6s; }
+.ep-hero-flags > img:nth-child(2) { animation-delay:1.5s; }
+.ep-hero-flags > img:nth-child(3) { animation-delay:3s; }
+.ep-hero-flags > img:nth-child(4) { animation-delay:4.5s; }
+.ep-hero-flags > img:nth-child(5) { animation-delay:6s; }
 @keyframes ep-hero-flag-cycle {
   0%,100% { opacity:0; transform:translateY(4px) scale(.88); }
   3%,17% { opacity:1; transform:translateY(0) scale(1); }
   20% { opacity:0; transform:translateY(-4px) scale(.92); }
 }
 @media (prefers-reduced-motion:reduce) {
-  .ep-hero-flags > span { animation:none; }
-  .ep-hero-flags > span:first-child { opacity:1; }
+  .ep-hero-flags > img { animation:none; }
+  .ep-hero-flags > img:first-child { opacity:1; }
 }
 
 .ep-case-canvas__center > a { background:transparent; }
