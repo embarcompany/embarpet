@@ -579,7 +579,7 @@
   .ep-nav-mobile-toggle { width:44px; height:44px; }
 
   .ep-conversion-hero { min-height:0; }
-  .ep-conversion-hero__copy { min-height:0; padding:98px 20px 32px; }
+  .ep-conversion-hero__copy { min-height:0; padding:68px 20px 32px; }
   .ep-conversion-hero__copy .ep-eyebrow { margin-bottom:14px; }
   .ep-conversion-hero__copy .ep-title-xl { font-size:clamp(34px,9.2vw,38px); line-height:1.04; letter-spacing:-.02em; }
   .ep-conversion-hero__copy .ep-copy { margin-top:18px; font-size:15px; line-height:1.55; }
