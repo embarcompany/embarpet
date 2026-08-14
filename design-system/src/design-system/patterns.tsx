@@ -1,7 +1,20 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
 
 export function ConversionHero({ imageSrc, imageAlt, flow, children }: { imageSrc?: string; imageAlt?: string; flow: ReactNode; children: ReactNode }) {
-  return <section className="ep-conversion-hero" id="analise"><div className="ep-conversion-hero__copy">{children}</div>{imageSrc ? <div className="ep-conversion-hero__media"><img className="ep-conversion-hero__image" src={imageSrc} alt={imageAlt ?? ""} fetchPriority="high" decoding="async" /></div> : null}<div className="ep-conversion-hero__form">{flow}</div></section>;
+  const heroRef = useRef<HTMLElement>(null);
+  const updateParallax = (event: PointerEvent<HTMLElement>) => {
+    if (event.pointerType !== "mouse") return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - bounds.left) / bounds.width - .5) * 2;
+    const y = ((event.clientY - bounds.top) / bounds.height - .5) * 2;
+    heroRef.current?.style.setProperty("--ep-hero-parallax-x", x.toFixed(3));
+    heroRef.current?.style.setProperty("--ep-hero-parallax-y", y.toFixed(3));
+  };
+  const resetParallax = () => {
+    heroRef.current?.style.setProperty("--ep-hero-parallax-x", "0");
+    heroRef.current?.style.setProperty("--ep-hero-parallax-y", "0");
+  };
+  return <section ref={heroRef} className="ep-conversion-hero" id="analise" onPointerMove={updateParallax} onPointerLeave={resetParallax}><div className="ep-conversion-hero__portraits" aria-hidden="true"><span><img src="/embarpet-mosaico-familia.jpg" alt="" /></span><span><img src="/embarpet-mosaico-cuidado.jpg" alt="" /></span><span><img src="/embarpet-mosaico-encontro.jpg" alt="" /></span><span><img src="/case-talles-magno.jpg" alt="" /></span></div><div className="ep-conversion-hero__copy">{children}</div>{imageSrc ? <div className="ep-conversion-hero__media"><img className="ep-conversion-hero__image" src={imageSrc} alt={imageAlt ?? ""} fetchPriority="high" decoding="async" /></div> : null}<div className="ep-conversion-hero__form">{flow}</div></section>;
 }
 
 export function AuthorityBand() {
