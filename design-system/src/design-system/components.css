@@ -37,19 +37,20 @@
 .ep-mobile-journey,.ep-mobile-planner { display:none; }
 .ep-nav-mobile-cta { border:0; cursor:pointer; font:inherit; }
 @media (max-width:620px) {
-  .ep-site-nav { min-height:50px; gap:9px; }
+  .ep-site-header { width:100vw; max-width:100vw; }
+  .ep-site-nav { width:100%; min-height:50px; gap:9px; padding-inline:16px; }
   .ep-site-logo img { width:95px; }
-  .ep-nav-mobile-cta { min-height:33px; padding-inline:10px; font-size:9px; }
-  .ep-nav-mobile-toggle { width:34px; height:34px; }
+  .ep-nav-mobile-cta { display:none!important; }
+  .ep-nav-mobile-toggle { width:34px; height:34px; border:0; border-radius:0!important; background:transparent; }
   .ep-nav-mobile-toggle svg { width:18px; height:18px; }
-  .ep-mobile-journey { display:grid; gap:10px; padding:10px 16px 13px; border-top:1px solid rgba(255,255,255,.15); background:var(--ep-teal); }
-  .ep-mobile-shortcuts { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; }
+  .ep-mobile-journey { display:grid; width:100%; gap:11px; padding:11px 16px 14px; border-top:1px solid rgba(255,255,255,.15); background:var(--ep-teal); }
+  .ep-mobile-shortcuts { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:4px; }
   .ep-mobile-shortcuts a { display:grid; justify-items:center; gap:4px; color:#d6f5f2; font-size:8px; font-weight:750; line-height:1.1; text-align:center; text-decoration:none; }
   .ep-mobile-shortcuts a svg { display:grid; width:30px; height:30px; padding:7px; border-radius:50%; background:rgba(255,255,255,.1); color:var(--ep-turq); }
   .ep-mobile-shortcuts a:active svg { background:var(--ep-turq); color:var(--ep-teal); }
-  .ep-mobile-route-search { display:grid; grid-template-columns:auto minmax(0,1fr) 38px; align-items:center; gap:8px; min-height:42px; padding:0 4px 0 12px; border-radius:10px; background:var(--ep-paper); color:var(--ep-muted); }
-  .ep-mobile-route-search__trigger { min-width:0; padding:0; border:0; background:transparent; color:#81989b; font:inherit; font-size:12px; text-align:left; }
-  .ep-mobile-route-search button { display:grid; width:34px; height:34px; place-items:center; border:0; border-radius:50%; background:var(--ep-turq); color:var(--ep-teal); }
+  .ep-mobile-route-search { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:8px; min-height:46px; padding:0 5px 0 13px; border-radius:11px; background:var(--ep-paper); color:var(--ep-muted); }
+  .ep-mobile-route-search__trigger { min-width:0; overflow:hidden; padding:0; border:0; background:transparent; color:#81989b; font:inherit; font-size:12px; text-align:left; text-overflow:ellipsis; white-space:nowrap; }
+  .ep-mobile-route-search__cta { min-width:96px; height:36px; padding:0 10px; border:0; border-radius:999px; background:var(--ep-turq); color:var(--ep-teal); font-size:9px; font-weight:850; white-space:nowrap; }
   .ep-mobile-planner { position:fixed; z-index:70; inset:0; display:grid; align-items:end; background:rgba(3,40,44,.58); }
   .ep-mobile-planner__panel { position:relative; max-height:92dvh; overflow:auto; padding:50px 16px 20px; border-radius:24px 24px 0 0; background:var(--ep-page); }
   .ep-mobile-planner__panel .ep-diagnostic-flow { width:100%; }
