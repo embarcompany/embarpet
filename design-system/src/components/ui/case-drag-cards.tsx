@@ -10,7 +10,8 @@ const positions: Position[] = [{ x: 7, y: 9 }, { x: 9, y: 48 }, { x: 74, y: 9 },
 const rotations = [-7, 5, 7, -5, 3];
 
 export function CaseDragCards({ cases }: { cases: CaseCard[] }) {
-  const [isMobile, setIsMobile] = useState(() => window.matchMedia("(max-width: 700px)").matches);
+  // Começa igual no servidor e no cliente; o media query só atualiza após hidratar.
+  const [isMobile, setIsMobile] = useState(false);
   const [mobileIndex, setMobileIndex] = useState(0);
   const areaRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<string | null>(null);
