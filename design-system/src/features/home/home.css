@@ -698,6 +698,26 @@
   .ep-home-service__list span { min-height:0; }
 }
 
+/* Primeira dobra no mobile: a decisão vem antes da imagem.
+   A leitura segue texto → formulário → prova, sem blocos sobrepostos. */
+@media (max-width:620px) {
+  .ep-conversion-hero {
+    display:flex;
+    flex-direction:column;
+  }
+
+  .ep-conversion-hero__copy { order:1; }
+  .ep-conversion-hero__form {
+    order:2;
+    margin:0 auto 30px;
+  }
+  .ep-conversion-hero__media { order:3; }
+
+  .ep-authority-band {
+    margin:22px 10px 0;
+  }
+}
+
 /* Ordem de conversão da home: decisão → possibilidade → método → prova → confiança → ação. */
 main { display:flex; flex-direction:column; }
 main > .ep-conversion-hero { order:1; }
