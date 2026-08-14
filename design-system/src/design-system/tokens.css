@@ -17,9 +17,13 @@
   --ep-font-size-body:16px;
   --ep-font-size-lead:clamp(17px,1.5vw,21px);
   --ep-font-size-h4:clamp(17px,1.5vw,20px);
-  --ep-font-size-h3:clamp(24px,2.5vw,34px);
-  --ep-font-size-h2:clamp(34px,4.4vw,60px);
-  --ep-font-size-h1:clamp(46px,6vw,82px);
+  --ep-font-size-h3:clamp(22px,2vw,26px);
+  --ep-font-size-h2:clamp(40px,3.2vw,48px);
+  --ep-font-size-h1:clamp(56px,4.6vw,66px);
+  --ep-weight-regular:400;
+  --ep-weight-medium:500;
+  --ep-weight-semibold:600;
+  --ep-weight-bold:700;
   --ep-leading-tight:.98;
   --ep-leading-title:1.02;
   --ep-leading-body:1.55;
@@ -48,13 +52,13 @@ button,input,select,textarea { font:inherit; }
 
 .ep-container { width:min(var(--ep-content),calc(100% - 64px)); margin-inline:auto; }
 .ep-section { padding-block:clamp(56px,7vw,92px); }
-.ep-eyebrow { margin:0; color:var(--ep-turq-deep); font-size:var(--ep-font-size-xs); font-weight:800; letter-spacing:var(--ep-tracking-label); text-transform:uppercase; }
+.ep-eyebrow { margin:0; color:var(--ep-turq-deep); font-size:var(--ep-font-size-xs); font-weight:var(--ep-weight-semibold); letter-spacing:.06em; line-height:1; text-transform:uppercase; }
 .ep-title-xl,.ep-title-lg,.ep-title-md,.ep-title-sm { margin:var(--ep-space-2) 0 0; letter-spacing:var(--ep-tracking-title); line-height:var(--ep-leading-title); }
-.ep-title-xl { font-size:var(--ep-font-size-h1); line-height:var(--ep-leading-tight); }
-.ep-title-lg { font-size:var(--ep-font-size-h2); }
-.ep-title-md { font-size:var(--ep-font-size-h3); }
-.ep-title-sm { font-size:var(--ep-font-size-h4); }
-.ep-copy { color:var(--ep-muted); font-size:var(--ep-font-size-body); line-height:var(--ep-leading-body); }
+.ep-title-xl { font-size:var(--ep-font-size-h1); font-weight:var(--ep-weight-semibold); line-height:var(--ep-leading-tight); text-wrap:balance; }
+.ep-title-lg { font-size:var(--ep-font-size-h2); font-weight:var(--ep-weight-semibold); text-wrap:balance; }
+.ep-title-md { font-size:var(--ep-font-size-h3); font-weight:var(--ep-weight-semibold); text-wrap:balance; }
+.ep-title-sm { font-size:var(--ep-font-size-h4); font-weight:var(--ep-weight-semibold); }
+.ep-copy { max-width:62ch; color:var(--ep-muted); font-size:var(--ep-font-size-body); font-weight:var(--ep-weight-regular); line-height:var(--ep-leading-body); }
 
 @media (max-width:700px) {
   .ep-container { width:calc(100% - 40px); }

@@ -233,3 +233,8 @@ main section[id] { scroll-margin-top:84px; }
 .ep-modality-rail article > div:not(.ep-modality-rail__media) { min-height:0; flex:1 1 auto; }
 .ep-modality-rail article .ep-modality-actions { margin-top:auto; }
 @media (max-width:900px) { .ep-modality-rail article > .ep-modality-rail__media { flex-basis:204px; } }
+
+/* Hierarquia editorial dos cards: assunto, explicação e ação em camadas distintas. */
+.ep-modality-rail h3 { margin-bottom:8px; font-size:18px; font-weight:600; line-height:1.2; }
+.ep-modality-rail p { font-size:13px; font-weight:400; line-height:1.55; }
+.ep-modality-rail .ep-modality-actions a { font-size:12px; font-weight:600; }
