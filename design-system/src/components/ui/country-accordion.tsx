@@ -8,7 +8,7 @@ interface InternationalTransferProps { subtitle?: string; title?: string; descri
 
 /** Explorador de destinos prioritários: escolha simples, sem aspecto de catálogo. */
 export function InternationalTransfer({ subtitle, title, description, regions, onCountrySelect }: InternationalTransferProps) {
-  const priorityOrder = ["us", "pt", "es", "fr", "ar", "uy", "py"];
+  const priorityOrder = ["us", "pt", "es", "it", "ar", "uy", "py"];
   const allCountries = regions.flatMap((region) => region.countries);
   const countries = priorityOrder.map((code) => allCountries.find((country) => country.code === code)).filter((country): country is Country => Boolean(country));
   return <section className="ep-home-destinations" id="destinos" aria-label="Destinos internacionais"><div className="ep-destination-selector">
