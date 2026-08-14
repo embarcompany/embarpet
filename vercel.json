@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "npm --prefix design-system ci",
-  "buildCommand": "npm --prefix design-system run build",
-  "outputDirectory": "design-system/dist"
+  "installCommand": "npm ci",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist"
 }
