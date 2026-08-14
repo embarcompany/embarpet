@@ -329,3 +329,8 @@ main section[id] { scroll-margin-top:84px; }
   .ep-conversion-hero { grid-template-columns:minmax(0,56%) minmax(0,44%); }
   .ep-conversion-hero__copy .ep-title-xl { max-width:580px; font-size:clamp(40px,4.4vw,60px); }
 }
+
+/* A rota ganha forma enquanto o tutor responde, sem interromper o fluxo. */
+.ep-flow-route-preview { display:grid; grid-template-columns:34px minmax(0,1fr); align-items:center; gap:9px; margin-top:14px; padding:9px 10px; border:1px solid rgba(0,157,172,.2); border-radius:10px; background:rgba(232,249,247,.66); color:var(--ep-teal); }
+.ep-flow-route-preview__icon { display:grid; width:34px; height:34px; place-items:center; border-radius:50%; background:var(--ep-paper); color:var(--ep-turq-deep); }
+.ep-flow-route-preview__content { display:grid; min-width:0; gap:2px; }.ep-flow-route-preview small { color:var(--ep-turq-deep); font-size:9px; font-weight:800; }.ep-flow-route-preview b { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:6px; font-size:11px; line-height:1.15; }.ep-flow-route-preview b span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }.ep-flow-route-preview b span:last-child { text-align:right; }.ep-flow-route-preview b i { color:var(--ep-turq-deep); font-style:normal; }.ep-flow-route-preview em { overflow:hidden; color:var(--ep-muted); font-size:9px; font-style:normal; font-weight:650; text-overflow:ellipsis; white-space:nowrap; }
