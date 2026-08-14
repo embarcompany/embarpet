@@ -48,14 +48,15 @@
   .ep-mobile-shortcuts a svg { display:grid; width:30px; height:30px; padding:7px; border-radius:50%; background:rgba(255,255,255,.1); color:var(--ep-turq); }
   .ep-mobile-shortcuts a:active svg { background:var(--ep-turq); color:var(--ep-teal); }
   .ep-mobile-route-search { display:grid; grid-template-columns:auto minmax(0,1fr) 38px; align-items:center; gap:8px; min-height:42px; padding:0 4px 0 12px; border-radius:10px; background:var(--ep-paper); color:var(--ep-muted); }
-  .ep-mobile-route-search input { min-width:0; border:0; outline:0; background:transparent; color:var(--ep-ink); font:inherit; font-size:12px; }
-  .ep-mobile-route-search input::placeholder { color:#81989b; }
+  .ep-mobile-route-search__trigger { min-width:0; padding:0; border:0; background:transparent; color:#81989b; font:inherit; font-size:12px; text-align:left; }
   .ep-mobile-route-search button { display:grid; width:34px; height:34px; place-items:center; border:0; border-radius:50%; background:var(--ep-turq); color:var(--ep-teal); }
   .ep-mobile-planner { position:fixed; z-index:70; inset:0; display:grid; align-items:end; background:rgba(3,40,44,.58); }
   .ep-mobile-planner__panel { position:relative; max-height:92dvh; overflow:auto; padding:50px 16px 20px; border-radius:24px 24px 0 0; background:var(--ep-page); }
   .ep-mobile-planner__panel .ep-diagnostic-flow { width:100%; }
   .ep-mobile-planner__close { position:absolute; top:12px; right:16px; display:grid; width:34px; height:34px; place-items:center; border:1px solid var(--ep-line); border-radius:50%; background:var(--ep-paper); color:var(--ep-teal); }
   .ep-conversion-hero__form { display:none!important; }
+  .ep-mobile-menu { width:100%; }
+  .ep-mobile-menu .ep-container { width:100%; padding-inline:20px; }
 }
 @media (max-width:900px) { .ep-footer-grid { grid-template-columns:1fr 1fr; }.ep-footer-brand { grid-column:span 2; }.ep-footer-bottom { display:grid; } }
 @media (max-width:620px) { .ep-footer-cta { min-height:240px; align-items:flex-start; flex-direction:column; justify-content:center; }.ep-footer-grid { grid-template-columns:1fr; }.ep-footer-brand { grid-column:auto; }.ep-footer-bottom div { flex-wrap:wrap; }.ep-whatsapp-float { right:16px; bottom:16px; } }
