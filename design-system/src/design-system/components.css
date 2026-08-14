@@ -330,6 +330,30 @@ main section[id] { scroll-margin-top:84px; }
   .ep-conversion-hero__copy .ep-title-xl { max-width:580px; font-size:clamp(40px,4.4vw,60px); }
 }
 
+/* Recorte editorial: humaniza a primeira dobra sem competir com a conversão. */
+.ep-conversion-hero__family-cutout {
+  display:none;
+}
+@media (min-width:901px) {
+  .ep-conversion-hero__family-cutout {
+    position:absolute;
+    right:44%;
+    bottom:0;
+    z-index:0;
+    display:block;
+    width:clamp(190px,21vw,330px);
+    max-height:58%;
+    object-fit:contain;
+    object-position:bottom right;
+    pointer-events:none;
+    user-select:none;
+  }
+  .ep-conversion-hero__copy {
+    position:relative;
+    z-index:1;
+  }
+}
+
 /* A rota ganha forma enquanto o tutor responde, sem interromper o fluxo. */
 .ep-flow-route-preview { display:grid; grid-template-columns:34px minmax(0,1fr); align-items:center; gap:9px; margin-top:14px; padding:9px 10px; border:1px solid rgba(0,157,172,.2); border-radius:10px; background:rgba(232,249,247,.66); color:var(--ep-teal); }
 .ep-flow-route-preview__icon { display:grid; width:34px; height:34px; place-items:center; border-radius:50%; background:var(--ep-paper); color:var(--ep-turq-deep); }
