@@ -802,9 +802,9 @@
 .ep-hero-highlight {
   display:inline;
   color:inherit;
-  padding:.05em .12em .1em;
-  background:linear-gradient(transparent 52%,var(--ep-lime) 52%);
-  border-radius:.14em;
+  padding:.04em .14em .08em;
+  border-radius:.18em;
+  background:rgba(198,221,81,.72);
   -webkit-box-decoration-break:clone;
   box-decoration-break:clone;
 }
@@ -812,32 +812,30 @@
 /* Destinos prioritários entram como um detalhe vivo, sem competir com a headline. */
 .ep-hero-flags {
   display:inline-grid;
+  position:relative;
+  place-items:center;
   width:1.04em;
   height:1em;
   margin:0 .1em 0 .05em;
-  vertical-align:.08em;
-  font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+  vertical-align:middle;
+  line-height:1;
 }
 .ep-hero-flags > img {
+  position:absolute;
   grid-area:1 / 1;
   opacity:0;
   width:.76em;
   height:.76em;
   object-fit:contain;
-  animation:ep-hero-flag-cycle 7.5s ease-in-out infinite both;
+  animation:ep-hero-flag-cycle 6.25s ease-in-out infinite;
 }
-.ep-hero-flags > img:nth-child(2) { animation-delay:1.5s; }
-.ep-hero-flags > img:nth-child(3) { animation-delay:3s; }
-.ep-hero-flags > img:nth-child(4) { animation-delay:4.5s; }
-.ep-hero-flags > img:nth-child(5) { animation-delay:6s; }
+.ep-hero-flags > img:nth-child(2) { animation-delay:1.25s; }
+.ep-hero-flags > img:nth-child(3) { animation-delay:2.5s; }
+.ep-hero-flags > img:nth-child(4) { animation-delay:3.75s; }
+.ep-hero-flags > img:nth-child(5) { animation-delay:5s; }
 @keyframes ep-hero-flag-cycle {
-  0%,100% { opacity:0; transform:translateY(4px) scale(.88); }
-  3%,17% { opacity:1; transform:translateY(0) scale(1); }
-  20% { opacity:0; transform:translateY(-4px) scale(.92); }
-}
-@media (prefers-reduced-motion:reduce) {
-  .ep-hero-flags > img { animation:none; }
-  .ep-hero-flags > img:first-child { opacity:1; }
+  0%,18% { opacity:1; transform:translateY(0) scale(1); }
+  21%,100% { opacity:0; transform:translateY(-3px) scale(.94); }
 }
 
 .ep-case-canvas__center > a { background:transparent; }
