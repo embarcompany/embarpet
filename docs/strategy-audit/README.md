@@ -31,6 +31,7 @@ Este diretório é uma base de consulta independente. Comece pelo documento que 
 | Qual é o padrão completo para design, UX e produção? | [18-design-system-operacional.md](18-design-system-operacional.md) |
 | Como as referências de formulário e destinos viraram padrões próprios? | [19-referencias-de-interacao.md](19-referencias-de-interacao.md) |
 | Qual é a narrativa comercial da home e quais claims podem entrar? | [20-storytelling-da-home.md](20-storytelling-da-home.md) |
+| Como implementar SEO, GEO, conversão, performance e tracking? | [22-backlog-tecnico-seo-geo-e-conversao.md](22-backlog-tecnico-seo-geo-e-conversao.md) |
 | Onde avaliar visualmente os componentes antes da produção? | [Playground HTML](../design-system-playground.html) |
 
 ## Convenções de evidência
