@@ -299,3 +299,16 @@ main section[id] { scroll-margin-top:84px; }
 @media (max-width:900px) {
   .ep-conversion-hero__copy .ep-title-xl { font-size:clamp(34px,8.5vw,42px); }
 }
+
+/* A jornada da hero conserva a mesma moldura em todas as etapas. */
+@media (min-width:901px) {
+  .ep-diagnostic-flow--hero {
+    height:610px;
+    min-height:610px;
+  }
+  .ep-diagnostic-flow--hero .ep-flow-card {
+    height:606px;
+    min-height:606px;
+    overflow-y:auto;
+  }
+}
