@@ -13,7 +13,6 @@ import { DiagnosticFlow } from "../../components/ui/diagnostic-flow";
 import { CaseDragCards } from "../../components/ui/case-drag-cards";
 
 const images = {
-  hero: "/embarpet-hero-pet-travel.webp",
   planning: "/embarpet-trip-planning.png",
   crate: "/embarpet-crate-preparation.png",
   documents: "/embarpet-autoridade-destino-real.jpeg",
@@ -60,7 +59,7 @@ export default function EmbarpetHome() {
     ] },
     { label:"Conteúdo", href:"#faq" },
   ]} /><main>
-    <ConversionHero imageSrc={images.hero} imageAlt="Tutor com pet em contexto de viagem internacional" flow={<DiagnosticFlow onRouteChange={setRoute} onComplete={(lead) => setMessage(`Diagnóstico preparado para ${lead.destination || "sua rota"}.`)} />}>
+    <ConversionHero flow={<DiagnosticFlow onRouteChange={setRoute} onComplete={(lead) => setMessage(`Diagnóstico preparado para ${lead.destination || "sua rota"}.`)} />}>
       <p className="ep-eyebrow">Transporte internacional de pets</p>
       <h1 className="ep-title-xl">Seu <span className="ep-hero-highlight">pet vai para outro país?</span><span className="ep-hero-flags" aria-hidden="true"><img src="/apple-emoji/flag-br.png" alt="" /><img src="/apple-emoji/flag-us.png" alt="" /><img src="/apple-emoji/flag-pt.png" alt="" /><img src="/apple-emoji/flag-es.png" alt="" /><img src="/apple-emoji/flag-it.png" alt="" /></span></h1>
       <p className="ep-hero-lede">Planeje cada etapa com <em>segurança</em> e menos burocracia.</p>
