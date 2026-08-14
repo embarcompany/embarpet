@@ -815,10 +815,22 @@
   margin:16px 0 0;
   color:var(--ep-teal);
   font-size:clamp(19px,1.75vw,27px);
-  font-weight:720;
+  font-weight:560;
   letter-spacing:-.04em;
-  line-height:1.14;
+  line-height:1.2;
 }
+.ep-hero-lede mark {
+  display:inline;
+  padding:0 .07em .035em;
+  border-radius:.14em;
+  background:rgba(198,221,81,.62);
+  color:inherit;
+  font:inherit;
+  font-weight:760;
+  -webkit-box-decoration-break:clone;
+  box-decoration-break:clone;
+}
+.ep-hero-lede strong { color:var(--ep-teal); font-weight:780; }
 .ep-hero-lede em { font-style:italic; }
 .ep-hero-proof {
   display:grid;
