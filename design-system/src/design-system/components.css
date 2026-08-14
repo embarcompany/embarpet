@@ -312,7 +312,9 @@ main section[id] { scroll-margin-top:84px; }
     overflow-y:auto;
   }
   .ep-conversion-hero__form {
-    left:calc(60% - 104px);
-    width:min(430px,calc(40% - 20px));
+    left:calc(56% + 16px);
+    width:min(430px,calc(44% - 36px));
   }
+  .ep-conversion-hero { grid-template-columns:minmax(0,56%) minmax(0,44%); }
+  .ep-conversion-hero__copy .ep-title-xl { max-width:580px; font-size:clamp(40px,4.4vw,60px); }
 }

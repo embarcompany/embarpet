@@ -62,7 +62,7 @@ export default function EmbarpetHome() {
   ]} /><main>
     <ConversionHero imageSrc={images.hero} imageAlt="Tutor com pet em contexto de viagem internacional" flow={<DiagnosticFlow onRouteChange={setRoute} onComplete={(lead) => setMessage(`Diagnóstico preparado para ${lead.destination || "sua rota"}.`)} />}>
       <p className="ep-eyebrow">Transporte internacional de pets</p>
-      <h1 className="ep-title-xl">Seu <mark className="ep-hero-highlight">pet vai para outro país?<span className="ep-hero-flags" aria-hidden="true"><span>🇺🇸</span><span>🇵🇹</span><span>🇪🇸</span><span>🇫🇷</span><span>🇦🇷</span></span></mark> Planeje cada etapa com <em>segurança</em> e menos burocracia.</h1>
+      <h1 className="ep-title-xl">Seu <span className="ep-hero-highlight"><span className="ep-hero-highlight__word">pet</span>{" "}<span className="ep-hero-highlight__word">vai</span>{" "}<span className="ep-hero-highlight__word">para</span>{" "}<span className="ep-hero-highlight__word">outro</span>{" "}<span className="ep-hero-highlight__word">país?</span></span><span className="ep-hero-flags" aria-hidden="true"><span>🇧🇷</span><span>🇺🇸</span><span>🇵🇹</span><span>🇪🇸</span><span>🇫🇷</span></span> Planeje cada etapa com <em>segurança</em> e menos burocracia.</h1>
       <p className="ep-copy">Conte a rota e a data prevista. Analisamos o destino, o perfil do pet e os próximos passos para a viagem.</p>
     </ConversionHero>
     <AuthorityBand />
