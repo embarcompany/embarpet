@@ -37,7 +37,7 @@
 @media (max-width:560px) { .ep-modality-rail { grid-template-columns:1fr; }.ep-modality-rail article,.ep-modality-rail article:nth-child(3) { min-height:220px; border-left:1px solid var(--ep-line); }.ep-modality-rail > article > svg { margin-bottom:38px; }.ep-process-list li { grid-template-columns:44px 1fr; }.ep-process-list li > svg { display:none; }.ep-region-body { padding-left:0; }.ep-scroll-route { min-height:560px; }.ep-scroll-route__frame { min-height:540px; }.ep-scroll-route img { width:96vw; opacity:.55; } }
 
 /* Navegação sempre acessível; sem sombra para manter a linguagem visual Embarpet. */
-.ep-site-header,.ep-site-header--overlay { position:fixed; z-index:40; inset:0 0 auto; background:rgba(0,73,77,.96); backdrop-filter:blur(12px); }.ep-site-notice { display:flex; min-height:36px; align-items:center; justify-content:center; gap:8px; padding:7px 20px; border-bottom:1px solid #e9c95b; background:#fff4c9; color:#614f13; text-align:center; }.ep-site-notice svg { flex:0 0 auto; color:#a87900; }.ep-site-notice p { margin:0; font-size:10px; line-height:1.35; }.ep-site-notice b { color:#4d3c05; }
+.ep-site-header,.ep-site-header--overlay { position:sticky; z-index:40; top:0; background:rgba(0,73,77,.96); backdrop-filter:blur(12px); }.ep-site-notice { position:relative; z-index:41; display:flex; min-height:36px; align-items:center; justify-content:center; gap:8px; padding:7px 46px 7px 20px; border-bottom:1px solid #e9c95b; background:#fff4c9; color:#614f13; text-align:center; }.ep-site-notice svg { flex:0 0 auto; color:#a87900; }.ep-site-notice p { margin:0; font-size:10px; line-height:1.35; }.ep-site-notice b { color:#4d3c05; }.ep-site-notice button { position:absolute; top:50%; right:16px; display:grid; width:24px; height:24px; place-items:center; padding:0; border:0; border-radius:50%; background:transparent; color:#765e0a; transform:translateY(-50%); }.ep-site-notice button:hover { background:rgba(97,79,19,.1); color:#4d3c05; }
 main section[id] { scroll-margin-top:84px; }
 
 /* Prova social compacta: pessoas, avaliação e credenciais no mesmo ritmo visual. */
@@ -46,7 +46,7 @@ main section[id] { scroll-margin-top:84px; }
 /* Ajuda contextual no WhatsApp: aparece apenas na primeira rolagem da sessão. */
 .ep-whatsapp-float { display:flex; align-items:center; gap:10px; }.ep-whatsapp-trigger { overflow:hidden; background:#25d366; border-color:#128c3f; }.ep-whatsapp-trigger img { width:25px; height:25px; }.ep-whatsapp-nudge { display:grid; gap:2px; min-width:185px; padding:10px 13px; border:1px solid var(--ep-teal); border-radius:999px; background:var(--ep-paper); color:var(--ep-teal); text-align:left; animation:ep-whatsapp-nudge .32s ease-out both; }.ep-whatsapp-nudge b { font-size:11px; }.ep-whatsapp-nudge span { color:var(--ep-muted); font-size:9px; font-weight:650; }.ep-whatsapp-avatar { overflow:hidden; background:var(--ep-paper); }.ep-whatsapp-avatar img { width:24px; height:24px; }.ep-whatsapp-popover { border-color:#128c3f; }.ep-whatsapp-popover > button:last-child { border-color:#128c3f; background:#25d366; color:#063e22; }.ep-whatsapp-popover > button:last-child:hover { background:#1fbe5e; }@keyframes ep-whatsapp-nudge { from { opacity:0; transform:translateX(12px); } to { opacity:1; transform:translateX(0); } }
 @media (max-width:760px) { .ep-authority-band { grid-template-columns:1fr 1fr; margin:-34px 10px -34px; width:calc(100% - 20px); border-inline:1px solid var(--ep-line); }.ep-authority-band > div { min-height:72px; }.ep-authority-band__metric--people { grid-column:span 2; }.ep-whatsapp-nudge { min-width:0; max-width:170px; }.ep-team-avatars { width:103px; } }
-@media (max-width:620px) { .ep-site-notice { align-items:flex-start; padding:7px 16px; }.ep-site-notice p { font-size:9px; } }
+@media (max-width:620px) { .ep-site-notice { min-height:50px; align-items:flex-start; padding:7px 44px 7px 16px; }.ep-site-notice p { font-size:9px; }.ep-site-notice button { right:10px; } }
 
 .ep-pet-count--initial { margin-top:10px; animation:ep-count-reveal .24s ease-out both; }
 @keyframes ep-count-reveal { from { opacity:0; transform:translateY(-5px); } to { opacity:1; transform:translateY(0); } }
@@ -103,6 +103,14 @@ main section[id] { scroll-margin-top:84px; }
 /* Linguagem única de ação: CTAs e controles compactos sempre em pílula. */
 .ep-button,.ep-nav-cta,.ep-footer-cta > a,.ep-icon-button,.ep-nav-mobile-toggle,.ep-breed-field button,.ep-whatsapp-popover > button:last-child { border-radius:999px!important; }
 
+/* WhatsApp: ação flutuante mais presente, sem traçado e com pulso de fundo. */
+.ep-whatsapp-trigger { position:relative; z-index:1; isolation:isolate; width:62px; height:62px; border:0!important; background:#25d366; transition:transform .2s ease,background .2s ease; }
+.ep-whatsapp-trigger::after { position:absolute; z-index:-1; inset:0; border-radius:50%; background:rgba(37,211,102,.24); content:""; animation:ep-whatsapp-pulse 2.15s ease-out infinite; }
+.ep-whatsapp-trigger img { width:29px; height:29px; }
+.ep-whatsapp-trigger:hover { background:#25d366; transform:scale(1.06); }
+@keyframes ep-whatsapp-pulse { 0% { opacity:.75; transform:scale(1); } 68%,100% { opacity:0; transform:scale(1.58); } }
+@media (prefers-reduced-motion:reduce) { .ep-whatsapp-trigger::after { animation:none; } }
+
 /* Footer na cor assinatura: turquesa Embarpet, com contraste claro e sem peso visual. */
 .ep-site-footer { background:var(--ep-turq-deep); color:#eafffd; }.ep-footer-cta { border-bottom-color:rgba(255,255,255,.3); }.ep-footer-cta .ep-eyebrow,.ep-footer-brand > a { color:#edfffe; }.ep-footer-cta h2,.ep-footer-group b { color:#fff; }.ep-footer-cta > a { border-color:#fff; background:#fff; color:var(--ep-turq-deep); }.ep-footer-cta > a:hover { background:rgba(255,255,255,.86); }.ep-footer-brand p { color:#d4fbf8; }.ep-footer-group a { color:#d4fbf8; }.ep-footer-group a:hover { color:#fff; }.ep-footer-bottom { border-top-color:rgba(255,255,255,.3); color:#c1f2ee; }
 
@@ -112,6 +120,10 @@ main section[id] { scroll-margin-top:84px; }
 /* Avião com escala suficiente para ser percebido como uma passagem visual, não um ícone. */
 .ep-nav-cta__plane { left:-94px; width:90px; height:50px; }.ep-nav-cta:hover .ep-nav-cta__plane { animation-name:ep-nav-plane-cross-large; }@keyframes ep-nav-plane-cross-large { 0% { left:-94px; opacity:0; transform:translateY(-50%); } 5% { opacity:1; } 95% { opacity:1; } 100% { left:calc(100% + 10px); opacity:0; transform:translateY(-50%); } }
 .ep-modality-rail .ep-modality-actions__plane { left:-184px; width:172px; height:88px; }.ep-modality-rail .ep-modality-actions a:hover .ep-modality-actions__plane { animation-name:ep-modality-plane-image-cross-large; }@keyframes ep-modality-plane-image-cross-large { 0% { left:-184px; opacity:0; transform:translateY(-50%); } 4% { opacity:1; } 96% { opacity:1; } 100% { left:calc(100% + 16px); opacity:0; transform:translateY(-50%); } }
+
+/* O voo começa no hover, mas sempre conclui o percurso mesmo após o cursor sair. */
+.ep-modality-rail .ep-modality-actions a:hover .ep-modality-actions__plane { animation:none; }
+.ep-modality-rail .ep-modality-actions a.is-flying .ep-modality-actions__plane { animation:ep-modality-plane-image-cross-large 1s linear both!important; }
 
 .ep-modality-rail__media > video.ep-modality-rail__video { display:block; width:100%; height:168px; margin:0; object-fit:cover; object-position:center; }
 
@@ -168,3 +180,56 @@ main section[id] { scroll-margin-top:84px; }
 .ep-flow-summary { grid-template-columns:48px minmax(0,1fr); align-items:center; gap:12px; margin-top:16px; padding:13px; border:1px solid rgba(0,157,172,.14); border-left:1px solid rgba(0,157,172,.14); border-radius:10px; background:linear-gradient(112deg,#f2fbfa,#f8fcfb); }.ep-flow-summary__icon { display:grid; width:44px; height:44px; place-items:center; border-radius:50%; background:#e2f7f5; color:var(--ep-turq-deep); }.ep-flow-summary__content { display:grid; gap:4px; }.ep-flow-summary__content small { color:var(--ep-turq-deep); font-size:10px; font-weight:800; }.ep-flow-summary__content b { color:var(--ep-teal); font-size:16px; letter-spacing:-.04em; line-height:1.05; }.ep-flow-summary__content b i { margin:0 3px; color:var(--ep-turq-deep); font-style:normal; }.ep-flow-summary__content em { color:var(--ep-muted); font-size:10px; font-style:normal; font-weight:650; }.ep-contact-input { display:flex!important; min-height:42px; align-items:center!important; gap:9px!important; padding:0 11px; border:1px solid var(--ep-line); border-radius:8px; background:var(--ep-paper); }.ep-contact-input svg,.ep-contact-input__whatsapp { flex:0 0 auto; color:#779095; }.ep-contact-input__whatsapp { display:grid; width:16px; height:16px; place-items:center; border:1.5px solid currentColor; border-radius:50%; font-size:10px; }.ep-contact-input input { min-height:40px!important; padding:0!important; border:0!important; outline:0; background:transparent!important; }
 
 .ep-contact-input--phone { position:relative; gap:7px!important; }.ep-contact-input--phone select { position:absolute; z-index:2; top:0; bottom:0; left:0; width:82px; cursor:pointer; opacity:0; }.ep-contact-input--phone > b { display:flex; min-width:74px; align-items:center; gap:5px; color:var(--ep-teal); font-size:15px; }.ep-contact-input--phone > b small { color:var(--ep-teal); font-size:10px; font-weight:800; }.ep-contact-input--phone > b::after { width:1px; height:21px; margin-left:4px; background:var(--ep-line); content:""; }.ep-contact-input--phone input { min-width:0; flex:1; }.ep-phone-hint { display:block; margin-top:5px; color:var(--ep-muted)!important; font-size:9px!important; font-weight:650!important; }
+
+/* Vários animais “outros”: um nome por vez, com avanço guiado. */
+.ep-other-pet__sequence { display:flex; align-items:center; justify-content:space-between; gap:10px; padding-top:2px; }.ep-other-pet__sequence > span { color:var(--ep-muted); font-size:9px; font-weight:750; }.ep-other-pet__sequence button { display:inline-flex; min-height:27px; align-items:center; gap:4px; padding:0 9px; border:1px solid rgba(0,157,172,.25); border-radius:999px; background:var(--ep-soft); color:var(--ep-teal); font-size:9px; font-weight:850; }.ep-other-pet__sequence button:hover:not(:disabled) { border-color:var(--ep-turq-deep); background:#def6f3; }.ep-other-pet__sequence button:disabled { cursor:not-allowed; opacity:.46; }
+
+/* Seleção de texto na paleta Embarpet. */
+::selection { background:rgba(0,209,226,.24); color:var(--ep-teal); }
+
+/* Formulário da hero: contorno mais acolhedor e contínuo entre as etapas. */
+.ep-diagnostic-flow--hero { border-radius:26px!important; }
+.ep-diagnostic-flow--hero .ep-flow-card,.ep-diagnostic-flow--hero .ep-flow-success { border-radius:24px!important; }
+@media (max-width:900px) { .ep-diagnostic-flow--hero { border-radius:22px!important; }.ep-diagnostic-flow--hero .ep-flow-card,.ep-diagnostic-flow--hero .ep-flow-success { border-radius:20px!important; } }
+
+/* Assinatura PetLuxo sem o qualificador secundário. */
+.ep-home-luxury .ep-eyebrow { font-size:0; }
+.ep-home-luxury .ep-eyebrow::before { content:"PetLuxo"; font-size:var(--eyebrow-size,.75rem); }
+
+/* A pílula de Quem somos começa pelas histórias, sem imagem genérica. */
+.ep-home-service .ep-eyebrow::before { display:none; }
+.ep-home-service .ep-eyebrow .ep-home-service__client-portraits { order:-1; margin:0 2px 0 0; }
+
+/* Mais presença para as imagens das quatro modalidades. */
+.ep-modality-rail__media { min-height:224px; }
+.ep-modality-rail__media > img { height:224px; }
+@media (max-width:900px) { .ep-modality-rail__media { min-height:204px; }.ep-modality-rail__media > img { height:204px; } }
+
+/* Contexto e faixa de investimento das modalidades. */
+.ep-modality-rail__meta { display:flex; min-height:24px; align-items:center; justify-content:space-between; gap:8px; margin:0 0 11px; }
+.ep-modality-rail__meta span { display:inline-flex; min-height:23px; align-items:center; padding:3px 8px; border:1px solid rgba(0,157,172,.2); border-radius:999px; background:rgba(232,249,247,.78); color:var(--ep-teal); font-size:8px; font-weight:850; line-height:1.15; }
+.ep-modality-rail__meta b { flex:0 0 auto; color:var(--ep-turq-deep); font-size:15px; font-weight:950; letter-spacing:1px; line-height:1; }
+.ep-modality-rail article.is-featured { border-color:rgba(0,180,188,.5); background:linear-gradient(160deg,#ffffff 0%,#effcfa 100%); }
+.ep-modality-rail article.is-featured .ep-modality-rail__meta span { border-color:rgba(0,180,188,.38); background:rgba(0,209,226,.13); color:#006e78; }
+.ep-modality-rail article.is-featured .ep-modality-rail__meta b { color:#008c99; }
+
+/* Redes sociais no rodapé. */
+.ep-footer-socials { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 19px; }
+.ep-footer-socials a { display:grid; width:32px; height:32px; place-items:center; border:1px solid rgba(218,250,246,.35); border-radius:50%; color:#eafffd; text-decoration:none; transition:background .2s ease,border-color .2s ease,transform .2s ease; }
+.ep-footer-socials a img { width:15px; height:15px; object-fit:contain; }
+.ep-footer-socials a:hover,.ep-footer-socials a:focus-visible { border-color:#fff; background:rgba(255,255,255,.16); color:#fff; transform:translateY(-2px); }
+
+/* Pílulas de alerta por modalidade. */
+.ep-modality-rail__meta .ep-modality-rail__badge { display:inline-flex; align-items:center; gap:5px; }
+.ep-modality-rail__badge svg { width:11px; height:11px; flex:0 0 auto; stroke-width:2.3; }
+.ep-modality-rail__meta .ep-modality-rail__badge--neutral { border-color:rgba(0,157,172,.2); background:rgba(232,249,247,.78); color:var(--ep-teal); }
+.ep-modality-rail__meta .ep-modality-rail__badge--warning { border-color:rgba(190,133,0,.28); background:rgba(255,238,183,.72); color:#876100; }
+.ep-modality-rail__meta .ep-modality-rail__badge--critical { border-color:rgba(200,62,58,.31); background:rgba(255,227,225,.84); color:#a82f2b; }
+.ep-modality-rail__meta .ep-modality-rail__badge--positive { border-color:rgba(0,156,129,.27); background:rgba(214,247,235,.84); color:#087b66; }
+
+/* Cards de modalidade com ritmo fixo e CTAs perfeitamente alinhados. */
+.ep-modality-rail article { display:flex; height:100%; min-height:0; flex-direction:column; }
+.ep-modality-rail article > .ep-modality-rail__media { flex:0 0 224px; }
+.ep-modality-rail article > div:not(.ep-modality-rail__media) { min-height:0; flex:1 1 auto; }
+.ep-modality-rail article .ep-modality-actions { margin-top:auto; }
+@media (max-width:900px) { .ep-modality-rail article > .ep-modality-rail__media { flex-basis:204px; } }

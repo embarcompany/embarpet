@@ -36,12 +36,15 @@ export function DiagnosticFlow({ onComplete, onRouteChange }: { onComplete?: (le
   const [hasMultiplePets, setHasMultiplePets] = useState(false);
   const [petCounts, setPetCounts] = useState<Partial<Record<PetKind, number>>>({});
   const [otherPets, setOtherPets] = useState<string[]>([]);
+  const [activeOtherPet, setActiveOtherPet] = useState(0);
   const [route, setRoute] = useState<RouteData>({ origin: "", destination: "", period: "" });
   const [pets, setPets] = useState<PetDetail[]>([]);
   const [contact, setContact] = useState({ name: "", phone: "" });
   const [phoneCountry, setPhoneCountry] = useState(phoneCountries[0]);
   const [sent, setSent] = useState(false);
   const [hasSpecificDate, setHasSpecificDate] = useState(false);
+  const otherPetCount = petCounts.Outro ?? 0;
+  const activeOtherIndex = Math.min(activeOtherPet, Math.max(0, otherPetCount - 1));
   const go = (next: Step) => setStep(next);
   const setRouteField = (field: keyof RouteData, value: string) => {
     setRoute((current) => ({ ...current, [field]: value }));
@@ -62,11 +65,13 @@ export function DiagnosticFlow({ onComplete, onRouteChange }: { onComplete?: (le
       updateKindCount("Outro", count ? 0 : 1);
       if (!firstKind && !count) setFirstKind("Outro");
       setOtherPets(count ? [] : [""]);
+      setActiveOtherPet(0);
       return;
     }
     if (firstKind === "Outro") {
       setFirstKind("");
       setOtherPets([]);
+      setActiveOtherPet(0);
       return;
     }
     setFirstKind("Outro");
@@ -82,6 +87,7 @@ export function DiagnosticFlow({ onComplete, onRouteChange }: { onComplete?: (le
     if (kind === "Outro") {
       const count = Math.max(0, Math.min(nextCount, 4));
       setOtherPets((current) => Array.from({ length: count }, (_, index) => current[index] ?? ""));
+      setActiveOtherPet((current) => Math.min(current, Math.max(0, count - 1)));
     }
     if (nextCount > 0 && !firstKind) setFirstKind(kind);
   };
@@ -97,7 +103,7 @@ export function DiagnosticFlow({ onComplete, onRouteChange }: { onComplete?: (le
   };
 
   return <section className={`ep-diagnostic-flow ep-diagnostic-flow--hero ep-diagnostic-flow--step-${step}`} aria-label="Diagnóstico inicial da viagem">
-    {step === 1 && <div className="ep-flow-card"><p className="ep-flow-kicker">Sobre seu pet</p><h2 className="ep-flow-title">Quem vai viajar?</h2><p className="ep-flow-intro">Comece escolhendo o tipo do seu pet.</p><div className={hasMultiplePets ? "ep-pet-choice-grid ep-pet-choice-grid--multiple" : "ep-pet-choice-grid"}>{petKinds.map((pet) => { const count = petCounts[pet.label] ?? 0; const selected = hasMultiplePets ? count > 0 : firstKind === pet.label; const PetIcon = pet.icon; return <div className={selected ? "ep-pet-choice is-selected" : "ep-pet-choice"} key={pet.label}><button type="button" onClick={() => !hasMultiplePets && selectSinglePet(pet.label)} disabled={hasMultiplePets}><span className="ep-pet-choice__icon"><PetIcon size={28} strokeWidth={1.6} /></span><span>{pet.label}</span></button>{hasMultiplePets && selected ? <Check className="ep-pet-choice__selected" size={15} strokeWidth={3} aria-hidden="true" /> : null}{hasMultiplePets ? <div className="ep-pet-choice__quantity"><button type="button" aria-label={`Diminuir ${pet.label}`} onClick={() => changeMultiCount(pet.label, count - 1)}><Minus size={12} /></button><b>{count}</b><button type="button" aria-label={`Aumentar ${pet.label}`} onClick={() => changeMultiCount(pet.label, count + 1)}><Plus size={12} /></button></div> : null}</div>; })}</div><div className={hasMultiplePets && (petCounts.Outro ?? 0) > 0 ? "ep-other-pet is-selected" : "ep-other-pet"}><div className="ep-other-pet__heading"><button type="button" onClick={toggleOther} aria-expanded={hasMultiplePets ? (petCounts.Outro ?? 0) > 0 : firstKind === "Outro"}><CircleHelp size={17} /><span>Outro</span></button>{(hasMultiplePets ? (petCounts.Outro ?? 0) > 0 : firstKind === "Outro") ? <input value={otherPets[0] ?? ""} onChange={(event) => setOtherPets((current) => [event.target.value, ...current.slice(1)])} onKeyDown={(event) => { if (!hasMultiplePets && event.key === "Enter" && otherPets[0]) selectSinglePet("Outro"); }} placeholder="Qual animal?" aria-label="Qual outro animal vai viajar?" /> : null}</div>{hasMultiplePets && otherPets.slice(1).map((pet, index) => <input className="ep-other-pet__input" key={index + 1} value={pet} onChange={(event) => setOtherPets((current) => current.map((item, petIndex) => petIndex === index + 1 ? event.target.value : item))} placeholder={`Outro animal ${index + 2}`} aria-label={`Qual é o outro animal ${index + 2}?`} />)}{hasMultiplePets ? <div className="ep-pet-choice__quantity"><button type="button" onClick={() => changeMultiCount("Outro", (petCounts.Outro ?? 0) - 1)} aria-label="Diminuir outro animal"><Minus size={12} /></button><b>{petCounts.Outro ?? 0}</b><button type="button" onClick={() => changeMultiCount("Outro", (petCounts.Outro ?? 0) + 1)} aria-label="Aumentar outro animal"><Plus size={12} /></button></div> : null}</div><button type="button" className="ep-multi-pet-trigger" onClick={hasMultiplePets ? disableMultiple : enableMultiple}><em>{hasMultiplePets ? "Não vou viajar com mais de um pet" : "Vai viajar com mais de um pet?"}</em></button>{hasMultiplePets ? <FlowActions next={() => { createPetsFromKinds(); go(2); }} nextLabel="Continuar" disabled={((petCounts.Outro ?? 0) > 0 && otherPets.slice(0, petCounts.Outro ?? 0).some((pet) => !pet)) || Object.values(petCounts).every((count) => !count)} /> : null}</div>}
+    {step === 1 && <div className="ep-flow-card"><p className="ep-flow-kicker">Sobre seu pet</p><h2 className="ep-flow-title">Quem vai viajar?</h2><p className="ep-flow-intro">Comece escolhendo o tipo do seu pet.</p><div className={hasMultiplePets ? "ep-pet-choice-grid ep-pet-choice-grid--multiple" : "ep-pet-choice-grid"}>{petKinds.map((pet) => { const count = petCounts[pet.label] ?? 0; const selected = hasMultiplePets ? count > 0 : firstKind === pet.label; const PetIcon = pet.icon; return <div className={selected ? "ep-pet-choice is-selected" : "ep-pet-choice"} key={pet.label}><button type="button" onClick={() => !hasMultiplePets && selectSinglePet(pet.label)} disabled={hasMultiplePets}><span className="ep-pet-choice__icon"><PetIcon size={28} strokeWidth={1.6} /></span><span>{pet.label}</span></button>{hasMultiplePets && selected ? <Check className="ep-pet-choice__selected" size={15} strokeWidth={3} aria-hidden="true" /> : null}{hasMultiplePets ? <div className="ep-pet-choice__quantity"><button type="button" aria-label={`Diminuir ${pet.label}`} onClick={() => changeMultiCount(pet.label, count - 1)}><Minus size={12} /></button><b>{count}</b><button type="button" aria-label={`Aumentar ${pet.label}`} onClick={() => changeMultiCount(pet.label, count + 1)}><Plus size={12} /></button></div> : null}</div>; })}</div><div className={hasMultiplePets && otherPetCount > 0 ? "ep-other-pet is-selected" : "ep-other-pet"}><div className="ep-other-pet__heading"><button type="button" onClick={toggleOther} aria-expanded={hasMultiplePets ? otherPetCount > 0 : firstKind === "Outro"}><CircleHelp size={17} /><span>Outro</span></button>{(hasMultiplePets ? otherPetCount > 0 : firstKind === "Outro") ? <input value={otherPets[activeOtherIndex] ?? ""} onChange={(event) => setOtherPets((current) => current.map((pet, index) => index === activeOtherIndex ? event.target.value : pet))} onKeyDown={(event) => { if (!hasMultiplePets && event.key === "Enter" && otherPets[0]) selectSinglePet("Outro"); }} placeholder={hasMultiplePets ? `Qual animal ${activeOtherIndex + 1}?` : "Qual animal?"} aria-label={`Qual é o outro animal ${activeOtherIndex + 1}?`} /> : null}</div>{hasMultiplePets && otherPetCount > 1 ? <div className="ep-other-pet__sequence"><span>Animal {activeOtherIndex + 1} de {otherPetCount}</span>{activeOtherIndex < otherPetCount - 1 ? <button type="button" disabled={!otherPets[activeOtherIndex]} onClick={() => setActiveOtherPet((current) => current + 1)}>Próximo animal <ArrowRight size={13} /></button> : <button type="button" onClick={() => setActiveOtherPet(0)}>Revisar animais</button>}</div> : null}{hasMultiplePets ? <div className="ep-pet-choice__quantity"><button type="button" onClick={() => changeMultiCount("Outro", otherPetCount - 1)} aria-label="Diminuir outro animal"><Minus size={12} /></button><b>{otherPetCount}</b><button type="button" onClick={() => changeMultiCount("Outro", otherPetCount + 1)} aria-label="Aumentar outro animal"><Plus size={12} /></button></div> : null}</div><button type="button" className="ep-multi-pet-trigger" onClick={hasMultiplePets ? disableMultiple : enableMultiple}><em>{hasMultiplePets ? "Não vou viajar com mais de um pet" : "Vai viajar com mais de um pet?"}</em></button>{hasMultiplePets ? <FlowActions next={() => { createPetsFromKinds(); go(2); }} nextLabel="Continuar" disabled={(otherPetCount > 0 && otherPets.slice(0, otherPetCount).some((pet) => !pet)) || Object.values(petCounts).every((count) => !count)} /> : null}</div>}
 
     {step === 2 && <div className="ep-flow-card"><p className="ep-flow-kicker">Sobre a viagem</p><h2 className="ep-flow-title">Para onde vocês vão?</h2><p className="ep-flow-intro">A rota e o prazo já ajudam a abrir a conversa certa.</p><div className="ep-flow-fields ep-flow-fields--stack"><div className="ep-route-inline ep-route-inline--airport"><CityAirportField label="Origem" value={route.origin} onChange={(value) => setRouteField("origin", value)} /><Plane className="ep-route-inline__arrow" size={17} aria-hidden="true" /><CityAirportField label="Destino" value={route.destination} onChange={(value) => setRouteField("destination", value)} /></div><div className="ep-travel-timing"><label className="ep-field"><span>Quando pretende viajar?</span>{hasSpecificDate ? <input type="month" value={route.period} onChange={(event) => setRouteField("period", event.target.value)} /> : <TravelPeriodSelect value={route.period} onChange={(value) => setRouteField("period", value)} />}</label><button type="button" className="ep-specific-date" onClick={() => { setHasSpecificDate((current) => !current); setRouteField("period", ""); }}><CalendarDays size={13} aria-hidden="true" />{hasSpecificDate ? "Não tenho data definida" : "Já tenho uma data definida"}</button></div></div><FlowActions back={() => go(1)} next={advanceRoute} nextLabel="Continuar" disabled={!route.origin || !route.destination || !route.period} /></div>}
 
@@ -117,14 +123,51 @@ function TravelPeriodSelect({ value, onChange }: { value: string; onChange: (val
 
 function CityAirportField({ label, value, onChange }: { label: "Origem" | "Destino"; value: string; onChange: (value: string) => void }) {
   const [open, setOpen] = useState(false);
-  const normalized = value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-  const matches = airportCities.filter((airport) => `${airport.city} ${airport.country} ${airport.airport} ${airport.iata}`.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().includes(normalized)).slice(0, 6);
+  const matches = searchAirports(value);
   const choose = (airport: AirportCity) => {
     onChange(`${airport.city}, ${airport.country} · ${airport.iata}`);
     setOpen(false);
   };
   const canSuggest = value.trim().length >= 3;
   return <label className="ep-airport-field"><span>{label}:</span><span className="ep-airport-field__input"><MapPin size={15} aria-hidden="true" /><input value={value} onChange={(event) => { onChange(event.target.value); setOpen(true); }} onFocus={() => setOpen(true)} onBlur={() => window.setTimeout(() => setOpen(false), 120)} placeholder="Digite uma cidade" autoComplete="off" aria-label={`${label}: digite uma cidade`} aria-expanded={open && canSuggest && matches.length > 0} aria-controls={`${label.toLowerCase()}-airport-options`} /></span>{open && canSuggest && matches.length > 0 ? <span className="ep-airport-field__options" id={`${label.toLowerCase()}-airport-options`} role="listbox">{matches.map((airport) => <button type="button" key={`${airport.city}-${airport.iata}`} onMouseDown={(event) => event.preventDefault()} onClick={() => choose(airport)} role="option"><b>{airport.city}, {airport.country}</b><small>{airport.iata} · {airport.airport}</small></button>)}</span> : null}</label>;
+}
+
+const normalizeAirportSearch = (value: string) => value
+  .normalize("NFD")
+  .replace(/[\u0300-\u036f]/g, "")
+  .toLocaleLowerCase()
+  .replace(/[^a-z0-9]+/g, " ")
+  .trim();
+
+function searchAirports(value: string) {
+  const query = normalizeAirportSearch(value);
+  if (query.length < 3) return [];
+
+  const queryTokens = query.split(" ").filter(Boolean);
+  return airportCities
+    .map((airport) => {
+      const city = normalizeAirportSearch(airport.city);
+      const country = normalizeAirportSearch(airport.country);
+      const airportName = normalizeAirportSearch(airport.airport);
+      const iata = normalizeAirportSearch(airport.iata);
+      const aliases = (airport.aliases ?? []).map(normalizeAirportSearch);
+      const searchable = [city, country, airportName, iata, ...aliases];
+      const matchesEveryTerm = queryTokens.every((term) => searchable.some((termValue) => termValue.includes(term)));
+      if (!matchesEveryTerm) return null;
+
+      // Código e cidade exatos ficam no topo; país e aeroporto continuam descobertos naturalmente.
+      const score =
+        (iata === query ? 1000 : 0) +
+        (city === query ? 900 : city.startsWith(query) ? 700 : city.includes(query) ? 500 : 0) +
+        (aliases.some((alias) => alias === query) ? 800 : aliases.some((alias) => alias.startsWith(query)) ? 600 : 0) +
+        (airportName.startsWith(query) ? 450 : airportName.includes(query) ? 250 : 0) +
+        (country === query ? 300 : country.startsWith(query) ? 180 : 0);
+      return { airport, score };
+    })
+    .filter((result): result is { airport: AirportCity; score: number } => Boolean(result))
+    .sort((left, right) => right.score - left.score || left.airport.city.localeCompare(right.airport.city, "pt-BR"))
+    .slice(0, 6)
+    .map(({ airport }) => airport);
 }
 
 function FlowActions({ back, next, nextLabel, disabled }: { back?: () => void; next: () => void; nextLabel: string; disabled?: boolean }) {

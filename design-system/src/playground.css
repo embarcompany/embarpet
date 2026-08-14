@@ -32,6 +32,9 @@
 .ep-final-fly-in__eyebrow { display:table; min-height:32px; margin:0 auto 14px; padding:7px 13px 7px 38px; border:1px solid rgba(171,239,234,.36); border-radius:999px; background:rgba(0,181,194,.16) url('/embarpet-pet-selector-grid.png') 7px center / 24px 24px no-repeat; color:#d9fffb; font-size:10px; font-weight:800; letter-spacing:.015em; }
 .ep-final-fly-in .pointer-events-none { overflow:hidden; }.ep-final-fly-in .pointer-events-none img { width:clamp(280px,30vw,440px); height:auto; max-width:none; object-fit:contain; filter:saturate(1.1) contrast(1.06); }
 
+/* CTA final: o avião é uma camada de fundo e nunca disputa com a leitura. */
+.ep-final-fly-in { isolation:isolate; }.ep-final-fly-in::before { position:absolute; z-index:1; inset:0; background:radial-gradient(ellipse 54% 66% at 50% 50%,var(--ep-teal) 8%,rgba(3,67,74,.91) 41%,rgba(3,67,74,0) 76%); content:""; pointer-events:none; }.ep-final-fly-in > div > .z-10 { position:relative; z-index:2; }.ep-final-fly-in .pointer-events-none { z-index:0!important; }.ep-final-fly-in .pointer-events-none img { width:clamp(190px,22vw,320px); }
+
 /* Pílulas editoriais nas seções de método e autoridade. */
 .ep-home-process__intro .ep-eyebrow,
 .ep-home-authority__content .ep-eyebrow {
@@ -400,3 +403,355 @@
 .ep-home-process__cta svg { display:grid; width:28px; height:28px; padding:6px; border-radius:50%; background:var(--ep-teal); color:var(--ep-paper); transition:transform .22s ease; }
 .ep-home-process__cta:hover { gap:14px; border-color:var(--ep-turq-deep); background:rgba(0,209,226,.28); }
 .ep-home-process__cta:hover svg { transform:translateX(2px); }
+
+/* Órbita contínua: motion path evita a sensação de salto entre os pontos do círculo. */
+@media (min-width:621px) {
+  .ep-home-process__satellite {
+    top:50%;
+    left:50%;
+    offset-path:circle(var(--ep-method-satellite-radius) at 0 0);
+    offset-distance:0%;
+    offset-rotate:0deg;
+    offset-anchor:center;
+    animation:ep-method-satellite-path 18s linear infinite!important;
+    animation-delay:var(--ep-orbit-delay)!important;
+    will-change:offset-distance;
+  }
+  .ep-home-process__satellite .ep-home-process__cycle-step {
+    transform:translate(-50%,-50%)!important;
+  }
+}
+
+/* Regra vencedora da metodologia: cada satélite gira no próprio ângulo e o card faz a contra-rotação. */
+@media (min-width:621px) {
+  .ep-home-process__cycle { overflow:visible!important; }
+  .ep-home-process__satellite {
+    top:50%!important;
+    left:50%!important;
+    width:0!important;
+    height:0!important;
+    rotate:0deg!important;
+    offset-path:none!important;
+    offset-distance:0!important;
+    transform:rotate(calc(var(--ep-orbit-angle) + var(--ep-method-orbit-progress)))!important;
+    animation:ep-method-orbit-progress 18s linear infinite!important;
+    animation-delay:0s!important;
+  }
+  .ep-home-process__satellite .ep-home-process__cycle-step,
+  .ep-home-process__satellite .ep-home-process__cycle-step:hover,
+  .ep-home-process__satellite .ep-home-process__cycle-step:focus-visible {
+    transform:translate(-50%,-50%) translateY(calc(-1 * var(--ep-method-satellite-radius))) rotate(calc(-1 * var(--ep-orbit-angle) - var(--ep-method-orbit-progress)))!important;
+    animation:none!important;
+  }
+  .ep-home-process__cycle:has(.ep-home-process__satellite:hover) .ep-home-process__satellite { animation-play-state:paused!important; }
+}
+
+/* Mobile: relatos viram carrossel, sem arraste, rotação ou movimento de cards. */
+.ep-case-carousel { display:grid; justify-items:center; gap:18px; padding:54px 20px 60px; overflow:hidden; background:linear-gradient(118deg,#eefaf7 0%,#f8fcfb 49%,#e6f7f7 100%); text-align:center; }
+.ep-case-carousel__heading { max-width:330px; }.ep-case-carousel__heading h2 { margin:12px 0 10px; color:var(--ep-teal); font-size:42px; letter-spacing:-.065em; line-height:.94; }.ep-case-carousel__heading p { margin:0; color:var(--ep-muted); font-size:12px; line-height:1.45; }.ep-case-carousel__viewport { width:min(100%,360px); overflow:hidden; }.ep-case-carousel__track { display:flex; transition:transform .58s cubic-bezier(.22,.8,.26,1); }.ep-case-carousel__card { position:relative; min-width:100%; overflow:hidden; border:1px solid rgba(0,157,172,.28); border-radius:22px; background:var(--ep-paper); color:var(--ep-teal); text-align:left; }.ep-case-carousel__card .ep-case-card__image { width:100%; height:330px; animation:none!important; object-fit:cover; }.ep-case-carousel__card > span { display:block; padding:15px 16px 16px; }.ep-case-carousel__card b { display:block; font-size:15px; letter-spacing:-.035em; }.ep-case-carousel__card small { display:block; margin-top:4px; color:var(--ep-muted); font-size:11px; font-weight:650; }.ep-case-carousel__card .ep-case-card__sound { top:12px; right:12px; }.ep-case-carousel__pagination { display:flex; gap:7px; }.ep-case-carousel__pagination button { width:7px; height:7px; padding:0; border:0; border-radius:999px; background:rgba(0,73,77,.22); transition:width .22s ease,background .22s ease; }.ep-case-carousel__pagination button.is-active { width:23px; background:var(--ep-turq-deep); }.ep-case-carousel__more { display:inline-flex; min-height:38px; align-items:center; padding:0 15px; border:1px solid var(--ep-teal); border-radius:999px; background:transparent; color:var(--ep-teal); font-size:11px; font-weight:850; text-decoration:none; }
+
+/* Quem somos: rosto de liderança, presença do time e espaço editorial para imprensa. */
+.ep-home-ceo figcaption { position:absolute; z-index:2; right:20px; bottom:19px; display:grid; gap:2px; padding:9px 12px; border-radius:14px; background:rgba(3,67,74,.78); color:var(--ep-paper); font-size:11px; font-weight:850; text-align:left; }.ep-home-ceo figcaption small { color:#bfe7e3; font-size:9px; font-weight:700; }.ep-home-service__team { display:flex; align-items:center; gap:11px; margin:2px 0 18px; color:#d9f5f2; }.ep-home-service__team b { font-size:11px; line-height:1.3; }.ep-home-service__team-portraits { display:flex; height:36px; align-items:center; }.ep-home-service__team-portraits i { display:block; width:34px; height:34px; margin-left:-7px; border:2px solid var(--ep-teal); border-radius:9px; background-image:url('/embarpet-team-avatars.png'); background-repeat:no-repeat; background-size:200% 200%; }.ep-home-service__team-portraits i:first-child { margin-left:0; background-position:0 0; }.ep-home-service__team-portraits i:nth-child(2) { background-position:100% 0; }.ep-home-service__team-portraits i:nth-child(3) { background-position:0 100%; }.ep-home-service__media { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; margin:26px 0 30px; }.ep-home-service__media > div { display:grid; min-height:122px; align-content:start; gap:8px; padding:14px; border:1px solid rgba(218,250,246,.25); border-radius:14px; background:rgba(218,250,246,.08); transition:background .2s ease,border-color .2s ease,transform .2s ease; }.ep-home-service__media > div:hover { border-color:rgba(105,235,224,.56); background:rgba(218,250,246,.14); transform:translateY(-3px); }.ep-home-service__media small { color:var(--ep-turq); font-size:9px; font-weight:850; letter-spacing:.03em; text-transform:uppercase; }.ep-home-service__media strong { color:var(--ep-paper); font-size:12px; letter-spacing:-.025em; line-height:1.18; }.ep-home-service__media span { color:#bbe6e2; font-size:9px; font-weight:700; }
+.ep-home-service__media > a { display:grid; min-height:122px; align-content:start; gap:10px; padding:14px; border:1px solid rgba(218,250,246,.25); border-radius:14px; background:rgba(218,250,246,.08); color:inherit; text-decoration:none; transition:background .2s ease,border-color .2s ease,transform .2s ease; }.ep-home-service__media > a:hover { border-color:rgba(105,235,224,.56); background:rgba(218,250,246,.14); transform:translateY(-3px); }.ep-media-logo { display:block; min-height:22px; color:var(--ep-paper); font-size:16px; font-weight:950; letter-spacing:-.075em; line-height:1; }.ep-media-logo i { color:var(--ep-turq); font-size:10px; font-style:normal; letter-spacing:-.03em; }.ep-media-logo--catraca { color:#f3fd67; font-size:14px; letter-spacing:-.055em; }.ep-media-logo--visite { color:#c5f6f1; font-size:14px; letter-spacing:-.04em; }.ep-home-service__media > a span { display:flex; align-items:center; gap:5px; margin-top:auto; }.ep-home-service__media > a span svg { transition:transform .2s ease; }.ep-home-service__media > a:hover span svg { transform:translateX(3px); }
+.ep-home-service .ep-eyebrow { gap:8px; }.ep-home-service__client-portraits { display:flex; height:25px; align-items:center; margin-left:2px; }.ep-home-service__client-portraits img { width:25px; height:25px; margin-left:-6px; border:1.5px solid var(--ep-teal); border-radius:50%; object-fit:cover; }.ep-home-service__client-portraits img:first-child { margin-left:0; }
+.ep-home-ceo figcaption { display:none; }
+.ep-media-logo--visite::before { filter:brightness(0) invert(1); }
+
+/* Logos oficiais dos veículos, preservando o texto original apenas para leitores de tela. */
+.ep-media-logo { min-height:28px; font-size:0!important; }.ep-media-logo i { font-size:0!important; }.ep-media-logo::before { display:block; width:100%; height:28px; background-repeat:no-repeat; background-position:left center; background-size:contain; content:""; }.ep-media-logo--pegn::before { background-image:url('https://s2-pegn.glbimg.com/yRniEXIO7CYKlL0jXnnYIN0B034=/86x39/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_ba41d7b1ff5f48b28d3c5f84f30a06af/internal_infoglobo-custom-footer/bs/2022/H/B/RBgAwOQiyBVFgLpdZiBQ/pegn-logo.png'); }.ep-media-logo--catraca::before { background-image:url('https://catracalivre.com.br/wp-content/uploads/2015/03/logo.png'); }.ep-media-logo--visite::before { background-image:url('https://visitebrasilia.com.br/images/site/logo/logo-visite-brasilia-site2.png'); }
+@media (max-width:680px) { .ep-home-service__media { grid-template-columns:1fr; }.ep-home-service__media > div { min-height:0; }.ep-home-ceo figcaption { right:12px; bottom:12px; } }
+
+/* Órbita final: ângulo animado, posição circular fixa e conteúdo sempre legível. */
+@property --ep-method-orbit-progress { syntax:"<angle>"; inherits:true; initial-value:0deg; }
+@media (min-width:621px) {
+  .ep-home-process__cycle { overflow:visible!important; }
+  .ep-home-process__satellite {
+    top:50%!important;
+    left:50%!important;
+    width:0!important;
+    height:0!important;
+    --ep-method-orbit-progress:0deg;
+    transform:rotate(calc(var(--ep-orbit-angle) + var(--ep-method-orbit-progress)))!important;
+    animation:ep-method-orbit-progress 18s linear infinite!important;
+    animation-delay:0s!important;
+    will-change:--ep-method-orbit-progress;
+  }
+  .ep-home-process__satellite .ep-home-process__cycle-step,
+  .ep-home-process__satellite .ep-home-process__cycle-step:hover,
+  .ep-home-process__satellite .ep-home-process__cycle-step:focus-visible {
+    transform:translate(-50%,-50%) translateY(calc(-1 * var(--ep-method-satellite-radius))) rotate(calc(-1 * var(--ep-orbit-angle) - var(--ep-method-orbit-progress)))!important;
+    animation:none!important;
+  }
+  .ep-home-process__cycle:has(.ep-home-process__satellite:hover) .ep-home-process__satellite { animation-play-state:paused!important; }
+}
+@keyframes ep-method-orbit-progress { to { --ep-method-orbit-progress:360deg; } }
+
+/* Fonte única da órbita — sobrescreve experimentos anteriores sem alterar o mobile. */
+@media (min-width:621px) {
+  .ep-home-process__cycle { width:min(100%,620px); aspect-ratio:1; }
+  .ep-home-process__satellite {
+    position:absolute!important;
+    z-index:4!important;
+    top:8%!important;
+    right:auto!important;
+    bottom:auto!important;
+    left:50%!important;
+    width:0!important;
+    height:0!important;
+    rotate:0deg!important;
+    offset-path:none!important;
+    offset-distance:0!important;
+    offset-rotate:0deg!important;
+    transform:none!important;
+    animation:ep-method-satellite-position 18s linear infinite!important;
+    animation-delay:var(--ep-orbit-delay)!important;
+    animation-fill-mode:both!important;
+    will-change:top,left;
+  }
+  .ep-home-process__satellite .ep-home-process__cycle-step,
+  .ep-home-process__satellite .ep-home-process__cycle-step:hover,
+  .ep-home-process__satellite .ep-home-process__cycle-step:focus-visible {
+    position:absolute!important;
+    top:0!important;
+    right:auto!important;
+    bottom:auto!important;
+    left:0!important;
+    display:grid!important;
+    width:62px!important;
+    height:62px!important;
+    min-width:0!important;
+    padding:0!important;
+    place-items:center!important;
+    border-radius:50%!important;
+    transform:translate(-50%,-50%)!important;
+    rotate:0deg!important;
+    animation:none!important;
+  }
+  .ep-home-process__satellite .ep-home-process__cycle-icon,
+  .ep-home-process__satellite .ep-home-process__cycle-icon svg,
+  .ep-home-process__satellite .ep-home-process__cycle-step:hover .ep-home-process__cycle-icon {
+    animation:none!important;
+    transform:none!important;
+    rotate:0deg!important;
+  }
+}
+@keyframes ep-method-satellite-position {
+  0%,100% { top:8%; left:50%; }
+  12.5% { top:20.3%; left:79.7%; }
+  25% { top:50%; left:92%; }
+  37.5% { top:79.7%; left:79.7%; }
+  50% { top:92%; left:50%; }
+  62.5% { top:79.7%; left:20.3%; }
+  75% { top:50%; left:8%; }
+  87.5% { top:20.3%; left:20.3%; }
+}
+@media (min-width:621px) and (prefers-reduced-motion:reduce) {
+  .ep-home-process__satellite { animation:ep-method-satellite-position 18s linear infinite!important; animation-delay:var(--ep-orbit-delay)!important; }
+}
+
+/* Identificador da primeira dobra como pílula editorial. */
+.ep-conversion-hero__copy .ep-eyebrow {
+  display:inline-flex;
+  width:max-content;
+  min-height:34px;
+  align-items:center;
+  margin:0 0 16px;
+  padding:4px 12px 4px 5px;
+  border:1px solid rgba(171,239,234,.36);
+  border-radius:999px;
+  background:rgba(0,181,194,.15);
+  color:#d9fffb;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.01em;
+  text-transform:none;
+}
+.ep-conversion-hero__copy .ep-eyebrow::before {
+  width:24px;
+  height:24px;
+  flex:0 0 auto;
+  margin-right:8px;
+  border-radius:50%;
+  background:url('/embarpet-pet-selector-grid.png') 0 0 / 200% 200% no-repeat;
+  content:"";
+}
+
+/* Ênfases editoriais: marcação acolhedora atrás da palavra, não sublinhado. */
+.ep-title-xl em,
+.ep-title-lg em {
+  display:inline;
+  padding:.03em .16em .08em;
+  border-radius:.22em;
+  background:rgba(0,209,226,.22);
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+  color:inherit;
+  font-style:normal;
+}
+.ep-conversion-hero__copy .ep-title-xl em { background:rgba(93,235,222,.23); color:#d9fffb; }
+
+.ep-case-canvas__center > a { background:transparent; }
+.ep-case-canvas__center > a:hover { background:rgba(0,73,77,.08); color:var(--ep-teal); }
+
+/* Diferenciais da Embarpet: três cards escaneáveis dentro do institucional. */
+.ep-home-service__list {
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin:0 0 30px;
+}
+.ep-home-service__list span {
+  min-height:112px;
+  align-items:flex-start;
+  gap:10px;
+  padding:15px 13px;
+  border:1px solid rgba(171,239,234,.22);
+  border-radius:16px;
+  background:rgba(255,255,255,.075);
+  color:#e8f7f5;
+  font-size:11px;
+  line-height:1.42;
+  transition:border-color .22s ease,background .22s ease,transform .22s ease;
+}
+.ep-home-service__list span svg {
+  width:18px;
+  height:18px;
+  flex:0 0 auto;
+  margin-top:1px;
+  color:var(--ep-turq);
+}
+.ep-home-service__list span:hover {
+  border-color:rgba(171,239,234,.52);
+  background:rgba(0,209,226,.13);
+  transform:translateY(-3px);
+}
+@media (max-width:620px) {
+  .ep-home-service__list { grid-template-columns:1fr; }
+  .ep-home-service__list span { min-height:0; }
+}
+
+/* Ordem de conversão da home: decisão → possibilidade → método → prova → confiança → ação. */
+main { display:flex; flex-direction:column; }
+main > .ep-conversion-hero { order:1; }
+main > .ep-authority-band { order:2; }
+main > .ep-home-destinations { order:3; }
+main > .ep-home-modalities { order:4; }
+main > .ep-home-process-section { order:5; }
+main > .ep-home-cases { order:6; }
+main > .ep-home-luxury { order:7; }
+main > .ep-home-authority { order:8; }
+main > .ep-home-service { order:9; }
+
+/* Pílula PetLuxo: miniatura de pet + assinatura, sem duplicação de texto. */
+.ep-home-luxury .ep-eyebrow { display:inline-flex!important; min-height:34px; align-items:center; gap:7px!important; padding:4px 11px 4px 5px!important; font-size:0!important; }
+.ep-home-luxury .ep-eyebrow::before { display:block!important; width:24px!important; height:24px!important; flex:0 0 24px!important; border-radius:50%!important; background-image:url('/embarpet-pet-selector-grid.png')!important; background-position:0 0!important; background-size:200% 200%!important; background-repeat:no-repeat!important; content:""!important; }
+.ep-home-luxury .ep-eyebrow::after { content:"PetLuxo"; color:inherit; font-size:10px; font-weight:800; letter-spacing:.01em; }
+
+/* Bento de embarques: imagens sem qualquer camada de degradê. */
+.ep-home-authority__tile::before,
+.ep-home-authority__tile::after { display:none!important; background:none!important; }
+
+/* Núcleo do Método: contraste fixo independente das regras globais de texto. */
+.ep-home-process__core { color:#fff!important; }
+.ep-home-process__core strong { color:#fff!important; }
+.ep-home-process__core small { color:#c8f4ef!important; }
+
+main > .ep-home-faq { order:10; align-self:center; }
+main > .ep-final-fly-in { order:11; }
+main > .ep-home-notice { order:12; }
+
+/* Implementação final da órbita: um único centro, raio fixo e orientação visual estável. */
+@media (min-width:621px) {
+  .ep-home-process__cycle {
+    --ep-method-satellite-radius:clamp(196px,22vw,236px);
+  }
+  .ep-home-process__satellite {
+    top:50%!important;
+    left:50%!important;
+    width:0!important;
+    height:0!important;
+    offset-path:none!important;
+    offset-distance:0!important;
+    offset-rotate:0deg!important;
+    transform:rotate(var(--ep-orbit-angle))!important;
+    animation:ep-method-satellite-orbit-stable 18s linear infinite!important;
+    animation-delay:0s!important;
+    will-change:transform;
+  }
+  .ep-home-process__satellite .ep-home-process__cycle-step {
+    transform:translate(-50%,-50%) translateY(calc(-1 * var(--ep-method-satellite-radius))) rotate(calc(-1 * var(--ep-orbit-angle)))!important;
+    animation:ep-method-satellite-counter-stable 18s linear infinite!important;
+  }
+  .ep-home-process__satellite .ep-home-process__cycle-icon,
+  .ep-home-process__satellite .ep-home-process__cycle-icon svg {
+    animation:none!important;
+    transform:none!important;
+  }
+}
+@keyframes ep-method-satellite-orbit-stable {
+  from { transform:rotate(var(--ep-orbit-angle)); }
+  to { transform:rotate(calc(var(--ep-orbit-angle) + 360deg)); }
+}
+@keyframes ep-method-satellite-counter-stable {
+  from { transform:translate(-50%,-50%) translateY(calc(-1 * var(--ep-method-satellite-radius))) rotate(calc(-1 * var(--ep-orbit-angle))); }
+  to { transform:translate(-50%,-50%) translateY(calc(-1 * var(--ep-method-satellite-radius))) rotate(calc(-1 * var(--ep-orbit-angle) - 360deg)); }
+}
+@media (min-width:621px) and (prefers-reduced-motion:reduce) {
+  .ep-home-process__satellite { animation:ep-method-satellite-orbit-stable 18s linear infinite!important; }
+  .ep-home-process__satellite .ep-home-process__cycle-step { animation:ep-method-satellite-counter-stable 18s linear infinite!important; }
+}
+@keyframes ep-method-satellite-path {
+  from { offset-distance:0%; }
+  to { offset-distance:100%; }
+}
+@media (min-width:621px) and (prefers-reduced-motion:reduce) {
+  .ep-home-process__satellite { animation:ep-method-satellite-path 18s linear infinite!important; animation-delay:var(--ep-orbit-delay)!important; }
+}
+
+/* Trava de orientação: o percurso muda a posição, jamais a rotação dos cards. */
+@media (min-width:621px) {
+  .ep-home-process__satellite {
+    rotate:0deg!important;
+    offset-rotate:0deg!important;
+    transform:none!important;
+  }
+  .ep-home-process__satellite .ep-home-process__cycle-step,
+  .ep-home-process__satellite .ep-home-process__cycle-icon,
+  .ep-home-process__satellite .ep-home-process__cycle-icon svg {
+    rotate:0deg!important;
+    animation:none!important;
+  }
+  .ep-home-process__satellite .ep-home-process__cycle-step,
+  .ep-home-process__satellite .ep-home-process__cycle-step:hover,
+  .ep-home-process__satellite .ep-home-process__cycle-step:focus-visible {
+    transform:translate(-50%,-50%)!important;
+  }
+  .ep-home-process__satellite .ep-home-process__cycle-icon,
+  .ep-home-process__satellite .ep-home-process__cycle-step:hover .ep-home-process__cycle-icon,
+  .ep-home-process__satellite .ep-home-process__cycle-step:focus-visible .ep-home-process__cycle-icon {
+    transform:none!important;
+  }
+}
+
+/* Regra final da metodologia — declarada no fim para neutralizar versões anteriores. */
+@media (min-width:621px) {
+  .ep-home-process__cycle { overflow:visible!important; }
+  .ep-home-process__satellite {
+    top:50%!important;
+    left:50%!important;
+    width:0!important;
+    height:0!important;
+    rotate:0deg!important;
+    offset-path:none!important;
+    offset-distance:0!important;
+    transform:rotate(calc(var(--ep-orbit-angle) + var(--ep-method-orbit-progress)))!important;
+    animation:ep-method-orbit-progress 18s linear infinite!important;
+    animation-delay:0s!important;
+  }
+  .ep-home-process__satellite .ep-home-process__cycle-step,
+  .ep-home-process__satellite .ep-home-process__cycle-step:hover,
+  .ep-home-process__satellite .ep-home-process__cycle-step:focus-visible {
+    transform:translate(-50%,-50%) translateY(calc(-1 * var(--ep-method-satellite-radius))) rotate(calc(-1 * var(--ep-orbit-angle) - var(--ep-method-orbit-progress)))!important;
+    animation:none!important;
+  }
+  .ep-home-process__cycle:has(.ep-home-process__satellite:hover) .ep-home-process__satellite { animation-play-state:paused!important; }
+}
