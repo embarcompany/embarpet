@@ -1,6 +1,6 @@
 # Backlog técnico — SEO, GEO, conversão e performance
 
-**Status:** planejado  
+**Status:** em execução — Fase 1 iniciada em 14 de agosto de 2026
 **Escopo:** index Embarpet em `design-system/`  
 **Princípio:** publicar somente claims, credenciais e regras com aprovação interna e fonte registrável.
 
@@ -28,6 +28,8 @@ Fazer a home ser encontrada, compreendida e convertida com segurança: visitante
 | SEO-04 | Schema `Organization`, `LocalBusiness` e `Service` | `index.html` ou módulo pré-renderizado | Rich Results Test sem erros e sem dados não validados |
 | SEO-05 | Schema `FAQPage` | `HomePage.tsx` + schema | schema coincide com FAQ visível |
 | SEO-06 | Padronizar autoridade em texto | `HomePage.tsx`, `patterns.tsx`, `case-drag-cards.tsx` | uma única versão aprovada: `+2.000 pets transportados`; IATA/IPATA também em texto |
+
+**Progresso:** SEO-01 e SEO-03 foram implementados com o domínio canônico assumido em DEC-01; Organization, Service e uma base de FAQPage também foram adicionados. A imagem Open Graph ainda usa o asset editorial existente e deve ser substituída por uma composição social 1200×630 aprovada em SEO-02. LocalBusiness permanece pendente para não publicar endereço/CNPJ sem validação.
 
 **Dependências:** DEC-01 e DEC-02.  
 **Fora de escopo:** criar LPs ou trocar o design system.
