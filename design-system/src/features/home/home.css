@@ -800,6 +800,35 @@
 }
 .ep-conversion-hero__copy .ep-title-xl em { background:rgba(0,157,172,.16); color:inherit; }
 
+/* Destinos prioritários entram como um detalhe vivo, sem competir com a headline. */
+.ep-hero-flags {
+  display:inline-grid;
+  width:1.12em;
+  height:1em;
+  margin:0 .08em;
+  vertical-align:.02em;
+}
+.ep-hero-flags > span {
+  grid-area:1 / 1;
+  opacity:0;
+  font-size:.68em;
+  line-height:1;
+  animation:ep-hero-flag-cycle 7.5s ease-in-out infinite;
+}
+.ep-hero-flags > span:nth-child(2) { animation-delay:1.5s; }
+.ep-hero-flags > span:nth-child(3) { animation-delay:3s; }
+.ep-hero-flags > span:nth-child(4) { animation-delay:4.5s; }
+.ep-hero-flags > span:nth-child(5) { animation-delay:6s; }
+@keyframes ep-hero-flag-cycle {
+  0%,14% { opacity:0; transform:translateY(4px) scale(.88); }
+  22%,76% { opacity:1; transform:translateY(0) scale(1); }
+  84%,100% { opacity:0; transform:translateY(-4px) scale(.92); }
+}
+@media (prefers-reduced-motion:reduce) {
+  .ep-hero-flags > span { animation:none; }
+  .ep-hero-flags > span:first-child { opacity:1; }
+}
+
 .ep-case-canvas__center > a { background:transparent; }
 .ep-case-canvas__center > a:hover { background:rgba(0,73,77,.08); color:var(--ep-teal); }
 
