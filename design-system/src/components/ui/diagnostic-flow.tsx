@@ -30,14 +30,14 @@ const petKinds: { label: PetKind; icon: LucideIcon }[] = [
   { label: "Exótico", icon: Bird },
 ];
 
-export function DiagnosticFlow({ onComplete, onRouteChange }: { onComplete?: (lead: PublicLead) => void; onRouteChange?: (route: RouteData) => void }) {
+export function DiagnosticFlow({ onComplete, onRouteChange, initialRoute }: { onComplete?: (lead: PublicLead) => void; onRouteChange?: (route: RouteData) => void; initialRoute?: Partial<RouteData> }) {
   const [step, setStep] = useState<Step>(1);
   const [firstKind, setFirstKind] = useState<PetKind | "">("");
   const [hasMultiplePets, setHasMultiplePets] = useState(false);
   const [petCounts, setPetCounts] = useState<Partial<Record<PetKind, number>>>({});
   const [otherPets, setOtherPets] = useState<string[]>([]);
   const [activeOtherPet, setActiveOtherPet] = useState(0);
-  const [route, setRoute] = useState<RouteData>({ origin: "", destination: "", period: "" });
+  const [route, setRoute] = useState<RouteData>({ origin: initialRoute?.origin ?? "", destination: initialRoute?.destination ?? "", period: initialRoute?.period ?? "" });
   const [pets, setPets] = useState<PetDetail[]>([]);
   const [contact, setContact] = useState({ name: "", phone: "" });
   const [phoneCountry, setPhoneCountry] = useState(phoneCountries[0]);

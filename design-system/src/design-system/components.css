@@ -32,6 +32,31 @@
 @media (max-width:900px) { .ep-route-fields,.ep-diagnostic-layout { grid-template-columns:1fr; }.ep-route-pair { grid-template-columns:1fr; }.ep-authority-band { grid-template-columns:1fr 1fr; }.ep-authority-band > div:nth-child(2) { border-right:0; }.ep-authority-band > div:nth-child(-n+2) { border-bottom:1px solid var(--ep-line); }.ep-modality-rail { grid-template-columns:1fr 1fr; }.ep-modality-rail article:nth-child(3) { border-left:1px solid var(--ep-line); }.ep-conversion-hero { display:block; min-height:0; padding-bottom:0; }.ep-conversion-hero__copy { min-height:490px; padding:116px 20px 50px; }.ep-conversion-hero__media { height:350px; }.ep-conversion-hero__image { height:100%; }.ep-conversion-hero__form { position:relative; top:auto; left:auto; width:calc(100% - 40px); margin:-48px auto 32px; }.ep-scroll-route img { width:70vw; } }
 .ep-nav-mobile-cta { display:none; }
 @media (max-width:1180px) { .ep-site-nav__desktop,.ep-site-nav__right { display:none; }.ep-nav-mobile-cta { display:inline-flex; min-height:38px; align-items:center; justify-content:center; margin-left:auto; padding:0 13px; border-radius:999px; background:var(--ep-turq); color:var(--ep-teal); font-size:11px; font-weight:850; text-decoration:none; white-space:nowrap; }.ep-nav-mobile-toggle { display:grid; margin-left:0; } }
+
+/* Header mobile como ponto de partida: atalhos + busca de destino, no ritmo de uma jornada. */
+.ep-mobile-journey,.ep-mobile-planner { display:none; }
+.ep-nav-mobile-cta { border:0; cursor:pointer; font:inherit; }
+@media (max-width:620px) {
+  .ep-site-nav { min-height:50px; gap:9px; }
+  .ep-site-logo img { width:95px; }
+  .ep-nav-mobile-cta { min-height:33px; padding-inline:10px; font-size:9px; }
+  .ep-nav-mobile-toggle { width:34px; height:34px; }
+  .ep-nav-mobile-toggle svg { width:18px; height:18px; }
+  .ep-mobile-journey { display:grid; gap:10px; padding:10px 16px 13px; border-top:1px solid rgba(255,255,255,.15); background:var(--ep-teal); }
+  .ep-mobile-shortcuts { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; }
+  .ep-mobile-shortcuts a { display:grid; justify-items:center; gap:4px; color:#d6f5f2; font-size:8px; font-weight:750; line-height:1.1; text-align:center; text-decoration:none; }
+  .ep-mobile-shortcuts a svg { display:grid; width:30px; height:30px; padding:7px; border-radius:50%; background:rgba(255,255,255,.1); color:var(--ep-turq); }
+  .ep-mobile-shortcuts a:active svg { background:var(--ep-turq); color:var(--ep-teal); }
+  .ep-mobile-route-search { display:grid; grid-template-columns:auto minmax(0,1fr) 38px; align-items:center; gap:8px; min-height:42px; padding:0 4px 0 12px; border-radius:10px; background:var(--ep-paper); color:var(--ep-muted); }
+  .ep-mobile-route-search input { min-width:0; border:0; outline:0; background:transparent; color:var(--ep-ink); font:inherit; font-size:12px; }
+  .ep-mobile-route-search input::placeholder { color:#81989b; }
+  .ep-mobile-route-search button { display:grid; width:34px; height:34px; place-items:center; border:0; border-radius:50%; background:var(--ep-turq); color:var(--ep-teal); }
+  .ep-mobile-planner { position:fixed; z-index:70; inset:0; display:grid; align-items:end; background:rgba(3,40,44,.58); }
+  .ep-mobile-planner__panel { position:relative; max-height:92dvh; overflow:auto; padding:50px 16px 20px; border-radius:24px 24px 0 0; background:var(--ep-page); }
+  .ep-mobile-planner__panel .ep-diagnostic-flow { width:100%; }
+  .ep-mobile-planner__close { position:absolute; top:12px; right:16px; display:grid; width:34px; height:34px; place-items:center; border:1px solid var(--ep-line); border-radius:50%; background:var(--ep-paper); color:var(--ep-teal); }
+  .ep-conversion-hero__form { display:none!important; }
+}
 @media (max-width:900px) { .ep-footer-grid { grid-template-columns:1fr 1fr; }.ep-footer-brand { grid-column:span 2; }.ep-footer-bottom { display:grid; } }
 @media (max-width:620px) { .ep-footer-cta { min-height:240px; align-items:flex-start; flex-direction:column; justify-content:center; }.ep-footer-grid { grid-template-columns:1fr; }.ep-footer-brand { grid-column:auto; }.ep-footer-bottom div { flex-wrap:wrap; }.ep-whatsapp-float { right:16px; bottom:16px; } }
 @media (max-width:600px) { .ep-flow-progress { justify-content:space-between; gap:8px; }.ep-flow-progress b { display:none; }.ep-flow-fields { grid-template-columns:1fr; }.ep-flow-actions { align-items:stretch; flex-direction:column-reverse; }.ep-flow-actions .ep-button { width:100%; }.ep-flow-actions .ep-button--text { width:max-content; } }
