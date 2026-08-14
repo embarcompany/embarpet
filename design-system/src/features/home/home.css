@@ -587,7 +587,9 @@
 @media (max-width:620px) {
   html,body { max-width:100%; overflow-x:hidden; }
   .ep-container { width:calc(100% - 40px); }
-  .ep-site-header { min-height:64px; padding-inline:20px; }
+  /* O header é uma faixa de viewport; o recuo pertence apenas aos seus conteúdos. */
+  .ep-site-header { width:100%; min-height:64px; margin-inline:0; padding-inline:0; }
+  .ep-site-header .ep-site-nav.ep-container { width:100%; margin-inline:0; padding-inline:12px; }
   .ep-nav-mobile-toggle { width:44px; height:44px; }
 
   .ep-conversion-hero { min-height:0; }

@@ -39,13 +39,16 @@
 @media (max-width:620px) {
   .ep-site-header,
   .ep-site-notice {
-    width:100dvw!important;
+    /* 100% acompanha a largura útil da página. 100dvw inclui a área da barra
+       de rolagem em alguns webviews e criava a falsa margem lateral. */
+    width:100%!important;
     max-width:none!important;
-    margin-inline:calc(50% - 50dvw)!important;
+    margin-inline:0!important;
+    padding-inline:0!important;
   }
 
   .ep-site-header { left:auto; right:auto; }
-  .ep-site-nav { width:100%; min-height:50px; gap:9px; padding-inline:12px; }
+  .ep-site-nav.ep-container { width:100%; min-height:50px; margin-inline:0; gap:9px; padding-inline:12px; }
   .ep-site-logo img { width:95px; }
   .ep-nav-mobile-cta { display:none!important; }
   .ep-nav-mobile-toggle { width:34px; height:34px; border:0; border-radius:0!important; background:transparent; }
