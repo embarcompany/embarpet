@@ -88,7 +88,12 @@
 .ep-case-card__sound { position:absolute; z-index:3; top:9px; right:9px; display:inline-flex; min-height:27px; align-items:center; gap:4px; padding:0 8px; border:1px solid rgba(255,255,255,.72); border-radius:999px; background:rgba(3,67,74,.74); color:var(--ep-paper); font-size:8px; font-weight:800; backdrop-filter:blur(6px); }.ep-case-card__sound:hover { background:rgba(0,157,172,.88); }.ep-case-card video.ep-case-card__image { object-position:center; }
 
 .ep-case-canvas__proof { display:flex; align-items:center; justify-content:center; gap:7px; }.ep-case-canvas__center .ep-case-google { display:inline-flex; min-height:32px; align-items:center; gap:4px; padding:4px 8px; border:1px solid rgba(0,157,172,.22); border-radius:999px; background:rgba(255,255,255,.74); color:var(--ep-teal); }.ep-case-google > img { width:14px; height:14px; }.ep-case-google > b { font-size:11px; letter-spacing:-.04em; }.ep-case-google > span { display:flex; gap:1px; color:#f2b01e; }.ep-case-google svg { width:9px; height:9px; }
-@media (max-width:560px) { .ep-case-canvas__proof { flex-wrap:wrap; } }
+@media (max-width:560px) {
+  .ep-case-canvas__proof {
+    flex-direction:column;
+    gap:8px;
+  }
+}
 
 .ep-home-cases .ep-case-canvas { min-height:820px; }
 @media (max-width:800px) { .ep-home-cases .ep-case-canvas { min-height:700px; } }
