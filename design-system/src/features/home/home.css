@@ -803,8 +803,8 @@
 .ep-hero-highlight {
   display:inline;
   color:inherit;
-  padding:.04em .14em .08em;
-  border-radius:.18em;
+  padding:.015em .075em .04em;
+  border-radius:.12em;
   background:rgba(198,221,81,.72);
   -webkit-box-decoration-break:clone;
   box-decoration-break:clone;
