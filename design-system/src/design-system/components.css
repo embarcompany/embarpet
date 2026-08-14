@@ -289,6 +289,13 @@ main section[id] { scroll-margin-top:84px; }
 }
 .ep-conversion-hero__copy .ep-copy,
 .ep-hero-premium-note { color:#285f63; }
+@media (min-width:901px) {
+  .ep-conversion-hero__copy {
+    justify-content:center;
+    padding-top:116px;
+    padding-bottom:74px;
+  }
+}
 @media (max-width:900px) {
   .ep-conversion-hero__copy .ep-title-xl { font-size:clamp(34px,8.5vw,42px); }
 }
