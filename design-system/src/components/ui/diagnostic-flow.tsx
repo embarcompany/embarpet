@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Bird, CalendarDays, Cat, Check, ChevronDown, CircleHelp, Dog, MapPin, Minus, Plane, Plus, Rabbit, UserRound, type LucideIcon } from "lucide-react";
 import type { PublicLead } from "../../lead-contract";
 import { airportCities, type AirportCity } from "../../data/airport-cities";
+import { trackConversionEvent } from "../../lib/analytics";
 
 type Step = 1 | 2 | 3 | 4;
 type PetKind = "Cachorro" | "Gato" | "Hamster" | "Exótico" | "Outro";
@@ -30,7 +31,7 @@ const petKinds: { label: PetKind; icon: LucideIcon }[] = [
   { label: "Exótico", icon: Bird },
 ];
 
-export function DiagnosticFlow({ onComplete, onRouteChange, initialRoute, routeFirst = false }: { onComplete?: (lead: PublicLead) => void; onRouteChange?: (route: RouteData) => void; initialRoute?: Partial<RouteData>; routeFirst?: boolean }) {
+export function DiagnosticFlow({ onComplete, onRouteChange, initialRoute, routeFirst = false, analyticsSource = routeFirst ? "mobile_header" : "hero_form" }: { onComplete?: (lead: PublicLead) => void; onRouteChange?: (route: RouteData) => void; initialRoute?: Partial<RouteData>; routeFirst?: boolean; analyticsSource?: string }) {
   // O pop-up móvel começa pela rota; o formulário da hero desktop preserva a ordem original.
   const [step, setStep] = useState<Step>(routeFirst ? 2 : 1);
   const [firstKind, setFirstKind] = useState<PetKind | "">("");
@@ -44,10 +45,20 @@ export function DiagnosticFlow({ onComplete, onRouteChange, initialRoute, routeF
   const [phoneCountry, setPhoneCountry] = useState(phoneCountries[0]);
   const [sent, setSent] = useState(false);
   const [hasSpecificDate, setHasSpecificDate] = useState(false);
+  const hasTrackedStart = useRef(false);
   const otherPetCount = petCounts.Outro ?? 0;
   const activeOtherIndex = Math.min(activeOtherPet, Math.max(0, otherPetCount - 1));
-  const go = (next: Step) => setStep(next);
+  const trackStart = () => {
+    if (hasTrackedStart.current) return;
+    hasTrackedStart.current = true;
+    trackConversionEvent("analysis_started", { source: analyticsSource, route_first: routeFirst });
+  };
+  const go = (next: Step) => {
+    if (next === 4 && !sent) trackConversionEvent("pets_completed", { source: analyticsSource, pet_count: pets.length, species: pets.map((pet) => pet.kind).join(",") });
+    setStep(next);
+  };
   const setRouteField = (field: keyof RouteData, value: string) => {
+    if (value.trim()) trackStart();
     setRoute((current) => ({ ...current, [field]: value }));
     if (field === "origin") setPhoneCountry(dialFromOrigin(value));
   };
@@ -79,6 +90,7 @@ export function DiagnosticFlow({ onComplete, onRouteChange, initialRoute, routeF
     setOtherPets([""]);
   };
   const selectSinglePet = (kind: PetKind) => {
+    trackStart();
     setFirstKind(kind);
     setPets([{ kind, breed: "", weight: "" }]);
     go(routeFirst ? 3 : 2);
@@ -97,10 +109,10 @@ export function DiagnosticFlow({ onComplete, onRouteChange, initialRoute, routeF
     setPets(selected.length ? selected : [{ kind: firstKind as PetKind, breed: firstKind === "Outro" ? otherPets[0] ?? "" : "", weight: "" }]);
   };
   const changePet = (index: number, field: keyof PetDetail, value: string) => setPets((current) => current.map((pet, petIndex) => petIndex === index ? { ...pet, [field]: value } as PetDetail : pet));
-  const advanceRoute = () => { onRouteChange?.(route); go(routeFirst ? 1 : 3); };
+  const advanceRoute = () => { trackConversionEvent("route_completed", { source: analyticsSource, has_origin: Boolean(route.origin), has_destination: Boolean(route.destination), travel_period: route.period }); onRouteChange?.(route); go(routeFirst ? 1 : 3); };
   const complete = () => {
     const lead: PublicLead = { source: "hero-diagnostic", page: "/", ...route, species: pets.map((pet) => pet.kind).join(", "), size: pets.map((pet) => pet.weight).join(", "), name: contact.name, phone: contact.phone, consent: true };
-    onComplete?.(lead); setSent(true); go(4);
+    trackConversionEvent("analysis_completed", { source: analyticsSource, pet_count: pets.length, travel_period: route.period }); onComplete?.(lead); setSent(true); setStep(4);
   };
 
   return <section className={`ep-diagnostic-flow ep-diagnostic-flow--hero ep-diagnostic-flow--step-${step}`} aria-label="Diagnóstico inicial da viagem">
