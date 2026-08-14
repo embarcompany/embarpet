@@ -519,6 +519,10 @@
   .ep-home-process__cycle-step strong { order:2; font-size:15px; line-height:1.15; }
   .ep-home-process__cycle-step small { order:3; color:#557277; font-size:11px; font-weight:600; line-height:1.35; }
   .ep-home-process__cycle-step:hover { transform:translateY(-2px)!important; }
+
+  .ep-home-authority__content .ep-eyebrow {
+    margin-inline:auto;
+  }
 }
 
 /* Regra vencedora da metodologia: cada satélite gira no próprio ângulo e o card faz a contra-rotação. */
