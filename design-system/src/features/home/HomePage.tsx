@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AuthorityBand, ConversionHero } from "../../design-system/patterns";
+import { ConversionHero } from "../../design-system/patterns";
 import { ModalityRail, type RouteData } from "../../design-system/components";
 import { Button, Notice, SectionHeading } from "../../design-system/primitives";
 import { InternationalTransfer, type Region } from "../../components/ui/country-accordion";
@@ -62,9 +62,8 @@ export default function EmbarpetHome() {
     <ConversionHero flow={<DiagnosticFlow onRouteChange={setRoute} onComplete={(lead) => setMessage(`Diagnóstico preparado para ${lead.destination || "sua rota"}.`)} />}>
       <h1 className="ep-title-xl">Seu <span className="ep-hero-highlight">pet vai para outro país?</span><span className="ep-hero-flags" aria-hidden="true"><img src="/apple-emoji/flag-br.png" alt="" /><img src="/apple-emoji/flag-us.png" alt="" /><img src="/apple-emoji/flag-pt.png" alt="" /><img src="/apple-emoji/flag-es.png" alt="" /><img src="/apple-emoji/flag-it.png" alt="" /></span></h1>
       <p className="ep-hero-lede">Planeje cada etapa com <em>segurança</em> e menos burocracia.</p>
-      <p className="ep-copy">Conte a rota e a data prevista. Analisamos o destino, o perfil do pet e os próximos passos para a viagem.</p>
+      <div className="ep-hero-proof" aria-label="Experiência e credenciais Embarpet"><div className="ep-hero-proof__metric"><span className="ep-team-avatars" aria-hidden="true"><i /><i /><i /><i /></span><strong>+2.000</strong><small>embarques<br />analisados</small></div><div className="ep-hero-proof__metric"><img src="https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico" alt="Google" /><strong>4,9</strong><small>avaliação<br />no Google</small></div><div className="ep-hero-proof__credential"><span><img src="/logo-ipata.png" alt="IPATA" /><img src="/logo-iata.png" alt="IATA" /></span><small>Credenciados</small></div><a className="ep-hero-proof__credential" href="https://www.reclameaqui.com.br/empresa/embarpet-embarque-de-animais/" target="_blank" rel="noreferrer"><img src="https://www.reclameaqui.com.br/favicon.ico" alt="Reclame Aqui" /><strong>0</strong><small>reclamações<br />no Reclame Aqui</small></a></div>
     </ConversionHero>
-    <AuthorityBand />
     {message ? <div className="ep-container ep-home-notice"><Notice kind="success">{message}</Notice></div> : null}
 
     <section className="ep-home-modalities" id="modalidades"><div className="ep-container"><div className="ep-home-modalities__intro"><div><p className="ep-eyebrow">Antes de escolher</p><h2 className="ep-title-lg">Antes da modalidade, vem a leitura do seu caso.</h2></div><p className="ep-copy">Destino, perfil do pet, companhia aérea e documentação definem qual alternativa pode fazer sentido para a viagem.</p></div>
