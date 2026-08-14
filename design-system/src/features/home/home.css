@@ -420,6 +420,102 @@
   }
 }
 
+/* No mobile, o Método deixa de disputar espaço com a órbita e vira uma jornada
+   vertical: contexto → etapa 01 → etapa 02 → etapa 03 → etapa 04. */
+@media (max-width:620px) {
+  .ep-home-process--cycle .ep-home-process__intro {
+    align-items:center;
+    text-align:center;
+  }
+
+  .ep-home-process--cycle .ep-home-process__intro .ep-eyebrow,
+  .ep-home-process--cycle .ep-home-process__intro .ep-copy,
+  .ep-home-process--cycle .ep-home-process__cta {
+    margin-inline:auto;
+  }
+
+  .ep-home-process--cycle .ep-home-process__intro .ep-copy { max-width:34ch; }
+
+  .ep-home-process__cycle {
+    display:grid;
+    width:100%;
+    grid-template-columns:1fr;
+    gap:12px;
+    margin-top:30px;
+  }
+
+  .ep-home-process__orbit { display:none; }
+
+  .ep-home-process__core {
+    position:relative;
+    top:auto;
+    left:auto;
+    display:flex;
+    width:100%;
+    height:auto;
+    min-height:76px;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    margin:0;
+    padding:13px 16px;
+    border-radius:18px;
+    transform:none;
+  }
+
+  .ep-home-process__core::after { border-radius:14px; }
+  .ep-home-process__core img { width:30px; height:30px; }
+  .ep-home-process__core strong { font-size:14px; text-align:left; }
+  .ep-home-process__core small { display:none; }
+
+  .ep-home-process__satellite {
+    position:relative!important;
+    top:auto!important;
+    right:auto!important;
+    bottom:auto!important;
+    left:auto!important;
+    display:block;
+    width:100%!important;
+    height:auto!important;
+    transform:none!important;
+    animation:none!important;
+  }
+
+  .ep-home-process__satellite:not(:last-child)::after {
+    position:absolute;
+    z-index:0;
+    top:100%;
+    left:50%;
+    width:1px;
+    height:12px;
+    background:linear-gradient(var(--ep-turq-deep),rgba(0,157,172,.25));
+    content:"";
+  }
+
+  .ep-home-process__cycle-step,
+  .ep-home-process__satellite .ep-home-process__cycle-step {
+    position:relative!important;
+    z-index:1;
+    display:grid;
+    width:100%!important;
+    min-height:96px;
+    grid-template-columns:44px minmax(0,1fr) auto;
+    align-items:center;
+    gap:12px;
+    padding:14px;
+    border-radius:16px;
+    transform:none!important;
+    animation:none!important;
+  }
+
+  .ep-home-process__cycle-icon { width:42px; height:42px; }
+  .ep-home-process__cycle-step > span:last-child { display:grid; min-width:0; gap:3px; }
+  .ep-home-process__cycle-step b { order:1; color:var(--ep-turq-deep); font-size:10px; }
+  .ep-home-process__cycle-step strong { order:2; font-size:15px; line-height:1.15; }
+  .ep-home-process__cycle-step small { order:3; color:#557277; font-size:11px; font-weight:600; line-height:1.35; }
+  .ep-home-process__cycle-step:hover { transform:translateY(-2px)!important; }
+}
+
 /* Regra vencedora da metodologia: cada satélite gira no próprio ângulo e o card faz a contra-rotação. */
 @media (min-width:621px) {
   .ep-home-process__cycle { overflow:visible!important; }
