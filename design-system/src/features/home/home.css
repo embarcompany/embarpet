@@ -527,6 +527,19 @@
   .ep-home-service .ep-eyebrow {
     margin-inline:auto;
   }
+
+  main > .ep-home-faq {
+    width:calc(100% - 40px);
+    align-self:stretch;
+  }
+
+  .ep-home-faq > div,
+  .ep-home-faq .ds-faq,
+  .ep-home-faq .ep-faq-item,
+  .ep-home-faq .ep-faq-item > div {
+    width:100%;
+    max-width:none;
+  }
 }
 
 /* Regra vencedora da metodologia: cada satélite gira no próprio ângulo e o card faz a contra-rotação. */
