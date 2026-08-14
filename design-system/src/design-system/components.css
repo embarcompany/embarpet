@@ -311,4 +311,8 @@ main section[id] { scroll-margin-top:84px; }
     min-height:606px;
     overflow-y:auto;
   }
+  .ep-conversion-hero__form {
+    left:calc(60% - 104px);
+    width:min(430px,calc(40% - 20px));
+  }
 }
