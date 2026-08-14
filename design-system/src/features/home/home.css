@@ -798,7 +798,7 @@
   color:inherit;
   font-style:normal;
 }
-.ep-conversion-hero__copy .ep-title-xl em { background:rgba(93,235,222,.23); color:#d9fffb; }
+.ep-conversion-hero__copy .ep-title-xl em { background:rgba(0,157,172,.16); color:inherit; }
 
 .ep-case-canvas__center > a { background:transparent; }
 .ep-case-canvas__center > a:hover { background:rgba(0,73,77,.08); color:var(--ep-teal); }

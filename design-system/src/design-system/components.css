@@ -276,3 +276,19 @@ main section[id] { scroll-margin-top:84px; }
 .ep-modality-rail h3 { margin-bottom:8px; font-size:18px; font-weight:600; line-height:1.2; }
 .ep-modality-rail p { font-size:13px; font-weight:400; line-height:1.55; }
 .ep-modality-rail .ep-modality-actions a { font-size:12px; font-weight:600; }
+
+/* Hero mais leve: a cor da marca sustenta a primeira dobra sem competir com a leitura. */
+.ep-conversion-hero {
+  background:linear-gradient(132deg,#c7f3f0 0%,#a9ebe5 54%,#8edfdc 100%);
+  color:var(--ep-teal);
+}
+.ep-conversion-hero__copy .ep-eyebrow { color:#006d76; }
+.ep-conversion-hero__copy .ep-title-xl {
+  color:var(--ep-teal);
+  font-size:clamp(42px,4.7vw,64px);
+}
+.ep-conversion-hero__copy .ep-copy,
+.ep-hero-premium-note { color:#285f63; }
+@media (max-width:900px) {
+  .ep-conversion-hero__copy .ep-title-xl { font-size:clamp(34px,8.5vw,42px); }
+}
