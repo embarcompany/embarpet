@@ -838,8 +838,8 @@
 .ep-hero-lede strong { color:var(--ep-teal); font-weight:780; }
 .ep-hero-lede em { font-style:italic; }
 .ep-hero-route-starter { display:grid; width:100%; max-width:500px; gap:10px; }
-.ep-hero-route-starter__period { display:inline-flex; width:max-content; min-height:42px; align-items:center; gap:7px; padding:0 13px; border:1px solid rgba(0,73,77,.12); border-radius:999px; background:rgba(255,255,255,.52); color:var(--ep-teal); font-size:11px; font-weight:800; }
-.ep-hero-route-starter__period svg { color:var(--ep-turq-deep); }.ep-hero-route-starter__period select { max-width:178px; padding:0 18px 0 0; border:0; outline:0; background:transparent; color:var(--ep-teal); font:inherit; font-size:11px; font-weight:700; }
+.ep-hero-route-starter__period { display:inline-flex; width:max-content; min-height:34px; align-items:center; gap:6px; padding:0; border:0; background:transparent; color:#52777a; font-size:11px; font-weight:650; }
+.ep-hero-route-starter__period svg { width:14px; height:14px; color:var(--ep-turq-deep); }.ep-hero-route-starter__period select { max-width:178px; min-height:34px; padding:0 18px 0 0; border:0; outline:0; background:transparent; color:var(--ep-teal); font:inherit; font-size:11px; font-weight:800; }
 .ep-hero-route-starter__route { display:grid; gap:0; }
 .ep-hero-route-starter__field { position:relative; display:grid; gap:5px; padding:13px 15px; border:1px solid rgba(0,73,77,.12); border-radius:12px; background:rgba(255,255,255,.76); color:var(--ep-teal); transition:border-color .2s ease,background .2s ease; }
 .ep-hero-route-starter__field:focus-within { z-index:2; border-color:var(--ep-turq-deep); background:var(--ep-paper); }.ep-hero-route-starter__field > span:first-child { display:flex; align-items:center; gap:7px; font-size:10px; font-weight:850; }.ep-hero-route-starter__field > span:first-child svg { color:var(--ep-turq-deep); }.ep-hero-route-starter__field input { width:100%; min-width:0; padding:0; border:0; outline:0; background:transparent; color:var(--ep-teal); font:inherit; font-size:15px; font-weight:650; }.ep-hero-route-starter__field input::placeholder { color:#789397; font-weight:500; }
