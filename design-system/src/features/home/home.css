@@ -846,7 +846,9 @@
   animation:ep-embarkation-marquee 42s linear infinite;
   will-change:transform;
 }
+.ep-embarkation-marquee__rail { display:flex; flex:0 0 auto; gap:var(--ep-marquee-gap); }
 .ep-embarkation-marquee__item {
+  position:relative;
   flex:0 0 clamp(170px,16vw,250px);
   aspect-ratio:1.26 / 1;
   margin:0;
@@ -862,6 +864,26 @@
   transition:transform .5s ease;
 }
 .ep-embarkation-marquee__item:hover img { transform:scale(1.045); }
+.ep-embarkation-marquee__item figcaption {
+  position:absolute;
+  right:8px;
+  bottom:8px;
+  left:8px;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  min-height:28px;
+  padding:0 8px;
+  border:1px solid rgba(255,255,255,.34);
+  border-radius:999px;
+  background:rgba(0,73,77,.74);
+  color:var(--ep-paper);
+  font-size:9px;
+  line-height:1;
+  backdrop-filter:blur(7px);
+}
+.ep-embarkation-marquee__item figcaption svg { flex:0 0 auto; color:var(--ep-turq); }
+.ep-embarkation-marquee__item figcaption b { overflow:hidden; font-size:9px; text-overflow:ellipsis; white-space:nowrap; }
 @keyframes ep-embarkation-marquee {
   to { transform:translateX(calc(-50% - (var(--ep-marquee-gap) / 2))); }
 }

@@ -33,18 +33,19 @@ const regions: Region[] = [
 ];
 
 const embarkationGallery = [
-  { src:"/embarpet-viagem-cabine.jpg", alt:"Pet em contexto de viagem na cabine" },
-  { src:"/embarpet-bagagem-acompanhada.webp", alt:"Consultora Embarpet acompanhando pets no aeroporto" },
-  { src:"/embarpet-compartimento-cargas.jpg", alt:"Pet em caixa de transporte no processo operacional" },
-  { src:"/embarpet-pet-luxo-real.jpeg", alt:"Acompanhamento de pet em aeroporto" },
-  { src:"/embarpet-mosaico-familia.jpg", alt:"Família em contexto de viagem com pet" },
-  { src:"/embarpet-mosaico-cabine.jpeg", alt:"Pet viajando em cabine aérea" },
-  { src:"/embarpet-mosaico-encontro.jpg", alt:"Encontro de família e pet após a jornada" },
-  { src:"/embarpet-carga-viva-operacao.jpeg", alt:"Operação de embarque internacional de pet" },
+  { src:"/embarpet-viagem-cabine.jpg", alt:"Pet em contexto de viagem na cabine", destination:"Estados Unidos" },
+  { src:"/embarpet-bagagem-acompanhada.webp", alt:"Consultora Embarpet acompanhando pets no aeroporto", destination:"Portugal" },
+  { src:"/embarpet-compartimento-cargas.jpg", alt:"Pet em caixa de transporte no processo operacional", destination:"Espanha" },
+  { src:"/embarpet-pet-luxo-real.jpeg", alt:"Acompanhamento de pet em aeroporto", destination:"Itália" },
+  { src:"/embarpet-mosaico-familia.jpg", alt:"Família em contexto de viagem com pet", destination:"Estados Unidos" },
+  { src:"/embarpet-mosaico-cabine.jpeg", alt:"Pet viajando em cabine aérea", destination:"França" },
+  { src:"/embarpet-mosaico-encontro.jpg", alt:"Encontro de família e pet após a jornada", destination:"Argentina" },
+  { src:"/embarpet-carga-viva-operacao.jpeg", alt:"Operação de embarque internacional de pet", destination:"Uruguai" },
 ];
 
 function EmbarkationMarquee() {
-  return <section className="ep-embarkation-marquee" aria-label="Embarques acompanhados pela Embarpet"><div className="ep-embarkation-marquee__viewport"><div className="ep-embarkation-marquee__track">{[...embarkationGallery, ...embarkationGallery].map(({ src, alt }, index) => <figure className="ep-embarkation-marquee__item" key={`${src}-${index}`} aria-hidden={index >= embarkationGallery.length ? "true" : undefined}><img src={src} alt={index >= embarkationGallery.length ? "" : alt} loading="lazy" decoding="async" /></figure>)}</div></div></section>;
+  const railItems = [...embarkationGallery, ...embarkationGallery];
+  return <section className="ep-embarkation-marquee" aria-label="Embarques acompanhados pela Embarpet"><div className="ep-embarkation-marquee__viewport"><div className="ep-embarkation-marquee__track">{[0, 1].map((rail) => <div className="ep-embarkation-marquee__rail" key={rail} aria-hidden={rail ? "true" : undefined}>{railItems.map(({ src, alt, destination }, index) => <figure className="ep-embarkation-marquee__item" key={`${src}-${rail}-${index}`}><img src={src} alt={rail ? "" : alt} loading="lazy" decoding="async" /><figcaption><span>Brasil</span><Plane size={12} aria-hidden="true" /><b>{destination}</b></figcaption></figure>)}</div>)}</div></div></section>;
 }
 
 export default function EmbarpetHome() {
