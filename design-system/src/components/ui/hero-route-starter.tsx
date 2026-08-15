@@ -27,7 +27,7 @@ export function HeroRouteStarter() {
     <label className="ep-hero-route-starter__period"><CalendarDays size={16} aria-hidden="true" /><select value={route.period} onChange={(event) => setField("period", event.target.value)} aria-label="Quando deseja viajar?"><option value="" disabled>Quando deseja viajar?</option>{travelPeriods.map((period) => <option key={period} value={period}>{period}</option>)}</select></label>
     <div className="ep-hero-route-starter__route">
       <RouteField label="De onde seu pet parte?" field="origin" value={route.origin} active={activeField === "origin"} matches={matches} onChange={(value) => { setField("origin", value); setActiveField("origin"); }} onFocus={() => setActiveField("origin")} onBlur={() => window.setTimeout(() => setActiveField(null), 120)} onChoose={(airport) => chooseAirport("origin", airport)} />
-      <span className="ep-hero-route-starter__line" aria-hidden="true"><i /><Plane size={15} /></span>
+      <span className="ep-hero-route-starter__line" aria-hidden="true" />
       <RouteField label="Para onde seu pet vai?" field="destination" value={route.destination} active={activeField === "destination"} matches={matches} onChange={(value) => { setField("destination", value); setActiveField("destination"); }} onFocus={() => setActiveField("destination")} onBlur={() => window.setTimeout(() => setActiveField(null), 120)} onChoose={(airport) => chooseAirport("destination", airport)} />
     </div>
     <button className="ep-hero-route-starter__submit" type="submit" disabled={!route.origin || !route.destination || !route.period}>Começar minha análise <Plane size={16} aria-hidden="true" /></button>
