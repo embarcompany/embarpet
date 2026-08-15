@@ -803,13 +803,18 @@
 .ep-conversion-hero__copy .ep-title-xl em { background:rgba(0,157,172,.16); color:inherit; }
 .ep-hero-highlight {
   display:inline;
-  color:inherit;
-  padding:0 .06em .018em;
-  border-radius:.08em;
-  background:linear-gradient(transparent 72%,rgba(198,221,81,.78) 72%);
-  -webkit-box-decoration-break:clone;
-  box-decoration-break:clone;
+  color:var(--ep-turq-deep);
 }
+.ep-hero-route-intro {
+  max-width:430px;
+  margin:16px 0 0;
+  color:#285f63;
+  font-size:14px;
+  font-weight:560;
+  letter-spacing:-.02em;
+  line-height:1.42;
+}
+.ep-hero-route-intro strong { color:var(--ep-teal); font-weight:800; }
 .ep-hero-lede {
   max-width:24ch;
   margin:16px 0 0;
