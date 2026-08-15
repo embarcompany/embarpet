@@ -856,7 +856,7 @@
 .ep-embarkation-marquee__track {
   display:flex;
   width:max-content;
-  animation:ep-embarkation-marquee 42s linear infinite;
+  transform:translate3d(0,0,0);
   will-change:transform;
 }
 .ep-embarkation-marquee__rail { display:flex; flex:0 0 auto; gap:var(--ep-marquee-gap); padding-right:var(--ep-marquee-gap); }
@@ -895,13 +895,8 @@
 }
 .ep-embarkation-marquee__item figcaption svg { flex:0 0 auto; color:var(--ep-turq); }
 .ep-embarkation-marquee__item figcaption b { overflow:hidden; font-size:9px; text-overflow:ellipsis; white-space:nowrap; }
-@keyframes ep-embarkation-marquee {
-  to { transform:translateX(-25%); }
-}
-@media (prefers-reduced-motion:reduce) { .ep-embarkation-marquee__track { animation:none; } }
 @media (max-width:620px) {
   .ep-embarkation-marquee { --ep-marquee-gap:8px; padding:8px 0; }
-  .ep-embarkation-marquee__track { animation-duration:34s; }
   .ep-embarkation-marquee__item { flex-basis:142px; border-radius:10px; }
 }
 .ep-hero-proof { display:inline-flex; width:max-content; max-width:100%; align-items:center; gap:0; margin:0 0 15px; padding:6px 10px; border:1px solid rgba(0,73,77,.14); border-radius:999px; background:rgba(255,255,255,.54); color:var(--ep-teal); }

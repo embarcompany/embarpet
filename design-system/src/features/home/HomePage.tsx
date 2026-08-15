@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ConversionHero } from "../../design-system/patterns";
 import { ModalityRail, type RouteData } from "../../design-system/components";
 import { Button, Notice, SectionHeading } from "../../design-system/primitives";
@@ -44,8 +44,54 @@ const embarkationGallery = [
 ];
 
 function EmbarkationMarquee() {
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const rails = [0, 1, 2, 3];
-  return <section className="ep-embarkation-marquee" aria-label="Embarques acompanhados pela Embarpet"><div className="ep-embarkation-marquee__viewport"><div className="ep-embarkation-marquee__track">{rails.map((rail) => <div className="ep-embarkation-marquee__rail" key={rail} aria-hidden={rail ? "true" : undefined}>{embarkationGallery.map(({ src, alt, destination }) => <figure className="ep-embarkation-marquee__item" key={`${src}-${rail}`}><img src={src} alt={rail ? "" : alt} loading="lazy" decoding="async" /><figcaption><span>Brasil</span><Plane size={12} aria-hidden="true" /><b>{destination}</b></figcaption></figure>)}</div>)}</div></div></section>;
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    const track = trackRef.current;
+    const rail = track?.querySelector<HTMLElement>(".ep-embarkation-marquee__rail");
+    if (!viewport || !track || !rail) return;
+
+    let frame = 0;
+    let offset = 0;
+    let lastFrame = performance.now();
+    let railWidth = rail.getBoundingClientRect().width;
+    let isVisible = true;
+    const speed = 46;
+    const render = (now: number) => {
+      const elapsed = Math.min(now - lastFrame, 40);
+      lastFrame = now;
+      if (isVisible && !document.hidden && railWidth > 0) {
+        offset -= (elapsed / 1000) * speed;
+        if (Math.abs(offset) >= railWidth) offset += railWidth;
+        track.style.transform = `translate3d(${offset}px,0,0)`;
+      }
+      frame = window.requestAnimationFrame(render);
+    };
+    const resizeObserver = new ResizeObserver(() => {
+      railWidth = rail.getBoundingClientRect().width;
+      if (railWidth > 0) offset = -(Math.abs(offset) % railWidth);
+    });
+    const intersectionObserver = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      lastFrame = performance.now();
+    }, { threshold: 0.01 });
+    const resetFrameTime = () => { lastFrame = performance.now(); };
+
+    resizeObserver.observe(rail);
+    intersectionObserver.observe(viewport);
+    document.addEventListener("visibilitychange", resetFrameTime);
+    frame = window.requestAnimationFrame(render);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      resizeObserver.disconnect();
+      intersectionObserver.disconnect();
+      document.removeEventListener("visibilitychange", resetFrameTime);
+    };
+  }, []);
+
+  return <section className="ep-embarkation-marquee" aria-label="Embarques acompanhados pela Embarpet"><div className="ep-embarkation-marquee__viewport" ref={viewportRef}><div className="ep-embarkation-marquee__track" ref={trackRef}>{rails.map((rail) => <div className="ep-embarkation-marquee__rail" key={rail} aria-hidden={rail ? "true" : undefined}>{embarkationGallery.map(({ src, alt, destination }) => <figure className="ep-embarkation-marquee__item" key={`${src}-${rail}`}><img src={src} alt={rail ? "" : alt} loading="lazy" decoding="async" /><figcaption><span>Brasil</span><Plane size={12} aria-hidden="true" /><b>{destination}</b></figcaption></figure>)}</div>)}</div></div></section>;
 }
 
 export default function EmbarpetHome() {
