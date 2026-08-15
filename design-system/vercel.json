@@ -15,6 +15,7 @@
     }
   ],
   "rewrites": [
-    { "source": "/analise", "destination": "/index.html" }
+    { "source": "/analise", "destination": "/index.html" },
+    { "source": "/obrigado", "destination": "/index.html" }
   ]
 }

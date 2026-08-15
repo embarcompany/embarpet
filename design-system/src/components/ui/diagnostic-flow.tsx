@@ -113,7 +113,13 @@ export function DiagnosticFlow({ onComplete, onRouteChange, initialRoute, routeF
   const advanceRoute = () => { trackConversionEvent("route_completed", { source: analyticsSource, has_origin: Boolean(route.origin), has_destination: Boolean(route.destination), travel_period: route.period }); onRouteChange?.(route); go(routeFirst ? 1 : 3); };
   const complete = () => {
     const lead: PublicLead = { source: "hero-diagnostic", page: "/", ...route, species: pets.map((pet) => pet.kind).join(", "), size: pets.map((pet) => pet.weight).join(", "), name: contact.name, phone: contact.phone, consent: true };
-    trackConversionEvent("analysis_completed", { source: analyticsSource, pet_count: pets.length, travel_period: route.period }); onComplete?.(lead); setSent(true); setStep(4);
+    const query = new URLSearchParams({ destino: route.destination, animal: lead.species ?? "Pet", prazo: route.period });
+    trackConversionEvent("form_submitted", { source: analyticsSource, pet_count: pets.length, travel_period: route.period });
+    trackConversionEvent("diagnostico_concluido", { source: analyticsSource, pet_count: pets.length, travel_period: route.period });
+    trackConversionEvent("lead_created", { source: analyticsSource, pet_count: pets.length, travel_period: route.period });
+    trackConversionEvent("analysis_completed", { source: analyticsSource, pet_count: pets.length, travel_period: route.period });
+    onComplete?.(lead);
+    window.location.assign(`/obrigado?${query.toString()}`);
   };
 
   return <section className={`ep-diagnostic-flow ep-diagnostic-flow--hero ep-diagnostic-flow--step-${step}${integrated ? " ep-diagnostic-flow--integrated" : ""}`} aria-label="Diagnóstico inicial da viagem">

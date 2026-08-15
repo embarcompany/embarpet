@@ -1,4 +1,4 @@
-type ConversionEvent = "analysis_started" | "route_completed" | "pets_completed" | "analysis_completed" | "modality_clicked" | "whatsapp_clicked";
+type ConversionEvent = "analysis_started" | "route_completed" | "pets_completed" | "analysis_completed" | "form_submitted" | "diagnostico_concluido" | "thank_you_view" | "lead_created" | "whatsapp_click_after_form" | "lead_continued_whatsapp" | "modality_clicked" | "whatsapp_clicked";
 type ConversionPayload = Record<string, string | number | boolean | undefined>;
 
 declare global {
