@@ -3,6 +3,7 @@ import { createRoot, hydrateRoot } from "react-dom/client";
 import "./tailwind.css";
 import "./design-system/components.css";
 import "./features/home/home.css";
+import "./features/analysis/analysis.css";
 import { App } from "./app/App";
 
 const root = document.getElementById("root")!;

@@ -31,9 +31,9 @@ const petKinds: { label: PetKind; icon: LucideIcon }[] = [
   { label: "Exótico", icon: Bird },
 ];
 
-export function DiagnosticFlow({ onComplete, onRouteChange, initialRoute, routeFirst = false, integrated = false, analyticsSource = routeFirst ? "mobile_header" : "hero_form" }: { onComplete?: (lead: PublicLead) => void; onRouteChange?: (route: RouteData) => void; initialRoute?: Partial<RouteData>; routeFirst?: boolean; integrated?: boolean; analyticsSource?: string }) {
+export function DiagnosticFlow({ onComplete, onRouteChange, initialRoute, routeFirst = false, startAtPet = false, integrated = false, analyticsSource = routeFirst ? "mobile_header" : "hero_form" }: { onComplete?: (lead: PublicLead) => void; onRouteChange?: (route: RouteData) => void; initialRoute?: Partial<RouteData>; routeFirst?: boolean; startAtPet?: boolean; integrated?: boolean; analyticsSource?: string }) {
   // O pop-up móvel começa pela rota; o formulário da hero desktop preserva a ordem original.
-  const [step, setStep] = useState<Step>(routeFirst ? 2 : 1);
+  const [step, setStep] = useState<Step>(routeFirst && !startAtPet ? 2 : 1);
   const [firstKind, setFirstKind] = useState<PetKind | "">("");
   const [hasMultiplePets, setHasMultiplePets] = useState(false);
   const [petCounts, setPetCounts] = useState<Partial<Record<PetKind, number>>>({});

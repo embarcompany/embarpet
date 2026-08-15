@@ -1,0 +1,14 @@
+.ep-analysis-page { min-height:100dvh; background:#f7fbfb; color:var(--ep-teal); }
+.ep-analysis-page__header { display:flex; width:min(1180px,calc(100% - 48px)); min-height:82px; align-items:center; justify-content:space-between; margin:0 auto; border-bottom:1px solid var(--ep-line); }
+.ep-analysis-page__header img { display:block; width:128px; height:auto; }
+.ep-analysis-page__back { display:inline-flex; align-items:center; gap:7px; color:var(--ep-teal); font-size:12px; font-weight:800; text-decoration:none; }
+.ep-analysis-page__back:hover { color:var(--ep-turq-deep); }
+.ep-analysis-page__content { display:grid; grid-template-columns:minmax(0,.9fr) minmax(380px,.74fr); gap:clamp(48px,9vw,130px); width:min(1060px,calc(100% - 48px)); align-items:center; margin:0 auto; padding:clamp(54px,8vw,104px) 0; }
+.ep-analysis-page__intro .ep-eyebrow { margin:0 0 20px; }
+.ep-analysis-page__intro h1 { max-width:500px; margin:0; font-size:clamp(40px,5vw,66px); letter-spacing:-.06em; line-height:.97; }
+.ep-analysis-page__intro > p:not(.ep-eyebrow) { max-width:470px; margin:22px 0; color:var(--ep-muted); font-size:16px; line-height:1.55; }
+.ep-analysis-page__route { display:flex; flex-wrap:wrap; align-items:center; gap:8px; max-width:490px; padding:13px 14px; border:1px solid rgba(0,157,172,.22); border-radius:14px; background:rgba(232,249,247,.78); font-size:12px; font-weight:800; }
+.ep-analysis-page__route > span { display:inline-flex; min-width:0; align-items:center; gap:5px; }.ep-analysis-page__route > span:first-child { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }.ep-analysis-page__route > svg { flex:0 0 auto; color:var(--ep-turq-deep); }.ep-analysis-page__route small { display:inline-flex; align-items:center; gap:4px; width:100%; margin-top:3px; color:var(--ep-muted); font-size:10px; font-weight:700; }
+.ep-analysis-page__change { display:inline-block; margin-top:12px; color:var(--ep-turq-deep); font-size:11px; font-weight:800; text-decoration:none; }.ep-analysis-page__change:hover { text-decoration:underline; text-underline-offset:3px; }
+.ep-analysis-page__flow .ep-diagnostic-flow { width:100%; }.ep-analysis-page__flow .ep-flow-card { min-height:550px; border-radius:24px; }.ep-analysis-page__flow .ep-diagnostic-flow--hero { padding:2px; border-radius:26px; }
+@media (max-width:760px) { .ep-analysis-page__header,.ep-analysis-page__content { width:calc(100% - 40px); }.ep-analysis-page__header { min-height:68px; }.ep-analysis-page__header img { width:106px; }.ep-analysis-page__content { grid-template-columns:1fr; gap:30px; padding:42px 0 52px; }.ep-analysis-page__intro h1 { font-size:clamp(34px,10vw,46px); }.ep-analysis-page__intro > p:not(.ep-eyebrow) { font-size:15px; }.ep-analysis-page__flow .ep-flow-card { min-height:0; }.ep-analysis-page__route { font-size:11px; } }
