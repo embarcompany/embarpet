@@ -52,6 +52,8 @@ export default function EmbarpetHome() {
   const [message, setMessage] = useState("");
   const [petLuxoUnmuted, setPetLuxoUnmuted] = useState(false);
   const [petLuxoFullVideoLoaded, setPetLuxoFullVideoLoaded] = useState(false);
+  const [heroVideoUnmuted, setHeroVideoUnmuted] = useState(false);
+  const [heroVideoFullLoaded, setHeroVideoFullLoaded] = useState(false);
   const startFromDestination = (destination: string) => {
     setRoute((current) => ({ ...current, destination }));
     document.getElementById("analise")?.scrollIntoView({ behavior:"smooth" });
@@ -74,9 +76,9 @@ export default function EmbarpetHome() {
     ] },
     { label:"Conteúdo", href:"#faq" },
   ]} /><main>
-    <ConversionHero flow={<DiagnosticFlow onRouteChange={setRoute} onComplete={(lead) => setMessage(`Diagnóstico preparado para ${lead.destination || "sua rota"}.`)} />}>
+    <ConversionHero aside={<div className="ep-hero-video"><video key={heroVideoFullLoaded ? "hero-full" : "hero-preview"} poster="/embarpet-pet-luxo-real.jpeg" aria-label="Acompanhamento Embarpet em contexto de viagem" autoPlay loop muted={heroVideoFullLoaded ? !heroVideoUnmuted : true} playsInline preload="metadata">{!heroVideoFullLoaded ? <source src="/embarpet-petluxo-preview-5s.webm" type="video/webm" /> : null}<source src={heroVideoFullLoaded ? "/embarpet-petluxo-baeta-alpargata.mp4" : "/embarpet-petluxo-preview-5s.mp4"} type="video/mp4" /></video><button type="button" className="ep-hero-video__sound" onClick={() => { if (!heroVideoFullLoaded) { setHeroVideoFullLoaded(true); setHeroVideoUnmuted(true); return; } setHeroVideoUnmuted((current) => !current); }}>{heroVideoUnmuted ? <VolumeX size={15} /> : <Volume2 size={15} />}{heroVideoUnmuted ? "Silenciar" : "Ativar som"}</button></div>}>
       <h1 className="ep-title-xl">Seu <span className="ep-hero-highlight">pet vai para outro país?</span><span className="ep-hero-flags" aria-hidden="true"><img src="/apple-emoji/flag-br.png" alt="" /><img src="/apple-emoji/flag-us.png" alt="" /><img src="/apple-emoji/flag-pt.png" alt="" /><img src="/apple-emoji/flag-es.png" alt="" /><img src="/apple-emoji/flag-it.png" alt="" /></span></h1>
-      <p className="ep-hero-lede">Responda <mark>em poucos passos</mark> e <strong>comece a planejar a viagem do seu pet agora.</strong></p>
+      <div className="ep-conversion-hero__form"><DiagnosticFlow routeFirst integrated analyticsSource="hero_desktop" onRouteChange={setRoute} onComplete={(lead) => setMessage(`Diagnóstico preparado para ${lead.destination || "sua rota"}.`)} /></div>
       <div className="ep-hero-proof" aria-label="Experiência e credenciais Embarpet"><div className="ep-hero-proof__metric"><span className="ep-team-avatars" aria-hidden="true"><i /><i /><i /><i /></span><strong>+2.000</strong><small>embarques<br />analisados</small></div><div className="ep-hero-proof__metric"><img src="https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico" alt="Google" /><strong>4,9</strong><small>avaliação<br />no Google</small></div><div className="ep-hero-proof__credential"><span><img src="/logo-ipata.png" alt="IPATA" /><img src="/logo-iata.png" alt="IATA" /></span><small>Credenciados</small></div><a className="ep-hero-proof__credential" href="https://www.reclameaqui.com.br/empresa/embarpet-embarque-de-animais/" target="_blank" rel="noreferrer"><img src="https://www.reclameaqui.com.br/favicon.ico" alt="Reclame Aqui" /><strong>0</strong><small>reclamações<br />no Reclame Aqui</small></a></div>
     </ConversionHero>
     {message ? <div className="ep-container ep-home-notice"><Notice kind="success">{message}</Notice></div> : null}

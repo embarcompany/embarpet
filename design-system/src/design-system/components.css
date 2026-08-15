@@ -358,3 +358,32 @@ main section[id] { scroll-margin-top:84px; }
 .ep-flow-route-preview { display:grid; grid-template-columns:34px minmax(0,1fr); align-items:center; gap:9px; margin-top:14px; padding:9px 10px; border:1px solid rgba(0,157,172,.2); border-radius:10px; background:rgba(232,249,247,.66); color:var(--ep-teal); }
 .ep-flow-route-preview__icon { display:grid; width:34px; height:34px; place-items:center; border-radius:50%; background:var(--ep-paper); color:var(--ep-turq-deep); }
 .ep-flow-route-preview__content { display:grid; min-width:0; gap:2px; }.ep-flow-route-preview small { color:var(--ep-turq-deep); font-size:9px; font-weight:800; }.ep-flow-route-preview b { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:6px; font-size:11px; line-height:1.15; }.ep-flow-route-preview b span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }.ep-flow-route-preview b span:last-child { text-align:right; }.ep-flow-route-preview b i { color:var(--ep-turq-deep); font-style:normal; }.ep-flow-route-preview em { overflow:hidden; color:var(--ep-muted); font-size:9px; font-style:normal; font-weight:650; text-overflow:ellipsis; white-space:nowrap; }
+
+/* Hero de conversão: contexto à esquerda, prova visual real à direita. */
+.ep-conversion-hero__aside { display:none; }
+.ep-hero-video { position:relative; width:100%; height:100%; overflow:hidden; background:#075c62; }
+.ep-hero-video video { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
+.ep-hero-video__sound { position:absolute; z-index:1; right:18px; bottom:18px; display:inline-flex; align-items:center; gap:7px; min-height:36px; padding:0 12px; border:1px solid rgba(255,255,255,.45); border-radius:999px; background:rgba(0,73,77,.7); color:var(--ep-paper); font:inherit; font-size:10px; font-weight:800; backdrop-filter:blur(8px); }
+.ep-hero-video__sound:hover { background:rgba(0,73,77,.9); }
+@media (min-width:901px) {
+  .ep-conversion-hero { grid-template-columns:minmax(0,56%) minmax(0,44%); min-height:850px; }
+  .ep-conversion-hero__copy { z-index:1; align-items:flex-start; justify-content:flex-start; padding:126px 52px 60px max(32px,calc((100vw - var(--ep-content))/2)); }
+  .ep-conversion-hero__copy .ep-title-xl { max-width:540px; font-size:clamp(42px,4.2vw,58px); }
+  .ep-conversion-hero__form { position:static; z-index:auto; display:block; width:min(100%,540px); height:auto; margin:28px 0 22px; padding:0; }
+  .ep-diagnostic-flow--integrated { width:100%; min-height:0; padding:0; border:0; border-radius:0; background:transparent; }
+  .ep-diagnostic-flow--integrated .ep-flow-card { display:flex; width:100%; min-height:0; height:auto; max-height:none; padding:0; border:0; border-radius:0; background:transparent; overflow:visible; }
+  .ep-diagnostic-flow--integrated .ep-flow-title { font-size:25px; }
+  .ep-diagnostic-flow--integrated .ep-flow-intro { max-width:430px; font-size:12px; }
+  .ep-diagnostic-flow--integrated .ep-flow-fields { margin-top:16px; }
+  .ep-diagnostic-flow--integrated .ep-flow-actions { margin-top:18px; }
+  .ep-diagnostic-flow--integrated .ep-pet-choice-grid { max-width:460px; }
+  .ep-diagnostic-flow--integrated .ep-pet-choice-grid button { background:rgba(255,255,255,.86); }
+  .ep-diagnostic-flow--integrated .ep-other-pet { max-width:460px; background:rgba(255,255,255,.58); }
+  .ep-conversion-hero__aside { display:block; grid-column:2; grid-row:1; min-width:0; }
+  .ep-conversion-hero__family-cutout { display:none!important; }
+  .ep-hero-proof { max-width:540px; margin-top:0; }
+}
+@media (max-width:900px) {
+  .ep-conversion-hero__form,
+  .ep-conversion-hero__aside { display:none!important; }
+}
