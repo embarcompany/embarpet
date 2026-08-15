@@ -992,6 +992,8 @@
 /* Ordem de conversão da home: decisão → possibilidade → método → prova → confiança → ação. */
 main { display:flex; flex-direction:column; }
 main > .ep-conversion-hero { order:1; }
+/* A faixa visual é continuação imediata da primeira dobra, não conteúdo prioritário do main. */
+main > .ep-embarkation-marquee { order:2; }
 main > .ep-authority-band { order:2; }
 main > .ep-home-destinations { order:3; }
 main > .ep-home-modalities { order:4; }
