@@ -367,7 +367,7 @@ main section[id] { scroll-margin-top:84px; }
 .ep-hero-video__sound:hover { background:rgba(0,73,77,.9); }
 @media (min-width:901px) {
   .ep-conversion-hero { grid-template-columns:minmax(0,56%) minmax(0,44%); height:100vh; height:100svh; min-height:0; max-height:100svh; }
-  .ep-conversion-hero__copy { z-index:1; align-items:center; justify-content:center; padding:84px 46px 42px; }
+  .ep-conversion-hero__copy { z-index:1; align-items:flex-start; justify-content:center; padding:84px 52px 42px max(32px,calc((100vw - var(--ep-content))/2)); }
   .ep-conversion-hero__copy .ep-title-xl { max-width:540px; font-size:clamp(42px,4.2vw,58px); }
   .ep-conversion-hero__form { position:static; z-index:auto; display:block; width:min(100%,540px); height:auto; margin:28px 0 22px; padding:0; }
   .ep-diagnostic-flow--integrated { width:100%; min-height:0; padding:0; border:0; border-radius:0; background:transparent; }
