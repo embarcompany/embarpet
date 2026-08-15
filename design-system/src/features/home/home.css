@@ -907,35 +907,9 @@
   .ep-embarkation-marquee__track { animation-duration:34s; }
   .ep-embarkation-marquee__item { flex-basis:142px; border-radius:10px; }
 }
-.ep-hero-proof {
-  display:grid;
-  grid-template-columns:1.18fr 1fr;
-  gap:8px;
-  max-width:486px;
-  margin-top:24px;
-}
-.ep-hero-proof__metric,.ep-hero-proof__credential {
-  display:flex;
-  min-height:58px;
-  align-items:center;
-  gap:7px;
-  padding:9px 10px;
-  border:1px solid rgba(0,104,113,.18);
-  border-radius:12px;
-  background:rgba(247,251,251,.42);
-  color:var(--ep-teal);
-  text-decoration:none;
-}
-.ep-hero-proof__metric > img,.ep-hero-proof__credential > img { width:18px; height:18px; object-fit:contain; }
-.ep-hero-proof__metric strong,.ep-hero-proof__credential strong { font-size:20px; font-weight:850; letter-spacing:-.07em; line-height:1; }
-.ep-hero-proof small { color:#285f63; font-size:8px; font-weight:760; line-height:1.2; }
-.ep-hero-proof .ep-team-avatars { display:flex; flex:0 0 auto; margin-right:0; }
-.ep-hero-proof .ep-team-avatars i { width:22px; height:22px; margin-left:-5px; border:2px solid #c7f3f0; }
-.ep-hero-proof .ep-team-avatars i:first-child { margin-left:0; }
-.ep-hero-proof__credential > span { display:flex; align-items:center; gap:5px; }
-.ep-hero-proof__credential > span img { display:block; width:auto; max-width:35px; max-height:18px; object-fit:contain; }
-.ep-hero-proof__credential:nth-child(4) { gap:6px; }
-.ep-hero-proof__credential:nth-child(4) strong { font-size:18px; }
+.ep-hero-proof { display:inline-flex; width:max-content; max-width:100%; align-items:center; gap:0; margin-top:24px; padding:8px 13px; border:1px solid rgba(0,73,77,.14); border-radius:999px; background:rgba(255,255,255,.54); color:var(--ep-teal); }
+.ep-hero-proof__metric { display:flex; min-height:30px; align-items:center; gap:7px; color:var(--ep-teal); }.ep-hero-proof__metric + .ep-hero-proof__metric { margin-left:12px; padding-left:12px; border-left:1px solid rgba(0,73,77,.14); }.ep-hero-proof__metric > img { width:17px; height:17px; object-fit:contain; }.ep-hero-proof__metric strong { font-size:18px; font-weight:850; letter-spacing:-.07em; line-height:1; }.ep-hero-proof small { color:#285f63; font-size:8px; font-weight:780; line-height:1.16; }.ep-hero-proof .ep-team-avatars { display:flex; flex:0 0 auto; margin-right:1px; }.ep-hero-proof .ep-team-avatars i { width:22px; height:22px; margin-left:-5px; border:2px solid #c7f3f0; }.ep-hero-proof .ep-team-avatars i:first-child { margin-left:0; }
+@media (max-width:480px) { .ep-hero-proof { width:100%; justify-content:center; padding-inline:10px; }.ep-hero-proof__metric + .ep-hero-proof__metric { margin-left:9px; padding-left:9px; }.ep-hero-proof__metric strong { font-size:17px; } }
 
 /* Destinos prioritários entram como um detalhe vivo, sem competir com a headline. */
 .ep-hero-flags {
