@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CalendarDays, MapPin, Plane } from "lucide-react";
+import { CalendarDays, MapPin } from "lucide-react";
 import { airportCities, type AirportCity } from "../../data/airport-cities";
 
 type RouteStarterData = { origin: string; destination: string; period: string };
@@ -85,7 +85,8 @@ export function HeroRouteStarter() {
         />
       </div>
       <button className="ep-hero-route-starter__submit" type="submit">
-        Começar minha análise <Plane size={16} aria-hidden="true" />
+        <span>Começar minha análise</span>
+        <img src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" />
       </button>
     </form>
   );
