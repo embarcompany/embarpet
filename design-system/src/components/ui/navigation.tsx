@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AlertTriangle, ArrowRight, ChevronDown, ClipboardCheck, Globe2, HeartHandshake, MapPin, Menu, Route, X, type LucideIcon } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { DiagnosticFlow } from "./diagnostic-flow";
@@ -12,8 +12,14 @@ export function SiteHeader({ logoSrc, items, cta = { label:"Analisar a viagem", 
   const [open, setOpen] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobilePlannerOpen, setMobilePlannerOpen] = useState(false);
-  const [noticeOpen, setNoticeOpen] = useState(() => typeof window === "undefined" || window.localStorage.getItem("embarpets-notice-dismissed") !== "true");
-  const dismissNotice = () => { window.localStorage.setItem("embarpets-notice-dismissed", "true"); setNoticeOpen(false); };
+  const [noticeOpen, setNoticeOpen] = useState(true);
+  useEffect(() => {
+    try { setNoticeOpen(window.localStorage.getItem("embarpets-notice-dismissed") !== "true"); } catch { /* O aviso ainda pode ser fechado mesmo sem storage disponível. */ }
+  }, []);
+  const dismissNotice = () => {
+    setNoticeOpen(false);
+    try { window.localStorage.setItem("embarpets-notice-dismissed", "true"); } catch { /* Estado em memória já fechou o aviso. */ }
+  };
   const openMobilePlanner = () => { setMobileOpen(false); setMobilePlannerOpen(true); };
   return <>{noticeOpen ? <div className="ep-site-notice" role="note"><AlertTriangle size={14} /><p><b>Aviso importante:</b> atendemos somente destinos internacionais. Voos nacionais são auxiliados apenas quando conectam a uma viagem internacional.</p><button type="button" onClick={dismissNotice} aria-label="Fechar aviso"><X size={15} /></button></div> : null}<header className={cn("ep-site-header", overlay && "ep-site-header--overlay")}><nav className="ep-site-nav ep-container" aria-label="Navegação principal">
     <div className="ep-site-nav__left"><a className="ep-site-logo" href="/"><img src={logoSrc} alt="Embarpet" /></a>
