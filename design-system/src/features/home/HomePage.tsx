@@ -32,6 +32,21 @@ const regions: Region[] = [
   { id:"mercosul", label:"Mercosul", countries:[{ code:"ar", name:"Argentina" },{ code:"uy", name:"Uruguai" },{ code:"py", name:"Paraguai" }] },
 ];
 
+const embarkationGallery = [
+  { src:"/embarpet-viagem-cabine.jpg", alt:"Pet em contexto de viagem na cabine" },
+  { src:"/embarpet-bagagem-acompanhada.webp", alt:"Consultora Embarpet acompanhando pets no aeroporto" },
+  { src:"/embarpet-compartimento-cargas.jpg", alt:"Pet em caixa de transporte no processo operacional" },
+  { src:"/embarpet-pet-luxo-real.jpeg", alt:"Acompanhamento de pet em aeroporto" },
+  { src:"/embarpet-mosaico-familia.jpg", alt:"Família em contexto de viagem com pet" },
+  { src:"/embarpet-mosaico-cabine.jpeg", alt:"Pet viajando em cabine aérea" },
+  { src:"/embarpet-mosaico-encontro.jpg", alt:"Encontro de família e pet após a jornada" },
+  { src:"/embarpet-carga-viva-operacao.jpeg", alt:"Operação de embarque internacional de pet" },
+];
+
+function EmbarkationMarquee() {
+  return <section className="ep-embarkation-marquee" aria-label="Embarques acompanhados pela Embarpet"><div className="ep-embarkation-marquee__viewport"><div className="ep-embarkation-marquee__track">{[...embarkationGallery, ...embarkationGallery].map(({ src, alt }, index) => <figure className="ep-embarkation-marquee__item" key={`${src}-${index}`} aria-hidden={index >= embarkationGallery.length ? "true" : undefined}><img src={src} alt={index >= embarkationGallery.length ? "" : alt} loading="lazy" decoding="async" /></figure>)}</div></div></section>;
+}
+
 export default function EmbarpetHome() {
   const [route, setRoute] = useState<RouteData>({ origin:"", destination:"", period:"" });
   const [message, setMessage] = useState("");
@@ -65,6 +80,7 @@ export default function EmbarpetHome() {
       <div className="ep-hero-proof" aria-label="Experiência e credenciais Embarpet"><div className="ep-hero-proof__metric"><span className="ep-team-avatars" aria-hidden="true"><i /><i /><i /><i /></span><strong>+2.000</strong><small>embarques<br />analisados</small></div><div className="ep-hero-proof__metric"><img src="https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico" alt="Google" /><strong>4,9</strong><small>avaliação<br />no Google</small></div><div className="ep-hero-proof__credential"><span><img src="/logo-ipata.png" alt="IPATA" /><img src="/logo-iata.png" alt="IATA" /></span><small>Credenciados</small></div><a className="ep-hero-proof__credential" href="https://www.reclameaqui.com.br/empresa/embarpet-embarque-de-animais/" target="_blank" rel="noreferrer"><img src="https://www.reclameaqui.com.br/favicon.ico" alt="Reclame Aqui" /><strong>0</strong><small>reclamações<br />no Reclame Aqui</small></a></div>
     </ConversionHero>
     {message ? <div className="ep-container ep-home-notice"><Notice kind="success">{message}</Notice></div> : null}
+    <EmbarkationMarquee />
 
     <section className="ep-home-modalities" id="modalidades"><div className="ep-container"><div className="ep-home-modalities__intro"><div><p className="ep-eyebrow">Antes de escolher</p><h2 className="ep-title-lg">Antes da modalidade, vem a leitura do seu caso.</h2></div><p className="ep-copy">Destino, perfil do pet, companhia aérea e documentação definem qual alternativa pode fazer sentido para a viagem.</p></div>
       <ModalityRail items={[
