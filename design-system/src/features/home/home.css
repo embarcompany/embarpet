@@ -896,7 +896,7 @@
 .ep-embarkation-marquee__item figcaption svg { flex:0 0 auto; color:var(--ep-turq); }
 .ep-embarkation-marquee__item figcaption b { overflow:hidden; font-size:9px; text-overflow:ellipsis; white-space:nowrap; }
 @keyframes ep-embarkation-marquee {
-  to { transform:translateX(-50%); }
+  to { transform:translateX(-25%); }
 }
 @media (prefers-reduced-motion:reduce) { .ep-embarkation-marquee__track { animation:none; } }
 @media (max-width:620px) {
