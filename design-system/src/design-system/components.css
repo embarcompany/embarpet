@@ -379,7 +379,7 @@ main section[id] { scroll-margin-top:84px; }
   .ep-diagnostic-flow--integrated .ep-pet-choice-grid { max-width:460px; }
   .ep-diagnostic-flow--integrated .ep-pet-choice-grid button { background:rgba(255,255,255,.86); }
   .ep-diagnostic-flow--integrated .ep-other-pet { max-width:460px; background:rgba(255,255,255,.58); }
-  .ep-conversion-hero__aside { display:block; grid-column:2; grid-row:1; min-width:0; }
+  .ep-conversion-hero__aside { display:block; grid-column:2; grid-row:1; min-width:0; overflow:hidden; border-radius:32px 0 0 32px; }
   .ep-conversion-hero__family-cutout { display:none!important; }
   .ep-hero-proof { max-width:540px; margin-top:0; }
 }
