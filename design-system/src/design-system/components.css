@@ -279,9 +279,13 @@ main section[id] { scroll-margin-top:84px; }
 
 /* Hero mais leve: a cor da marca sustenta a primeira dobra sem competir com a leitura. */
 .ep-conversion-hero {
-  background:linear-gradient(132deg,#c7f3f0 0%,#a9ebe5 54%,#8edfdc 100%);
+  background:linear-gradient(122deg,#c7f3f0 0%,#a9ebe5 38%,#8edfdc 68%,#d3ff6c 100%);
+  background-size:160% 160%;
+  animation:ep-hero-gradient-drift 18s ease-in-out infinite alternate;
   color:var(--ep-teal);
 }
+@keyframes ep-hero-gradient-drift { from { background-position:0% 42%; } to { background-position:100% 58%; } }
+@media (prefers-reduced-motion:reduce) { .ep-conversion-hero { animation:none; } }
 .ep-conversion-hero__copy .ep-eyebrow { color:#006d76; }
 .ep-conversion-hero__copy .ep-title-xl {
   color:var(--ep-teal);
