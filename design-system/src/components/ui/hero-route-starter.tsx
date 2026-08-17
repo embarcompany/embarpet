@@ -12,6 +12,7 @@ export function HeroRouteStarter() {
   const [route, setRoute] = useState<RouteStarterData>({ origin: "", destination: "", period: "" });
   const [activeField, setActiveField] = useState<"origin" | "destination" | null>(null);
   const [showValidation, setShowValidation] = useState(false);
+  const canStartAnalysis = Boolean(route.period && route.origin.trim() && route.destination.trim());
   const invalidPeriod = showValidation && !route.period;
   const invalidOrigin = showValidation && !route.origin.trim();
   const invalidDestination = showValidation && !route.destination.trim();
@@ -62,7 +63,7 @@ export function HeroRouteStarter() {
           placeholder={text.cityPlaceholder}
         />
       </div>
-      <button className="ep-hero-route-starter__submit" type="submit"><span>{text.startAnalysis}</span><img src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" /></button>
+      <button className={`ep-hero-route-starter__submit${canStartAnalysis ? " is-ready" : ""}`} type="submit" disabled={!canStartAnalysis} aria-label={canStartAnalysis ? text.startAnalysis : "Preencha quando deseja viajar, origem e destino para começar sua análise."}><span>{text.startAnalysis}</span><img src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" /></button>
     </form>
   );
 }
