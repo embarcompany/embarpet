@@ -34,7 +34,7 @@ const regions: Region[] = [
   { id:"mercosul", label:"Mercosul", countries:[{ code:"ar", name:"Argentina" },{ code:"uy", name:"Uruguai" },{ code:"py", name:"Paraguai" }] },
 ];
 
-const embarkationGallery = [
+const embarkationGalleryAll = [
   { src:"/embarpet-viagem-cabine.jpg", alt:"Pet em contexto de viagem na cabine", destination:"Estados Unidos" },
   { src:"/embarpet-bagagem-acompanhada.webp", alt:"Consultora Embarpet acompanhando pets no aeroporto", destination:"Portugal" },
   { src:"/embarpet-compartimento-cargas.jpg", alt:"Pet em caixa de transporte no processo operacional", destination:"Espanha" },
@@ -53,6 +53,18 @@ const embarkationGallery = [
   { src:"/embarpet-marquee-family-airport.webp", alt:"Família e pet em momento de embarque", destination:"Estados Unidos" },
   { src:"/embarpet-marquee-cabin-dog.webp", alt:"Cão viajando dentro da cabine do avião", destination:"Uruguai" },
 ];
+
+// Apenas pets em deslocamento, embarque ou cabine entram na sequência editorial.
+const embarkationGallery = embarkationGalleryAll.filter(({ src }) => [
+  "/embarpet-marquee-airport-crate.webp",
+  "/embarpet-marquee-road-trip.webp",
+  "/embarpet-marquee-cockatiel.webp",
+  "/embarpet-marquee-carrier-car.webp",
+  "/embarpet-marquee-window-flight.webp",
+  "/embarpet-marquee-cabin-pomeranian.webp",
+  "/embarpet-marquee-cabin-dog.webp",
+  "/embarpet-viagem-cabine.jpg",
+].includes(src));
 
 function EmbarkationMarquee() {
   const viewportRef = useRef<HTMLDivElement>(null);
