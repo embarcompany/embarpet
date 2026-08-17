@@ -43,12 +43,23 @@ const embarkationGallery = [
   { src:"/embarpet-mosaico-cabine.jpeg", alt:"Pet viajando em cabine aérea", destination:"França" },
   { src:"/embarpet-mosaico-encontro.jpg", alt:"Encontro de família e pet após a jornada", destination:"Argentina" },
   { src:"/embarpet-carga-viva-operacao.jpeg", alt:"Operação de embarque internacional de pet", destination:"Uruguai" },
+  { src:"/embarpet-marquee-welcome-family.webp", alt:"Família reencontrando seu pet no aeroporto", destination:"Estados Unidos" },
+  { src:"/embarpet-marquee-airport-crate.webp", alt:"Pet e caixa de transporte prontos para o embarque", destination:"Canadá" },
+  { src:"/embarpet-marquee-road-trip.webp", alt:"Pet em deslocamento para o aeroporto", destination:"Portugal" },
+  { src:"/embarpet-marquee-cockatiel.webp", alt:"Ave em transporte especializado", destination:"Espanha" },
+  { src:"/embarpet-marquee-carrier-car.webp", alt:"Pet em caixa de transporte durante o deslocamento", destination:"França" },
+  { src:"/embarpet-marquee-window-flight.webp", alt:"Pet contemplando a vista pela janela do avião", destination:"Itália" },
+  { src:"/embarpet-marquee-cabin-pomeranian.webp", alt:"Pet viajando confortavelmente na cabine", destination:"Argentina" },
+  { src:"/embarpet-marquee-family-airport.webp", alt:"Família e pet em momento de embarque", destination:"Estados Unidos" },
+  { src:"/embarpet-marquee-cabin-dog.webp", alt:"Cão viajando dentro da cabine do avião", destination:"Uruguai" },
 ];
 
 function EmbarkationMarquee() {
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const rails = [0, 1, 2, 3];
+  // A segunda trilha é a cópia técnica do loop. A sequência-base é longa o
+  // bastante para que as fotos não se repitam visualmente durante a navegação.
+  const rails = [0, 1];
   useEffect(() => {
     const viewport = viewportRef.current;
     const track = trackRef.current;
