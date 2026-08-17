@@ -66,7 +66,8 @@
     padding-inline:0!important;
   }
 
-  .ep-site-header { left:auto; right:auto; }
+  .ep-site-header { position:fixed; z-index:60; top:0; right:0; left:0; }
+  .ep-site-header + main { padding-top:164px; }
   .ep-site-nav.ep-container { width:100%; min-height:50px; margin-inline:0; gap:9px; padding-inline:12px; }
   .ep-site-logo img { width:95px; }
   .ep-nav-mobile-cta { display:none!important; }
