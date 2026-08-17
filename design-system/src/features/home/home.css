@@ -923,12 +923,12 @@
   .ep-hero-showcase { position:relative; height:100%; min-height:0; isolation:isolate; }
   .ep-hero-showcase__gradient { position:absolute; z-index:0; top:8%; right:7%; bottom:8%; left:7%; overflow:hidden; border:0; border-radius:42px; background:radial-gradient(circle at 72% 20%,rgba(211,255,108,.72),transparent 31%),linear-gradient(142deg,#007c83 0%,#00aeb6 49%,#9dece4 100%); }
   .ep-hero-showcase__gradient::before { position:absolute; inset:0; background:radial-gradient(circle at 20% 85%,rgba(0,73,77,.36),transparent 39%); content:""; }
-  .ep-hero-showcase__thamires { position:absolute; z-index:1; bottom:8%; left:50%; width:auto; height:84%; max-width:none; object-fit:contain; object-position:center bottom; transform:translateX(-50%); }
+  .ep-hero-showcase__pet { position:absolute; z-index:1; bottom:8%; left:50%; width:auto; height:82%; max-width:none; object-fit:contain; object-position:center bottom; transform:translateX(-50%); }
   .ep-hero-showcase__vsl { position:absolute; z-index:3; bottom:10%; left:-3%; width:min(248px,54%); padding:3px; border:1px solid transparent; border-radius:16px; background:linear-gradient(rgba(247,251,251,.9),rgba(247,251,251,.9)) padding-box,linear-gradient(135deg,rgba(0,73,77,.72),rgba(0,199,207,.8),rgba(211,255,108,.7)) border-box; backdrop-filter:blur(11px); }
   .ep-hero-showcase__video { position:relative; aspect-ratio:16 / 9; overflow:hidden; border-radius:12px; background:#075c62; }.ep-hero-showcase__video video { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
   .ep-hero-showcase__video .ep-hero-video__sound { top:50%; right:auto; bottom:auto; left:50%; min-height:38px; padding:0 14px; font-size:10px; transform:translate(-50%,-50%); }
 }
-@media (min-width:901px) and (max-width:1120px) { .ep-hero-showcase__gradient { top:11%; right:3%; bottom:11%; left:5%; border-radius:30px; }.ep-hero-showcase__thamires { right:auto; bottom:11%; left:51%; height:78%; transform:translateX(-50%); }.ep-hero-showcase__vsl { bottom:7%; left:-7%; width:218px; } }
+@media (min-width:901px) and (max-width:1120px) { .ep-hero-showcase__gradient { top:11%; right:3%; bottom:11%; left:5%; border-radius:30px; }.ep-hero-showcase__pet { right:auto; bottom:11%; left:51%; height:76%; transform:translateX(-50%); }.ep-hero-showcase__vsl { bottom:7%; left:-7%; width:218px; } }
 .ep-embarkation-marquee {
   --ep-marquee-gap:12px;
   overflow:hidden;
