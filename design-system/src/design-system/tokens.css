@@ -4,6 +4,8 @@
   --ep-teal:#05434a;
   --ep-teal-soft:#0b5b62;
   --ep-lime:#c6d783;
+  /* Gradiente institucional extraído da IDV: apoio turquesa claro → lima suave. */
+  --ep-gradient-idv:linear-gradient(135deg,#e4faf7 0%,#eff6d7 100%);
   --ep-ink:#193f43;
   --ep-muted:#5e7f82;
   --ep-line:#d8e8e5;

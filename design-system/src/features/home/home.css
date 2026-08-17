@@ -137,7 +137,7 @@
 /* Mobile herda a linguagem visual da primeira dobra desktop; o diagnóstico segue no painel do header. */
 @media (max-width:900px) {
   .ep-conversion-hero {
-    background:linear-gradient(132deg,#c7f3f0 0%,#a9ebe5 54%,#8edfdc 100%);
+    background:var(--ep-gradient-idv);
     color:var(--ep-teal);
   }
   .ep-conversion-hero__copy {
@@ -486,7 +486,7 @@
    vertical: contexto → etapa 01 → etapa 02 → etapa 03 → etapa 04. */
 @media (max-width:620px) {
   .ep-conversion-hero {
-    background:var(--ep-turq);
+    background:var(--ep-gradient-idv);
     color:var(--ep-teal);
   }
 

@@ -279,9 +279,9 @@ main section[id] { scroll-margin-top:84px; }
 
 /* Hero mais leve: a cor da marca sustenta a primeira dobra sem competir com a leitura. */
 .ep-conversion-hero {
-  background:linear-gradient(122deg,#c7f3f0 0%,#a9ebe5 38%,#8edfdc 68%,#d3ff6c 100%);
-  background-size:160% 160%;
-  animation:ep-hero-gradient-drift 18s ease-in-out infinite alternate;
+  background:var(--ep-gradient-idv);
+  background-size:135% 135%;
+  animation:ep-hero-gradient-drift 26s ease-in-out infinite alternate;
   color:var(--ep-teal);
 }
 @keyframes ep-hero-gradient-drift { from { background-position:0% 42%; } to { background-position:100% 58%; } }
