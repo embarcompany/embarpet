@@ -388,6 +388,5 @@ main section[id] { scroll-margin-top:84px; }
   .ep-hero-proof { max-width:540px; margin-top:0; }
 }
 @media (max-width:900px) {
-  .ep-conversion-hero__form,
-  .ep-conversion-hero__aside { display:none!important; }
+  .ep-conversion-hero__form { display:none!important; }
 }
