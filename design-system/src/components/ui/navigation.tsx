@@ -12,9 +12,9 @@ export function LanguageSelector({ compact = false }: { compact?: boolean }) {
   const { locale, text } = useLocale();
   const [open, setOpen] = useState(false);
   const current = languageOptions.find((option) => option.code === locale) ?? languageOptions[0];
-  return <div className={cn("ep-language-selector", compact && "ep-language-selector--compact")} onBlur={() => window.setTimeout(() => setOpen(false), 120)}>
-    <button type="button" aria-label={text.language} aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen((currentOpen) => !currentOpen)}><Globe2 size={15} /><span>{current.flag} {current.shortLabel}</span><ChevronDown size={13} /></button>
-    {open ? <div role="listbox" aria-label={text.language}>{languageOptions.map((option) => <a key={option.code} href={localizePath(option.code, window.location.pathname + window.location.search)} role="option" aria-selected={locale === option.code} onClick={() => setOpen(false)}><span>{option.flag}</span><b>{option.label}</b>{locale === option.code ? <span aria-hidden="true">✓</span> : null}</a>)}</div> : null}
+  return <div className={cn("ep-language-selector", compact && "ep-language-selector--compact")} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onBlur={() => window.setTimeout(() => setOpen(false), 120)}>
+    <button type="button" aria-label={text.language} aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen((currentOpen) => !currentOpen)}><Globe2 size={15} /><span><img src={current.flagSrc} alt="" aria-hidden="true" />{current.shortLabel}</span><ChevronDown size={13} /></button>
+    {open ? <div role="listbox" aria-label={text.language}>{languageOptions.map((option) => <a key={option.code} href={localizePath(option.code, window.location.pathname + window.location.search)} role="option" aria-selected={locale === option.code} onClick={() => setOpen(false)}><span><img src={option.flagSrc} alt="" aria-hidden="true" /></span><b>{option.label}</b>{locale === option.code ? <span aria-hidden="true">✓</span> : null}</a>)}</div> : null}
   </div>;
 }
 

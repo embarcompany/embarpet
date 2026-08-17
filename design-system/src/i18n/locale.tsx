@@ -3,11 +3,11 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 export const locales = ["pt-BR", "en", "es", "ja"] as const;
 export type Locale = typeof locales[number];
 
-export const languageOptions: Array<{ code: Locale; label: string; shortLabel: string; flag: string }> = [
-  { code: "pt-BR", label: "Português (Brasil)", shortLabel: "PT-BR", flag: "🇧🇷" },
-  { code: "en", label: "English", shortLabel: "EN", flag: "🇺🇸" },
-  { code: "es", label: "Español", shortLabel: "ES", flag: "🇪🇸" },
-  { code: "ja", label: "日本語", shortLabel: "日本語", flag: "🇯🇵" },
+export const languageOptions: Array<{ code: Locale; label: string; shortLabel: string; flagSrc: string }> = [
+  { code: "pt-BR", label: "Português (Brasil)", shortLabel: "PT-BR", flagSrc: "/apple-emoji/flag-br.png" },
+  { code: "en", label: "English", shortLabel: "EN", flagSrc: "/apple-emoji/flag-us.png" },
+  { code: "es", label: "Español", shortLabel: "ES", flagSrc: "/apple-emoji/flag-es.png" },
+  { code: "ja", label: "日本語", shortLabel: "日本語", flagSrc: "/apple-emoji/flag-ja.png" },
 ];
 
 const copy = {
