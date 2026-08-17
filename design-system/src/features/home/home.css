@@ -676,6 +676,9 @@
   .ep-home-modalities__intro .ep-title-lg,.ep-title-lg { font-size:clamp(28px,8.2vw,32px); line-height:1.1; }
   .ep-home-modalities__intro .ep-copy { font-size:15px; line-height:1.56; }
   .ep-modality-rail { display:flex; gap:16px; margin-right:-20px; overflow-x:auto; overscroll-behavior-inline:contain; padding:0 20px 8px 0; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
+  .ep-modality-rail { cursor:grab; scrollbar-width:none; touch-action:pan-y; user-select:none; }
+  .ep-modality-rail::-webkit-scrollbar { display:none; }
+  .ep-modality-rail:active { cursor:grabbing; }
   .ep-modality-rail article,.ep-modality-rail article:first-child,.ep-modality-rail article:nth-child(3) { flex:0 0 calc(86% - 4px); min-height:0; scroll-snap-align:start; }
   .ep-modality-rail__media,.ep-modality-rail__media > img,.ep-modality-rail article > .ep-modality-rail__media { min-height:0; height:auto; flex-basis:auto; aspect-ratio:4 / 3; }
   .ep-modality-rail article > div:not(.ep-modality-rail__media) { min-height:246px; padding:20px; }

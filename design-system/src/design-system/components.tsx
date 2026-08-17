@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import { Icon, type IconName } from "./icons";
 import { Button, Notice, SelectField, TextField } from "./primitives";
 import { trackConversionEvent } from "../lib/analytics";
@@ -21,7 +21,30 @@ export function TrustStrip({ items }: { items: Array<{ icon: IconName; children:
 
 export function ModalityRail({ items }: { items: Array<{ icon: IconName; title: string; copy: string; detailHref: string; imageSrc: string; imageAlt: string; ctaLabel: string; featured?: boolean; videoSrc?: string }> }) {
   const [flying, setFlying] = useState<string | null>(null);
-  return <div className="ep-modality-rail">{items.map((item) => <article key={item.title} className={item.featured ? "is-featured" : ""}><div className="ep-modality-rail__media">{item.videoSrc ? <video className="ep-modality-rail__video" src={item.videoSrc} poster={item.imageSrc} aria-label={item.imageAlt} autoPlay loop muted playsInline preload="metadata" /> : <img src={item.imageSrc} alt={item.imageAlt} loading="lazy" decoding="async" />}<a className="ep-modality-actions__details" href={item.detailHref} onClick={() => trackConversionEvent("modality_clicked", { modality: item.title, action: "details" })}>Entender esta modalidade <Icon name="arrow" /></a></div><div><h3>{item.title}</h3><p>{item.copy}</p><div className="ep-modality-actions"><a href="#analise" className={flying === item.title ? "is-flying" : ""} onMouseEnter={() => setFlying(item.title)} onClick={() => trackConversionEvent("modality_clicked", { modality: item.title, action: "analysis" })}><span>{item.ctaLabel}</span><img className="ep-modality-actions__plane" src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" onAnimationEnd={() => setFlying((current) => current === item.title ? null : current)} /></a></div></div></article>)}</div>;
+  const railRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef<{ pointerId: number; startX: number; startLeft: number } | null>(null);
+  const suppressClickRef = useRef(false);
+  const isMobileRail = () => typeof window !== "undefined" && window.matchMedia("(max-width: 900px)").matches;
+  const startDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!isMobileRail() || event.pointerType === "mouse" && event.button !== 0) return;
+    dragRef.current = { pointerId:event.pointerId, startX:event.clientX, startLeft:event.currentTarget.scrollLeft };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const moveDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    const distance = event.clientX - drag.startX;
+    if (Math.abs(distance) > 4) suppressClickRef.current = true;
+    event.currentTarget.scrollLeft = drag.startLeft - distance;
+    event.preventDefault();
+  };
+  const endDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (dragRef.current?.pointerId !== event.pointerId) return;
+    dragRef.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    window.setTimeout(() => { suppressClickRef.current = false; }, 0);
+  };
+  return <div ref={railRef} className="ep-modality-rail" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag} onClickCapture={(event) => { if (suppressClickRef.current) { event.preventDefault(); event.stopPropagation(); } }}>{items.map((item) => <article key={item.title} className={item.featured ? "is-featured" : ""}><div className="ep-modality-rail__media">{item.videoSrc ? <video className="ep-modality-rail__video" src={item.videoSrc} poster={item.imageSrc} aria-label={item.imageAlt} autoPlay loop muted playsInline preload="metadata" /> : <img src={item.imageSrc} alt={item.imageAlt} loading="lazy" decoding="async" />}<a className="ep-modality-actions__details" href={item.detailHref} onClick={() => trackConversionEvent("modality_clicked", { modality: item.title, action: "details" })}>Entender esta modalidade <Icon name="arrow" /></a></div><div><h3>{item.title}</h3><p>{item.copy}</p><div className="ep-modality-actions"><a href="#analise" className={flying === item.title ? "is-flying" : ""} onMouseEnter={() => setFlying(item.title)} onClick={() => trackConversionEvent("modality_clicked", { modality: item.title, action: "analysis" })}><span>{item.ctaLabel}</span><img className="ep-modality-actions__plane" src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" onAnimationEnd={() => setFlying((current) => current === item.title ? null : current)} /></a></div></div></article>)}</div>;
 }
 
 export function ProcessList({ items }: { items: Array<{ title: string; copy: string }> }) {
