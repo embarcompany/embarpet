@@ -5,12 +5,13 @@ import { Button, Notice, SectionHeading } from "../../design-system/primitives";
 import { InternationalTransfer, type Region } from "../../components/ui/country-accordion";
 import { ScrollFlyIn } from "../../components/ui/hero-section-3";
 import { FAQItem } from "../../components/ui/system";
-import { ArrowRight, ClipboardCheck, Crown, FileText, Globe2, Headset, HeartHandshake, MapPin, Package, Plane, Route, ShieldCheck, Volume2, VolumeX } from "lucide-react";
+import { ArrowRight, ClipboardCheck, Crown, FileText, Globe2, Headset, HeartHandshake, MapPin, Package, Plane, Route, ShieldCheck, Volume2, VolumeX, X } from "lucide-react";
 import { SiteHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { WhatsAppFloat, type LeadContext } from "../../components/ui/whatsapp-float";
 import { HeroRouteStarter } from "../../components/ui/hero-route-starter";
 import { CaseDragCards } from "../../components/ui/case-drag-cards";
+import { DiagnosticFlow } from "../../components/ui/diagnostic-flow";
 import { useLocale } from "../../i18n/locale";
 
 const images = {
@@ -103,15 +104,43 @@ export default function EmbarpetHome() {
   const [petLuxoFullVideoLoaded, setPetLuxoFullVideoLoaded] = useState(false);
   const [heroVideoUnmuted, setHeroVideoUnmuted] = useState(false);
   const [heroVideoFullLoaded, setHeroVideoFullLoaded] = useState(false);
+  const [analysisOpen, setAnalysisOpen] = useState(false);
+  const [analysisRoute, setAnalysisRoute] = useState<Partial<RouteData>>({});
+  const openAnalysis = (initialRoute: Partial<RouteData> = {}) => {
+    const nextRoute = { origin: initialRoute.origin ?? "", destination: initialRoute.destination ?? "", period: initialRoute.period ?? "" };
+    const query = new URLSearchParams();
+    if (nextRoute.origin) query.set("origin", nextRoute.origin);
+    if (nextRoute.destination) query.set("destination", nextRoute.destination);
+    if (nextRoute.period) query.set("period", nextRoute.period);
+    setAnalysisRoute(nextRoute);
+    setAnalysisOpen(true);
+    const analysisPath = path("/analise");
+    if (window.location.pathname !== analysisPath) window.history.pushState({ embarpetAnalysis: true }, "", `${analysisPath}${query.size ? `?${query.toString()}` : ""}`);
+  };
+  const closeAnalysis = () => {
+    if (window.location.pathname === path("/analise")) window.history.back();
+    else setAnalysisOpen(false);
+  };
+  useEffect(() => {
+    const handleOpen = (event: Event) => openAnalysis((event as CustomEvent<Partial<RouteData>>).detail ?? {});
+    const handlePopState = () => setAnalysisOpen(false);
+    window.addEventListener("embarp:open-analysis", handleOpen);
+    window.addEventListener("popstate", handlePopState);
+    return () => { window.removeEventListener("embarp:open-analysis", handleOpen); window.removeEventListener("popstate", handlePopState); };
+  }, [path]);
+  useEffect(() => {
+    if (!analysisOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previousOverflow; };
+  }, [analysisOpen]);
   const startFromDestination = (destination = "") => {
     setRoute((current) => ({ ...current, destination }));
-    const params = new URLSearchParams();
-    if (destination) params.set("destination", destination);
-    window.location.assign(`${path("/analise")}${params.size ? `?${params.toString()}` : ""}`);
+    openAnalysis({ destination });
   };
   const leadContext: LeadContext = { source:"home", page:"/", origin:route.origin, destination:route.destination, period:route.period };
 
-  return <><SiteHeader overlay logoSrc="/logo-embarpet-dark.png" items={[
+  return <>{analysisOpen ? <div className="ep-analysis-modal" role="dialog" aria-modal="true" aria-label={text.startAnalysis}><div className="ep-analysis-modal__backdrop" onClick={closeAnalysis} /><section className="ep-analysis-modal__panel"><header><a href={path("/")} aria-label="Embarpet"><img src="/logo-embarpet-dark.png" alt="Embarpet" /></a><button type="button" onClick={closeAnalysis} aria-label={text.close}><X size={21} /></button></header><div className="ep-analysis-modal__content"><DiagnosticFlow routeFirst startAtPet={Boolean(analysisRoute.origin && analysisRoute.destination && analysisRoute.period)} initialRoute={analysisRoute} analyticsSource="index_modal" /></div></section></div> : null}<SiteHeader overlay logoSrc="/logo-embarpet-dark.png" items={[
     { label:text.navHow, href:"#como-funciona" },
     { label:text.navModalities, href:"#modalidades", children:[
       { label:"Viagem na cabine", href:"#modalidades", description:"Possibilidade para alguns pets e rotas.", icon:Plane },

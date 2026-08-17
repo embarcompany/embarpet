@@ -8,7 +8,7 @@ import { useLocale } from "../../i18n/locale";
 type RouteStarterData = { origin: string; destination: string; period: string };
 
 export function HeroRouteStarter() {
-  const { text, path } = useLocale();
+  const { text } = useLocale();
   const [route, setRoute] = useState<RouteStarterData>({ origin: "", destination: "", period: "" });
   const [activeField, setActiveField] = useState<"origin" | "destination" | null>(null);
   const [showValidation, setShowValidation] = useState(false);
@@ -29,7 +29,7 @@ export function HeroRouteStarter() {
       window.requestAnimationFrame(() => document.querySelector<HTMLElement>(selector)?.focus());
       return;
     }
-    window.location.assign(`${path("/analise")}?${new URLSearchParams(route).toString()}`);
+    window.dispatchEvent(new CustomEvent("embarp:open-analysis", { detail: route }));
   };
 
   return (
