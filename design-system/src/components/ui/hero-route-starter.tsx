@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CalendarDays, MapPin } from "lucide-react";
+import { CalendarDays, Check, ChevronDown, MapPin } from "lucide-react";
 import { airportCities, type AirportCity } from "../../data/airport-cities";
 
 type RouteStarterData = { origin: string; destination: string; period: string };
@@ -44,19 +44,11 @@ export function HeroRouteStarter() {
 
   return (
     <form className="ep-hero-route-starter" onSubmit={(event) => { event.preventDefault(); start(); }} noValidate>
-      <label className={`ep-hero-route-starter__period${invalidPeriod ? " is-invalid" : ""}`}>
-        <CalendarDays size={16} aria-hidden="true" />
-        <select
-          data-hero-period
-          value={route.period}
-          onChange={(event) => setField("period", event.target.value)}
-          aria-label="Quando deseja viajar?"
-          aria-invalid={invalidPeriod}
-        >
-          <option value="" disabled>Quando deseja viajar?</option>
-          {travelPeriods.map((period) => <option key={period} value={period}>{period}</option>)}
-        </select>
-      </label>
+      <HeroTravelPeriodSelect
+        value={route.period}
+        invalid={invalidPeriod}
+        onChange={(value) => setField("period", value)}
+      />
       <div className="ep-hero-route-starter__route">
         <RouteField
           label="De onde seu pet parte?"
@@ -89,6 +81,56 @@ export function HeroRouteStarter() {
         <img src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" />
       </button>
     </form>
+  );
+}
+
+function HeroTravelPeriodSelect({ value, invalid, onChange }: {
+  value: string;
+  invalid: boolean;
+  onChange: (value: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div
+      className={`ep-hero-route-starter__period${invalid ? " is-invalid" : ""}${open ? " is-open" : ""}`}
+      onBlur={() => window.setTimeout(() => setOpen(false), 120)}
+    >
+      <CalendarDays size={16} aria-hidden="true" />
+      <button
+        data-hero-period
+        type="button"
+        aria-label="Quando deseja viajar?"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-invalid={invalid}
+        onClick={() => setOpen((current) => !current)}
+      >
+        <span>{value || "Quando deseja viajar?"}</span>
+        <ChevronDown aria-hidden="true" />
+      </button>
+      {open ? (
+        <div className="ep-hero-route-starter__period-options" role="listbox" aria-label="Quando deseja viajar?">
+          {travelPeriods.map((period) => {
+            const selected = value === period;
+            return (
+              <button
+                className={selected ? "is-selected" : undefined}
+                type="button"
+                key={period}
+                role="option"
+                aria-selected={selected}
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={() => { onChange(period); setOpen(false); }}
+              >
+                <span>{period}</span>
+                {selected ? <Check size={16} aria-hidden="true" /> : null}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+    </div>
   );
 }
 
