@@ -34,7 +34,8 @@
 /* No desktop, a navegação ganha a rota quando o visitante já está avaliando modalidades. */
 .ep-desktop-route-dock { display:none; }
 @media (min-width:1181px) {
-  .ep-site-nav { flex-wrap:wrap; transition:min-height .42s cubic-bezier(.22,.8,.28,1); }
+  .ep-site-nav { align-content:start; flex-wrap:wrap; transition:min-height .42s cubic-bezier(.22,.8,.28,1); }
+  .ep-site-nav__left,.ep-site-nav__right { min-height:72px; }
   .ep-site-nav__right > .ep-nav-cta { max-width:240px; transition:max-width .32s cubic-bezier(.22,.8,.28,1),opacity .2s ease,transform .32s cubic-bezier(.22,.8,.28,1),padding .32s cubic-bezier(.22,.8,.28,1),border-color .2s ease; }
   .ep-site-nav:has(.ep-desktop-route-dock.is-visible) > .ep-site-nav__right > .ep-nav-cta { max-width:0; padding-inline:0; border-color:transparent; opacity:0; pointer-events:none; transform:translateX(10px); }
   .ep-desktop-route-dock { display:block; flex:0 0 100%; max-height:0; overflow:hidden; padding:0; pointer-events:none; opacity:0; transform:translateY(-9px); transition:max-height .42s cubic-bezier(.22,.8,.28,1),padding .42s cubic-bezier(.22,.8,.28,1),opacity .2s ease,transform .42s cubic-bezier(.22,.8,.28,1); }
