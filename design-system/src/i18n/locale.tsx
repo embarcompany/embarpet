@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { setPageMetadata } from "../lib/seo";
 
 export const locales = ["pt-BR", "en", "es", "ja"] as const;
 export type Locale = typeof locales[number];
@@ -12,10 +13,10 @@ export const languageOptions: Array<{ code: Locale; label: string; shortLabel: s
 
 const copy = {
   "pt-BR": {
-    htmlLang: "pt-BR", title: "Transporte Internacional de Animais | Embarpet", description: "Planeje a viagem internacional do seu pet com análise de rota, documentação e modalidades de embarque.",
+    htmlLang: "pt-BR", title: "Transporte Internacional de Pets | Embarpet", description: "Planeje o transporte internacional do seu pet com análise de rota, documentação e possibilidades de embarque.",
     notice: "Atendemos somente destinos internacionais. Voos nacionais são auxiliados apenas quando conectam a uma viagem internacional.", close: "Fechar aviso", analyze: "Analisar a viagem", startTrip: "Começar viagem", wherePetGoes: "Para onde seu pet vai?", language: "Idioma",
     navHow: "Como funciona", navModalities: "Modalidades", navServices: "Serviços", navDestinations: "Destinos", navContent: "Conteúdo", navQuestions: "Dúvidas",
-    heroTitleBefore: "Seu ", heroTitleHighlight: "pet vai para outro país?", heroIntro: "Responda em poucos passos e receba uma ", heroIntroStrong: "previsão personalizada", heroIntroAfter: " para o embarque do seu pet.",
+    heroTitleBefore: "Seu ", heroTitleHighlight: "pet vai para outro país?", heroIntro: "Para o transporte internacional do seu pet, responda em poucos passos e receba uma ", heroIntroStrong: "previsão personalizada", heroIntroAfter: " para o embarque.",
     period: "Quando deseja viajar?", periodOptions: ["Dentro de 1 a 3 meses", "De 3 a 6 meses", "Sem data definida"], origin: "De onde seu pet parte?", destination: "Para onde seu pet vai?", cityPlaceholder: "Digite uma cidade", originRequired: "Informe a cidade de origem", destinationRequired: "Informe a cidade de destino", startAnalysis: "Começar minha análise",
     formRoute: "Sua análise começa aqui", formRouteTitle: "Vamos começar pela sua rota.", formRouteCopy: "Informe de onde seu pet parte e quando pretende viajar. O destino que você escolheu já está preenchido.", backHome: "Voltar ao início", changeRoute: "Alterar rota",
     thankYouKicker: "Diagnóstico concluído", thankYouTitle: "Recebemos as informações sobre a viagem do seu pet para", thankYouCopy: "Nossa equipe vai avaliar destino, prazo, documentação e modalidade para indicar os próximos passos com segurança.", thankYouStep: "Agora falta só um passo", thankYouAction: "Clique abaixo para continuar o atendimento pelo WhatsApp e enviar a mensagem automática para nossa equipe.", whatsapp: "Continuar pelo WhatsApp", whatsappHint: "Isso ajuda nossa equipe a identificar seu atendimento e responder com mais rapidez.", whatsappOfficial: "Você será direcionado ao WhatsApp oficial da Embarpet.",
@@ -72,8 +73,14 @@ export function LocaleProvider({ locale: initialLocale, children }: { locale: Lo
   }, []);
   useEffect(() => {
     document.documentElement.lang = copy[locale].htmlLang;
-    document.title = copy[locale].title;
+    const currentPath = window.location.pathname.replace(/^\/(en|es|ja)(?=\/|$)/, "") || "/";
+    const restoreMetadata = setPageMetadata({
+      title: copy[locale].title,
+      description: copy[locale].description,
+      canonicalPath: localizePath(locale, currentPath),
+    });
     try { window.localStorage.setItem("embarpet-locale", locale); } catch { /* optional preference */ }
+    return restoreMetadata;
   }, [locale]);
   const value = useMemo(() => ({ locale, text: copy[locale], path: (path = "/") => localizePath(locale, path), setLocale: setLocaleState }), [locale]);
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>;

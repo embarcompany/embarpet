@@ -9,7 +9,7 @@ const templatePath = resolve(dist, "index.html");
 const siteUrl = "https://www.embarpet.com.br";
 
 const pages = {
-  "pt-BR": { path: "/", lang: "pt-BR", title: "Transporte Internacional de Animais | Embarpet", description: "Planeje a viagem internacional do seu pet com análise de rota, documentação e modalidades de embarque." },
+  "pt-BR": { path: "/", lang: "pt-BR", title: "Transporte Internacional de Pets | Embarpet", description: "Planeje o transporte internacional do seu pet com análise de rota, documentação e possibilidades de embarque." },
   en: { path: "/en/", lang: "en", title: "International Pet Transport | Embarpet", description: "Plan your pet’s international trip with route analysis, documentation and air-travel options." },
   es: { path: "/es/", lang: "es", title: "Transporte Internacional de Mascotas | Embarpet", description: "Planifica el viaje internacional de tu mascota con análisis de ruta, documentación y opciones de transporte aéreo." },
   ja: { path: "/ja/", lang: "ja", title: "国際ペット輸送 | Embarpet", description: "ルート、書類、航空輸送の選択肢を確認しながら、ペットの国際移動を計画できます。" },
