@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CalendarDays, Check, ChevronDown, MapPin } from "lucide-react";
+import { CalendarDays, Check, ChevronDown } from "lucide-react";
 import { airportCities, type AirportCity } from "../../data/airport-cities";
 
 type RouteStarterData = { origin: string; destination: string; period: string };
@@ -151,7 +151,13 @@ function RouteField({ label, field, value, active, invalid, matches, onChange, o
 
   return (
     <label className={`ep-hero-route-starter__field${invalid ? " is-invalid" : ""}`}>
-      <MapPin className="ep-hero-route-starter__field-icon" size={19} aria-hidden="true" />
+      <span
+        className="ep-hero-route-starter__field-icon"
+        role="img"
+        aria-label={field === "origin" ? "Decolagem" : "Pouso"}
+      >
+        {field === "origin" ? "🛫" : "🛬"}
+      </span>
       <span className="ep-hero-route-starter__field-content">
         <span>{label}</span>
         <input
