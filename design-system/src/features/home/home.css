@@ -51,6 +51,8 @@
   letter-spacing:.01em;
   text-transform:none;
 }
+
+.ep-language-selector { position:relative; z-index:30; }.ep-language-selector > button { display:inline-flex; min-height:34px; align-items:center; gap:6px; padding:0 9px; border:1px solid rgba(255,255,255,.26); border-radius:999px; background:rgba(255,255,255,.08); color:inherit; font:inherit; font-size:10px; font-weight:850; cursor:pointer; }.ep-language-selector > button > svg:last-child { width:12px; transition:transform .18s ease; }.ep-language-selector:focus-within > button > svg:last-child { transform:rotate(180deg); }.ep-language-selector > div { position:absolute; top:calc(100% + 7px); right:0; display:grid; min-width:182px; padding:6px; border:1px solid rgba(0,73,77,.14); border-radius:14px; background:var(--ep-paper); }.ep-language-selector > div a { display:grid; grid-template-columns:22px 1fr 14px; min-height:38px; align-items:center; gap:7px; padding:0 8px; border-radius:9px; color:var(--ep-teal); font-size:11px; text-decoration:none; }.ep-language-selector > div a:hover,.ep-language-selector > div a[aria-selected="true"] { background:var(--ep-soft); }.ep-language-selector > div a > b { font-weight:760; }.ep-language-selector > div a > span:last-child { color:var(--ep-turq-deep); }.ep-mobile-menu .ep-language-selector { margin:12px 0; }.ep-mobile-menu .ep-language-selector > button { width:100%; justify-content:space-between; border-color:var(--ep-line); background:var(--ep-soft); color:var(--ep-teal); }.ep-mobile-menu .ep-language-selector > div { position:relative; top:auto; right:auto; width:100%; margin-top:6px; }
 .ep-home-process__intro .ep-eyebrow::before,
 .ep-home-authority__content .ep-eyebrow::before {
   width:24px;

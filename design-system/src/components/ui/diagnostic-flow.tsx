@@ -6,6 +6,7 @@ import type { PublicLead } from "../../lead-contract";
 import { airportCities, type AirportCity } from "../../data/airport-cities";
 import { useAirportSuggestions } from "../../hooks/use-airport-suggestions";
 import { trackConversionEvent } from "../../lib/analytics";
+import { useLocale } from "../../i18n/locale";
 
 type Step = 1 | 2 | 3 | 4;
 type PetKind = "Cachorro" | "Gato" | "Hamster" | "Exótico" | "Outro";
@@ -33,6 +34,7 @@ const petKinds: { label: PetKind; icon: LucideIcon }[] = [
 ];
 
 export function DiagnosticFlow({ onComplete, onRouteChange, initialRoute, routeFirst = false, startAtPet = false, integrated = false, analyticsSource = routeFirst ? "mobile_header" : "hero_form" }: { onComplete?: (lead: PublicLead) => void; onRouteChange?: (route: RouteData) => void; initialRoute?: Partial<RouteData>; routeFirst?: boolean; startAtPet?: boolean; integrated?: boolean; analyticsSource?: string }) {
+  const { path } = useLocale();
   // O pop-up móvel começa pela rota; o formulário da hero desktop preserva a ordem original.
   const [step, setStep] = useState<Step>(routeFirst && !startAtPet ? 2 : 1);
   const [firstKind, setFirstKind] = useState<PetKind | "">("");
@@ -120,7 +122,7 @@ export function DiagnosticFlow({ onComplete, onRouteChange, initialRoute, routeF
     trackConversionEvent("lead_created", { source: analyticsSource, pet_count: pets.length, travel_period: route.period });
     trackConversionEvent("analysis_completed", { source: analyticsSource, pet_count: pets.length, travel_period: route.period });
     onComplete?.(lead);
-    window.location.assign(`/obrigado?${query.toString()}`);
+    window.location.assign(`${path("/obrigado")}?${query.toString()}`);
   };
 
   return <section className={`ep-diagnostic-flow ep-diagnostic-flow--hero ep-diagnostic-flow--step-${step}${integrated ? " ep-diagnostic-flow--integrated" : ""}`} aria-label="Diagnóstico inicial da viagem">

@@ -11,6 +11,7 @@ import { SiteFooter } from "../../components/ui/footer";
 import { WhatsAppFloat, type LeadContext } from "../../components/ui/whatsapp-float";
 import { HeroRouteStarter } from "../../components/ui/hero-route-starter";
 import { CaseDragCards } from "../../components/ui/case-drag-cards";
+import { useLocale } from "../../i18n/locale";
 
 const images = {
   planning: "/embarpet-trip-planning.png",
@@ -95,6 +96,7 @@ function EmbarkationMarquee() {
 }
 
 export default function EmbarpetHome() {
+  const { text, path } = useLocale();
   const [route, setRoute] = useState<RouteData>({ origin:"", destination:"", period:"" });
   const [message, setMessage] = useState("");
   const [petLuxoUnmuted, setPetLuxoUnmuted] = useState(false);
@@ -105,30 +107,30 @@ export default function EmbarpetHome() {
     setRoute((current) => ({ ...current, destination }));
     const params = new URLSearchParams();
     if (destination) params.set("destination", destination);
-    window.location.assign(`/analise${params.size ? `?${params.toString()}` : ""}`);
+    window.location.assign(`${path("/analise")}${params.size ? `?${params.toString()}` : ""}`);
   };
   const leadContext: LeadContext = { source:"home", page:"/", origin:route.origin, destination:route.destination, period:route.period };
 
   return <><SiteHeader overlay logoSrc="/logo-embarpet-dark.png" items={[
-    { label:"Como funciona", href:"#como-funciona" },
-    { label:"Modalidades", href:"#modalidades", children:[
+    { label:text.navHow, href:"#como-funciona" },
+    { label:text.navModalities, href:"#modalidades", children:[
       { label:"Viagem na cabine", href:"#modalidades", description:"Possibilidade para alguns pets e rotas.", icon:Plane },
       { label:"Bagagem acompanhada", href:"#modalidades", description:"Mesmo voo do tutor, em compartimento próprio.", icon:Package },
       { label:"Compartimento de cargas", href:"#modalidades", description:"Operação com estrutura própria para o pet.", icon:Route },
       { label:"Suporte emocional", href:"#modalidades", description:"Avaliação conforme rota e critérios vigentes.", icon:HeartHandshake },
     ] },
-    { label:"Serviços", href:"#servicos" },
-    { label:"Destinos", href:"#destinos", children:[
+    { label:text.navServices, href:"#servicos" },
+    { label:text.navDestinations, href:"#destinos", children:[
       { label:"Estados Unidos", href:"#destinos", description:"Planejamento da rota Brasil–EUA.", icon:Route },
       { label:"União Europeia", href:"#destinos", description:"Cada país pede leitura própria.", icon:Route },
       { label:"Mercosul", href:"#destinos", description:"Planejamento regional com atenção ao caso.", icon:Route },
     ] },
-    { label:"Conteúdo", href:"#faq" },
+    { label:text.navContent, href:"#faq" },
   ]} /><main>
     <ConversionHero aside={<div className="ep-hero-video"><video key={heroVideoFullLoaded ? "hero-full" : "hero-preview"} poster="/embarpet-pet-luxo-real.jpeg" aria-label="Acompanhamento Embarpet em contexto de viagem" autoPlay loop muted={heroVideoFullLoaded ? !heroVideoUnmuted : true} playsInline preload="metadata">{!heroVideoFullLoaded ? <source src="/embarpet-petluxo-preview-5s.webm" type="video/webm" /> : null}<source src={heroVideoFullLoaded ? "/embarpet-petluxo-baeta-alpargata.mp4" : "/embarpet-petluxo-preview-5s.mp4"} type="video/mp4" /></video><button type="button" className="ep-hero-video__sound" onClick={() => { if (!heroVideoFullLoaded) { setHeroVideoFullLoaded(true); setHeroVideoUnmuted(true); return; } setHeroVideoUnmuted((current) => !current); }}>{heroVideoUnmuted ? <VolumeX size={15} /> : <Volume2 size={15} />}{heroVideoUnmuted ? "Silenciar" : "Ativar som"}</button></div>}>
       <div className="ep-hero-proof" aria-label="Mais de dois mil embarques analisados e avaliação 4,9 no Google"><div className="ep-hero-proof__metric"><span className="ep-team-avatars" aria-hidden="true"><i /><i /><i /><i /></span><strong>+2.000</strong><small>embarques<br />analisados</small></div><div className="ep-hero-proof__metric"><img src="https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico" alt="Google" /><strong>4,9</strong><small>avaliação<br />no Google</small></div></div>
-      <h1 className="ep-title-xl">Seu <span className="ep-hero-highlight">pet vai para outro país?</span><span className="ep-hero-flags" aria-hidden="true"><img src="/apple-emoji/flag-br.png" alt="" /><img src="/apple-emoji/flag-us.png" alt="" /><img src="/apple-emoji/flag-pt.png" alt="" /><img src="/apple-emoji/flag-es.png" alt="" /><img src="/apple-emoji/flag-it.png" alt="" /></span></h1>
-      <p className="ep-hero-route-intro">Responda em poucos passos e receba uma <strong>previsão personalizada</strong> para o embarque do seu pet.</p>
+      <h1 className="ep-title-xl">{text.heroTitleBefore}<span className="ep-hero-highlight">{text.heroTitleHighlight}</span><span className="ep-hero-flags" aria-hidden="true"><img src="/apple-emoji/flag-br.png" alt="" /><img src="/apple-emoji/flag-us.png" alt="" /><img src="/apple-emoji/flag-pt.png" alt="" /><img src="/apple-emoji/flag-es.png" alt="" /><img src="/apple-emoji/flag-it.png" alt="" /></span></h1>
+      <p className="ep-hero-route-intro">{text.heroIntro}<strong>{text.heroIntroStrong}</strong>{text.heroIntroAfter}</p>
       <div className="ep-conversion-hero__form"><HeroRouteStarter /></div>
     </ConversionHero>
     {message ? <div className="ep-container ep-home-notice"><Notice kind="success">{message}</Notice></div> : null}

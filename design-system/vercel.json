@@ -16,6 +16,15 @@
   ],
   "rewrites": [
     { "source": "/analise", "destination": "/index.html" },
-    { "source": "/obrigado", "destination": "/index.html" }
+    { "source": "/obrigado", "destination": "/index.html" },
+    { "source": "/en", "destination": "/en/index.html" },
+    { "source": "/es", "destination": "/es/index.html" },
+    { "source": "/ja", "destination": "/ja/index.html" },
+    { "source": "/en/analise", "destination": "/en/index.html" },
+    { "source": "/es/analise", "destination": "/es/index.html" },
+    { "source": "/ja/analise", "destination": "/ja/index.html" },
+    { "source": "/en/obrigado", "destination": "/en/index.html" },
+    { "source": "/es/obrigado", "destination": "/es/index.html" },
+    { "source": "/ja/obrigado", "destination": "/ja/index.html" }
   ]
 }

@@ -1,10 +1,13 @@
 import EmbarpetHome from "../features/home/HomePage";
 import AnalysisPage from "../features/analysis/AnalysisPage";
 import ThankYouPage from "../features/thank-you/ThankYouPage";
+import { getLocaleFromPath, LocaleProvider, type Locale } from "../i18n/locale";
 
 /** Application shell. Future routes should be composed here, never inside the design system. */
-export function App() {
-  if (typeof window !== "undefined" && window.location.pathname === "/analise") return <AnalysisPage />;
-  if (typeof window !== "undefined" && window.location.pathname === "/obrigado") return <ThankYouPage />;
-  return <EmbarpetHome />;
+export function App({ initialLocale = "pt-BR" }: { initialLocale?: Locale }) {
+  const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
+  const locale = typeof window !== "undefined" ? getLocaleFromPath(pathname) : initialLocale;
+  const route = pathname.replace(/^\/(en|es|ja)(?=\/|$)/, "") || "/";
+  const page = route === "/analise" ? <AnalysisPage /> : route === "/obrigado" ? <ThankYouPage /> : <EmbarpetHome />;
+  return <LocaleProvider locale={locale}>{page}</LocaleProvider>;
 }

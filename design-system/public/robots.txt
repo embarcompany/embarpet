@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /obrigado
+Disallow: /en/obrigado
+Disallow: /es/obrigado
+Disallow: /ja/obrigado
 
 Sitemap: https://www.embarpet.com.br/sitemap.xml
