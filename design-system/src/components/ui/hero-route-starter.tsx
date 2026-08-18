@@ -1,19 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { CalendarDays, Check, ChevronDown } from "lucide-react";
 import { useAirportSuggestions } from "../../hooks/use-airport-suggestions";
 import { useLocale } from "../../i18n/locale";
 
-type RouteStarterData = { origin: string; destination: string; period: string };
+type RouteStarterData = { origin: string; destination: string };
 
 export function HeroRouteStarter() {
   const { text } = useLocale();
-  const [route, setRoute] = useState<RouteStarterData>({ origin: "", destination: "", period: "" });
+  const [route, setRoute] = useState<RouteStarterData>({ origin: "", destination: "" });
   const [activeField, setActiveField] = useState<"origin" | "destination" | null>(null);
   const [showValidation, setShowValidation] = useState(false);
-  const canStartAnalysis = Boolean(route.period && route.origin.trim() && route.destination.trim());
-  const invalidPeriod = showValidation && !route.period;
+  const canStartAnalysis = Boolean(route.origin.trim() && route.destination.trim());
   const invalidOrigin = showValidation && !route.origin.trim();
   const invalidDestination = showValidation && !route.destination.trim();
 
@@ -24,9 +22,9 @@ export function HeroRouteStarter() {
   };
 
   const start = () => {
-    if (!route.origin.trim() || !route.destination.trim() || !route.period) {
+    if (!route.origin.trim() || !route.destination.trim()) {
       setShowValidation(true);
-      const selector = !route.period ? "[data-hero-period]" : !route.origin.trim() ? '[data-hero-route-field="origin"]' : '[data-hero-route-field="destination"]';
+      const selector = !route.origin.trim() ? '[data-hero-route-field="origin"]' : '[data-hero-route-field="destination"]';
       window.requestAnimationFrame(() => document.querySelector<HTMLElement>(selector)?.focus());
       return;
     }
@@ -35,7 +33,6 @@ export function HeroRouteStarter() {
 
   return (
     <form className="ep-hero-route-starter" onSubmit={(event) => { event.preventDefault(); start(); }} noValidate>
-      <HeroTravelPeriodSelect value={route.period} invalid={invalidPeriod} label={text.period} options={text.periodOptions} onChange={(value) => setField("period", value)} />
       <div className="ep-hero-route-starter__route">
         <RouteField
           label={text.origin}
@@ -63,21 +60,9 @@ export function HeroRouteStarter() {
           placeholder={text.cityPlaceholder}
         />
       </div>
-      <button className={`ep-hero-route-starter__submit${canStartAnalysis ? " is-ready" : ""}`} type="submit" disabled={!canStartAnalysis} aria-label={canStartAnalysis ? text.startAnalysis : "Preencha quando deseja viajar, origem e destino para começar sua análise."}><span>{text.startAnalysis}</span><img src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" /></button>
+      <button className={`ep-hero-route-starter__submit${canStartAnalysis ? " is-ready" : ""}`} type="submit" disabled={!canStartAnalysis} aria-label={canStartAnalysis ? text.startAnalysis : "Preencha origem e destino para começar sua análise."}><span>{text.startAnalysis}</span><img src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" /></button>
     </form>
   );
-}
-
-function HeroTravelPeriodSelect({ value, invalid, label, options, onChange }: { value: string; invalid: boolean; label: string; options: readonly string[]; onChange: (value: string) => void }) {
-  const [open, setOpen] = useState(false);
-  return <div className={`ep-hero-route-starter__period${invalid ? " is-invalid" : ""}${open ? " is-open" : ""}`} onBlur={() => window.setTimeout(() => setOpen(false), 120)}>
-    <CalendarDays size={16} aria-hidden="true" />
-    <button data-hero-period type="button" aria-label={label} aria-haspopup="listbox" aria-expanded={open} aria-invalid={invalid} onClick={() => setOpen((current) => !current)}><span>{value || label}</span><ChevronDown aria-hidden="true" /></button>
-    {open ? <div className="ep-hero-route-starter__period-options" role="listbox" aria-label={label}>{options.map((period) => {
-      const selected = value === period;
-      return <button className={selected ? "is-selected" : undefined} type="button" key={period} role="option" aria-selected={selected} onMouseDown={(event) => event.preventDefault()} onClick={() => { onChange(period); setOpen(false); }}><span>{period}</span>{selected ? <Check size={16} aria-hidden="true" /> : null}</button>;
-    })}</div> : null}
-  </div>;
 }
 
 function RouteField({ label, field, value, active, invalid, onChange, onFocus, onBlur, onResolve, placeholder }: {
