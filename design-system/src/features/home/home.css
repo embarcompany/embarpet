@@ -1140,14 +1140,18 @@ main { display:flex; flex-direction:column; }
 main > .ep-conversion-hero { order:1; }
 /* A faixa visual é continuação imediata da primeira dobra, não conteúdo prioritário do main. */
 main > .ep-embarkation-marquee { order:2; }
-main > .ep-authority-band { order:2; }
-main > .ep-home-destinations { order:3; }
+main > .ep-home-notice { order:2; }
+main > .ep-authority-band { order:3; }
+main > .ep-home-authority { order:3; }
 main > .ep-home-modalities { order:4; }
-main > .ep-home-process-section { order:5; }
-main > .ep-home-cases { order:6; }
-main > .ep-home-luxury { order:7; }
-main > .ep-home-authority { order:8; }
-main > .ep-home-service { order:9; }
+main > .ep-home-service { order:5; }
+main > .ep-home-process-section { order:6; }
+main > .ep-home-press { order:7; }
+main > .ep-home-cases { order:8; }
+main > .ep-home-luxury { order:9; }
+main > .ep-home-destinations { order:10; }
+main > .ep-home-faq { order:11; }
+main > .ep-final-fly-in { order:12; }
 
 /* Pílula PetLuxo: miniatura de pet + assinatura, sem duplicação de texto. */
 .ep-home-luxury .ep-eyebrow { display:inline-flex!important; min-height:34px; align-items:center; gap:7px!important; padding:4px 11px 4px 5px!important; font-size:0!important; }
@@ -1233,12 +1237,6 @@ main > .ep-home-service { order:9; }
 .ep-home-press__grid .ep-media-logo--pegn { color:var(--ep-teal); }.ep-home-press__grid .ep-media-logo--pegn i { color:var(--ep-turq-deep); }.ep-home-press__grid .ep-media-logo--catraca { color:#007e85; }.ep-home-press__grid .ep-media-logo--visite { color:var(--ep-teal); }
 .ep-home-press__grid > a span { display:flex; align-items:center; gap:7px; margin-top:auto; color:var(--ep-turq-deep); font-size:11px; font-weight:850; }
 .ep-home-press__grid > a span svg { transition:transform .2s ease; }.ep-home-press__grid > a:hover span svg { transform:translateX(4px); }
-main > .ep-home-service { order:5; }
-main > .ep-home-process-section { order:6; }
-main > .ep-home-press { order:7; }
-main > .ep-home-cases { order:8; }
-main > .ep-home-luxury { order:9; }
-main > .ep-home-authority { order:10; }
 @media (max-width:700px) { .ep-home-service__proofs { gap:7px; margin:20px 0 26px; }.ep-home-service__proofs li { min-height:32px; padding-inline:10px; font-size:9px; }.ep-home-press { padding-block:58px; }.ep-home-press__heading { grid-template-columns:1fr; gap:16px; margin-bottom:26px; }.ep-home-press__heading h2 { font-size:clamp(31px,8.4vw,39px); }.ep-home-press__grid { display:flex; margin-right:-20px; overflow-x:auto; padding-right:20px; scroll-snap-type:x mandatory; }.ep-home-press__grid > a { min-width:82%; min-height:170px; scroll-snap-align:start; } }
 
 /* Cada pílula antecipa a promessa da seção, sem disputar atenção com o título. */
