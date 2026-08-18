@@ -1255,6 +1255,13 @@ main > .ep-home-authority { order:10; }
 .ep-home-service__content .ep-home-service__proofs { justify-content:center; }
 .ep-home-service__content .ep-button { justify-content:center; }
 @media (max-width:700px) { .ep-home-service { padding-block:46px; }.ep-home-ceo { min-height:340px; }.ep-home-service__content .ep-title-lg { max-width:20ch; }.ep-home-service__content .ep-copy { max-width:34ch; } }
+
+/* Métrica da equipe: o número ganha hierarquia própria, não parece texto auxiliar. */
+.ep-home-service__proofs li:nth-child(2) { min-height:48px; gap:6px; padding:5px 13px; border-color:rgba(105,235,224,.48); background:rgba(0,210,207,.14); }
+.ep-home-service__proofs li:nth-child(2) svg { display:none; }
+.ep-home-service__proofs li:nth-child(2) { font-size:0; }
+.ep-home-service__proofs li:nth-child(2)::before { content:"+30"; color:var(--ep-turq); font-size:22px; font-weight:900; letter-spacing:-.08em; line-height:1; }
+.ep-home-service__proofs li:nth-child(2)::after { content:"especialistas"; color:#e2f9f6; font-size:9px; font-weight:800; letter-spacing:.015em; }
 .ep-home-process__core strong { color:#fff!important; }
 .ep-home-process__core small { color:#c8f4ef!important; }
 
