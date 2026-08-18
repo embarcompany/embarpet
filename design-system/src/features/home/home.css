@@ -1221,6 +1221,29 @@ main > .ep-home-cases { order:8; }
 main > .ep-home-luxury { order:9; }
 main > .ep-home-authority { order:10; }
 @media (max-width:700px) { .ep-home-service__proofs { gap:7px; margin:20px 0 26px; }.ep-home-service__proofs li { min-height:32px; padding-inline:10px; font-size:9px; }.ep-home-press { padding-block:58px; }.ep-home-press__heading { grid-template-columns:1fr; gap:16px; margin-bottom:26px; }.ep-home-press__heading h2 { font-size:clamp(31px,8.4vw,39px); }.ep-home-press__grid { display:flex; margin-right:-20px; overflow-x:auto; padding-right:20px; scroll-snap-type:x mandatory; }.ep-home-press__grid > a { min-width:82%; min-height:170px; scroll-snap-align:start; } }
+
+/* Cada pílula antecipa a promessa da seção, sem disputar atenção com o título. */
+.ep-home-modalities__intro .ep-eyebrow,
+.ep-home-service .ep-eyebrow,
+.ep-home-process__intro .ep-eyebrow,
+.ep-home-press .ep-eyebrow,
+.ep-home-luxury .ep-eyebrow,
+.ep-home-authority__content .ep-eyebrow,
+.ep-destination-selector__intro .ep-eyebrow { font-size:0!important; }
+.ep-home-modalities__intro .ep-eyebrow::after,
+.ep-home-service .ep-eyebrow::after,
+.ep-home-process__intro .ep-eyebrow::after,
+.ep-home-press .ep-eyebrow::after,
+.ep-home-luxury .ep-eyebrow::after,
+.ep-home-authority__content .ep-eyebrow::after,
+.ep-destination-selector__intro .ep-eyebrow::after { color:inherit; font-size:10px; font-weight:800; letter-spacing:.015em; line-height:1; text-transform:none; }
+.ep-home-modalities__intro .ep-eyebrow::after { content:"A decisão começa pela rota"; }
+.ep-home-service .ep-eyebrow::after { content:"Pessoas por trás de cada etapa"; }
+.ep-home-process__intro .ep-eyebrow::after { content:"Método Embarpet"; }
+.ep-home-press .ep-eyebrow::after { content:"Conhecimento que chega mais longe"; }
+.ep-home-luxury .ep-eyebrow::after { content:"PetLuxo · cuidado dedicado"; }
+.ep-home-authority__content .ep-eyebrow::after { content:"Experiência que vira segurança"; }
+.ep-destination-selector__intro .ep-eyebrow::after { content:"A rota orienta o plano"; }
 .ep-home-process__core strong { color:#fff!important; }
 .ep-home-process__core small { color:#c8f4ef!important; }
 
