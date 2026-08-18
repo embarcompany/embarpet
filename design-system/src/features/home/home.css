@@ -1273,6 +1273,7 @@ main > .ep-home-authority { order:10; }
 .ep-home-service__content .ep-copy { max-width:560px; margin:18px auto 0; }
 .ep-home-service__content .ep-home-service__proofs { justify-content:center; }
 .ep-home-service__content .ep-button { justify-content:center; }
+.ep-home-service__identity { display:grid; gap:3px; margin:13px 0 0; color:#e9fffc; }.ep-home-service__identity strong { font-size:17px; letter-spacing:-.045em; line-height:1.05; }.ep-home-service__identity span { color:#aeeae3; font-size:10px; font-weight:760; line-height:1.35; }
 @media (max-width:700px) { .ep-home-service { padding-block:46px; }.ep-home-ceo { min-height:340px; }.ep-home-service__content .ep-title-lg { max-width:20ch; }.ep-home-service__content .ep-copy { max-width:34ch; } }
 
 /* Métrica da equipe: o número ganha hierarquia própria, não parece texto auxiliar. */
