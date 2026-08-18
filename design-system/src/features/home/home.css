@@ -1197,6 +1197,30 @@ main > .ep-home-service { order:9; }
 .ep-home-authority__content .ep-eyebrow::before,
 .ep-home-luxury .ep-eyebrow::before { display:none!important; content:none!important; }
 .ep-home-service__pill-icon { display:none!important; }
+
+/* Prova humana e validação editorial têm papéis diferentes na jornada. */
+.ep-home-service__proofs { display:flex; flex-wrap:wrap; gap:9px; margin:24px 0 30px; padding:0; list-style:none; }
+.ep-home-service__proofs li { display:inline-flex; min-height:34px; align-items:center; gap:7px; padding:0 11px; border:1px solid rgba(218,250,246,.26); border-radius:999px; background:rgba(218,250,246,.1); color:#e2f9f6; font-size:10px; font-weight:760; }
+.ep-home-service__proofs svg { width:15px; color:var(--ep-turq); }
+.ep-home-press { padding:clamp(66px,7vw,98px) 0; background:#f7fbfb; }
+.ep-home-press__heading { display:grid; grid-template-columns:minmax(0,1fr) minmax(280px,.68fr); align-items:end; gap:clamp(32px,6vw,92px); margin-bottom:34px; }
+.ep-home-press__heading .ep-eyebrow { margin:0 0 17px; }
+.ep-home-press__heading h2 { max-width:650px; margin:0; }
+.ep-home-press__heading .ep-copy { max-width:400px; margin:0; font-size:14px; line-height:1.55; }
+.ep-home-press__grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.ep-home-press__grid > a { display:grid; min-height:184px; align-content:start; gap:18px; padding:23px; border:1px solid rgba(0,73,77,.12); border-radius:18px; background:rgba(255,255,255,.72); color:var(--ep-teal); text-decoration:none; transition:transform .22s ease,border-color .22s ease,background .22s ease; }
+.ep-home-press__grid > a:hover { border-color:rgba(0,157,172,.45); background:var(--ep-paper); transform:translateY(-4px); }
+.ep-home-press__grid > a strong { max-width:30ch; font-size:15px; letter-spacing:-.035em; line-height:1.24; }
+.ep-home-press__grid .ep-media-logo--pegn { color:var(--ep-teal); }.ep-home-press__grid .ep-media-logo--pegn i { color:var(--ep-turq-deep); }.ep-home-press__grid .ep-media-logo--catraca { color:#007e85; }.ep-home-press__grid .ep-media-logo--visite { color:var(--ep-teal); }
+.ep-home-press__grid > a span { display:flex; align-items:center; gap:7px; margin-top:auto; color:var(--ep-turq-deep); font-size:11px; font-weight:850; }
+.ep-home-press__grid > a span svg { transition:transform .2s ease; }.ep-home-press__grid > a:hover span svg { transform:translateX(4px); }
+main > .ep-home-service { order:5; }
+main > .ep-home-process-section { order:6; }
+main > .ep-home-press { order:7; }
+main > .ep-home-cases { order:8; }
+main > .ep-home-luxury { order:9; }
+main > .ep-home-authority { order:10; }
+@media (max-width:700px) { .ep-home-service__proofs { gap:7px; margin:20px 0 26px; }.ep-home-service__proofs li { min-height:32px; padding-inline:10px; font-size:9px; }.ep-home-press { padding-block:58px; }.ep-home-press__heading { grid-template-columns:1fr; gap:16px; margin-bottom:26px; }.ep-home-press__heading h2 { font-size:clamp(31px,8.4vw,39px); }.ep-home-press__grid { display:flex; margin-right:-20px; overflow-x:auto; padding-right:20px; scroll-snap-type:x mandatory; }.ep-home-press__grid > a { min-width:82%; min-height:170px; scroll-snap-align:start; } }
 .ep-home-process__core strong { color:#fff!important; }
 .ep-home-process__core small { color:#c8f4ef!important; }
 
