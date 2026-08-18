@@ -1141,6 +1141,34 @@ main > .ep-home-service { order:9; }
 
 /* Núcleo do Método: contraste fixo independente das regras globais de texto. */
 .ep-home-process__core { color:#fff!important; }
+
+/* Pílulas usam emojis: imagens ficam reservadas à hero e ao footer. */
+.ep-home-modalities__intro .ep-eyebrow::before,
+.ep-home-cases .ep-eyebrow::before,
+.ep-section-heading .ep-eyebrow::before,
+.ep-home-faq .ep-eyebrow::before,
+.ep-home-guides .ep-eyebrow::before,
+.ep-destination-selector .ep-eyebrow::before,
+.ep-home-process__intro .ep-eyebrow::before,
+.ep-home-authority__content .ep-eyebrow::before,
+.ep-home-luxury .ep-eyebrow::before {
+  display:grid!important;
+  place-items:center;
+  background:none!important;
+  font-family:"Apple Color Emoji","Segoe UI Emoji",sans-serif;
+  font-size:14px;
+  line-height:1;
+}
+.ep-home-modalities__intro .ep-eyebrow::before { content:"✈️"!important; }
+.ep-home-cases .ep-eyebrow::before { content:"💬"!important; }
+.ep-section-heading .ep-eyebrow::before,
+.ep-home-faq .ep-eyebrow::before,
+.ep-home-guides .ep-eyebrow::before { content:"✦"!important; }
+.ep-destination-selector .ep-eyebrow::before { content:"🗺️"!important; }
+.ep-home-process__intro .ep-eyebrow::before { content:"🧭"!important; }
+.ep-home-authority__content .ep-eyebrow::before { content:"✈️"!important; }
+.ep-home-luxury .ep-eyebrow::before { content:"✦"!important; }
+.ep-home-service__pill-icon { display:grid; width:24px; height:24px; flex:0 0 auto; place-items:center; font-family:"Apple Color Emoji","Segoe UI Emoji",sans-serif; font-size:14px; line-height:1; }
 .ep-home-process__core strong { color:#fff!important; }
 .ep-home-process__core small { color:#c8f4ef!important; }
 
