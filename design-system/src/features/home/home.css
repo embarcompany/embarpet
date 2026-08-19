@@ -1264,6 +1264,27 @@ main > .ep-final-fly-in { order:12; }
 .ep-home-service .ep-eyebrow::after { content:"Pessoas por trás de cada etapa"; }
 .ep-home-process__intro .ep-eyebrow::after { content:"Método Embarpet"; }
 .ep-home-press .ep-eyebrow::after { content:"Conhecimento que chega mais longe"; }
+
+/* Mídia: a pílula segue o mesmo componente visual que abre as demais seções. */
+.ep-home-press .ep-eyebrow {
+  display:inline-flex;
+  min-height:34px;
+  align-items:center;
+  gap:7px;
+  padding:4px 11px 4px 5px;
+  border:1px solid rgba(0,157,172,.2);
+  border-radius:999px;
+  background:rgba(232,249,247,.72);
+  color:var(--ep-teal);
+}
+.ep-home-press .ep-eyebrow::before {
+  width:24px;
+  height:24px;
+  flex:0 0 auto;
+  border-radius:50%;
+  background:url('/embarpet-pet-selector-grid.webp') 50% 50% / 200% 200% no-repeat;
+  content:"";
+}
 .ep-home-luxury .ep-eyebrow::after { content:"PetLuxo · cuidado dedicado"; }
 .ep-home-authority__content .ep-eyebrow::after { content:"Experiência que vira segurança"; }
 .ep-destination-selector__intro .ep-eyebrow::after { content:"A rota orienta o plano"; }
