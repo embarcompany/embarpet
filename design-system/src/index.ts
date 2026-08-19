@@ -6,6 +6,7 @@ export * from "./components/ui/ride-booking-form";
 export * from "./components/ui/country-accordion";
 export * from "./components/ui/hero-section-3";
 export * from "./components/ui/system";
+export * from "./components/ui/buttons";
 export * from "./components/ui/navigation";
 export * from "./components/ui/footer";
 export * from "./components/ui/whatsapp-float";

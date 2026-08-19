@@ -1,0 +1,13 @@
+.ep-buttons-page { min-height:100vh; background:var(--ep-page); color:var(--ep-teal); }
+.ep-buttons-page__hero { padding:72px max(32px,calc((100vw - 1120px)/2)); background:var(--ep-teal); color:var(--ep-paper); }
+.ep-buttons-page__hero a { color:var(--ep-turq); font-size:12px; font-weight:700; text-decoration:none; }
+.ep-buttons-page__hero p { margin:42px 0 10px; color:var(--ep-turq); font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+.ep-buttons-page__hero h1 { max-width:700px; margin:0; font-size:clamp(44px,7vw,82px); line-height:.94; letter-spacing:-.07em; }
+.ep-buttons-page__hero span { display:block; max-width:560px; margin-top:20px; color:#c6dcda; font-size:16px; line-height:1.5; }
+.ep-buttons-page__content { display:grid; width:min(1120px,calc(100% - 64px)); margin:0 auto; padding:64px 0 96px; gap:16px; }
+.ep-buttons-demo { display:grid; grid-template-columns:minmax(220px,.72fr) minmax(0,1.28fr); align-items:center; gap:40px; padding:32px; border:1px solid var(--ep-line); border-radius:22px; background:var(--ep-paper); }
+.ep-buttons-demo header h2 { margin:0; font-size:20px; letter-spacing:-.04em; }.ep-buttons-demo header p { max-width:42ch; margin:9px 0 0; color:var(--ep-muted); font-size:12px; line-height:1.55; }
+.ep-buttons-demo > div { display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
+.ep-buttons-demo.is-dark { border-color:transparent; background:var(--ep-teal); color:var(--ep-paper); }.ep-buttons-demo.is-dark header p { color:#b7d3d1; }.ep-buttons-demo.is-dark .ep-ds-button--internal { border-color:rgba(255,255,255,.35); color:var(--ep-paper); }.ep-buttons-demo.is-dark .ep-ds-button--internal .ep-ds-button__arrow { background:var(--ep-turq); color:var(--ep-teal); }
+.ep-buttons-demo__stack { width:min(460px,100%); display:grid!important; gap:10px!important; }
+@media (max-width:760px) { .ep-buttons-page__hero { padding:48px 20px; }.ep-buttons-page__content { width:calc(100% - 32px); padding-block:32px 64px; }.ep-buttons-demo { grid-template-columns:1fr; gap:24px; padding:24px 18px; }.ep-buttons-demo > div { align-items:stretch; flex-direction:column; }.ep-buttons-demo .ep-ds-button,.ep-buttons-demo .ep-ds-button--internal { width:100%; } }
