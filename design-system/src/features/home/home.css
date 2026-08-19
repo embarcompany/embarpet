@@ -1278,12 +1278,7 @@ main > .ep-final-fly-in { order:12; }
   color:var(--ep-teal);
 }
 .ep-home-press .ep-eyebrow::before {
-  width:24px;
-  height:24px;
-  flex:0 0 auto;
-  border-radius:50%;
-  background:url('/embarpet-pet-selector-grid.webp') 50% 50% / 200% 200% no-repeat;
-  content:"";
+  display:none;
 }
 .ep-home-luxury .ep-eyebrow::after { content:"PetLuxo · cuidado dedicado"; }
 .ep-home-authority__content .ep-eyebrow::after { content:"Experiência que vira segurança"; }
