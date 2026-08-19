@@ -76,7 +76,7 @@
 @media (max-width:560px) { .ep-modality-rail { grid-template-columns:1fr; }.ep-modality-rail article,.ep-modality-rail article:nth-child(3) { min-height:220px; border-left:1px solid var(--ep-line); }.ep-modality-rail > article > svg { margin-bottom:38px; }.ep-process-list li { grid-template-columns:44px 1fr; }.ep-process-list li > svg { display:none; }.ep-region-body { padding-left:0; }.ep-scroll-route { min-height:560px; }.ep-scroll-route__frame { min-height:540px; }.ep-scroll-route img { width:96vw; opacity:.55; } }
 
 /* Navegação sempre acessível; sem sombra para manter a linguagem visual Embarpet. */
-.ep-site-header,.ep-site-header--overlay { position:sticky; z-index:40; top:0; background:rgba(0,73,77,.96); backdrop-filter:blur(12px); }.ep-site-notice { position:relative; z-index:41; display:flex; min-height:36px; align-items:center; justify-content:center; gap:8px; padding:7px 46px 7px 20px; border-bottom:1px solid #e9c95b; background:#fff4c9; color:#614f13; text-align:center; }.ep-site-notice svg { flex:0 0 auto; color:#a87900; }.ep-site-notice p { margin:0; font-size:10px; line-height:1.35; }.ep-site-notice b { color:#4d3c05; }.ep-site-notice button { position:absolute; top:50%; right:16px; display:grid; width:24px; height:24px; place-items:center; padding:0; border:0; border-radius:50%; background:transparent; color:#765e0a; transform:translateY(-50%); }.ep-site-notice button:hover { background:rgba(97,79,19,.1); color:#4d3c05; }
+.ep-site-header,.ep-site-header--overlay { position:sticky; z-index:40; top:0; background:var(--ep-nav-background); backdrop-filter:none; }.ep-site-notice { position:relative; z-index:41; display:flex; min-height:36px; align-items:center; justify-content:center; gap:8px; padding:7px 46px 7px 20px; border-bottom:1px solid #e9c95b; background:#fff4c9; color:#614f13; text-align:center; }.ep-site-notice svg { flex:0 0 auto; color:#a87900; }.ep-site-notice p { margin:0; font-size:10px; line-height:1.35; }.ep-site-notice b { color:#4d3c05; }.ep-site-notice button { position:absolute; top:50%; right:16px; display:grid; width:24px; height:24px; place-items:center; padding:0; border:0; border-radius:50%; background:transparent; color:#765e0a; transform:translateY(-50%); }.ep-site-notice button:hover { background:rgba(97,79,19,.1); color:#4d3c05; }
 main section[id] { scroll-margin-top:84px; }
 
 /* Prova social compacta: pessoas, avaliação e credenciais no mesmo ritmo visual. */
@@ -413,3 +413,11 @@ main section[id] { scroll-margin-top:84px; }
 @media (max-width:900px) {
   .ep-conversion-hero__form { display:none!important; }
 }
+
+/* Header — nova IDV. O CTA branco permanece inequívoco sobre o turquesa institucional. */
+.ep-site-header,
+.ep-site-header--overlay,
+.ep-mobile-journey { background:var(--ep-nav-background); color:#fff; }
+.ep-nav-cta,
+.ep-nav-mobile-cta { border-color:var(--ep-nav-action); background:var(--ep-nav-action); color:var(--ep-teal); }
+.ep-nav-utilities a:hover { color:#fff; }
