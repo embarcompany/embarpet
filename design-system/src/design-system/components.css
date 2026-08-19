@@ -456,3 +456,6 @@ main section[id] { scroll-margin-top:84px; }
 .ep-nav-cta,
 .ep-nav-mobile-cta { border-color:var(--ep-nav-action); background:var(--ep-nav-action); color:var(--ep-teal); }
 .ep-nav-utilities a:hover { color:#fff; }
+.ep-site-nav__analysis.ep-ds-button--analysis { border-color:#fff; background:#fff; color:var(--ep-teal); }
+.ep-site-nav__analysis.ep-ds-button--analysis:hover { border-color:#fff; background:#f3ffff; }
+.ep-mobile-menu .ep-ds-button--analysis { width:100%; margin-top:8px; }
