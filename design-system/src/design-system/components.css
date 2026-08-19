@@ -387,6 +387,25 @@ main section[id] { scroll-margin-top:84px; }
 .ep-flow-route-preview__icon { display:grid; width:34px; height:34px; place-items:center; border-radius:50%; background:var(--ep-paper); color:var(--ep-turq-deep); }
 .ep-flow-route-preview__content { display:grid; min-width:0; gap:2px; }.ep-flow-route-preview small { color:var(--ep-turq-deep); font-size:9px; font-weight:800; }.ep-flow-route-preview b { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:6px; font-size:11px; line-height:1.15; }.ep-flow-route-preview b span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }.ep-flow-route-preview b span:last-child { text-align:right; }.ep-flow-route-preview b i { color:var(--ep-turq-deep); font-style:normal; }.ep-flow-route-preview em { overflow:hidden; color:var(--ep-muted); font-size:9px; font-style:normal; font-weight:650; text-overflow:ellipsis; white-space:nowrap; }
 
+/* Cabeçalho vivo do diagnóstico: preserva contexto e se completa a cada resposta. */
+.ep-flow-journey-header { width:100%; margin:0 0 16px; }
+.ep-flow-journey-header .ep-flow-route-preview { grid-template-columns:44px minmax(0,1fr); min-height:70px; margin:0; padding:11px 16px; border-color:rgba(0,157,172,.24); border-radius:16px; background:linear-gradient(110deg,rgba(225,249,246,.96),rgba(255,255,255,.9)); }
+.ep-flow-journey-header .ep-flow-route-preview__icon { width:42px; height:42px; }
+.ep-flow-journey-header .ep-flow-route-preview__content { grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:3px 18px; }
+.ep-flow-journey-header .ep-flow-route-preview__content small { grid-column:1/-1; font-size:10px; }
+.ep-flow-journey-header .ep-flow-route-preview__content b { font-size:14px; }
+.ep-flow-journey-header .ep-flow-route-preview__content em { justify-self:end; font-size:10px; }
+.ep-diagnostic-flow--route-first .ep-flow-card > .ep-flow-route-preview,
+.ep-diagnostic-flow--route-first .ep-flow-card > .ep-flow-summary { display:none; }
+@media (max-width:600px) {
+  .ep-flow-journey-header { margin-bottom:13px; }
+  .ep-flow-journey-header .ep-flow-route-preview { grid-template-columns:38px minmax(0,1fr); min-height:62px; padding:9px 11px; border-radius:13px; }
+  .ep-flow-journey-header .ep-flow-route-preview__icon { width:36px; height:36px; }
+  .ep-flow-journey-header .ep-flow-route-preview__content { grid-template-columns:1fr; gap:2px; }
+  .ep-flow-journey-header .ep-flow-route-preview__content small { grid-column:auto; }
+  .ep-flow-journey-header .ep-flow-route-preview__content em { justify-self:start; }
+}
+
 /* Hero de conversão: contexto à esquerda, prova visual real à direita. */
 .ep-conversion-hero__aside { display:none; }
 .ep-hero-video { position:relative; width:100%; height:100%; overflow:hidden; background:#075c62; }

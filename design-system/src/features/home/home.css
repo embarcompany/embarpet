@@ -1512,6 +1512,8 @@ main > .ep-final-fly-in { order:12; }
 .ep-analysis-modal__content .ep-flow-route-preview { margin-top:20px; padding:13px 15px; }
 .ep-analysis-modal__content .ep-flow-route-preview__icon { width:42px; height:42px; }
 .ep-analysis-modal__content .ep-flow-route-preview__content b { font-size:14px; }
+.ep-analysis-modal__content .ep-flow-journey-header { margin-bottom:18px; }
+.ep-analysis-modal__content .ep-flow-journey-header .ep-flow-route-preview { min-height:72px; margin:0; padding:12px 16px; }
 .ep-analysis-modal__content .ep-airport-field { min-height:82px; padding:12px; border-radius:13px; }
 .ep-analysis-modal__content .ep-airport-field > span:first-child { margin-bottom:8px; font-size:12px; }
 .ep-analysis-modal__content .ep-airport-field__input { min-height:38px; padding-inline:10px; }
