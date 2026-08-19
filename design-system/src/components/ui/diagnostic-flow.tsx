@@ -145,9 +145,8 @@ function RoutePreview({ origin, destination, period, petCount }: RouteData & { p
 }
 
 function TravelPeriodSelect({ value, onChange }: { value: string; onChange: (value: string) => void }) {
-  const [open, setOpen] = useState(false);
   const options = ["Dentro de 1 a 3 meses", "De 3 a 6 meses", "Sem data definida"];
-  return <div className="ep-period-select" onBlur={() => window.setTimeout(() => setOpen(false), 120)}><button type="button" aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen((current) => !current)}><span>{value || "Escolha uma previsão"}</span><ChevronDown size={16} aria-hidden="true" /></button>{open ? <div role="listbox">{options.map((option) => <button type="button" role="option" aria-selected={value === option} className={value === option ? "is-selected" : ""} key={option} onMouseDown={(event) => event.preventDefault()} onClick={() => { onChange(option); setOpen(false); }}><CalendarDays size={14} aria-hidden="true" /><span>{option}</span>{value === option ? <Check size={14} aria-hidden="true" /> : null}</button>)}</div> : null}</div>;
+  return <div className="ep-period-pills" role="radiogroup" aria-label="Quando pretende viajar?">{options.map((option) => <button type="button" role="radio" aria-checked={value === option} className={value === option ? "is-selected" : ""} key={option} onClick={() => onChange(option)}><CalendarDays size={17} aria-hidden="true" /><span>{option}</span><i aria-hidden="true">{value === option ? <Check size={14} /> : null}</i></button>)}</div>;
 }
 
 function CityAirportField({ label, value, onChange }: { label: "Origem" | "Destino"; value: string; onChange: (value: string) => void }) {
