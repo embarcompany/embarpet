@@ -1320,17 +1320,22 @@ main > .ep-final-fly-in { order:12; }
 
 /* Desktop: a própria seção é o painel baixo; o retrato se projeta acima dele. */
 @media (min-width:701px) {
-  .ep-home-service { height:clamp(400px,50vh,560px); min-height:0; margin:clamp(145px,12vw,185px) auto 10px; padding-block:0; overflow:visible; }
-  .ep-home-service__grid { height:100%; grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:stretch; gap:clamp(36px,5vw,76px); }
+  .ep-home-service { height:clamp(500px,65vh,700px); min-height:0; margin:clamp(190px,15vw,230px) auto 10px; padding-block:0; overflow:visible; }
+  .ep-home-service__grid { width:100%; height:100%; max-width:none; grid-template-columns:50% 50%; align-items:stretch; gap:0; }
   .ep-home-ceo { height:100%; min-height:0; align-self:stretch; }
   .ep-home-ceo::before { right:0; bottom:0; left:0; height:100%; border-radius:30px 30px 22px 22px; background:linear-gradient(150deg,#00656e 0%,#0097a0 48%,#006069 100%); }
   .ep-home-ceo__glow { bottom:7%; width:94%; opacity:.9; filter:blur(18px); }
   .ep-home-ceo img { max-width:126%; height:139%; }
   .ep-home-ceo__fade { right:0; bottom:0; left:0; height:54%; border-radius:0 0 22px 22px; background:linear-gradient(to top,#004c54 0%,rgba(0,82,91,.96) 22%,rgba(0,117,126,.68) 56%,rgba(0,117,126,0) 100%); }
-  .ep-home-service__content { justify-content:center; padding-block:18px; }
-  .ep-home-service__identity { margin-top:8px; }.ep-home-service__identity strong { font-size:15px; }
-  .ep-home-service__content .ep-title-lg { max-width:540px; margin-top:10px; font-size:clamp(25px,2.25vw,35px); }
-  .ep-home-service__content .ep-copy { max-width:570px; margin-top:10px; font-size:12px; line-height:1.45; }
+  .ep-home-service__content { align-items:flex-start; justify-content:center; padding:18px clamp(32px,5vw,104px); text-align:left; }
+  .ep-home-service__content .ep-eyebrow { margin-inline:0; }
+  .ep-home-service__identity { margin-top:12px; text-align:left; }.ep-home-service__identity strong { font-size:17px; }
+  .ep-home-service__content .ep-title-lg { max-width:620px; margin-top:12px; font-size:clamp(30px,2.65vw,44px); text-align:left; }
+  .ep-home-service__content .ep-title-lg strong { color:var(--ep-turq); font-weight:inherit; }
+  .ep-home-service__content .ep-copy { max-width:610px; margin:13px 0 0; font-size:13px; line-height:1.52; text-align:left; }
+  .ep-home-service__content .ep-copy strong { color:#e8fffc; }
+  .ep-home-service__content .ep-home-service__proofs { justify-content:flex-start; }
+  .ep-home-service__content .ep-button { justify-content:flex-start; }
   .ep-home-service__proofs { margin:13px 0 15px; }.ep-home-service__proofs li { min-height:30px; font-size:9px; }
   .ep-home-service__proofs li:nth-child(2) { min-height:39px; }.ep-home-service__proofs li:nth-child(2)::before { font-size:18px; }
 }
