@@ -1263,7 +1263,7 @@ main > .ep-final-fly-in { order:12; }
 .ep-home-modalities__intro .ep-eyebrow::after { content:"A decisão começa pela rota"; }
 .ep-home-service .ep-eyebrow::after { content:"Pessoas por trás de cada etapa"; }
 .ep-home-process__intro .ep-eyebrow::after { content:"Método Embarpet"; }
-.ep-home-press .ep-eyebrow::after { content:"Conhecimento que chega mais longe"; }
+.ep-home-press .ep-eyebrow::after { content:"Na mídia"; }
 
 /* Mídia: a pílula segue o mesmo componente visual que abre as demais seções. */
 .ep-home-press .ep-eyebrow {
