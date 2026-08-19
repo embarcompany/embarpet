@@ -177,6 +177,10 @@ function EmbarkationMarquee() {
 
 export default function EmbarpetHome() {
   const { text, path } = useLocale();
+  const routeFromUrl = () => {
+    const query = new URLSearchParams(window.location.search);
+    return { origin: query.get("origin") ?? "", destination: query.get("destination") ?? "", period: query.get("period") ?? "" };
+  };
   const [route, setRoute] = useState<RouteData>({ origin:"", destination:"", period:"" });
   const [message, setMessage] = useState("");
   const [petLuxoUnmuted, setPetLuxoUnmuted] = useState(false);
@@ -186,8 +190,8 @@ export default function EmbarpetHome() {
   const [heroVideoPaused, setHeroVideoPaused] = useState(false);
   const [podcastPlaying, setPodcastPlaying] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
-  const [analysisOpen, setAnalysisOpen] = useState(false);
-  const [analysisRoute, setAnalysisRoute] = useState<Partial<RouteData>>({});
+  const [analysisOpen, setAnalysisOpen] = useState(() => window.location.pathname === path("/analise"));
+  const [analysisRoute, setAnalysisRoute] = useState<Partial<RouteData>>(() => window.location.pathname === path("/analise") ? routeFromUrl() : {});
   const openAnalysis = (initialRoute: Partial<RouteData> = {}) => {
     const nextRoute = { origin: initialRoute.origin ?? "", destination: initialRoute.destination ?? "", period: initialRoute.period ?? "" };
     const query = new URLSearchParams();
@@ -200,12 +204,20 @@ export default function EmbarpetHome() {
     if (window.location.pathname !== analysisPath) window.history.pushState({ embarpetAnalysis: true }, "", `${analysisPath}${query.size ? `?${query.toString()}` : ""}`);
   };
   const closeAnalysis = () => {
-    if (window.location.pathname === path("/analise")) window.history.back();
-    else setAnalysisOpen(false);
+    if (window.location.pathname !== path("/analise")) { setAnalysisOpen(false); return; }
+    if (window.history.state?.embarpetAnalysis) window.history.back();
+    else {
+      window.history.replaceState({}, "", path("/"));
+      setAnalysisOpen(false);
+    }
   };
   useEffect(() => {
     const handleOpen = (event: Event) => openAnalysis((event as CustomEvent<Partial<RouteData>>).detail ?? {});
-    const handlePopState = () => setAnalysisOpen(false);
+    const handlePopState = () => {
+      const shouldOpen = window.location.pathname === path("/analise");
+      setAnalysisOpen(shouldOpen);
+      if (shouldOpen) setAnalysisRoute(routeFromUrl());
+    };
     window.addEventListener("embarp:open-analysis", handleOpen);
     window.addEventListener("popstate", handlePopState);
     return () => { window.removeEventListener("embarp:open-analysis", handleOpen); window.removeEventListener("popstate", handlePopState); };

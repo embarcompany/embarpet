@@ -8,6 +8,6 @@ export function App({ initialLocale = "pt-BR" }: { initialLocale?: Locale }) {
   const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
   const locale = typeof window !== "undefined" ? getLocaleFromPath(pathname) : initialLocale;
   const route = pathname.replace(/^\/(en|es|ja)(?=\/|$)/, "") || "/";
-  const page = route === "/analise" ? <AnalysisPage /> : route === "/obrigado" ? <ThankYouPage /> : <EmbarpetHome />;
+  const page = route === "/viajar" ? <AnalysisPage /> : route === "/obrigado" ? <ThankYouPage /> : <EmbarpetHome />;
   return <LocaleProvider locale={locale}>{page}</LocaleProvider>;
 }
