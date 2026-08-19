@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { MapPin, PlaneTakeoff } from "lucide-react";
 import { useCountrySuggestions } from "../../hooks/use-country-suggestions";
 import { useLocale } from "../../i18n/locale";
 
@@ -72,7 +73,7 @@ function RouteField({ label, field, value, active, invalid, onChange, onFocus, o
   const chooseSuggestion = (suggestion: typeof suggestions[number]) => onResolve(suggestion.name);
 
   return <label className={`ep-hero-route-starter__field${invalid ? " is-invalid" : ""}`}>
-    <span className="ep-hero-route-starter__field-icon" role="img" aria-label={field === "origin" ? "Decolagem" : "Pouso"}>{field === "origin" ? "🛫" : "🛬"}</span>
+    <span className="ep-hero-route-starter__field-icon" aria-hidden="true">{field === "origin" ? <PlaneTakeoff /> : <MapPin />}</span>
     <span className="ep-hero-route-starter__field-content"><span>{label}</span><input data-hero-route-field={field} value={value} onChange={(event) => onChange(event.target.value)} onFocus={onFocus} onBlur={onBlur} placeholder={invalid ? requiredMessage : placeholder} autoComplete="off" aria-invalid={invalid} aria-expanded={showOptions} aria-controls={`hero-${field}-options`} /></span>
     {showOptions ? <span className="ep-hero-route-starter__options" id={`hero-${field}-options`} role="listbox">
       {suggestions.map((suggestion) => <button type="button" key={suggestion.code} role="option" onMouseDown={(event) => event.preventDefault()} onClick={() => chooseSuggestion(suggestion)}>
