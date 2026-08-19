@@ -22,6 +22,7 @@ Tokens e estados: `src/design-system/buttons.css`
 - O avião completa o percurso mesmo após a saída do hover e também responde ao foco por teclado.
 - A CTA interna expande a cápsula na direção da seta; o núcleo acompanha o movimento sem deformar.
 - Botões de interface com seta expandem na direção da ação: avançar à direita e voltar à esquerda.
+- O crescimento usa uma transição contínua de `420ms`: texto, espaço interno, cápsula e seta se movem como uma única peça.
 - Respeitar `prefers-reduced-motion`; nesse modo, o texto permanece visível e o avião não anima.
 - Não recriar CTAs em CSS de seção. Se um novo caso surgir, estenda este sistema.
 - Não usar símbolo textual `→`; use o núcleo de seta do `InternalLink` ou ícone Lucide no `InterfaceButton`.
