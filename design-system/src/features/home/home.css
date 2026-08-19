@@ -1493,6 +1493,48 @@ main > .ep-final-fly-in { order:12; }
   .ep-home-ceo figcaption.ep-home-service__identity strong { font-size:14px; }
 }
 
+/* Modal de diagnóstico: ocupa melhor o painel e oferece controles confortáveis para leitura e toque. */
+.ep-analysis-modal__content { padding:clamp(58px,7vh,76px) clamp(24px,3.5vw,48px) clamp(28px,4vh,44px); }
+.ep-analysis-modal__content .ep-diagnostic-flow { width:min(100%,980px); }
+.ep-analysis-modal__content .ep-flow-card { justify-content:center; }
+.ep-analysis-modal__content .ep-flow-kicker { font-size:11px; }
+.ep-analysis-modal__content .ep-flow-title { margin-top:8px; font-size:clamp(28px,2.5vw,36px); }
+.ep-analysis-modal__content .ep-flow-intro { margin-top:9px; font-size:14px; }
+.ep-analysis-modal__content .ep-pet-choice-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:22px; }
+.ep-analysis-modal__content .ep-pet-choice > button { min-height:138px; gap:11px; }
+.ep-analysis-modal__content .ep-pet-choice__icon { width:54px; height:54px; }
+.ep-analysis-modal__content .ep-pet-choice__icon svg { width:31px; height:31px; }
+.ep-analysis-modal__content .ep-pet-choice > button > span:last-child { font-size:14px; }
+.ep-analysis-modal__content .ep-other-pet { min-height:54px; margin-top:12px; padding:10px 14px; }
+.ep-analysis-modal__content .ep-other-pet__heading > button span { font-size:13px; }
+.ep-analysis-modal__content .ep-other-pet__heading > input { min-height:40px; font-size:12px; }
+.ep-analysis-modal__content .ep-multi-pet-trigger { margin-top:12px; font-size:12px; }
+.ep-analysis-modal__content .ep-flow-route-preview { margin-top:20px; padding:13px 15px; }
+.ep-analysis-modal__content .ep-flow-route-preview__icon { width:42px; height:42px; }
+.ep-analysis-modal__content .ep-flow-route-preview__content b { font-size:14px; }
+.ep-analysis-modal__content .ep-airport-field { min-height:82px; padding:12px; border-radius:13px; }
+.ep-analysis-modal__content .ep-airport-field > span:first-child { margin-bottom:8px; font-size:12px; }
+.ep-analysis-modal__content .ep-airport-field__input { min-height:38px; padding-inline:10px; }
+.ep-analysis-modal__content .ep-airport-field__input input { font-size:14px; }
+.ep-analysis-modal__content .ep-period-select > button { min-height:52px; padding-inline:14px; font-size:14px; }
+.ep-analysis-modal__content .ep-specific-date { min-height:30px; font-size:11px; }
+.ep-analysis-modal__content .ep-pet-detail__select,
+.ep-analysis-modal__content .ep-pet-detail__fields input { min-height:54px; border-radius:11px; font-size:13px; }
+.ep-analysis-modal__content .ep-pet-detail__select input { min-height:38px; font-size:12px; }
+.ep-analysis-modal__content .ep-contact-input { min-height:54px; border-radius:11px; }
+.ep-analysis-modal__content .ep-contact-input input { min-height:52px!important; font-size:14px!important; }
+.ep-analysis-modal__content .ep-flow-actions { margin-top:22px; }
+.ep-analysis-modal__content .ep-flow-actions .ep-button { min-height:50px; font-size:13px; }
+@media (max-width:700px) {
+  .ep-analysis-modal__content { padding:58px 14px 20px; }
+  .ep-analysis-modal__content .ep-flow-title { font-size:28px; }
+  .ep-analysis-modal__content .ep-flow-intro { font-size:13px; }
+  .ep-analysis-modal__content .ep-pet-choice-grid { gap:9px; margin-top:18px; }
+  .ep-analysis-modal__content .ep-pet-choice > button { min-height:122px; }
+  .ep-analysis-modal__content .ep-pet-choice__icon { width:48px; height:48px; }
+  .ep-analysis-modal__content .ep-airport-field { min-height:74px; }
+}
+
 /* Provas da equipe: pequenos cards, com a mesma leitura dos cards do PetLuxo. */
 .ep-home-service__proofs {
   display:grid;
