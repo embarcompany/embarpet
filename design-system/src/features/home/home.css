@@ -1022,24 +1022,6 @@
   transition:transform .5s ease;
 }
 .ep-embarkation-marquee__item:hover img { transform:scale(1.045); }
-.ep-embarkation-marquee__item::after { position:absolute; z-index:1; right:0; bottom:0; left:0; height:58%; background:linear-gradient(180deg,rgba(0,73,77,0),rgba(0,73,77,.78)); content:""; pointer-events:none; }
-.ep-embarkation-marquee__item figcaption {
-  position:absolute;
-  z-index:2;
-  right:8px;
-  bottom:8px;
-  left:8px;
-  display:flex;
-  align-items:center;
-  gap:5px;
-  min-height:20px;
-  padding:0;
-  color:var(--ep-paper);
-  font-size:9px;
-  line-height:1;
-}
-.ep-embarkation-marquee__item figcaption svg { flex:0 0 auto; color:var(--ep-turq); }
-.ep-embarkation-marquee__item figcaption b { overflow:hidden; font-size:9px; text-overflow:ellipsis; white-space:nowrap; }
 @media (max-width:620px) {
   .ep-embarkation-marquee { --ep-marquee-gap:8px; padding:8px 0; }
   .ep-embarkation-marquee__item { flex-basis:142px; border-radius:10px; }

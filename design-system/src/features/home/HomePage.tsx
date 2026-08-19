@@ -116,7 +116,7 @@ function EmbarkationMarquee() {
     };
   }, []);
 
-  return <section className="ep-embarkation-marquee" aria-label="Embarques acompanhados pela Embarpet"><div className="ep-embarkation-marquee__viewport" ref={viewportRef}><div className="ep-embarkation-marquee__track" ref={trackRef}>{rails.map((rail) => <div className="ep-embarkation-marquee__rail" key={rail} aria-hidden={rail ? "true" : undefined}>{embarkationGallery.map(({ src, alt, destination }) => <figure className="ep-embarkation-marquee__item" key={`${src}-${rail}`}><img src={src} alt={rail ? "" : alt} loading="lazy" decoding="async" /><figcaption><span>Brasil</span><Plane size={12} aria-hidden="true" /><b>{destination}</b></figcaption></figure>)}</div>)}</div></div></section>;
+  return <section className="ep-embarkation-marquee" aria-label="Embarques acompanhados pela Embarpet"><div className="ep-embarkation-marquee__viewport" ref={viewportRef}><div className="ep-embarkation-marquee__track" ref={trackRef}>{rails.map((rail) => <div className="ep-embarkation-marquee__rail" key={rail} aria-hidden={rail ? "true" : undefined}>{embarkationGallery.map(({ src, alt }) => <figure className="ep-embarkation-marquee__item" key={`${src}-${rail}`}><img src={src} alt={rail ? "" : alt} loading="lazy" decoding="async" /></figure>)}</div>)}</div></div></section>;
 }
 
 export default function EmbarpetHome() {
