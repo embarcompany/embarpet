@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useAirportSuggestions } from "../../hooks/use-airport-suggestions";
+import { useCountrySuggestions } from "../../hooks/use-country-suggestions";
 import { useLocale } from "../../i18n/locale";
 
 type RouteStarterData = { origin: string; destination: string };
@@ -65,20 +65,19 @@ function RouteField({ label, field, value, active, invalid, onChange, onFocus, o
   onResolve: (value: string) => void;
   placeholder: string;
 }) {
-  const { text } = useLocale();
-  const { suggestions, hasGoogleSuggestions, resolveSuggestion } = useAirportSuggestions(value, active);
-  const showOptions = active && value.trim().length >= 3 && suggestions.length > 0;
+  const { text, locale } = useLocale();
+  const suggestions = useCountrySuggestions(value, active, locale);
+  const showOptions = active && value.trim().length >= 2 && suggestions.length > 0;
   const requiredMessage = field === "origin" ? text.originRequired : text.destinationRequired;
-  const chooseSuggestion = async (suggestion: typeof suggestions[number]) => onResolve((await resolveSuggestion(suggestion)).value);
+  const chooseSuggestion = (suggestion: typeof suggestions[number]) => onResolve(suggestion.name);
 
   return <label className={`ep-hero-route-starter__field${invalid ? " is-invalid" : ""}`}>
     <span className="ep-hero-route-starter__field-icon" role="img" aria-label={field === "origin" ? "Decolagem" : "Pouso"}>{field === "origin" ? "🛫" : "🛬"}</span>
     <span className="ep-hero-route-starter__field-content"><span>{label}</span><input data-hero-route-field={field} value={value} onChange={(event) => onChange(event.target.value)} onFocus={onFocus} onBlur={onBlur} placeholder={invalid ? requiredMessage : placeholder} autoComplete="off" aria-invalid={invalid} aria-expanded={showOptions} aria-controls={`hero-${field}-options`} /></span>
     {showOptions ? <span className="ep-hero-route-starter__options" id={`hero-${field}-options`} role="listbox">
-      {suggestions.map((suggestion, index) => <button type="button" key={suggestion.source === "local" ? `${suggestion.airport.city}-${suggestion.airport.iata}` : `${suggestion.source}-${index}`} role="option" onMouseDown={(event) => event.preventDefault()} onClick={() => void chooseSuggestion(suggestion)}>
-        {suggestion.source === "local" ? <><b>{suggestion.airport.city}, {suggestion.airport.country}</b><small>{suggestion.airport.iata} · {suggestion.airport.airport}</small></> : suggestion.source === "google" ? <><b>{suggestion.label}</b><small>{suggestion.detail} · aeroporto sugerido após a seleção</small></> : <><b>Usar “{suggestion.value}”</b><small>Vamos confirmar o aeroporto ideal na análise.</small></>}
+      {suggestions.map((suggestion) => <button type="button" key={suggestion.code} role="option" onMouseDown={(event) => event.preventDefault()} onClick={() => chooseSuggestion(suggestion)}>
+        <img src={`https://flagcdn.com/w40/${suggestion.code.toLowerCase()}.png`} alt="" width="24" height="18" /><b>{suggestion.name}</b><small>{suggestion.code}</small>
       </button>)}
-      {hasGoogleSuggestions ? <span className="ep-hero-route-starter__google-attribution"><img src="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_42x16dp.png" alt="Google" /></span> : null}
     </span> : null}
   </label>;
 }

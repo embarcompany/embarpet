@@ -3,8 +3,7 @@
 import { useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Bird, CalendarDays, Cat, Check, ChevronDown, CircleHelp, Dog, MapPin, Minus, Plane, Plus, Rabbit, UserRound, type LucideIcon } from "lucide-react";
 import type { PublicLead } from "../../lead-contract";
-import { airportCities, type AirportCity } from "../../data/airport-cities";
-import { useAirportSuggestions } from "../../hooks/use-airport-suggestions";
+import { useCountrySuggestions } from "../../hooks/use-country-suggestions";
 import { trackConversionEvent } from "../../lib/analytics";
 import { useLocale } from "../../i18n/locale";
 
@@ -149,65 +148,17 @@ function TravelPeriodSelect({ value, onChange }: { value: string; onChange: (val
   return <div className="ep-period-select" onBlur={() => window.setTimeout(() => setOpen(false), 120)}><button type="button" aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen((current) => !current)}><span>{value || "Escolha uma previsão"}</span><ChevronDown size={16} aria-hidden="true" /></button>{open ? <div role="listbox">{options.map((option) => <button type="button" role="option" aria-selected={value === option} className={value === option ? "is-selected" : ""} key={option} onMouseDown={(event) => event.preventDefault()} onClick={() => { onChange(option); setOpen(false); }}><CalendarDays size={14} aria-hidden="true" /><span>{option}</span>{value === option ? <Check size={14} aria-hidden="true" /> : null}</button>)}</div> : null}</div>;
 }
 
-function CityAirportFieldLegacy({ label, value, onChange }: { label: "Origem" | "Destino"; value: string; onChange: (value: string) => void }) {
-  const [open, setOpen] = useState(false);
-  const matches = searchAirports(value);
-  const choose = (airport: AirportCity) => {
-    onChange(`${airport.city}, ${airport.country} · ${airport.iata}`);
-    setOpen(false);
-  };
-  const canSuggest = value.trim().length >= 3;
-  return <label className="ep-airport-field"><span>{label}:</span><span className="ep-airport-field__input"><MapPin size={15} aria-hidden="true" /><input value={value} onChange={(event) => { onChange(event.target.value); setOpen(true); }} onFocus={() => setOpen(true)} onBlur={() => window.setTimeout(() => setOpen(false), 120)} placeholder="Digite uma cidade" autoComplete="off" aria-label={`${label}: digite uma cidade`} aria-expanded={open && canSuggest && matches.length > 0} aria-controls={`${label.toLowerCase()}-airport-options`} /></span>{open && canSuggest && matches.length > 0 ? <span className="ep-airport-field__options" id={`${label.toLowerCase()}-airport-options`} role="listbox">{matches.map((airport) => <button type="button" key={`${airport.city}-${airport.iata}`} onMouseDown={(event) => event.preventDefault()} onClick={() => choose(airport)} role="option"><b>{airport.city}, {airport.country}</b><small>{airport.iata} · {airport.airport}</small></button>)}</span> : null}</label>;
-}
-
-const normalizeAirportSearch = (value: string) => value
-  .normalize("NFD")
-  .replace(/[\u0300-\u036f]/g, "")
-  .toLocaleLowerCase()
-  .replace(/[^a-z0-9]+/g, " ")
-  .trim();
-
-function searchAirports(value: string) {
-  const query = normalizeAirportSearch(value);
-  if (query.length < 3) return [];
-
-  const queryTokens = query.split(" ").filter(Boolean);
-  return airportCities
-    .map((airport) => {
-      const city = normalizeAirportSearch(airport.city);
-      const country = normalizeAirportSearch(airport.country);
-      const airportName = normalizeAirportSearch(airport.airport);
-      const iata = normalizeAirportSearch(airport.iata);
-      const aliases = (airport.aliases ?? []).map(normalizeAirportSearch);
-      const searchable = [city, country, airportName, iata, ...aliases];
-      const matchesEveryTerm = queryTokens.every((term) => searchable.some((termValue) => termValue.includes(term)));
-      if (!matchesEveryTerm) return null;
-
-      // Código e cidade exatos ficam no topo; país e aeroporto continuam descobertos naturalmente.
-      const score =
-        (iata === query ? 1000 : 0) +
-        (city === query ? 900 : city.startsWith(query) ? 700 : city.includes(query) ? 500 : 0) +
-        (aliases.some((alias) => alias === query) ? 800 : aliases.some((alias) => alias.startsWith(query)) ? 600 : 0) +
-        (airportName.startsWith(query) ? 450 : airportName.includes(query) ? 250 : 0) +
-        (country === query ? 300 : country.startsWith(query) ? 180 : 0);
-      return { airport, score };
-    })
-    .filter((result): result is { airport: AirportCity; score: number } => Boolean(result))
-    .sort((left, right) => right.score - left.score || left.airport.city.localeCompare(right.airport.city, "pt-BR"))
-    .slice(0, 6)
-    .map(({ airport }) => airport);
-}
-
 function CityAirportField({ label, value, onChange }: { label: "Origem" | "Destino"; value: string; onChange: (value: string) => void }) {
   const [open, setOpen] = useState(false);
-  const { suggestions, hasGoogleSuggestions, resolveSuggestion } = useAirportSuggestions(value, open);
-  const canSuggest = value.trim().length >= 3;
-  const chooseSuggestion = async (suggestion: typeof suggestions[number]) => {
-    onChange((await resolveSuggestion(suggestion)).value);
+  const { locale, text } = useLocale();
+  const suggestions = useCountrySuggestions(value, open, locale);
+  const canSuggest = value.trim().length >= 2;
+  const chooseSuggestion = (suggestion: typeof suggestions[number]) => {
+    onChange(suggestion.name);
     setOpen(false);
   };
 
-  return <label className="ep-airport-field"><span>{label}:</span><span className="ep-airport-field__input"><MapPin size={15} aria-hidden="true" /><input value={value} onChange={(event) => { onChange(event.target.value); setOpen(true); }} onFocus={() => setOpen(true)} onBlur={() => window.setTimeout(() => setOpen(false), 120)} placeholder="Digite uma cidade" autoComplete="off" aria-label={`${label}: digite uma cidade`} aria-expanded={open && canSuggest && suggestions.length > 0} aria-controls={`${label.toLowerCase()}-airport-options`} /></span>{open && canSuggest && suggestions.length > 0 ? <span className="ep-airport-field__options" id={`${label.toLowerCase()}-airport-options`} role="listbox">{suggestions.map((suggestion, index) => <button type="button" key={suggestion.source === "local" ? `${suggestion.airport.city}-${suggestion.airport.iata}` : `${suggestion.source}-${index}`} onMouseDown={(event) => event.preventDefault()} onClick={() => void chooseSuggestion(suggestion)} role="option">{suggestion.source === "local" ? <><b>{suggestion.airport.city}, {suggestion.airport.country}</b><small>{suggestion.airport.iata} · {suggestion.airport.airport}</small></> : suggestion.source === "google" ? <><b>{suggestion.label}</b><small>{suggestion.detail} · aeroporto sugerido após a seleção</small></> : <><b>Usar “{suggestion.value}”</b><small>Vamos confirmar o aeroporto ideal na análise.</small></>}</button>)}{hasGoogleSuggestions ? <span className="ep-airport-field__google-attribution"><img src="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_42x16dp.png" alt="Google" /></span> : null}</span> : null}</label>;
+  return <label className="ep-airport-field"><span>{label}:</span><span className="ep-airport-field__input"><MapPin size={15} aria-hidden="true" /><input value={value} onChange={(event) => { onChange(event.target.value); setOpen(true); }} onFocus={() => setOpen(true)} onBlur={() => window.setTimeout(() => setOpen(false), 120)} placeholder={text.cityPlaceholder} autoComplete="off" aria-label={`${label}: ${text.cityPlaceholder}`} aria-expanded={open && canSuggest && suggestions.length > 0} aria-controls={`${label.toLowerCase()}-country-options`} /></span>{open && canSuggest && suggestions.length > 0 ? <span className="ep-airport-field__options" id={`${label.toLowerCase()}-country-options`} role="listbox">{suggestions.map((suggestion) => <button type="button" key={suggestion.code} onMouseDown={(event) => event.preventDefault()} onClick={() => chooseSuggestion(suggestion)} role="option"><img src={`https://flagcdn.com/w40/${suggestion.code.toLowerCase()}.png`} alt="" width="24" height="18" /><b>{suggestion.name}</b><small>{suggestion.code}</small></button>)}</span> : null}</label>;
 }
 
 function FlowActions({ back, next, nextLabel, disabled }: { back?: () => void; next: () => void; nextLabel: string; disabled?: boolean }) {
