@@ -647,6 +647,104 @@
   .ep-home-process__cycle:has(.ep-home-process__satellite:hover) .ep-home-process__satellite { animation-play-state:paused!important; }
 }
 
+/* Contrato final das CTAs internas: texto preservado, cápsula expande, seta permanece estável. */
+.ep-internal-cta,
+.ep-home-authority__story-cta.ep-internal-cta,
+.ep-home-service .ep-internal-cta,
+.ep-home-press__feature-copy a,
+.ep-case-carousel__more,
+.ep-case-canvas__center > a {
+  display:inline-flex!important;
+  width:max-content!important;
+  min-width:0!important;
+  min-height:46px!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:12px!important;
+  overflow:visible!important;
+  padding:4px 5px 4px 16px!important;
+  border-radius:999px!important;
+  transform:none!important;
+  transition:padding .26s cubic-bezier(.2,.8,.2,1),gap .26s cubic-bezier(.2,.8,.2,1),border-color .22s ease,background .22s ease,color .22s ease!important;
+}
+
+.ep-internal-cta > span,
+.ep-home-authority__story-cta.ep-internal-cta > span,
+.ep-home-service .ep-internal-cta > span,
+.ep-case-carousel__more > span,
+.ep-case-canvas__center > a > span {
+  display:inline-block!important;
+  min-width:max-content!important;
+  flex:0 0 auto!important;
+  overflow:visible!important;
+  opacity:1!important;
+  transform:none!important;
+  white-space:nowrap!important;
+}
+
+.ep-internal-cta__arrow,
+.ep-home-authority__story-cta.ep-internal-cta .ep-internal-cta__arrow,
+.ep-home-service .ep-internal-cta .ep-internal-cta__arrow,
+.ep-home-press__feature-copy a svg,
+.ep-case-carousel__more i,
+.ep-case-canvas__center > a i {
+  display:grid!important;
+  box-sizing:border-box!important;
+  width:34px!important;
+  height:34px!important;
+  min-width:34px!important;
+  flex:0 0 34px!important;
+  place-items:center!important;
+  padding:9px!important;
+  border-radius:50%!important;
+  transform:none!important;
+  transition:transform .26s cubic-bezier(.2,.8,.2,1)!important;
+}
+
+.ep-case-carousel__more i svg,
+.ep-case-canvas__center > a i svg {
+  display:block!important;
+  width:16px!important;
+  height:16px!important;
+  padding:0!important;
+  background:transparent!important;
+}
+
+.ep-internal-cta:hover,
+.ep-internal-cta:focus-visible,
+.ep-home-authority__story-cta.ep-internal-cta:hover,
+.ep-home-authority__story-cta.ep-internal-cta:focus-visible,
+.ep-home-service .ep-internal-cta:hover,
+.ep-home-service .ep-internal-cta:focus-visible,
+.ep-home-press__feature-copy a:hover,
+.ep-home-press__feature-copy a:focus-visible,
+.ep-case-carousel__more:hover,
+.ep-case-carousel__more:focus-visible,
+.ep-case-canvas__center > a:hover,
+.ep-case-canvas__center > a:focus-visible {
+  gap:18px!important;
+  padding-right:13px!important;
+  transform:none!important;
+}
+
+.ep-internal-cta:hover .ep-internal-cta__arrow,
+.ep-internal-cta:focus-visible .ep-internal-cta__arrow,
+.ep-home-authority__story-cta.ep-internal-cta:hover .ep-internal-cta__arrow,
+.ep-home-authority__story-cta.ep-internal-cta:focus-visible .ep-internal-cta__arrow,
+.ep-home-service .ep-internal-cta:hover .ep-internal-cta__arrow,
+.ep-home-service .ep-internal-cta:focus-visible .ep-internal-cta__arrow,
+.ep-home-press__feature-copy a:hover svg,
+.ep-home-press__feature-copy a:focus-visible svg,
+.ep-case-carousel__more:hover i,
+.ep-case-carousel__more:focus-visible i,
+.ep-case-canvas__center > a:hover i,
+.ep-case-canvas__center > a:focus-visible i {
+  transform:translateX(2px)!important;
+}
+
+.ep-case-carousel__more::after,
+.ep-case-canvas__center > a::after { content:none!important; }
+
 /* Regra final: navegação interna cresce pela cápsula inteira; o núcleo da seta não muda de escala. */
 .ep-internal-cta,.ep-home-authority__story-cta.ep-internal-cta,.ep-home-service .ep-internal-cta { gap:12px!important; padding:4px 5px 4px 16px!important; transform:none!important; transition:padding .26s cubic-bezier(.2,.8,.2,1),gap .26s cubic-bezier(.2,.8,.2,1),border-color .22s ease,background .22s ease,color .22s ease!important; }.ep-internal-cta__arrow,.ep-home-authority__story-cta.ep-internal-cta .ep-internal-cta__arrow,.ep-home-service .ep-internal-cta .ep-internal-cta__arrow { transform:none!important; transition:transform .26s cubic-bezier(.2,.8,.2,1)!important; }.ep-internal-cta:hover,.ep-internal-cta:focus-visible,.ep-home-authority__story-cta.ep-internal-cta:hover,.ep-home-authority__story-cta.ep-internal-cta:focus-visible,.ep-home-service .ep-internal-cta:hover,.ep-home-service .ep-internal-cta:focus-visible { gap:18px!important; padding-right:13px!important; transform:none!important; }.ep-internal-cta:hover .ep-internal-cta__arrow,.ep-internal-cta:focus-visible .ep-internal-cta__arrow,.ep-home-authority__story-cta.ep-internal-cta:hover .ep-internal-cta__arrow,.ep-home-authority__story-cta.ep-internal-cta:focus-visible .ep-internal-cta__arrow,.ep-home-service .ep-internal-cta:hover .ep-internal-cta__arrow,.ep-home-service .ep-internal-cta:focus-visible .ep-internal-cta__arrow { transform:translateX(2px)!important; }
 
