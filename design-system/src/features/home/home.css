@@ -1143,7 +1143,9 @@
   padding:12px 0;
   background:var(--ep-lime);
 }
-.ep-embarkation-marquee__viewport { width:100%; overflow:hidden; }
+.ep-embarkation-marquee__viewport { width:100%; overflow:hidden; cursor:grab; touch-action:pan-y; user-select:none; }
+.ep-embarkation-marquee__viewport.is-dragging { cursor:grabbing; }
+.ep-embarkation-marquee__viewport.is-dragging .ep-embarkation-marquee__item img { pointer-events:none; }
 .ep-embarkation-marquee__track {
   display:flex;
   width:max-content;

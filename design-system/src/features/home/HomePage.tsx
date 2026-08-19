@@ -83,13 +83,30 @@ function EmbarkationMarquee() {
     let lastFrame = performance.now();
     let railWidth = rail.getBoundingClientRect().width;
     let isVisible = true;
+    let isDragging = false;
+    let dragPointerId: number | null = null;
+    let lastPointerX = 0;
+    let lastPointerTime = 0;
+    let velocity = 0;
+    let resumeAt = 0;
     const speed = 46;
+    const normalizeOffset = () => {
+      if (railWidth <= 0) return;
+      while (offset <= -railWidth) offset += railWidth;
+      while (offset > 0) offset -= railWidth;
+    };
     const render = (now: number) => {
       const elapsed = Math.min(now - lastFrame, 40);
       lastFrame = now;
-      if (isVisible && !document.hidden && railWidth > 0) {
-        offset -= (elapsed / 1000) * speed;
-        if (Math.abs(offset) >= railWidth) offset += railWidth;
+      if (isVisible && !document.hidden && railWidth > 0 && !isDragging) {
+        if (Math.abs(velocity) > .015) {
+          offset += velocity * elapsed;
+          velocity *= Math.pow(.9, elapsed / 16.67);
+        } else if (now >= resumeAt) {
+          velocity = 0;
+          offset -= (elapsed / 1000) * speed;
+        }
+        normalizeOffset();
         track.style.transform = `translate3d(${offset}px,0,0)`;
       }
       frame = window.requestAnimationFrame(render);
@@ -103,20 +120,59 @@ function EmbarkationMarquee() {
       lastFrame = performance.now();
     }, { threshold: 0.01 });
     const resetFrameTime = () => { lastFrame = performance.now(); };
+    const startDrag = (event: PointerEvent) => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      isDragging = true;
+      dragPointerId = event.pointerId;
+      lastPointerX = event.clientX;
+      lastPointerTime = performance.now();
+      velocity = 0;
+      viewport.classList.add("is-dragging");
+      viewport.setPointerCapture(event.pointerId);
+    };
+    const moveDrag = (event: PointerEvent) => {
+      if (!isDragging || dragPointerId !== event.pointerId) return;
+      const now = performance.now();
+      const delta = event.clientX - lastPointerX;
+      const elapsed = Math.max(now - lastPointerTime, 1);
+      offset += delta;
+      normalizeOffset();
+      velocity = delta / elapsed;
+      lastPointerX = event.clientX;
+      lastPointerTime = now;
+      track.style.transform = `translate3d(${offset}px,0,0)`;
+      event.preventDefault();
+    };
+    const endDrag = (event: PointerEvent) => {
+      if (!isDragging || dragPointerId !== event.pointerId) return;
+      isDragging = false;
+      dragPointerId = null;
+      resumeAt = performance.now() + 650;
+      viewport.classList.remove("is-dragging");
+      if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+    };
 
     resizeObserver.observe(rail);
     intersectionObserver.observe(viewport);
     document.addEventListener("visibilitychange", resetFrameTime);
+    viewport.addEventListener("pointerdown", startDrag);
+    viewport.addEventListener("pointermove", moveDrag);
+    viewport.addEventListener("pointerup", endDrag);
+    viewport.addEventListener("pointercancel", endDrag);
     frame = window.requestAnimationFrame(render);
     return () => {
       window.cancelAnimationFrame(frame);
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       document.removeEventListener("visibilitychange", resetFrameTime);
+      viewport.removeEventListener("pointerdown", startDrag);
+      viewport.removeEventListener("pointermove", moveDrag);
+      viewport.removeEventListener("pointerup", endDrag);
+      viewport.removeEventListener("pointercancel", endDrag);
     };
   }, []);
 
-  return <section className="ep-embarkation-marquee" aria-label="Embarques realizados pela Embarpet"><div className="ep-embarkation-marquee__viewport" ref={viewportRef}><div className="ep-embarkation-marquee__track" ref={trackRef}>{rails.map((rail) => <div className="ep-embarkation-marquee__rail" key={rail} aria-hidden={rail ? "true" : undefined}>{embarkationGallery.map(({ src, alt }) => <figure className="ep-embarkation-marquee__item" key={`${src}-${rail}`}><img src={src} alt={rail ? "" : alt} loading="lazy" decoding="async" /></figure>)}</div>)}</div></div></section>;
+  return <section className="ep-embarkation-marquee" aria-label="Embarques realizados pela Embarpet"><div className="ep-embarkation-marquee__viewport" ref={viewportRef}><div className="ep-embarkation-marquee__track" ref={trackRef}>{rails.map((rail) => <div className="ep-embarkation-marquee__rail" key={rail} aria-hidden={rail ? "true" : undefined}>{embarkationGallery.map(({ src, alt }) => <figure className="ep-embarkation-marquee__item" key={`${src}-${rail}`}><img src={src} alt={rail ? "" : alt} loading="lazy" decoding="async" draggable="false" /></figure>)}</div>)}</div></div></section>;
 }
 
 export default function EmbarpetHome() {
