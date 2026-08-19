@@ -13,10 +13,9 @@ type SharedProps = {
 };
 
 export function AnalysisButton({ children, className, fullWidth, size = "md", demoAutoPlay = false, demoDelay = 0, onPointerEnter, ...props }: SharedProps & ButtonHTMLAttributes<HTMLButtonElement> & { demoAutoPlay?: boolean; demoDelay?: number }) {
-  const [flying, setFlying] = useState(false);
+  const [flightId, setFlightId] = useState(0);
   const launchPlane = useCallback(() => {
-    setFlying(false);
-    requestAnimationFrame(() => setFlying(true));
+    setFlightId((current) => current + 1);
   }, []);
   useEffect(() => {
     if (!demoAutoPlay) return;
@@ -27,6 +26,7 @@ export function AnalysisButton({ children, className, fullWidth, size = "md", de
     }, 850 + demoDelay);
     return () => { window.clearTimeout(firstRun); window.clearInterval(interval); };
   }, [demoAutoPlay, demoDelay, launchPlane]);
+  const flying = flightId > 0;
   return <button
     className={cn("ep-ds-button ep-ds-button--analysis", `ep-ds-button--${size}`, flying && "is-flying", fullWidth && "ep-ds-button--full", className)}
     {...props}
@@ -34,7 +34,7 @@ export function AnalysisButton({ children, className, fullWidth, size = "md", de
     onFocus={(event) => { launchPlane(); props.onFocus?.(event); }}
   >
     <span>{children}</span>
-    <img key={flying ? "flying" : "parked"} className={cn("ep-ds-button__plane", flying && "is-flying")} src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" onAnimationEnd={() => setFlying(false)} />
+    <img key={flightId} className={cn("ep-ds-button__plane", flying && "is-flying")} src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" onAnimationEnd={() => setFlightId(0)} />
   </button>;
 }
 

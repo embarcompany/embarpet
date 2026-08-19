@@ -24,8 +24,9 @@ Tokens e estados: `src/design-system/buttons.css`
 - O avião estacionado aparece de forma sutil no repouso. `demoAutoPlay` e `demoDelay` existem exclusivamente para a página do design system.
 - A CTA interna expande a cápsula na direção da seta; o núcleo acompanha o movimento sem deformar.
 - Botões de interface com seta expandem na direção da ação: avançar à direita e voltar à esquerda.
-- O crescimento usa uma transição contínua de `360ms`: a cápsula amplia o espaço entre texto e núcleo, enquanto o círculo mantém sempre o mesmo recuo da borda.
-- O núcleo circular não é transladado. Somente a seta interna avança `3px`, evitando cortes e diferenças de margem.
+- A navegação interna usa uma transição contínua de `460ms`: a margem entre texto e núcleo cresce, o círculo avança e a cápsula acompanha o novo tamanho.
+- A seta permanece centralizada dentro do círculo durante todo o movimento. O recuo final do núcleo em relação à borda não muda.
+- Botões de interface seguem a mesma lógica com margens direcionais, evitando depender da animação inconsistente de largura `auto`.
 - Respeitar `prefers-reduced-motion`; nesse modo, o texto permanece visível e o avião não anima.
 - Não recriar CTAs em CSS de seção. Se um novo caso surgir, estenda este sistema.
 - Não usar símbolo textual `→`; use o núcleo de seta do `InternalLink` ou ícone Lucide no `InterfaceButton`.
