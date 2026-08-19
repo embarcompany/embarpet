@@ -1370,10 +1370,13 @@ main > .ep-final-fly-in { order:12; }
 
 /* Fechamento das modalidades: uma única mensagem, sem competir com os cards. */
 .ep-home-modalities .ep-home-bridge {
+  width:fit-content;
   max-width:980px;
-  min-height:52px;
-  padding:12px 20px;
+  min-height:0;
+  gap:7px;
+  padding:8px 12px;
   border-radius:999px;
+  font-size:13px;
   text-align:center;
 }
 .ep-home-modalities .ep-home-bridge span { white-space:nowrap; }
