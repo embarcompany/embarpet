@@ -395,6 +395,14 @@ main section[id] { scroll-margin-top:84px; }
 .ep-flow-journey-header .ep-flow-route-preview__content small { grid-column:1/-1; font-size:10px; }
 .ep-flow-journey-header .ep-flow-route-preview__content b { font-size:14px; }
 .ep-flow-journey-header .ep-flow-route-preview__content em { justify-self:end; font-size:10px; }
+.ep-flow-journey-progress { display:grid; grid-template-columns:auto minmax(90px,1fr); align-items:center; gap:12px; margin-bottom:8px; }
+.ep-flow-journey-progress > span:first-child { color:var(--ep-turq-deep); font-size:9px; font-weight:850; white-space:nowrap; }
+.ep-flow-journey-progress > span:last-child { height:3px; overflow:hidden; border-radius:999px; background:rgba(0,157,172,.12); }
+.ep-flow-journey-progress i { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,var(--ep-turq-deep),var(--ep-turq)); transition:width .35s cubic-bezier(.2,.8,.2,1); }
+.ep-flow-route-preview__main { display:flex; min-width:0; align-items:center; justify-content:space-between; gap:16px; }
+.ep-flow-route-preview__meta { display:flex; flex:0 0 auto; align-items:center; gap:6px; }
+.ep-flow-route-preview__meta em { display:inline-flex; min-height:24px; align-items:center; padding:0 9px; border:1px solid rgba(0,157,172,.16); border-radius:999px; background:rgba(255,255,255,.74); }
+.ep-flow-validation { grid-column:1/-1; margin:0; color:#a53434; font-size:10px; font-weight:750; text-align:center; }
 .ep-diagnostic-flow--route-first .ep-flow-card > .ep-flow-route-preview,
 .ep-diagnostic-flow--route-first .ep-flow-card > .ep-flow-summary { display:none; }
 @media (max-width:600px) {
@@ -404,6 +412,7 @@ main section[id] { scroll-margin-top:84px; }
   .ep-flow-journey-header .ep-flow-route-preview__content { grid-template-columns:1fr; gap:2px; }
   .ep-flow-journey-header .ep-flow-route-preview__content small { grid-column:auto; }
   .ep-flow-journey-header .ep-flow-route-preview__content em { justify-self:start; }
+  .ep-flow-route-preview__main { align-items:flex-start; flex-direction:column; gap:5px; }
 }
 
 /* Hero de conversão: contexto à esquerda, prova visual real à direita. */

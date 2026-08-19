@@ -1537,6 +1537,54 @@ main > .ep-final-fly-in { order:12; }
   .ep-analysis-modal__content .ep-airport-field { min-height:74px; }
 }
 
+/* Modal guiado: cabeçalho, corpo e navegação mantêm posição entre as etapas. */
+.ep-analysis-modal__panel { height:min(760px,calc(100dvh - clamp(28px,4.4vw,64px))); min-height:560px; }
+.ep-analysis-modal__content { overflow:hidden; place-items:stretch; padding:48px clamp(28px,4vw,54px) 28px; }
+.ep-analysis-modal__content .ep-diagnostic-flow { display:grid; width:100%; height:100%; min-height:0; grid-template-rows:auto minmax(0,1fr); gap:15px; }
+.ep-analysis-modal__content .ep-flow-journey-header { width:100%; margin:0; }
+.ep-analysis-modal__content .ep-flow-journey-progress { padding-right:52px; }
+.ep-analysis-modal__content .ep-flow-journey-header .ep-flow-route-preview { min-height:66px; padding:10px 14px; border-radius:15px; }
+.ep-analysis-modal__content .ep-flow-journey-header .ep-flow-route-preview__content { display:grid; grid-template-columns:1fr; gap:3px; }
+.ep-analysis-modal__content .ep-flow-journey-header .ep-flow-route-preview__content small,
+.ep-analysis-modal__content .ep-flow-journey-header .ep-flow-route-preview__main { grid-column:1; }
+.ep-analysis-modal__content .ep-flow-route-preview__main b { width:auto; grid-template-columns:max-content auto max-content; justify-content:start; font-size:15px; }
+.ep-analysis-modal__content .ep-flow-route-preview__meta em { justify-self:auto; color:#59777b; font-size:9px; }
+.ep-analysis-modal__content .ep-flow-card { box-sizing:border-box; display:flex; width:min(100%,820px); height:100%; min-height:0; justify-self:center; justify-content:flex-start; overflow-x:hidden; overflow-y:auto; padding:4px 6px 0 0; scrollbar-gutter:stable; }
+.ep-analysis-modal__content .ep-flow-card::-webkit-scrollbar { width:5px; }
+.ep-analysis-modal__content .ep-flow-card::-webkit-scrollbar-thumb { border-radius:999px; background:rgba(0,157,172,.25); }
+.ep-analysis-modal__content .ep-flow-kicker { margin-top:2px; }
+.ep-analysis-modal__content .ep-flow-title { font-size:clamp(27px,2.3vw,34px); }
+.ep-analysis-modal__content .ep-flow-intro { max-width:580px; }
+.ep-analysis-modal__content .ep-pet-choice-grid { gap:10px; margin-top:16px; }
+.ep-analysis-modal__content .ep-pet-choice > button { min-height:112px; gap:8px; }
+.ep-analysis-modal__content .ep-pet-choice__icon { width:48px; height:48px; }
+.ep-analysis-modal__content .ep-pet-choice__icon svg { width:27px; height:27px; }
+.ep-analysis-modal__content .ep-other-pet { min-height:48px; margin-top:10px; padding:8px 13px; }
+.ep-analysis-modal__content .ep-multi-pet-trigger { margin-top:9px; }
+.ep-analysis-modal__content .ep-pet-detail__select { overflow:hidden; padding-right:0; border-radius:11px; }
+.ep-analysis-modal__content .ep-pet-detail__select input { width:min(300px,44%); min-height:52px; margin-left:auto; padding-inline:14px; border:0; border-left:1px solid var(--ep-line); border-radius:0; background:transparent; }
+.ep-analysis-modal__content .ep-flow-fields { margin-top:16px; }
+.ep-analysis-modal__content .ep-flow-actions { position:sticky; z-index:12; bottom:0; width:100%; margin-top:auto; padding:16px 0 2px; background:linear-gradient(180deg,rgba(247,251,251,0),#f7fbfb 24%); }
+.ep-analysis-modal__content .ep-flow-actions .ep-button { min-height:48px; color:var(--ep-teal); font-size:13px; opacity:1; }
+.ep-analysis-modal__content .ep-flow-actions .ep-button--primary { border-color:rgba(0,73,77,.12); background:var(--ep-turq); }
+.ep-analysis-modal__content .ep-flow-card:has(.ep-flow-validation) .ep-airport-field:has(input:placeholder-shown),
+.ep-analysis-modal__content .ep-flow-card:has(.ep-flow-validation) .ep-period-select > button,
+.ep-analysis-modal__content .ep-flow-card:has(.ep-flow-validation) .ep-pet-detail input:placeholder-shown,
+.ep-analysis-modal__content .ep-flow-card:has(.ep-flow-validation) .ep-contact-input:has(input:placeholder-shown) { border-color:#c75151; background:#fffafa; }
+.ep-analysis-modal__content .ep-flow-card:has(.ep-flow-validation) .ep-pet-choice-grid:not(:has(.is-selected)) { border-radius:13px; outline:2px solid rgba(199,81,81,.42); outline-offset:4px; }
+@media (max-width:700px) {
+  .ep-analysis-modal__panel { height:calc(100dvh - 16px); min-height:0; }
+  .ep-analysis-modal__content { padding:54px 13px 14px; }
+  .ep-analysis-modal__content .ep-diagnostic-flow { gap:11px; }
+  .ep-analysis-modal__content .ep-flow-journey-progress { padding-right:44px; }
+  .ep-analysis-modal__content .ep-flow-journey-header .ep-flow-route-preview { min-height:60px; padding:8px 10px; }
+  .ep-analysis-modal__content .ep-flow-route-preview__main b { grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); width:100%; }
+  .ep-analysis-modal__content .ep-flow-route-preview__meta { flex-wrap:wrap; }
+  .ep-analysis-modal__content .ep-flow-card { width:100%; padding-right:3px; }
+  .ep-analysis-modal__content .ep-pet-choice > button { min-height:104px; }
+  .ep-analysis-modal__content .ep-flow-actions { padding-top:13px; }
+}
+
 /* Provas da equipe: pequenos cards, com a mesma leitura dos cards do PetLuxo. */
 .ep-home-service__proofs {
   display:grid;
