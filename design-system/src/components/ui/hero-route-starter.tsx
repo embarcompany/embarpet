@@ -10,10 +10,6 @@ export function HeroRouteStarter() {
   const { text } = useLocale();
   const [route, setRoute] = useState<RouteStarterData>({ origin: "", destination: "" });
   const [activeField, setActiveField] = useState<"origin" | "destination" | null>(null);
-  const [showValidation, setShowValidation] = useState(false);
-  const canStartAnalysis = Boolean(route.origin.trim() && route.destination.trim());
-  const invalidOrigin = showValidation && !route.origin.trim();
-  const invalidDestination = showValidation && !route.destination.trim();
 
   const setField = (field: keyof RouteStarterData, value: string) => setRoute((current) => ({ ...current, [field]: value }));
   const chooseRouteValue = (field: "origin" | "destination", value: string) => {
@@ -21,15 +17,7 @@ export function HeroRouteStarter() {
     setActiveField(null);
   };
 
-  const start = () => {
-    if (!route.origin.trim() || !route.destination.trim()) {
-      setShowValidation(true);
-      const selector = !route.origin.trim() ? '[data-hero-route-field="origin"]' : '[data-hero-route-field="destination"]';
-      window.requestAnimationFrame(() => document.querySelector<HTMLElement>(selector)?.focus());
-      return;
-    }
-    window.dispatchEvent(new CustomEvent("embarp:open-analysis", { detail: route }));
-  };
+  const start = () => window.dispatchEvent(new CustomEvent("embarp:open-analysis", { detail: route }));
 
   return (
     <form className="ep-hero-route-starter" onSubmit={(event) => { event.preventDefault(); start(); }} noValidate>
@@ -39,7 +27,7 @@ export function HeroRouteStarter() {
           field="origin"
           value={route.origin}
           active={activeField === "origin"}
-          invalid={invalidOrigin}
+          invalid={false}
           onChange={(value) => { setField("origin", value); setActiveField("origin"); }}
           onFocus={() => setActiveField("origin")}
           onBlur={() => window.setTimeout(() => setActiveField(null), 120)}
@@ -52,7 +40,7 @@ export function HeroRouteStarter() {
           field="destination"
           value={route.destination}
           active={activeField === "destination"}
-          invalid={invalidDestination}
+          invalid={false}
           onChange={(value) => { setField("destination", value); setActiveField("destination"); }}
           onFocus={() => setActiveField("destination")}
           onBlur={() => window.setTimeout(() => setActiveField(null), 120)}
@@ -60,7 +48,7 @@ export function HeroRouteStarter() {
           placeholder={text.cityPlaceholder}
         />
       </div>
-      <button className={`ep-hero-route-starter__submit${canStartAnalysis ? " is-ready" : ""}`} type="submit" disabled={!canStartAnalysis} aria-label={canStartAnalysis ? text.startAnalysis : "Preencha origem e destino para começar sua análise."}><span>{text.startAnalysis}</span><img src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" /></button>
+      <button className="ep-hero-route-starter__submit is-ready" type="submit" aria-label={text.startAnalysis}><span>{text.startAnalysis}</span><img src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" /></button>
     </form>
   );
 }
