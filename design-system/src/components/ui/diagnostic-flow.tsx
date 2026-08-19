@@ -162,5 +162,5 @@ function CityAirportField({ label, value, onChange }: { label: "Origem" | "Desti
 }
 
 function FlowActions({ back, next, nextLabel, disabled }: { back?: () => void; next: () => void; nextLabel: string; disabled?: boolean }) {
-  return <div className="ep-flow-actions">{back ? <button className="ep-button ep-button--text" type="button" onClick={back}><ArrowLeft size={16} />Voltar</button> : <span />}<button className="ep-button ep-button--primary" type="button" disabled={disabled} onClick={next}>{nextLabel}<ArrowRight size={16} /></button></div>;
+  return <div className={`ep-flow-actions ${back ? "ep-flow-actions--split" : "ep-flow-actions--single"}`}>{back ? <button className="ep-button ep-button--text" type="button" onClick={back}><ArrowLeft size={16} />Voltar</button> : null}<button className="ep-button ep-button--primary" type="button" disabled={disabled} onClick={next}>{nextLabel}<ArrowRight size={16} /></button></div>;
 }
