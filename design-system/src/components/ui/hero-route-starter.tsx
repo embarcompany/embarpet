@@ -4,7 +4,6 @@ import { useState } from "react";
 import { MapPin, PlaneTakeoff } from "lucide-react";
 import { useCountrySuggestions } from "../../hooks/use-country-suggestions";
 import { useLocale } from "../../i18n/locale";
-import { AnalysisButton } from "./buttons";
 
 type RouteStarterData = { origin: string; destination: string };
 
@@ -50,7 +49,7 @@ export function HeroRouteStarter() {
           placeholder={text.cityPlaceholder}
         />
       </div>
-      <AnalysisButton className="ep-hero-route-starter__action" size="lg" type="submit" aria-label={text.startAnalysis}>{text.startAnalysis}</AnalysisButton>
+      <button className="ep-hero-route-starter__submit is-ready" type="submit" aria-label={text.startAnalysis}><span>{text.startAnalysis}</span><img src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" /></button>
     </form>
   );
 }

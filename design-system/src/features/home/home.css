@@ -669,28 +669,7 @@
     transform:translate(-50%,-50%) translateY(calc(-1 * var(--ep-method-satellite-radius))) rotate(calc(-1 * var(--ep-orbit-angle) - var(--ep-method-orbit-progress)))!important;
     animation:none!important;
   }
-.ep-home-process__cycle:has(.ep-home-process__satellite:hover) .ep-home-process__satellite { animation-play-state:paused!important; }
-}
-
-/* Adoção do sistema único de botões na index e no diagnóstico. */
-.ep-hero-route-starter__action { width:max-content; margin-top:5px; }
-.ep-home-process__action { width:max-content; margin-top:26px; }
-.ep-home-authority__story-action { margin-top:22px; }
-.ep-home-press__feature-action { display:flex; margin-top:18px; }
-.ep-modality-system-actions { display:flex; margin-top:auto; padding-top:14px; }
-.ep-modality-system-actions .ep-ds-button { width:100%; }
-.ep-case-canvas__action { display:flex; justify-content:center; }
-.ep-home-luxury__actions .ep-ds-button { width:max-content; }
-.ep-final-fly-in .ep-ds-button { margin-inline:auto; }
-.ep-analysis-modal__content .ep-flow-actions .ep-ds-button { min-height:54px; font-size:15px; }
-.ep-analysis-modal__content .ep-flow-success .ep-ds-button { margin-top:18px; }
-.ep-analysis-modal__content .ep-flow-actions--single .ep-ds-button { width:100%; }
-.ep-analysis-modal__content .ep-flow-actions--split .ep-ds-button { width:50%; }
-.ep-hero-mobile-analysis.ep-ds-button { display:none; }
-
-@media (max-width:900px) {
-  .ep-hero-mobile-analysis.ep-ds-button { display:inline-flex; width:100%; }
-  .ep-home-process__action,.ep-home-luxury__actions .ep-ds-button { width:100%; }
+  .ep-home-process__cycle:has(.ep-home-process__satellite:hover) .ep-home-process__satellite { animation-play-state:paused!important; }
 }
 
 /* Contrato final das CTAs internas: texto preservado, cápsula expande, seta permanece estável. */
