@@ -647,6 +647,13 @@
   .ep-home-process__cycle:has(.ep-home-process__satellite:hover) .ep-home-process__satellite { animation-play-state:paused!important; }
 }
 
+/* Contrato visual único das CTAs internas: mesmas medidas e animação em qualquer seção. */
+.ep-internal-cta,.ep-home-authority__story-cta.ep-internal-cta,.ep-home-service .ep-internal-cta { width:max-content!important; min-width:0!important; min-height:46px!important; align-items:center!important; justify-content:flex-start!important; gap:12px!important; padding:4px 5px 4px 16px!important; border-radius:999px!important; font-size:12px!important; font-weight:850!important; line-height:1!important; transition:border-color .22s ease,background .22s ease,color .22s ease,transform .22s ease!important; }
+.ep-internal-cta > span,.ep-home-authority__story-cta.ep-internal-cta > span,.ep-home-service .ep-internal-cta > span { min-width:0!important; flex:1!important; overflow:visible!important; transform:none!important; }
+.ep-internal-cta__arrow,.ep-home-authority__story-cta.ep-internal-cta .ep-internal-cta__arrow,.ep-home-service .ep-internal-cta .ep-internal-cta__arrow { display:grid!important; width:34px!important; height:34px!important; min-width:34px!important; flex:0 0 34px!important; place-items:center!important; border-radius:50%!important; }
+.ep-internal-cta:hover,.ep-internal-cta:focus-visible,.ep-home-authority__story-cta.ep-internal-cta:hover,.ep-home-authority__story-cta.ep-internal-cta:focus-visible,.ep-home-service .ep-internal-cta:hover,.ep-home-service .ep-internal-cta:focus-visible { width:max-content!important; gap:12px!important; transform:translateY(-1px)!important; }
+.ep-internal-cta:hover .ep-internal-cta__arrow,.ep-internal-cta:focus-visible .ep-internal-cta__arrow,.ep-home-authority__story-cta.ep-internal-cta:hover .ep-internal-cta__arrow,.ep-home-authority__story-cta.ep-internal-cta:focus-visible .ep-internal-cta__arrow,.ep-home-service .ep-internal-cta:hover .ep-internal-cta__arrow,.ep-home-service .ep-internal-cta:focus-visible .ep-internal-cta__arrow { transform:translateX(2px) scale(1.04)!important; }
+
 /* Index mobile: mesma narrativa, com composição própria para toque e telas estreitas. */
 @media (max-width:620px) {
   html,body { max-width:100%; overflow-x:hidden; }
