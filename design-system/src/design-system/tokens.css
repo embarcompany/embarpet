@@ -63,6 +63,14 @@ button,input,select,textarea { font:inherit; }
 .ep-title-sm { font-size:var(--ep-font-size-h4); font-weight:var(--ep-weight-semibold); }
 .ep-copy { max-width:62ch; color:var(--ep-muted); font-size:var(--ep-font-size-body); font-weight:var(--ep-weight-regular); line-height:var(--ep-leading-body); }
 
+/* Peso tipográfico único para toda a hierarquia de títulos. */
+h1,h2,h3,h4,h5,h6,
+.ep-title-xl,.ep-title-lg,.ep-title-md,.ep-title-sm,
+.ep-flow-title { font-weight:var(--ep-weight-bold)!important; }
+h1 strong,h2 strong,h3 strong,h4 strong,h5 strong,h6 strong,
+.ep-title-xl strong,.ep-title-lg strong,.ep-title-md strong,.ep-title-sm strong,
+.ep-flow-title strong { font-weight:inherit; }
+
 @media (max-width:700px) {
   .ep-container { width:calc(100% - 40px); }
   .ep-section { padding-block:58px; }
