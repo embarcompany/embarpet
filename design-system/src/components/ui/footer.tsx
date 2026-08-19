@@ -44,7 +44,7 @@ export function SiteFooter({ logoSrc, groups, note = "Transporte internacional d
           </div>
         </div>
 
-        <div className="ep-footer-bottom"><span>© Embarpet · Todos os direitos reservados</span><div><a href="#idioma"><Globe2 size={13} /> PT</a><a href="/privacidade">Privacidade</a><a href="/termos">Termos de uso</a></div></div>
+        <div className="ep-footer-bottom"><span>© Embarpet · Todos os direitos reservados</span><span className="ep-footer-credit">Criado por <b>Montuan MKT Digital</b> e <b>Igor Marin Santos</b></span><div><a href="#idioma"><Globe2 size={13} /> PT</a><a href="/privacidade">Privacidade</a><a href="/termos">Termos de uso</a></div></div>
       </div>
     </footer>
   );
