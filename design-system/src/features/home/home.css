@@ -206,6 +206,30 @@
   .ep-home-process__cycle-step b { font-size:10px; }.ep-home-process__cycle-step strong { font-size:13px; }.ep-home-process__cycle-step small { font-size:10px; }
 }
 
+/* Modalidades informam antes de converter: CTA interna com seta, sem aeronave. */
+.ep-modality-rail .ep-modality-actions .ep-modality-actions__learn {
+  width:100%!important;
+  min-height:46px!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+  padding:5px 6px 5px 18px!important;
+  border:1px solid rgba(0,157,172,.35)!important;
+  background:rgba(0,209,226,.14)!important;
+  color:var(--ep-teal)!important;
+  backdrop-filter:none!important;
+}
+.ep-modality-rail .ep-modality-actions .ep-modality-actions__learn::before { content:none!important; }
+.ep-modality-rail .ep-modality-actions .ep-modality-actions__learn:hover,
+.ep-modality-rail .ep-modality-actions .ep-modality-actions__learn:focus-visible {
+  border-color:var(--ep-turq-deep)!important;
+  background:rgba(0,209,226,.22)!important;
+  filter:none!important;
+}
+.ep-modality-rail .ep-modality-actions .ep-modality-actions__learn .ep-internal-cta__arrow {
+  background:var(--ep-teal)!important;
+  color:var(--ep-paper)!important;
+}
+
 /* O card detalhado sempre abre para dentro do método: nunca pode escapar da tela. */
 @media (min-width:621px) {
   .ep-home-process__cycle { isolation:isolate; }
