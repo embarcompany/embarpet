@@ -4,8 +4,8 @@
   --ep-button-height-lg:54px;
   --ep-button-radius:999px;
   --ep-button-font-sm:11px;
-  --ep-button-font-md:12px;
-  --ep-button-font-lg:14px;
+  --ep-button-font-md:13px;
+  --ep-button-font-lg:15px;
   --ep-button-focus:0 0 0 3px rgba(0,209,226,.3);
   --ep-button-motion:cubic-bezier(.22,1,.36,1);
   --ep-button-motion-duration:420ms;
@@ -21,14 +21,14 @@
 .ep-ds-button:hover { transform:translateY(-1px); }
 .ep-ds-button:active { transform:translateY(0); }
 .ep-ds-button:focus-visible,.ep-ds-icon-button:focus-visible { outline:0; box-shadow:var(--ep-button-focus); }
-.ep-ds-button:disabled,.ep-ds-button[aria-disabled="true"] { cursor:not-allowed; opacity:.46; transform:none; }
+.ep-ds-button:disabled,.ep-ds-button[aria-disabled="true"] { cursor:not-allowed; opacity:.64; filter:saturate(.55); transform:none; }
 
 .ep-ds-button--analysis { border-color:rgba(0,67,74,.08); background:var(--ep-turq); color:var(--ep-teal); }
 .ep-ds-button--analysis:hover { border-color:rgba(0,67,74,.16); background:#38dce7; }
 .ep-ds-button--analysis > span { transition:opacity .18s ease; }
 .ep-ds-button--analysis.is-flying > span { opacity:.22; }
-.ep-ds-button__plane { position:absolute; z-index:2; top:50%; left:-116px; width:108px; height:58px; object-fit:cover; opacity:0; pointer-events:none; transform:translateY(-50%); }
-.ep-ds-button__plane.is-flying { animation:ep-ds-plane-cross 1s linear both; }
+.ep-ds-button__plane { position:absolute; z-index:2; top:50%; right:9px; width:20px; height:14px; object-fit:contain; opacity:.26; pointer-events:none; transform:translateY(-50%); transition:opacity .2s ease; }
+.ep-ds-button__plane.is-flying { right:auto; left:-116px; width:108px; height:58px; opacity:0; animation:ep-ds-plane-cross 1s linear both; }
 @keyframes ep-ds-plane-cross { 0% { left:-116px; opacity:0; } 6% { opacity:1; } 94% { opacity:1; } 100% { left:calc(100% + 12px); opacity:0; } }
 
 .ep-ds-button--internal { justify-content:flex-start; gap:10px; padding:4px 5px 4px 16px; border-color:rgba(5,67,74,.28); background:transparent; color:var(--ep-teal); }
@@ -39,7 +39,11 @@
 .ep-ds-button--sm .ep-ds-button__arrow { width:28px; height:28px; flex-basis:28px; }
 .ep-ds-button--lg .ep-ds-button__arrow { width:42px; height:42px; flex-basis:42px; }
 .ep-ds-button--internal:hover .ep-ds-button__arrow,.ep-ds-button--internal:focus-visible .ep-ds-button__arrow { transform:translateX(8px); }
+.ep-ds-button--internal.ep-ds-button--full { justify-content:space-between; padding-right:5px; }
+.ep-ds-button--internal.ep-ds-button--full:hover,.ep-ds-button--internal.ep-ds-button--full:focus-visible { gap:10px; padding-right:5px; }
+.ep-ds-button--internal.ep-ds-button--full:hover .ep-ds-button__arrow,.ep-ds-button--internal.ep-ds-button--full:focus-visible .ep-ds-button__arrow { transform:translateX(2px); }
 
+.ep-ds-button--interface { min-width:108px; font-weight:800; }
 .ep-ds-button--interface > svg { transform:translateX(0); transition:transform var(--ep-button-motion-duration) var(--ep-button-motion); }
 .ep-ds-button--interface.ep-ds-button--has-trailing:hover,.ep-ds-button--interface.ep-ds-button--has-trailing:focus-visible { gap:19px; }
 .ep-ds-button--interface.ep-ds-button--has-trailing:hover > span,.ep-ds-button--interface.ep-ds-button--has-trailing:focus-visible > span { transform:translateX(-2px); }
@@ -58,6 +62,7 @@
 .ep-ds-button--ghost:hover { border-color:var(--ep-teal); background:rgba(0,157,172,.07); }
 .ep-ds-button--danger { background:var(--ep-danger); color:var(--ep-paper); }
 .ep-ds-button--danger:hover { background:#962929; }
+.ep-ds-button--interface[aria-busy="true"] { cursor:progress; background:rgba(5,67,74,.84); color:var(--ep-paper); }
 
 .ep-ds-icon-button { display:inline-grid; place-items:center; border:1px solid rgba(5,67,74,.25); border-radius:50%; background:var(--ep-paper); color:var(--ep-teal); cursor:pointer; transition:background .2s ease,border-color .2s ease,transform .2s var(--ep-button-motion); }
 .ep-ds-icon-button--sm { width:34px; height:34px; }.ep-ds-icon-button--md { width:42px; height:42px; }.ep-ds-icon-button--lg { width:50px; height:50px; }

@@ -1,4 +1,4 @@
-import { useState, type ButtonHTMLAttributes, type ReactNode } from "react";
+import { useCallback, useEffect, useState, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight, type LucideIcon } from "lucide-react";
 import { cn } from "../../lib/utils";
 
@@ -12,12 +12,21 @@ type SharedProps = {
   size?: ButtonSize;
 };
 
-export function AnalysisButton({ children, className, fullWidth, size = "md", onPointerEnter, ...props }: SharedProps & ButtonHTMLAttributes<HTMLButtonElement>) {
+export function AnalysisButton({ children, className, fullWidth, size = "md", demoAutoPlay = false, demoDelay = 0, onPointerEnter, ...props }: SharedProps & ButtonHTMLAttributes<HTMLButtonElement> & { demoAutoPlay?: boolean; demoDelay?: number }) {
   const [flying, setFlying] = useState(false);
-  const launchPlane = () => {
+  const launchPlane = useCallback(() => {
     setFlying(false);
     requestAnimationFrame(() => setFlying(true));
-  };
+  }, []);
+  useEffect(() => {
+    if (!demoAutoPlay) return;
+    let interval = 0;
+    const firstRun = window.setTimeout(() => {
+      launchPlane();
+      interval = window.setInterval(launchPlane, 6200);
+    }, 850 + demoDelay);
+    return () => { window.clearTimeout(firstRun); window.clearInterval(interval); };
+  }, [demoAutoPlay, demoDelay, launchPlane]);
   return <button
     className={cn("ep-ds-button ep-ds-button--analysis", `ep-ds-button--${size}`, flying && "is-flying", fullWidth && "ep-ds-button--full", className)}
     {...props}
