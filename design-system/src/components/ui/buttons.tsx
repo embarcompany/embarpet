@@ -14,13 +14,18 @@ type SharedProps = {
 
 export function AnalysisButton({ children, className, fullWidth, size = "md", onPointerEnter, ...props }: SharedProps & ButtonHTMLAttributes<HTMLButtonElement>) {
   const [flying, setFlying] = useState(false);
+  const launchPlane = () => {
+    setFlying(false);
+    requestAnimationFrame(() => setFlying(true));
+  };
   return <button
-    className={cn("ep-ds-button ep-ds-button--analysis", `ep-ds-button--${size}`, fullWidth && "ep-ds-button--full", className)}
+    className={cn("ep-ds-button ep-ds-button--analysis", `ep-ds-button--${size}`, flying && "is-flying", fullWidth && "ep-ds-button--full", className)}
     {...props}
-    onPointerEnter={(event) => { setFlying(false); requestAnimationFrame(() => setFlying(true)); onPointerEnter?.(event); }}
+    onPointerEnter={(event) => { launchPlane(); onPointerEnter?.(event); }}
+    onFocus={(event) => { launchPlane(); props.onFocus?.(event); }}
   >
     <span>{children}</span>
-    {flying ? <img className="ep-ds-button__plane" src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" onAnimationEnd={() => setFlying(false)} /> : null}
+    <img key={flying ? "flying" : "parked"} className={cn("ep-ds-button__plane", flying && "is-flying")} src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" onAnimationEnd={() => setFlying(false)} />
   </button>;
 }
 
@@ -31,7 +36,7 @@ export function InternalLink({ children, className, fullWidth, size = "md", href
 }
 
 export function InterfaceButton({ children, className, fullWidth, size = "md", tone = "primary", leadingIcon: LeadingIcon, trailingIcon: TrailingIcon, ...props }: SharedProps & ButtonHTMLAttributes<HTMLButtonElement> & { tone?: ButtonTone; leadingIcon?: LucideIcon; trailingIcon?: LucideIcon }) {
-  return <button className={cn("ep-ds-button ep-ds-button--interface", `ep-ds-button--${tone}`, `ep-ds-button--${size}`, fullWidth && "ep-ds-button--full", className)} {...props}>
+  return <button className={cn("ep-ds-button ep-ds-button--interface", `ep-ds-button--${tone}`, `ep-ds-button--${size}`, LeadingIcon && "ep-ds-button--has-leading", TrailingIcon && "ep-ds-button--has-trailing", fullWidth && "ep-ds-button--full", className)} {...props}>
     {LeadingIcon ? <LeadingIcon aria-hidden="true" /> : null}<span>{children}</span>{TrailingIcon ? <TrailingIcon aria-hidden="true" /> : null}
   </button>;
 }

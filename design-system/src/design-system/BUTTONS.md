@@ -19,7 +19,9 @@ Tokens e estados: `src/design-system/buttons.css`
 - Peso do texto: `700`.
 - Use apenas um `AnalysisButton` dominante por contexto visual.
 - Use `fullWidth` em formulários, cards estreitos e mobile; não para links editoriais soltos.
-- O avião completa o percurso mesmo após a saída do hover.
+- O avião completa o percurso mesmo após a saída do hover e também responde ao foco por teclado.
+- A CTA interna expande a cápsula na direção da seta; o núcleo acompanha o movimento sem deformar.
+- Botões de interface com seta expandem na direção da ação: avançar à direita e voltar à esquerda.
 - Respeitar `prefers-reduced-motion`; nesse modo, o texto permanece visível e o avião não anima.
 - Não recriar CTAs em CSS de seção. Se um novo caso surgir, estenda este sistema.
 - Não usar símbolo textual `→`; use o núcleo de seta do `InternalLink` ou ícone Lucide no `InterfaceButton`.
