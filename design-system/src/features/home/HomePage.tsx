@@ -190,8 +190,8 @@ export default function EmbarpetHome() {
   const [heroVideoPaused, setHeroVideoPaused] = useState(false);
   const [podcastPlaying, setPodcastPlaying] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
-  const [analysisOpen, setAnalysisOpen] = useState(() => window.location.pathname === path("/analise"));
-  const [analysisRoute, setAnalysisRoute] = useState<Partial<RouteData>>(() => window.location.pathname === path("/analise") ? routeFromUrl() : {});
+  const [analysisOpen, setAnalysisOpen] = useState(false);
+  const [analysisRoute, setAnalysisRoute] = useState<Partial<RouteData>>({});
   const openAnalysis = (initialRoute: Partial<RouteData> = {}) => {
     const nextRoute = { origin: initialRoute.origin ?? "", destination: initialRoute.destination ?? "", period: initialRoute.period ?? "" };
     const query = new URLSearchParams();
@@ -218,6 +218,7 @@ export default function EmbarpetHome() {
       setAnalysisOpen(shouldOpen);
       if (shouldOpen) setAnalysisRoute(routeFromUrl());
     };
+    handlePopState();
     window.addEventListener("embarp:open-analysis", handleOpen);
     window.addEventListener("popstate", handlePopState);
     return () => { window.removeEventListener("embarp:open-analysis", handleOpen); window.removeEventListener("popstate", handlePopState); };
