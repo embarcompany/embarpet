@@ -1383,6 +1383,20 @@ main > .ep-final-fly-in { order:12; }
   .ep-home-service__proofs li,.ep-home-service__proofs li:nth-child(2) { min-height:68px; }
 }
 
+/* Fechamento das modalidades: uma única mensagem, sem competir com os cards. */
+.ep-home-modalities .ep-home-bridge {
+  max-width:980px;
+  min-height:52px;
+  padding:12px 20px;
+  border-radius:999px;
+  text-align:center;
+}
+.ep-home-modalities .ep-home-bridge span { white-space:nowrap; }
+@media (max-width:700px) {
+  .ep-home-modalities .ep-home-bridge { align-items:flex-start; border-radius:18px; text-align:left; }
+  .ep-home-modalities .ep-home-bridge span { white-space:normal; }
+}
+
 main > .ep-home-faq { order:10; align-self:center; }
 main > .ep-final-fly-in { order:11; }
 main > .ep-home-notice { order:12; }
