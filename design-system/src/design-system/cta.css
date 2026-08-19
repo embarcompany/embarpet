@@ -1,0 +1,254 @@
+/*
+ * CTAs Embarpet
+ *
+ * Há apenas duas famílias visuais. Este arquivo é carregado depois de cada
+ * página para impedir que estilos locais alterem dimensão, núcleo ou animação.
+ */
+:root {
+  --ep-cta-height:48px;
+  --ep-cta-radius:999px;
+  --ep-cta-font-size:12px;
+  --ep-cta-font-weight:850;
+  --ep-cta-arrow-size:34px;
+  --ep-cta-arrow-offset:16px;
+}
+
+.ep-cta,
+.ep-nav-cta,
+.ep-hero-route-starter__submit,
+.ep-home-process__cta,
+.ep-hero-mobile-analysis,
+.ep-modality-rail .ep-modality-actions a,
+.ep-home-luxury .ep-button--secondary,
+.ep-final-fly-in .ep-button--primary {
+  box-sizing:border-box!important;
+  min-height:var(--ep-cta-height)!important;
+  height:var(--ep-cta-height)!important;
+  border-radius:var(--ep-cta-radius)!important;
+  font-size:var(--ep-cta-font-size)!important;
+  font-weight:var(--ep-cta-font-weight)!important;
+  line-height:1!important;
+  letter-spacing:0!important;
+}
+
+/* CTA de conversão: sempre o mesmo tamanho, avião como a única microinteração. */
+.ep-cta--analysis,
+.ep-nav-cta,
+.ep-hero-route-starter__submit,
+.ep-home-process__cta,
+.ep-hero-mobile-analysis,
+.ep-modality-rail .ep-modality-actions a,
+.ep-home-luxury .ep-button--secondary,
+.ep-final-fly-in .ep-button--primary {
+  position:relative!important;
+  isolation:isolate!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+  padding-inline:22px!important;
+  text-decoration:none!important;
+  transition:border-color .2s ease,background .2s ease,filter .2s ease,opacity .2s ease!important;
+}
+
+.ep-nav-cta,
+.ep-hero-route-starter__submit,
+.ep-home-process__cta,
+.ep-hero-mobile-analysis,
+.ep-home-luxury .ep-button--secondary,
+.ep-final-fly-in .ep-button--primary { width:max-content!important; }
+
+.ep-modality-rail .ep-modality-actions a { width:100%!important; }
+
+.ep-cta--analysis > span,
+.ep-nav-cta > span,
+.ep-hero-route-starter__submit > span,
+.ep-home-process__cta > span,
+.ep-hero-mobile-analysis > span,
+.ep-modality-rail .ep-modality-actions a > span {
+  position:relative!important;
+  z-index:3!important;
+  display:inline-block!important;
+  min-width:max-content!important;
+  color:inherit!important;
+  opacity:1!important;
+  transform:none!important;
+}
+
+/* Os CTAs sem <img> recebem a mesma aeronave por pseudo-elemento. */
+.ep-home-process__cta::after,
+.ep-hero-mobile-analysis::after,
+.ep-home-luxury .ep-button--secondary::after,
+.ep-final-fly-in .ep-button--primary::after {
+  position:absolute!important;
+  z-index:2!important;
+  top:50%!important;
+  left:-128px!important;
+  width:118px!important;
+  height:64px!important;
+  background:url('/embarpet-cta-plane-top.webp') center / contain no-repeat!important;
+  content:""!important;
+  opacity:0!important;
+  pointer-events:none!important;
+  transform:translateY(-50%)!important;
+}
+
+.ep-home-process__cta > svg,
+.ep-hero-mobile-analysis > svg,
+.ep-home-luxury .ep-button--secondary > svg { display:none!important; }
+
+.ep-home-process__cta:hover::after,
+.ep-home-process__cta:focus-visible::after,
+.ep-hero-mobile-analysis:hover::after,
+.ep-hero-mobile-analysis:focus-visible::after,
+.ep-home-luxury .ep-button--secondary:hover::after,
+.ep-home-luxury .ep-button--secondary:focus-visible::after,
+.ep-final-fly-in .ep-button--primary:hover::after,
+.ep-final-fly-in .ep-button--primary:focus-visible::after {
+  animation:ep-cta-plane-cross 1s linear both!important;
+}
+
+.ep-nav-cta:hover > span,
+.ep-modality-rail .ep-modality-actions a:hover > span,
+.ep-cta--analysis:hover > span { color:inherit!important; opacity:1!important; }
+
+@keyframes ep-cta-plane-cross {
+  0% { left:-128px; opacity:0; transform:translateY(-50%); }
+  5% { opacity:1; }
+  95% { opacity:1; }
+  100% { left:calc(100% + 16px); opacity:0; transform:translateY(-50%); }
+}
+
+/* CTA de navegação: texto nunca encolhe; só a cápsula ganha respiro no hover. */
+.ep-cta--navigate,
+.ep-internal-cta,
+.ep-home-authority__story-cta.ep-internal-cta,
+.ep-home-service .ep-internal-cta,
+.ep-home-press__feature-copy a,
+.ep-modality-rail .ep-modality-actions__details,
+.ep-case-carousel__more,
+.ep-case-canvas__center > a {
+  box-sizing:border-box!important;
+  display:inline-flex!important;
+  width:max-content!important;
+  min-width:0!important;
+  min-height:var(--ep-cta-height)!important;
+  height:var(--ep-cta-height)!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:12px!important;
+  overflow:visible!important;
+  padding:4px 7px 4px var(--ep-cta-arrow-offset)!important;
+  border-radius:var(--ep-cta-radius)!important;
+  font-size:var(--ep-cta-font-size)!important;
+  font-weight:var(--ep-cta-font-weight)!important;
+  line-height:1!important;
+  text-decoration:none!important;
+  white-space:nowrap!important;
+  transform:none!important;
+  transition:padding .24s cubic-bezier(.2,.8,.2,1),gap .24s cubic-bezier(.2,.8,.2,1),border-color .2s ease,background .2s ease,color .2s ease!important;
+}
+
+.ep-cta--navigate > span,
+.ep-internal-cta > span,
+.ep-home-press__feature-copy a > span,
+.ep-modality-rail .ep-modality-actions__details > span,
+.ep-case-carousel__more > span,
+.ep-case-canvas__center > a > span {
+  display:inline-block!important;
+  min-width:max-content!important;
+  flex:0 0 auto!important;
+  overflow:visible!important;
+  opacity:1!important;
+  transform:none!important;
+  white-space:nowrap!important;
+}
+
+.ep-cta--navigate > i,
+.ep-internal-cta__arrow,
+.ep-home-press__feature-copy a > svg,
+.ep-modality-rail .ep-modality-actions__details > svg,
+.ep-case-carousel__more > i,
+.ep-case-canvas__center > a > i {
+  display:grid!important;
+  box-sizing:border-box!important;
+  width:var(--ep-cta-arrow-size)!important;
+  min-width:var(--ep-cta-arrow-size)!important;
+  height:var(--ep-cta-arrow-size)!important;
+  flex:0 0 var(--ep-cta-arrow-size)!important;
+  place-items:center!important;
+  padding:9px!important;
+  border-radius:50%!important;
+  background:var(--ep-teal)!important;
+  color:var(--ep-paper)!important;
+  font-style:normal!important;
+  opacity:1!important;
+  transform:none!important;
+  transition:transform .24s cubic-bezier(.2,.8,.2,1)!important;
+}
+
+.ep-cta--navigate > i svg,
+.ep-internal-cta__arrow svg,
+.ep-case-carousel__more > i svg,
+.ep-case-canvas__center > a > i svg {
+  display:block!important;
+  width:16px!important;
+  height:16px!important;
+  min-width:0!important;
+  padding:0!important;
+  background:transparent!important;
+  color:inherit!important;
+  transform:none!important;
+}
+
+.ep-cta--navigate:hover,
+.ep-cta--navigate:focus-visible,
+.ep-internal-cta:hover,
+.ep-internal-cta:focus-visible,
+.ep-home-press__feature-copy a:hover,
+.ep-home-press__feature-copy a:focus-visible,
+.ep-modality-rail .ep-modality-actions__details:hover,
+.ep-modality-rail .ep-modality-actions__details:focus-visible,
+.ep-case-carousel__more:hover,
+.ep-case-carousel__more:focus-visible,
+.ep-case-canvas__center > a:hover,
+.ep-case-canvas__center > a:focus-visible {
+  gap:18px!important;
+  padding-right:13px!important;
+  outline:0!important;
+  transform:none!important;
+}
+
+.ep-cta--navigate:hover > i,
+.ep-cta--navigate:focus-visible > i,
+.ep-internal-cta:hover .ep-internal-cta__arrow,
+.ep-internal-cta:focus-visible .ep-internal-cta__arrow,
+.ep-home-press__feature-copy a:hover > svg,
+.ep-home-press__feature-copy a:focus-visible > svg,
+.ep-modality-rail .ep-modality-actions__details:hover > svg,
+.ep-modality-rail .ep-modality-actions__details:focus-visible > svg,
+.ep-case-carousel__more:hover > i,
+.ep-case-carousel__more:focus-visible > i,
+.ep-case-canvas__center > a:hover > i,
+.ep-case-canvas__center > a:focus-visible > i { transform:translateX(2px)!important; }
+
+.ep-case-carousel__more::after,
+.ep-case-canvas__center > a::after { content:none!important; }
+
+.ep-cta:disabled,
+.ep-hero-route-starter__submit:disabled {
+  cursor:not-allowed!important;
+  opacity:.46!important;
+  filter:saturate(.45)!important;
+}
+
+@media (max-width:700px) {
+  :root { --ep-cta-height:50px; --ep-cta-font-size:13px; }
+  .ep-nav-cta { min-height:44px!important; height:44px!important; }
+  .ep-modality-rail .ep-modality-actions__details { min-height:42px!important; height:42px!important; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .ep-cta,
+  .ep-cta * { animation:none!important; transition:none!important; }
+}

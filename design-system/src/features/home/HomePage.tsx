@@ -186,7 +186,7 @@ export default function EmbarpetHome() {
       <div className="ep-hero-proof" aria-label="Mais de dois mil embarques analisados e avaliação 4,9 no Google"><div className="ep-hero-proof__metric"><span className="ep-team-avatars" aria-hidden="true"><i /><i /><i /><i /></span><strong>+2.000</strong><small>embarques<br />analisados</small></div><div className="ep-hero-proof__metric"><img src="/logo-google.svg" alt="Google" /><strong>4,9</strong><small>avaliação<br />no Google</small></div></div>
       <h1 className="ep-title-xl">{text.heroTitleBefore}<span className="ep-hero-highlight">{text.heroTitleHighlight}</span><span className="ep-hero-flags" aria-hidden="true"><img src="/apple-emoji/flag-br.png" alt="" /><img src="/apple-emoji/flag-us.png" alt="" /><img src="/apple-emoji/flag-pt.png" alt="" /><img src="/apple-emoji/flag-es.png" alt="" /><img src="/apple-emoji/flag-it.png" alt="" /></span></h1>
       <p className="ep-hero-route-intro">{text.heroIntro}<strong>{text.heroIntroStrong}</strong>{text.heroIntroAfter}</p>
-      <button type="button" className="ep-hero-mobile-analysis" onClick={() => openAnalysis()}><span>Iniciar análise</span><ArrowRight size={18} aria-hidden="true" /></button>
+      <button type="button" className="ep-hero-mobile-analysis ep-cta ep-cta--analysis" onClick={() => openAnalysis()}><span>Iniciar análise</span><ArrowRight size={18} aria-hidden="true" /></button>
       <div className="ep-conversion-hero__form"><HeroRouteStarter /></div>
     </ConversionHero>
     {message ? <div className="ep-container ep-home-notice"><Notice kind="success">{message}</Notice></div> : null}
