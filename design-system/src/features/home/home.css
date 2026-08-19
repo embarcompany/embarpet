@@ -1335,6 +1335,54 @@ main > .ep-final-fly-in { order:12; }
   .ep-home-service__proofs li:nth-child(2) { min-height:39px; }.ep-home-service__proofs li:nth-child(2)::before { font-size:18px; }
 }
 
+/* Provas da equipe: pequenos cards, com a mesma leitura dos cards do PetLuxo. */
+.ep-home-service__proofs {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  width:100%;
+  gap:9px;
+}
+.ep-home-service__proofs li,
+.ep-home-service__proofs li:nth-child(2) {
+  display:grid;
+  grid-template-columns:32px minmax(0,1fr);
+  min-height:88px;
+  align-items:start;
+  gap:9px;
+  padding:13px 11px;
+  border:1px solid rgba(218,250,246,.24);
+  border-radius:15px;
+  background:rgba(218,250,246,.09);
+  color:#eafbf9;
+  font-size:inherit;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s ease,background .25s ease;
+}
+.ep-home-service__proofs li:hover {
+  border-color:rgba(112,240,231,.58);
+  background:rgba(218,250,246,.15);
+  transform:translateY(-3px);
+}
+.ep-home-service__proofs li svg,
+.ep-home-service__proofs li:nth-child(2) svg {
+  display:block;
+  width:32px;
+  height:32px;
+  padding:8px;
+  border:1px solid rgba(112,240,231,.35);
+  border-radius:50%;
+  color:var(--ep-turq);
+}
+.ep-home-service__proofs li:nth-child(2)::before,
+.ep-home-service__proofs li:nth-child(2)::after { content:none; }
+.ep-home-service__proofs li > span { display:grid; align-content:center; gap:4px; min-width:0; }
+.ep-home-service__proofs li strong { color:#f0fffd; font-size:11px; line-height:1.1; }
+.ep-home-service__proofs li small { color:#aeeae3; font-size:8px; font-weight:700; line-height:1.25; }
+.ep-home-service__proofs li:nth-child(2) strong { color:var(--ep-turq); font-size:20px; letter-spacing:-.075em; line-height:.85; }
+@media (max-width:700px) {
+  .ep-home-service__proofs { grid-template-columns:1fr; }
+  .ep-home-service__proofs li,.ep-home-service__proofs li:nth-child(2) { min-height:68px; }
+}
+
 main > .ep-home-faq { order:10; align-self:center; }
 main > .ep-final-fly-in { order:11; }
 main > .ep-home-notice { order:12; }
