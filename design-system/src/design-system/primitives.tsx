@@ -1,8 +1,8 @@
 import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode, SelectHTMLAttributes } from "react";
 import { Icon, type IconName } from "./icons";
 
-export function Button({ variant = "primary", icon, children, className, ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "secondary" | "text"; icon?: IconName }) {
-  return <button className={["ep-button", variant !== "text" && "ep-cta", `ep-button--${variant}`, className].filter(Boolean).join(" ")} {...props}>{children}{icon ? <Icon name={icon} /> : null}</button>;
+export function Button({ variant = "primary", icon, children, ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "secondary" | "text"; icon?: IconName }) {
+  return <button className={`ep-button ep-button--${variant}`} {...props}>{children}{icon ? <Icon name={icon} /> : null}</button>;
 }
 
 export function SectionHeading({ eyebrow, title, copy, align = "left" }: { eyebrow?: string; title: string; copy?: string; align?: "left" | "center" }) {
