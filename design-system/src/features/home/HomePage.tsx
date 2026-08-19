@@ -157,8 +157,10 @@ export default function EmbarpetHome() {
   useEffect(() => {
     if (!analysisOpen) return;
     const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") closeAnalysis(); };
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = previousOverflow; };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => { document.body.style.overflow = previousOverflow; window.removeEventListener("keydown", closeOnEscape); };
   }, [analysisOpen]);
   const startFromDestination = (destination = "") => {
     setRoute((current) => ({ ...current, destination }));
@@ -166,7 +168,7 @@ export default function EmbarpetHome() {
   };
   const leadContext: LeadContext = { source:"home", page:"/", origin:route.origin, destination:route.destination, period:route.period };
 
-  return <>{analysisOpen ? <div className="ep-analysis-modal" role="dialog" aria-modal="true" aria-label={text.startAnalysis}><div className="ep-analysis-modal__backdrop" onClick={closeAnalysis} /><section className="ep-analysis-modal__panel"><header><a href={path("/")} aria-label="Embarpet"><img src="/logo-embarpet-dark.png" alt="Embarpet" /></a><button type="button" onClick={closeAnalysis} aria-label={text.close}><X size={21} /></button></header><div className="ep-analysis-modal__content"><DiagnosticFlow routeFirst startAtPet={Boolean(analysisRoute.origin && analysisRoute.destination && analysisRoute.period)} initialRoute={analysisRoute} analyticsSource="index_modal" /></div></section></div> : null}<SiteHeader overlay logoSrc="/logo-embarpet-dark.png" items={[
+  return <>{analysisOpen ? <div className="ep-analysis-modal" role="dialog" aria-modal="true" aria-label={text.startAnalysis}><button className="ep-analysis-modal__backdrop" type="button" onClick={closeAnalysis} aria-label={text.close} /><section className="ep-analysis-modal__panel"><button className="ep-analysis-modal__close" type="button" onClick={closeAnalysis} aria-label={text.close}><X size={21} /></button><div className="ep-analysis-modal__content"><DiagnosticFlow routeFirst startAtPet={Boolean(analysisRoute.origin && analysisRoute.destination && analysisRoute.period)} initialRoute={analysisRoute} analyticsSource="index_modal" /></div></section></div> : null}<SiteHeader overlay logoSrc="/logo-embarpet-dark.png" items={[
     { label:text.navHow, href:"#como-funciona" },
     { label:text.navModalities, href:"#modalidades", children:[
       { label:"Viagem na cabine", href:"#modalidades", description:"Possibilidade para alguns pets e rotas.", icon:Plane },
