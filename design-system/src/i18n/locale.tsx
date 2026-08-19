@@ -1,17 +1,26 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { setPageMetadata } from "../lib/seo";
 
-export const locales = ["pt-BR", "en", "es", "ja"] as const;
+export const locales = ["pt-BR", "pt-PT", "en", "es", "ja", "fr", "it", "de", "nl", "zh", "ko", "ar", "ru"] as const;
 export type Locale = typeof locales[number];
 
 export const languageOptions: Array<{ code: Locale; label: string; shortLabel: string; flagSrc: string }> = [
   { code: "pt-BR", label: "Português (Brasil)", shortLabel: "PT", flagSrc: "/apple-emoji/flag-br.png" },
+  { code: "pt-PT", label: "Português (Portugal)", shortLabel: "PT", flagSrc: "/apple-emoji/flag-pt.png" },
   { code: "en", label: "English", shortLabel: "EN", flagSrc: "/apple-emoji/flag-us.png" },
   { code: "es", label: "Español", shortLabel: "ES", flagSrc: "/apple-emoji/flag-es.png" },
   { code: "ja", label: "日本語", shortLabel: "日本語", flagSrc: "/apple-emoji/flag-ja.png" },
+  { code: "fr", label: "Français", shortLabel: "FR", flagSrc: "https://flagcdn.com/w40/fr.png" },
+  { code: "it", label: "Italiano", shortLabel: "IT", flagSrc: "/apple-emoji/flag-it.png" },
+  { code: "de", label: "Deutsch", shortLabel: "DE", flagSrc: "https://flagcdn.com/w40/de.png" },
+  { code: "nl", label: "Nederlands", shortLabel: "NL", flagSrc: "https://flagcdn.com/w40/nl.png" },
+  { code: "zh", label: "中文", shortLabel: "中文", flagSrc: "https://flagcdn.com/w40/cn.png" },
+  { code: "ko", label: "한국어", shortLabel: "한국어", flagSrc: "https://flagcdn.com/w40/kr.png" },
+  { code: "ar", label: "العربية", shortLabel: "AR", flagSrc: "https://flagcdn.com/w40/sa.png" },
+  { code: "ru", label: "Русский", shortLabel: "RU", flagSrc: "https://flagcdn.com/w40/ru.png" },
 ];
 
-const copy = {
+const translatedCopy = {
   "pt-BR": {
     htmlLang: "pt-BR", title: "Transporte Internacional de Pets | Embarpet", description: "Planeje o transporte internacional do seu pet com análise de rota, documentação e possibilidades de embarque.",
     notice: "Atendemos somente destinos internacionais. Voos nacionais são auxiliados apenas quando conectam a uma viagem internacional.", close: "Fechar aviso", analyze: "Analisar a viagem", startTrip: "Começar viagem", wherePetGoes: "Para onde seu pet vai?", language: "Idioma",
@@ -50,18 +59,24 @@ const copy = {
   },
 } as const;
 
-export type Copy = typeof copy[Locale];
+export type Copy = typeof translatedCopy[keyof typeof translatedCopy];
+const localeFallback: Record<Locale, keyof typeof translatedCopy> = {
+  "pt-BR": "pt-BR", "pt-PT": "pt-BR", en: "en", es: "es", ja: "ja",
+  fr: "en", it: "en", de: "en", nl: "en", zh: "en", ko: "en", ar: "en", ru: "en",
+};
+const getCopy = (locale: Locale): Copy => translatedCopy[localeFallback[locale]];
 type LocaleContextValue = { locale: Locale; text: Copy; path: (path?: string) => string; setLocale: (locale: Locale) => void };
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
 export function getLocaleFromPath(pathname: string): Locale {
   const segment = pathname.split("/").filter(Boolean)[0];
-  return segment === "en" || segment === "es" || segment === "ja" ? segment : "pt-BR";
+  return locales.includes(segment as Locale) ? segment as Locale : "pt-BR";
 }
 
 export function localizePath(locale: Locale, path = "/") {
   const [pathname, query = ""] = path.split("?");
-  const barePath = pathname.replace(/^\/(en|es|ja)(?=\/|$)/, "") || "/";
+  const localePrefix = locales.filter((item) => item !== "pt-BR").join("|");
+  const barePath = pathname.replace(new RegExp(`^/(${localePrefix})(?=/|$)`), "") || "/";
   const base = locale === "pt-BR" ? barePath : `/${locale}${barePath === "/" ? "/" : barePath}`;
   return query ? `${base}?${query}` : base;
 }
@@ -72,17 +87,19 @@ export function LocaleProvider({ locale: initialLocale, children }: { locale: Lo
     setLocaleState(getLocaleFromPath(window.location.pathname));
   }, []);
   useEffect(() => {
-    document.documentElement.lang = copy[locale].htmlLang;
-    const currentPath = window.location.pathname.replace(/^\/(en|es|ja)(?=\/|$)/, "") || "/";
+    const text = getCopy(locale);
+    document.documentElement.lang = locale === "pt-BR" ? "pt-BR" : locale;
+    const localePrefix = locales.filter((item) => item !== "pt-BR").join("|");
+    const currentPath = window.location.pathname.replace(new RegExp(`^/(${localePrefix})(?=/|$)`), "") || "/";
     const restoreMetadata = setPageMetadata({
-      title: copy[locale].title,
-      description: copy[locale].description,
+      title: text.title,
+      description: text.description,
       canonicalPath: localizePath(locale, currentPath),
     });
     try { window.localStorage.setItem("embarpet-locale", locale); } catch { /* optional preference */ }
     return restoreMetadata;
   }, [locale]);
-  const value = useMemo(() => ({ locale, text: copy[locale], path: (path = "/") => localizePath(locale, path), setLocale: setLocaleState }), [locale]);
+  const value = useMemo(() => ({ locale, text: getCopy(locale), path: (path = "/") => localizePath(locale, path), setLocale: setLocaleState }), [locale]);
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>;
 }
 
