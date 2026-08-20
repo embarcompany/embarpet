@@ -47,8 +47,8 @@
   --ep-stack-title-copy:20px;
   --ep-stack-copy-content:24px;
   --ep-stack-content-action:28px;
-  --ep-section-space:clamp(72px,7.5vw,108px);
-  --ep-section-space-mobile:60px;
+  --ep-section-space:clamp(56px,5.6vw,82px);
+  --ep-section-space-mobile:48px;
   --ep-layout-gap:clamp(36px,5vw,72px);
   --ep-radius-sm:7px;
   --ep-radius-md:10px;
