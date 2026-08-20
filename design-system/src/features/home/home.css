@@ -2323,7 +2323,7 @@ main > .ep-home-faq {
   align-self:center;
   max-height:none;
   object-fit:contain;
-  filter:brightness(0) saturate(100%) invert(39%) sepia(82%) saturate(1112%) hue-rotate(142deg) brightness(88%) contrast(101%);
+  filter:none;
 }
 .ep-home-authority__proof > div:not(:first-child) {
   grid-template-rows:50px auto;
