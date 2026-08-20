@@ -42,6 +42,14 @@
   --ep-space-5:44px;
   --ep-space-6:68px;
   --ep-space-7:104px;
+  /* Ritmo semântico: use estes tokens na composição das seções. */
+  --ep-stack-eyebrow-title:16px;
+  --ep-stack-title-copy:20px;
+  --ep-stack-copy-content:24px;
+  --ep-stack-content-action:28px;
+  --ep-section-space:clamp(72px,7.5vw,108px);
+  --ep-section-space-mobile:60px;
+  --ep-layout-gap:clamp(36px,5vw,72px);
   --ep-radius-sm:7px;
   --ep-radius-md:10px;
   --ep-radius-lg:14px;
@@ -56,7 +64,7 @@ button,input,select,textarea { font:inherit; }
 :focus-visible { outline:3px solid var(--ep-turq); outline-offset:3px; }
 
 .ep-container { width:min(var(--ep-content),calc(100% - 64px)); margin-inline:auto; }
-.ep-section { padding-block:clamp(56px,7vw,92px); }
+.ep-section { padding-block:var(--ep-section-space); }
 .ep-eyebrow { margin:0; color:var(--ep-turq-deep); font-size:var(--ep-font-size-xs); font-weight:var(--ep-weight-semibold); letter-spacing:.06em; line-height:1; text-transform:uppercase; }
 .ep-title-xl,.ep-title-lg,.ep-title-md,.ep-title-sm { margin:var(--ep-space-2) 0 0; letter-spacing:var(--ep-tracking-title); line-height:var(--ep-leading-title); }
 .ep-title-xl { font-size:var(--ep-font-size-h1); font-weight:var(--ep-weight-semibold); line-height:var(--ep-leading-tight); text-wrap:balance; }
@@ -75,5 +83,5 @@ h1 strong,h2 strong,h3 strong,h4 strong,h5 strong,h6 strong,
 
 @media (max-width:700px) {
   .ep-container { width:calc(100% - 40px); }
-  .ep-section { padding-block:58px; }
+  .ep-section { padding-block:var(--ep-section-space-mobile); }
 }
