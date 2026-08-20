@@ -1923,14 +1923,15 @@ main > .ep-home-notice { order:12; }
   display:grid;
   min-height:88px;
   align-content:center;
+  justify-items:center;
   gap:6px;
   margin:0;
   padding:15px 20px;
-  border:1px solid rgba(255,255,255,.3);
+  border:1px solid rgba(208,247,242,.15);
   border-radius:18px;
   background:rgba(3,67,74,.82);
   color:var(--ep-paper);
-  text-align:left;
+  text-align:center;
   backdrop-filter:blur(12px);
 }
 .ep-home-ceo figcaption.ep-home-service__identity {
