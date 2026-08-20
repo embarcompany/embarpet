@@ -2156,12 +2156,12 @@ main > .ep-home-notice { order:12; }
   bottom:auto;
   display:grid;
   width:clamp(218px,17vw,244px);
-  min-height:96px;
+  min-height:78px;
   align-content:center;
   justify-items:center;
-  gap:6px;
+  gap:3px;
   margin:0;
-  padding:12px 8px;
+  padding:6px 4px;
   border:1px solid rgba(208,247,242,.15);
   border-radius:18px;
   background:rgba(3,67,74,.82);
@@ -2199,8 +2199,8 @@ main > .ep-home-notice { order:12; }
     top:auto;
     bottom:12px;
     width:190px;
-    min-height:66px;
-    padding:9px 7px;
+    min-height:56px;
+    padding:5px 3px;
     transform:none;
     animation:none;
   }
