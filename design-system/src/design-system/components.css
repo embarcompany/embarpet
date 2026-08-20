@@ -456,3 +456,52 @@ main section[id] { scroll-margin-top:84px; }
 .ep-nav-cta,
 .ep-nav-mobile-cta { border-color:var(--ep-nav-action); background:var(--ep-nav-action); color:var(--ep-teal); }
 .ep-nav-utilities a:hover { color:#fff; }
+
+/* Diagnóstico — data, progresso e contexto de rota como um sistema único. */
+.ep-required-mark { display:inline!important; margin:0!important; color:#c23c43!important; font-size:1em!important; font-weight:900!important; line-height:1; }
+.ep-flow-title .ep-required-mark { vertical-align:.12em; }
+
+.ep-route-inline--airport { grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.ep-route-inline--airport .ep-route-inline__arrow { display:none!important; }
+
+.ep-period-pills { gap:9px; }
+.ep-period-pills > button { grid-template-columns:minmax(0,1fr) 26px; min-height:50px; padding:0 14px 0 18px; font-size:14px; line-height:1.25; }
+.ep-period-pills > button > i { width:26px; height:26px; }
+.ep-specific-date { min-height:34px; gap:7px; margin-top:9px; font-size:12px; }
+
+.ep-flow-journey-progress { gap:14px; }
+.ep-flow-journey-progress > span:first-child { font-size:10px; }
+.ep-flow-journey-progress > span:last-child { height:6px; padding:1px; background:rgba(0,157,172,.13); }
+.ep-flow-journey-progress i { background:linear-gradient(90deg,#008f9c 0%,#00c7d8 48%,#79eadc 100%); box-shadow:0 0 8px rgba(0,199,216,.2); }
+
+.ep-flow-route-preview b > span { display:inline-flex; min-width:0; align-items:center; gap:6px; }
+.ep-flow-route-preview b > span:last-child { justify-content:flex-end; }
+.ep-route-country-flag { display:inline-block; width:22px; height:16px; flex:0 0 auto; overflow:hidden; border:1px solid rgba(0,73,77,.12); border-radius:3px; object-fit:cover; }
+.ep-flow-summary__route { display:flex!important; flex-wrap:wrap; align-items:center; gap:6px; }
+.ep-flow-summary__route i { margin-inline:2px!important; }
+
+.ep-inline-calendar { display:grid; gap:10px; margin-top:2px; padding:12px; border:1px solid rgba(0,157,172,.24); border-radius:16px; background:rgba(255,255,255,.78); }
+.ep-inline-calendar__selection { display:flex; min-height:44px; align-items:center; gap:10px; padding:8px 11px; border-radius:11px; background:linear-gradient(112deg,rgba(225,249,246,.92),rgba(248,252,251,.96)); color:var(--ep-teal); }
+.ep-inline-calendar__selection > svg { flex:0 0 auto; color:var(--ep-turq-deep); }
+.ep-inline-calendar__selection > span { display:grid!important; gap:2px; margin:0!important; }
+.ep-inline-calendar__selection small { color:var(--ep-muted); font-size:9px; font-weight:750; }
+.ep-inline-calendar__selection b { font-size:12px; text-transform:none; }
+.ep-inline-calendar__header { display:grid; grid-template-columns:34px minmax(0,1fr) 34px; align-items:center; gap:8px; }
+.ep-inline-calendar__header strong { color:var(--ep-teal); font-size:13px; text-align:center; text-transform:capitalize; }
+.ep-inline-calendar__header button { display:grid; width:34px; height:34px; place-items:center; border:1px solid rgba(0,157,172,.2); border-radius:50%; background:var(--ep-paper); color:var(--ep-teal); cursor:pointer; transition:border-color .18s ease,background .18s ease,transform .18s ease; }
+.ep-inline-calendar__header button:hover { border-color:var(--ep-turq-deep); background:var(--ep-soft); transform:scale(1.04); }
+.ep-inline-calendar__weekdays,.ep-inline-calendar__grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:4px; }
+.ep-inline-calendar__weekdays span { margin:0!important; color:var(--ep-muted); font-size:9px!important; font-weight:800; text-align:center; text-transform:uppercase; }
+.ep-inline-calendar__grid button { min-width:0; min-height:34px; padding:0; border:0; border-radius:9px; background:transparent; color:var(--ep-teal); font:inherit; font-size:11px; font-weight:750; cursor:pointer; transition:background .16s ease,color .16s ease,transform .16s ease; }
+.ep-inline-calendar__grid button:hover:not(:disabled) { background:var(--ep-soft); transform:translateY(-1px); }
+.ep-inline-calendar__grid button.is-selected { background:var(--ep-turq-deep); color:#fff; }
+.ep-inline-calendar__grid button.is-outside { color:#a5b6b5; }
+.ep-inline-calendar__grid button:disabled { color:#cad4d3; cursor:not-allowed; opacity:.55; }
+
+@media (max-width:600px) {
+  .ep-route-inline--airport { grid-template-columns:1fr; gap:10px; }
+  .ep-period-pills > button { min-height:48px; font-size:13px; }
+  .ep-flow-route-preview b > span:last-child { justify-content:flex-start; }
+  .ep-inline-calendar { padding:10px; }
+  .ep-inline-calendar__grid button { min-height:32px; }
+}
