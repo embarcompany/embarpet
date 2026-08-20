@@ -2222,6 +2222,22 @@ main > .ep-home-faq {
 .ep-section-heading > .ep-copy { margin-top:var(--ep-stack-title-copy); }
 .ep-home-press__heading { align-items:center; text-align:center; }
 
+/* Credenciais: mesma cor institucional e peso visual equilibrado. */
+.ep-home-authority__proof > div:nth-child(2) img,
+.ep-home-authority__proof > div:nth-child(3) img {
+  height:auto;
+  max-height:none;
+  filter:brightness(0) saturate(100%) invert(39%) sepia(82%) saturate(1112%) hue-rotate(142deg) brightness(88%) contrast(101%);
+}
+.ep-home-authority__proof > div:nth-child(2) img {
+  width:clamp(62px,5.5vw,78px);
+  max-width:none;
+}
+.ep-home-authority__proof > div:nth-child(3) img {
+  width:clamp(56px,4.8vw,68px);
+  max-width:none;
+}
+
 @media (max-width:700px) {
   .ep-home-modalities,
   .ep-home-process-section,
