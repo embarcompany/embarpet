@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 
 export function ConversionHero({ imageSrc, imageAlt, aside, children }: { imageSrc?: string; imageAlt?: string; aside?: ReactNode; children: ReactNode }) {
-  return <section className="ep-conversion-hero" id="analise"><div className="ep-conversion-hero__copy">{children}</div>{aside ? <div className="ep-conversion-hero__aside">{aside}</div> : imageSrc ? <div className="ep-conversion-hero__media"><img className="ep-conversion-hero__image" src={imageSrc} alt={imageAlt ?? ""} fetchPriority="high" decoding="async" /></div> : null}</section>;
+  return <section className="ep-conversion-hero" id="analise"><div className="ep-conversion-hero__inner"><div className="ep-conversion-hero__copy">{children}</div>{aside ? <div className="ep-conversion-hero__aside">{aside}</div> : imageSrc ? <div className="ep-conversion-hero__media"><img className="ep-conversion-hero__image" src={imageSrc} alt={imageAlt ?? ""} fetchPriority="high" decoding="async" /></div> : null}</div></section>;
 }
 
 export function AuthorityBand() {
