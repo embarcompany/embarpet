@@ -474,8 +474,8 @@ main section[id] { scroll-margin-top:84px; }
 .ep-route-inline--airport .ep-route-inline__arrow { display:none!important; }
 
 .ep-period-pills { gap:9px; }
-.ep-period-pills > button { grid-template-columns:minmax(0,1fr) 26px; min-height:50px; padding:0 14px 0 18px; font-size:14px; line-height:1.25; }
-.ep-period-pills > button > i { width:26px; height:26px; }
+.ep-period-pills > button { grid-template-columns:26px minmax(0,1fr); min-height:50px; padding:0 18px 0 14px; font-size:14px; line-height:1.25; }
+.ep-period-pills > button > i { width:26px; height:26px; justify-self:start; }
 .ep-specific-date { min-height:34px; gap:7px; margin-top:9px; font-size:12px; }
 
 .ep-flow-journey-progress { gap:14px; }

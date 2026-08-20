@@ -903,10 +903,10 @@ function TravelPeriodSelect({
           key={option}
           onClick={() => onChange(option)}
         >
-          <span>{option}</span>
           <i aria-hidden="true">
             {value === option ? <Check size={14} /> : null}
           </i>
+          <span>{option}</span>
         </button>
       ))}
     </div>
