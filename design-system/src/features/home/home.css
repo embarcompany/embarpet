@@ -1708,7 +1708,7 @@ main > .ep-final-fly-in { order:12; }
 .ep-analysis-modal__content .ep-flow-journey-header .ep-flow-route-preview__main { grid-column:1; }
 .ep-analysis-modal__content .ep-flow-route-preview__main b { width:auto; grid-template-columns:max-content auto max-content; justify-content:start; font-size:15px; }
 .ep-analysis-modal__content .ep-flow-route-preview__meta em { justify-self:auto; color:#59777b; font-size:9px; }
-.ep-analysis-modal__content .ep-flow-card { box-sizing:border-box; display:flex; width:min(100%,820px); height:100%; min-height:0; justify-self:center; justify-content:flex-start; overflow-x:hidden; overflow-y:auto; padding:4px 6px 0 0; scrollbar-gutter:stable; }
+.ep-analysis-modal__content .ep-flow-card { box-sizing:border-box; display:flex; width:min(100%,820px); height:100%; min-height:0; justify-self:center; justify-content:flex-start; overflow:hidden; padding:4px 0 0; animation:ep-modal-step-enter .28s cubic-bezier(.2,.75,.25,1) both; }
 .ep-analysis-modal__content .ep-flow-card::-webkit-scrollbar { width:5px; }
 .ep-analysis-modal__content .ep-flow-card::-webkit-scrollbar-thumb { border-radius:999px; background:rgba(0,157,172,.25); }
 .ep-analysis-modal__content .ep-flow-kicker { margin-top:2px; }
@@ -1722,10 +1722,19 @@ main > .ep-final-fly-in { order:12; }
 .ep-analysis-modal__content .ep-multi-pet-trigger { margin-top:9px; }
 .ep-analysis-modal__content .ep-pet-detail__select { overflow:hidden; padding-right:0; border-radius:11px; }
 .ep-analysis-modal__content .ep-pet-detail__select input { width:min(300px,44%); min-height:52px; margin-left:auto; padding-inline:14px; border:0; border-left:1px solid var(--ep-line); border-radius:0; background:transparent; }
+.ep-analysis-modal__content .ep-pet-details { width:100%; }
+.ep-pet-detail-progress { display:flex; align-items:center; gap:12px; width:100%; margin-top:14px; color:var(--ep-turq-deep); font-size:11px; font-weight:800; }
+.ep-pet-detail-progress > span { white-space:nowrap; }
+.ep-pet-detail-progress > i { display:block; width:100%; height:4px; overflow:hidden; border-radius:999px; background:rgba(0,157,172,.12); }
+.ep-pet-detail-progress > i > b { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,var(--ep-turq-deep),var(--ep-turq),var(--ep-lime)); transition:width .28s ease; }
 .ep-analysis-modal__content .ep-flow-fields { margin-top:16px; }
 .ep-analysis-modal__content .ep-flow-actions { position:sticky; z-index:12; bottom:0; width:100%; margin-top:auto; padding:16px 0 2px; background:linear-gradient(180deg,rgba(247,251,251,0),#f7fbfb 24%); }
 .ep-analysis-modal__content .ep-flow-actions .ep-button { min-height:48px; color:var(--ep-teal); font-size:13px; opacity:1; }
 .ep-analysis-modal__content .ep-flow-actions .ep-button--primary { border-color:rgba(0,73,77,.12); background:var(--ep-turq); }
+@keyframes ep-modal-step-enter { from { opacity:0; transform:translateX(12px); } to { opacity:1; transform:translateX(0); } }
+@media (max-height:700px) and (min-width:701px) {
+  .ep-analysis-modal__content .ep-flow-card { overflow-x:hidden; overflow-y:auto; padding-right:5px; scrollbar-gutter:stable; }
+}
 .ep-analysis-modal__content .ep-flow-card:has(.ep-flow-validation) .ep-airport-field:has(input:placeholder-shown),
 .ep-analysis-modal__content .ep-flow-card:has(.ep-flow-validation) .ep-period-select > button,
 .ep-analysis-modal__content .ep-flow-card:has(.ep-flow-validation) .ep-pet-detail input:placeholder-shown,
@@ -1782,6 +1791,7 @@ main > .ep-final-fly-in { order:12; }
   .ep-analysis-modal__content .ep-flow-route-preview__main b { grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); width:100%; }
   .ep-analysis-modal__content .ep-flow-route-preview__meta { flex-wrap:wrap; }
   .ep-analysis-modal__content .ep-flow-card { width:100%; padding-right:3px; }
+  .ep-analysis-modal__content .ep-flow-card { overflow-x:hidden; overflow-y:auto; scrollbar-gutter:stable; }
   .ep-analysis-modal__content .ep-pet-choice > button { min-height:104px; }
   .ep-analysis-modal__content .ep-flow-actions { padding-top:13px; }
 }
@@ -1950,6 +1960,10 @@ main > .ep-home-notice { order:12; }
     animation:none!important;
   }
   .ep-home-process__cycle:has(.ep-home-process__satellite:hover) .ep-home-process__satellite { animation-play-state:paused!important; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .ep-analysis-modal__content .ep-flow-card { animation:none; }
+  .ep-pet-detail-progress > i > b { transition:none; }
 }
 
 /* Regra final dos CTAs — mantém a caixa estável e escala a aeronave pelo texto. */

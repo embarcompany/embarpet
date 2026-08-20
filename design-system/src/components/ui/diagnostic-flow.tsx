@@ -104,6 +104,7 @@ export function DiagnosticFlow({
     destinationCode: initialRoute?.destinationCode,
   });
   const [pets, setPets] = useState<PetDetail[]>([]);
+  const [activePetDetail, setActivePetDetail] = useState(0);
   const [contact, setContact] = useState({ name: "", phone: "" });
   const [phoneCountry, setPhoneCountry] = useState(phoneCountries[0]);
   const [phoneCountryOpen, setPhoneCountryOpen] = useState(false);
@@ -221,6 +222,7 @@ export function DiagnosticFlow({
             },
           ],
     );
+    setActivePetDetail(0);
   };
   const changePet = (index: number, field: keyof PetDetail, value: string) =>
     setPets((current) =>
@@ -560,9 +562,16 @@ export function DiagnosticFlow({
       {step === 3 && (
         <div className="ep-flow-card">
           <p className="ep-flow-kicker">Detalhes que ajudam a analisar</p>
-          <h2 className="ep-flow-title">Vamos conhecer <em>os pets.</em></h2>
+          <h2 className="ep-flow-title">Vamos conhecer <em>{pets.length > 1 ? "cada pet." : "seu pet."}</em></h2>
+          {pets.length > 1 ? (
+            <div className="ep-pet-detail-progress" aria-label={`Pet ${activePetDetail + 1} de ${pets.length}`}>
+              <span>Pet {activePetDetail + 1} de {pets.length}</span>
+              <i aria-hidden="true"><b style={{ width:`${((activePetDetail + 1) / pets.length) * 100}%` }} /></i>
+            </div>
+          ) : null}
           <div className="ep-pet-details">
             {pets.map((pet, index) => {
+              if (index !== activePetDetail) return null;
               const PetIcon =
                 petKinds.find((item) => item.label === pet.kind)?.icon ??
                 CircleHelp;
@@ -634,10 +643,22 @@ export function DiagnosticFlow({
             })}
           </div>
           <FlowActions
-            back={() => go(routeFirst ? 1 : 2)}
-            next={() => go(4)}
-            nextLabel="Continuar"
-            disabled={pets.some((pet) => !pet.breed || !pet.weight)}
+            back={() => {
+              if (activePetDetail > 0) {
+                setActivePetDetail((current) => current - 1);
+                return;
+              }
+              go(routeFirst ? 1 : 2);
+            }}
+            next={() => {
+              if (activePetDetail < pets.length - 1) {
+                setActivePetDetail((current) => current + 1);
+                return;
+              }
+              go(4);
+            }}
+            nextLabel={activePetDetail < pets.length - 1 ? "Próximo pet" : "Continuar"}
+            disabled={!pets[activePetDetail]?.breed || !pets[activePetDetail]?.weight}
           />
         </div>
       )}
