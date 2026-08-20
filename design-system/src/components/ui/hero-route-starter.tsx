@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MapPin, PlaneTakeoff } from "lucide-react";
 import { useCountrySuggestions } from "../../hooks/use-country-suggestions";
 import { useLocale } from "../../i18n/locale";
+import { countryFlagSvg } from "../../lib/country-flag";
 
 type RouteStarterData = { origin: string; destination: string };
 
@@ -77,7 +78,7 @@ function RouteField({ label, field, value, active, invalid, onChange, onFocus, o
     <span className="ep-hero-route-starter__field-content"><span>{label}</span><input data-hero-route-field={field} value={value} onChange={(event) => onChange(event.target.value)} onFocus={onFocus} onBlur={onBlur} placeholder={invalid ? requiredMessage : placeholder} autoComplete="off" aria-invalid={invalid} aria-expanded={showOptions} aria-controls={`hero-${field}-options`} /></span>
     {showOptions ? <span className="ep-hero-route-starter__options" id={`hero-${field}-options`} role="listbox">
       {suggestions.map((suggestion) => <button type="button" key={suggestion.code} role="option" onMouseDown={(event) => event.preventDefault()} onClick={() => chooseSuggestion(suggestion)}>
-        <img src={`https://flagcdn.com/w40/${suggestion.code.toLowerCase()}.png`} alt="" width="24" height="18" /><b>{suggestion.name}</b><small>{suggestion.code}</small>
+        <img src={countryFlagSvg(suggestion.code)} alt="" width="24" height="18" /><b>{suggestion.name}</b><small>{suggestion.code}</small>
       </button>)}
     </span> : null}
   </label>;

@@ -1,23 +1,24 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { countryFlagSvg } from "../lib/country-flag";
 import { setPageMetadata } from "../lib/seo";
 
 export const locales = ["pt-BR", "pt-PT", "en", "es", "ja", "fr", "it", "de", "nl", "zh", "ko", "ar", "ru"] as const;
 export type Locale = typeof locales[number];
 
 export const languageOptions: Array<{ code: Locale; label: string; shortLabel: string; flagSrc: string }> = [
-  { code: "pt-BR", label: "Português (Brasil)", shortLabel: "PT", flagSrc: "/apple-emoji/flag-br.png" },
-  { code: "pt-PT", label: "Português (Portugal)", shortLabel: "PT", flagSrc: "/apple-emoji/flag-pt.png" },
-  { code: "en", label: "English", shortLabel: "EN", flagSrc: "/apple-emoji/flag-us.png" },
-  { code: "es", label: "Español", shortLabel: "ES", flagSrc: "/apple-emoji/flag-es.png" },
-  { code: "ja", label: "日本語", shortLabel: "日本語", flagSrc: "/apple-emoji/flag-ja.png" },
-  { code: "fr", label: "Français", shortLabel: "FR", flagSrc: "https://flagcdn.com/w40/fr.png" },
-  { code: "it", label: "Italiano", shortLabel: "IT", flagSrc: "/apple-emoji/flag-it.png" },
-  { code: "de", label: "Deutsch", shortLabel: "DE", flagSrc: "https://flagcdn.com/w40/de.png" },
-  { code: "nl", label: "Nederlands", shortLabel: "NL", flagSrc: "https://flagcdn.com/w40/nl.png" },
-  { code: "zh", label: "中文", shortLabel: "中文", flagSrc: "https://flagcdn.com/w40/cn.png" },
-  { code: "ko", label: "한국어", shortLabel: "한국어", flagSrc: "https://flagcdn.com/w40/kr.png" },
-  { code: "ar", label: "العربية", shortLabel: "AR", flagSrc: "https://flagcdn.com/w40/sa.png" },
-  { code: "ru", label: "Русский", shortLabel: "RU", flagSrc: "https://flagcdn.com/w40/ru.png" },
+  { code: "pt-BR", label: "Português (Brasil)", shortLabel: "PT", flagSrc: countryFlagSvg("BR") },
+  { code: "pt-PT", label: "Português (Portugal)", shortLabel: "PT", flagSrc: countryFlagSvg("PT") },
+  { code: "en", label: "English", shortLabel: "EN", flagSrc: countryFlagSvg("US") },
+  { code: "es", label: "Español", shortLabel: "ES", flagSrc: countryFlagSvg("ES") },
+  { code: "ja", label: "日本語", shortLabel: "日本語", flagSrc: countryFlagSvg("JP") },
+  { code: "fr", label: "Français", shortLabel: "FR", flagSrc: countryFlagSvg("FR") },
+  { code: "it", label: "Italiano", shortLabel: "IT", flagSrc: countryFlagSvg("IT") },
+  { code: "de", label: "Deutsch", shortLabel: "DE", flagSrc: countryFlagSvg("DE") },
+  { code: "nl", label: "Nederlands", shortLabel: "NL", flagSrc: countryFlagSvg("NL") },
+  { code: "zh", label: "中文", shortLabel: "中文", flagSrc: countryFlagSvg("CN") },
+  { code: "ko", label: "한국어", shortLabel: "한국어", flagSrc: countryFlagSvg("KR") },
+  { code: "ar", label: "العربية", shortLabel: "AR", flagSrc: countryFlagSvg("SA") },
+  { code: "ru", label: "Русский", shortLabel: "RU", flagSrc: countryFlagSvg("RU") },
 ];
 
 const translatedCopy = {

@@ -27,6 +27,7 @@ import {
   useCountrySuggestions,
 } from "../../hooks/use-country-suggestions";
 import { trackConversionEvent } from "../../lib/analytics";
+import { countryFlagSvg } from "../../lib/country-flag";
 import { useLocale } from "../../i18n/locale";
 
 type Step = 1 | 2 | 3 | 4;
@@ -46,14 +47,14 @@ type RouteData = {
 };
 
 const phoneCountries = [
-  { code: "BR", flag: "🇧🇷", dial: "+55", name: "Brasil" },
-  { code: "PT", flag: "🇵🇹", dial: "+351", name: "Portugal" },
-  { code: "US", flag: "🇺🇸", dial: "+1", name: "Estados Unidos" },
-  { code: "ES", flag: "🇪🇸", dial: "+34", name: "Espanha" },
-  { code: "FR", flag: "🇫🇷", dial: "+33", name: "França" },
-  { code: "AR", flag: "🇦🇷", dial: "+54", name: "Argentina" },
-  { code: "UY", flag: "🇺🇾", dial: "+598", name: "Uruguai" },
-  { code: "PY", flag: "🇵🇾", dial: "+595", name: "Paraguai" },
+  { code: "BR", dial: "+55", name: "Brasil" },
+  { code: "PT", dial: "+351", name: "Portugal" },
+  { code: "US", dial: "+1", name: "Estados Unidos" },
+  { code: "ES", dial: "+34", name: "Espanha" },
+  { code: "FR", dial: "+33", name: "França" },
+  { code: "AR", dial: "+54", name: "Argentina" },
+  { code: "UY", dial: "+598", name: "Uruguai" },
+  { code: "PY", dial: "+595", name: "Paraguai" },
 ];
 
 const dialFromOrigin = (origin: string) =>
@@ -710,7 +711,7 @@ export function DiagnosticFlow({
                   onClick={() => setPhoneCountryOpen((current) => !current)}
                 >
                   <img
-                    src={`https://flagcdn.com/w40/${phoneCountry.code.toLowerCase()}.png`}
+                    src={countryFlagSvg(phoneCountry.code)}
                     alt={`Bandeira de ${phoneCountry.name}`}
                     width="24"
                     height="18"
@@ -741,7 +742,7 @@ export function DiagnosticFlow({
                         }}
                       >
                         <img
-                          src={`https://flagcdn.com/w40/${country.code.toLowerCase()}.png`}
+                          src={countryFlagSvg(country.code)}
                           alt=""
                           width="24"
                           height="18"
@@ -943,7 +944,7 @@ function CityAirportField({
               role="option"
             >
               <img
-                src={`https://flagcdn.com/w40/${suggestion.code.toLowerCase()}.png`}
+                src={countryFlagSvg(suggestion.code)}
                 alt=""
                 width="24"
                 height="18"
@@ -973,7 +974,7 @@ function CountryFlag({ code, name }: { code?: string; name?: string }) {
   return (
     <img
       className="ep-route-country-flag"
-      src={`https://flagcdn.com/w40/${resolvedCode.toLowerCase()}.png`}
+      src={countryFlagSvg(resolvedCode)}
       alt={`Bandeira de ${name || resolvedCode}`}
       width="22"
       height="16"
