@@ -1134,18 +1134,16 @@
 .ep-case-carousel__heading h2 em,
 .ep-final-fly-in h2 em {
   display:inline;
-  padding:.03em .16em .08em;
-  border-radius:.22em;
-  background:rgba(0,209,226,.22);
-  box-decoration-break:clone;
-  -webkit-box-decoration-break:clone;
-  color:inherit;
+  padding:0;
+  border-radius:0;
+  background:transparent;
+  color:var(--ep-turq-deep);
   font-style:normal;
 }
 .ep-home-service .ep-title-lg em,
 .ep-home-luxury .ep-title-lg em,
-.ep-final-fly-in h2 em { background:rgba(0,209,226,.2); color:inherit; }
-.ep-conversion-hero__copy .ep-title-xl em { background:rgba(0,157,172,.16); color:inherit; }
+.ep-final-fly-in h2 em { background:transparent; color:var(--ep-turq); }
+.ep-conversion-hero__copy .ep-title-xl em { background:transparent; color:var(--ep-turq-deep); }
 .ep-hero-highlight {
   display:inline;
   color:var(--ep-turq-deep);
