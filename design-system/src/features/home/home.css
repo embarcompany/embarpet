@@ -2161,7 +2161,7 @@ main > .ep-home-notice { order:12; }
   justify-items:center;
   gap:6px;
   margin:0;
-  padding:16px 18px;
+  padding:12px 8px;
   border:1px solid rgba(208,247,242,.15);
   border-radius:18px;
   background:rgba(3,67,74,.82);
@@ -2200,7 +2200,7 @@ main > .ep-home-notice { order:12; }
     bottom:12px;
     width:190px;
     min-height:66px;
-    padding:10px 13px;
+    padding:9px 7px;
     transform:none;
     animation:none;
   }
