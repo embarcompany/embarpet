@@ -672,6 +672,91 @@
   .ep-home-process__cycle:has(.ep-home-process__satellite:hover) .ep-home-process__satellite { animation-play-state:paused!important; }
 }
 
+/* CTAs editoriais usam literalmente o InternalLink do design system.
+   Esta camada final neutraliza apenas os seletores legados da index. */
+.ep-ds-button.ep-ds-button--internal {
+  display:inline-flex!important;
+  width:max-content!important;
+  min-width:0!important;
+  min-height:var(--ep-button-current-height)!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:0!important;
+  overflow:hidden!important;
+  padding:var(--ep-button-current-inset)!important;
+  padding-left:var(--ep-button-current-leading)!important;
+  border:1px solid rgba(5,67,74,.28)!important;
+  border-radius:var(--ep-button-radius)!important;
+  background:transparent!important;
+  color:var(--ep-teal)!important;
+  font-size:var(--ep-button-font-md)!important;
+  font-weight:700!important;
+  line-height:1!important;
+  transform:none!important;
+  transition:background-color .24s ease,border-color .24s ease,color .24s ease,box-shadow .24s ease!important;
+}
+.ep-ds-button.ep-ds-button--internal > span {
+  min-width:0!important;
+  flex:0 1 auto!important;
+  overflow:hidden!important;
+  transform:none!important;
+  white-space:nowrap!important;
+}
+.ep-ds-button.ep-ds-button--internal .ep-ds-button__arrow {
+  display:grid!important;
+  box-sizing:border-box!important;
+  width:var(--ep-button-current-action)!important;
+  height:var(--ep-button-current-action)!important;
+  min-width:var(--ep-button-current-action)!important;
+  flex:0 0 var(--ep-button-current-action)!important;
+  place-items:center!important;
+  margin-left:var(--ep-button-current-arrow-gap)!important;
+  padding:0!important;
+  border-radius:50%!important;
+  background:var(--ep-teal)!important;
+  color:var(--ep-paper)!important;
+  transform:none!important;
+  transition:margin-left var(--ep-button-motion-duration) var(--ep-button-motion),background-color .24s ease,color .24s ease!important;
+}
+.ep-ds-button.ep-ds-button--internal .ep-ds-button__arrow svg {
+  width:var(--ep-button-current-icon)!important;
+  height:var(--ep-button-current-icon)!important;
+  padding:0!important;
+  transform:none!important;
+}
+.ep-ds-button.ep-ds-button--internal:hover,
+.ep-ds-button.ep-ds-button--internal:focus-visible {
+  gap:0!important;
+  padding:var(--ep-button-current-inset)!important;
+  padding-left:var(--ep-button-current-leading)!important;
+  border-color:var(--ep-teal)!important;
+  background:rgba(0,157,172,.07)!important;
+  color:var(--ep-teal)!important;
+  transform:none!important;
+}
+.ep-ds-button.ep-ds-button--internal:hover .ep-ds-button__arrow,
+.ep-ds-button.ep-ds-button--internal:focus-visible .ep-ds-button__arrow {
+  margin-left:var(--ep-button-current-arrow-gap-expanded)!important;
+  transform:none!important;
+}
+.ep-ds-button.ep-ds-button--internal.ep-ds-button--full { width:100%!important; }
+.ep-ds-button.ep-ds-button--internal.ep-ds-button--full .ep-ds-button__arrow { margin-left:auto!important; }
+.ep-ds-button.ep-ds-button--internal.ep-ds-button--on-dark {
+  border-color:rgba(255,255,255,.78)!important;
+  background:rgba(255,255,255,.04)!important;
+  color:var(--ep-paper)!important;
+}
+.ep-ds-button.ep-ds-button--internal.ep-ds-button--on-dark .ep-ds-button__arrow {
+  background:var(--ep-paper)!important;
+  color:var(--ep-teal)!important;
+}
+.ep-ds-button.ep-ds-button--internal.ep-ds-button--on-dark:hover,
+.ep-ds-button.ep-ds-button--internal.ep-ds-button--on-dark:focus-visible {
+  border-color:var(--ep-turq)!important;
+  background:rgba(0,198,205,.14)!important;
+  color:var(--ep-paper)!important;
+}
+
 /* Contrato final das CTAs internas: texto preservado, cápsula expande, seta permanece estável. */
 .ep-internal-cta,
 .ep-home-authority__story-cta.ep-internal-cta,

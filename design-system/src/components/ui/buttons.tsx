@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type ButtonHTMLAttributes, type ReactNode } from "react";
+import { useCallback, useEffect, useState, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight, type LucideIcon } from "lucide-react";
 import { cn } from "../../lib/utils";
 
@@ -38,8 +38,8 @@ export function AnalysisButton({ children, className, fullWidth, size = "md", de
   </button>;
 }
 
-export function InternalLink({ children, className, fullWidth, size = "md", href, external = false }: SharedProps & { href: string; external?: boolean }) {
-  return <a className={cn("ep-ds-button ep-ds-button--internal", `ep-ds-button--${size}`, fullWidth && "ep-ds-button--full", className)} href={href} {...(external ? { target:"_blank", rel:"noopener noreferrer" } : {})}>
+export function InternalLink({ children, className, fullWidth, size = "md", href, external = false, ...props }: SharedProps & AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; external?: boolean }) {
+  return <a className={cn("ep-ds-button ep-ds-button--internal", `ep-ds-button--${size}`, fullWidth && "ep-ds-button--full", className)} href={href} {...(external ? { target:"_blank", rel:"noopener noreferrer" } : {})} {...props}>
     <span>{children}</span><i className="ep-ds-button__arrow" aria-hidden="true"><ArrowRight /></i>
   </a>;
 }
