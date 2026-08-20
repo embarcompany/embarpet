@@ -1538,6 +1538,23 @@ main > .ep-final-fly-in { order:12; }
   background:radial-gradient(ellipse at 50% 48%,rgba(228,255,251,.68) 0%,rgba(105,241,224,.4) 31%,rgba(0,202,210,.2) 52%,transparent 73%);
   filter:blur(30px);
 }
+
+/* A primeira dobra obedece à mesma área segura horizontal do restante do site.
+   O fundo continua pertencendo à hero, mas deixa de usar a viewport como régua. */
+@media (min-width:901px) {
+  main > .ep-conversion-hero {
+    width:min(var(--ep-content),calc(100% - 64px));
+    margin:20px auto 0;
+    padding-inline:0;
+    border-radius:30px;
+  }
+
+  .ep-conversion-hero__copy,
+  .ep-conversion-hero__aside {
+    min-width:0;
+    box-sizing:border-box;
+  }
+}
 .ep-hero-showcase__poster { position:absolute; inset:0; display:block; width:100%; height:100%; overflow:hidden; padding:0; border:0; background:#075c62; cursor:pointer; }
 .ep-hero-showcase__poster::after { position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,57,63,.02),rgba(0,57,63,.2)); content:""; pointer-events:none; }
 .ep-hero-showcase__poster > img { display:block; width:100%; height:100%; object-fit:cover; object-position:center 24%; transition:transform .45s cubic-bezier(.2,.8,.2,1); }
