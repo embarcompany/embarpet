@@ -1522,12 +1522,12 @@ main > .ep-final-fly-in { order:12; }
 .ep-home-ceo { min-height:clamp(360px,31vw,458px); overflow:visible; isolation:isolate; }
 .ep-home-ceo::before { position:absolute; z-index:-2; right:3%; bottom:0; left:3%; height:76%; border-radius:34px 34px 20px 20px; background:linear-gradient(145deg,#005e65 0%,#008d97 52%,#006c74 100%); background-size:180% 180%; animation:ep-ceo-panel-shift 16s ease-in-out infinite alternate; content:""; }
 .ep-home-ceo__glow {
-  z-index:-1;
-  bottom:4%;
-  width:88%;
-  opacity:.58;
-  background:radial-gradient(ellipse at 50% 48%,rgba(225,255,249,.48) 0%,rgba(104,239,224,.25) 34%,rgba(0,202,210,.1) 53%,transparent 72%);
-  filter:blur(22px);
+  z-index:0;
+  bottom:5%;
+  width:90%;
+  opacity:.82;
+  background:radial-gradient(ellipse at 50% 48%,rgba(228,255,251,.68) 0%,rgba(105,241,224,.4) 31%,rgba(0,202,210,.2) 52%,transparent 73%);
+  filter:blur(30px);
 }
 .ep-hero-showcase__poster { position:absolute; inset:0; display:block; width:100%; height:100%; overflow:hidden; padding:0; border:0; background:#075c62; cursor:pointer; }
 .ep-hero-showcase__poster::after { position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,57,63,.02),rgba(0,57,63,.2)); content:""; pointer-events:none; }
@@ -1545,7 +1545,7 @@ main > .ep-final-fly-in { order:12; }
   .ep-home-service__grid { width:100%; height:100%; max-width:none; grid-template-columns:50% 50%; align-items:stretch; gap:0; }
   .ep-home-ceo { height:100%; min-height:0; align-self:stretch; }
   .ep-home-ceo::before { right:0; bottom:0; left:0; height:100%; border-radius:30px 30px 22px 22px; background:linear-gradient(150deg,#00b7c1 0%,#00aab6 48%,#008e9b 100%); background-size:180% 180%; }
-  .ep-home-ceo__glow { bottom:8%; width:92%; opacity:.58; filter:blur(26px); }
+  .ep-home-ceo__glow { bottom:8%; width:92%; opacity:.8; filter:blur(32px); }
   .ep-home-ceo img { max-width:126%; height:139%; }
   .ep-home-ceo img.ep-home-ceo__portrait { max-width:112%; height:126%; }
   .ep-home-ceo__fade { right:0; bottom:0; left:0; height:54%; border-radius:0 0 22px 22px; background:linear-gradient(to top,#008d99 0%,rgba(0,152,163,.94) 22%,rgba(0,177,187,.62) 56%,rgba(0,177,187,0) 100%); }
