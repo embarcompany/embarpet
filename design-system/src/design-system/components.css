@@ -284,7 +284,7 @@ main section[id] { scroll-margin-top:84px; }
 /* Redes sociais no rodapé. */
 .ep-footer-socials { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 19px; }
 .ep-footer-socials a { display:grid; width:32px; height:32px; place-items:center; border:1px solid rgba(218,250,246,.35); border-radius:50%; color:#eafffd; text-decoration:none; transition:background .2s ease,border-color .2s ease,transform .2s ease; }
-.ep-footer-socials a img { width:15px; height:15px; object-fit:contain; }
+.ep-footer-socials a img { width:15px; height:15px; object-fit:contain; filter:brightness(0) invert(1); }
 .ep-footer-socials a:hover,.ep-footer-socials a:focus-visible { border-color:#fff; background:rgba(255,255,255,.16); color:#fff; transform:translateY(-2px); }
 
 /* Pílulas de alerta por modalidade. */

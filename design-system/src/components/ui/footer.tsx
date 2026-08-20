@@ -6,11 +6,11 @@ const footerGroupIcons = [Route, BookOpenText, Compass];
 
 export function SiteFooter({ logoSrc, groups, note = "Transporte internacional de pets com planejamento individual." }: { logoSrc: string; groups: FooterGroup[]; note?: string }) {
   const socials = [
-    { label: "Instagram", href: "https://www.instagram.com/embarpet/", iconSrc: "https://cdn.simpleicons.org/instagram/ffffff" },
-    { label: "Facebook", href: "https://www.facebook.com/embarpet/", iconSrc: "https://cdn.simpleicons.org/facebook/ffffff" },
-    { label: "LinkedIn", href: "https://br.linkedin.com/company/embarpet", iconSrc: "https://cdn.simpleicons.org/linkedin/ffffff" },
-    { label: "YouTube", href: "https://www.youtube.com/@embarpet", iconSrc: "https://cdn.simpleicons.org/youtube/ffffff" },
-    { label: "TikTok", href: "https://www.tiktok.com/@embarpet", iconSrc: "https://cdn.simpleicons.org/tiktok/ffffff" },
+    { label: "Instagram", href: "https://www.instagram.com/embarpet/", iconSrc: "/icons/social/instagram-white.svg" },
+    { label: "Facebook", href: "https://www.facebook.com/embarpet/", iconSrc: "/icons/social/facebook-white.svg" },
+    { label: "LinkedIn", href: "https://br.linkedin.com/company/embarpet", iconSrc: "/icons/social/linkedin-white.svg" },
+    { label: "YouTube", href: "https://www.youtube.com/@embarpet", iconSrc: "/icons/social/youtube-white.svg" },
+    { label: "TikTok", href: "https://www.tiktok.com/@embarpet", iconSrc: "/icons/social/tiktok-white.svg" },
   ];
 
   return (

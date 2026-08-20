@@ -1,4 +1,4 @@
-const CIRCLE_FLAGS_CDN = "https://circle-flags.cdn.skk.moe/flags";
+const LOCAL_FLAGS_PATH = "/flags";
 
 /** Retorna a bandeira circular em SVG a partir do código ISO 3166-1 alpha-2. */
 export function countryFlagSvg(code: string) {
@@ -6,5 +6,5 @@ export function countryFlagSvg(code: string) {
 
   if (!/^[a-z]{2}$/.test(normalizedCode)) return "";
 
-  return `${CIRCLE_FLAGS_CDN}/${normalizedCode}.svg`;
+  return `${LOCAL_FLAGS_PATH}/${normalizedCode}.svg`;
 }
