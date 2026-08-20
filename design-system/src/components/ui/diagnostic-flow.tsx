@@ -885,6 +885,7 @@ function TravelPeriodSelect({
   const options = [
     "Dentro de 1 a 3 meses",
     "De 3 a 6 meses",
+    "De 6 a 12 meses",
     "Sem data definida",
   ];
   return (
