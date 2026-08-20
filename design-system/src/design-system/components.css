@@ -505,3 +505,24 @@ main section[id] { scroll-margin-top:84px; }
   .ep-inline-calendar { padding:10px; }
   .ep-inline-calendar__grid button { min-height:32px; }
 }
+
+/* O avião do CTA acompanha a escala tipográfica do próprio botão. */
+.ep-nav-cta__plane {
+  left:0;
+  width:min(7em,58%);
+  height:auto;
+  object-fit:contain;
+  transform:translate(-110%,-50%);
+}
+@keyframes ep-nav-plane-cross {
+  0% { left:0; opacity:0; transform:translate(-110%,-50%); }
+  5% { opacity:1; }
+  95% { opacity:1; }
+  100% { left:100%; opacity:0; transform:translate(10%,-50%); }
+}
+@keyframes ep-nav-plane-cross-large {
+  0% { left:0; opacity:0; transform:translate(-110%,-50%); }
+  5% { opacity:1; }
+  95% { opacity:1; }
+  100% { left:100%; opacity:0; transform:translate(10%,-50%); }
+}
