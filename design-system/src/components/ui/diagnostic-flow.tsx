@@ -308,7 +308,7 @@ export function DiagnosticFlow({
         <div className="ep-flow-card">
           <p className="ep-flow-kicker">Sobre seu pet</p>
           <h2 className="ep-flow-title">
-            Quem vai viajar? <RequiredMark />
+            Quem <em>vai viajar?</em> <RequiredMark />
           </h2>
           <p className="ep-flow-intro">Comece escolhendo o tipo do seu pet.</p>
           <div
@@ -492,7 +492,7 @@ export function DiagnosticFlow({
       {step === 2 && (
         <div className="ep-flow-card">
           <p className="ep-flow-kicker">Sobre a viagem</p>
-          <h2 className="ep-flow-title">Para onde vocês vão?</h2>
+          <h2 className="ep-flow-title">Para onde <em>vocês vão?</em></h2>
           <p className="ep-flow-intro">
             A rota e o prazo já ajudam a abrir a conversa certa.
           </p>
@@ -560,7 +560,7 @@ export function DiagnosticFlow({
       {step === 3 && (
         <div className="ep-flow-card">
           <p className="ep-flow-kicker">Detalhes que ajudam a analisar</p>
-          <h2 className="ep-flow-title">Vamos conhecer os pets.</h2>
+          <h2 className="ep-flow-title">Vamos conhecer <em>os pets.</em></h2>
           <div className="ep-pet-details">
             {pets.map((pet, index) => {
               const PetIcon =
@@ -645,7 +645,7 @@ export function DiagnosticFlow({
       {step === 4 && !sent && (
         <div className="ep-flow-card">
           <p className="ep-flow-kicker">Quase pronto</p>
-          <h2 className="ep-flow-title">Para quem enviamos a análise?</h2>
+          <h2 className="ep-flow-title">Para quem enviamos <em>a análise?</em></h2>
           <div className="ep-flow-summary">
             <span className="ep-flow-summary__icon">
               <Plane size={21} aria-hidden="true" />
@@ -793,7 +793,7 @@ export function DiagnosticFlow({
           </span>
           <p className="ep-eyebrow">Resumo preparado</p>
           <h2 className="ep-flow-title">
-            Sua viagem está pronta para análise.
+            Sua viagem está pronta <em>para análise.</em>
           </h2>
           <p className="ep-flow-intro">
             {route.origin} → {route.destination} · {pets.length}{" "}

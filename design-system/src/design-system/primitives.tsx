@@ -5,7 +5,7 @@ export function Button({ variant = "primary", icon, children, ...props }: Button
   return <button className={`ep-button ep-button--${variant}`} {...props}>{children}{icon ? <Icon name={icon} /> : null}</button>;
 }
 
-export function SectionHeading({ eyebrow, title, copy, align = "left" }: { eyebrow?: string; title: string; copy?: string; align?: "left" | "center" }) {
+export function SectionHeading({ eyebrow, title, copy, align = "left" }: { eyebrow?: string; title: ReactNode; copy?: string; align?: "left" | "center" }) {
   return <div className={`ep-section-heading ep-section-heading--${align}`}>{eyebrow ? <p className="ep-eyebrow">{eyebrow}</p> : null}<h2 className="ep-title-lg">{title}</h2>{copy ? <p className="ep-copy">{copy}</p> : null}</div>;
 }
 

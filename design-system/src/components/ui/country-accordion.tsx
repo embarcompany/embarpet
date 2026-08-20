@@ -1,11 +1,12 @@
 "use client";
 
 import { ArrowRight, Clock3, Globe2, ShieldCheck } from "lucide-react";
+import type { ReactNode } from "react";
 import { countryFlagSvg } from "../../lib/country-flag";
 
 export interface Country { code: string; name: string; }
 export interface Region { id: string; label: string; countries: Country[]; }
-interface InternationalTransferProps { subtitle?: string; title?: string; description: string; regions: Region[]; onCountrySelect?: (country: Country) => void; onOtherDestination?: () => void; }
+interface InternationalTransferProps { subtitle?: string; title?: ReactNode; description: string; regions: Region[]; onCountrySelect?: (country: Country) => void; onOtherDestination?: () => void; }
 
 /** Explorador de destinos prioritários: escolha simples, sem aspecto de catálogo. */
 export function InternationalTransfer({ subtitle, title, description, regions, onCountrySelect, onOtherDestination }: InternationalTransferProps) {

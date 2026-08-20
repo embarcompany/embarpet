@@ -1126,7 +1126,13 @@
 
 /* Ênfases editoriais: marcação acolhedora atrás da palavra, não sublinhado. */
 .ep-title-xl em,
-.ep-title-lg em {
+.ep-title-lg em,
+.ep-flow-title em,
+.ep-destination-selector__intro h2 em,
+.ep-home-press__feature-copy h3 em,
+.ep-case-canvas__center h2 em,
+.ep-case-carousel__heading h2 em,
+.ep-final-fly-in h2 em {
   display:inline;
   padding:.03em .16em .08em;
   border-radius:.22em;
@@ -1136,6 +1142,9 @@
   color:inherit;
   font-style:normal;
 }
+.ep-home-service .ep-title-lg em,
+.ep-home-luxury .ep-title-lg em,
+.ep-final-fly-in h2 em { background:rgba(0,209,226,.2); color:inherit; }
 .ep-conversion-hero__copy .ep-title-xl em { background:rgba(0,157,172,.16); color:inherit; }
 .ep-hero-highlight {
   display:inline;
