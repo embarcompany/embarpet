@@ -9,8 +9,6 @@ import {
   Cat,
   Check,
   ChevronDown,
-  ChevronLeft,
-  ChevronRight,
   CircleHelp,
   Dog,
   MapPin,
@@ -522,7 +520,7 @@ export function DiagnosticFlow({
                   Quando pretende viajar? <RequiredMark />
                 </span>
                 {hasSpecificDate ? (
-                  <InlineDateCalendar
+                  <WheelDatePicker
                     value={route.period}
                     onChange={(value) => setRouteField("period", value)}
                   />
@@ -1017,7 +1015,69 @@ const isoToDate = (value: string) => {
     : undefined;
 };
 
-function InlineDateCalendar({
+type DateWheelOption = {
+  value: number;
+  label: string;
+  disabled?: boolean;
+};
+
+function DateWheelColumn({
+  label,
+  options,
+  selected,
+  onSelect,
+}: {
+  label: string;
+  options: DateWheelOption[];
+  selected?: number;
+  onSelect: (value: number) => void;
+}) {
+  const scrollFrame = useRef<number | undefined>(undefined);
+  const selectFromScroll = (target: HTMLDivElement) => {
+    if (scrollFrame.current !== undefined) {
+      window.cancelAnimationFrame(scrollFrame.current);
+    }
+    scrollFrame.current = window.requestAnimationFrame(() => {
+      const option = options[Math.round(target.scrollTop / 44)];
+      if (option && !option.disabled && option.value !== selected) {
+        onSelect(option.value);
+      }
+    });
+  };
+
+  return (
+    <div className="ep-date-wheel__column">
+      <span>{label}</span>
+      <div
+        className="ep-date-wheel__scroller"
+        onScroll={(event) => selectFromScroll(event.currentTarget)}
+      >
+        <i aria-hidden="true" />
+        {options.map((option) => (
+          <button
+            type="button"
+            key={option.value}
+            disabled={option.disabled}
+            className={selected === option.value ? "is-selected" : ""}
+            aria-pressed={selected === option.value}
+            onClick={(event) => {
+              onSelect(option.value);
+              event.currentTarget.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+              });
+            }}
+          >
+            {option.label}
+          </button>
+        ))}
+        <i aria-hidden="true" />
+      </div>
+    </div>
+  );
+}
+
+function WheelDatePicker({
   value,
   onChange,
 }: {
@@ -1028,110 +1088,78 @@ function InlineDateCalendar({
   const selectedDate = isoToDate(value);
   const today = useMemo(() => {
     const current = new Date();
-    return new Date(
-      current.getFullYear(),
-      current.getMonth(),
-      current.getDate(),
-    );
+    return new Date(current.getFullYear(), current.getMonth(), current.getDate());
   }, []);
-  const [visibleMonth, setVisibleMonth] = useState(
-    () => selectedDate ?? new Date(today.getFullYear(), today.getMonth(), 1),
-  );
-  const calendarDays = useMemo(() => {
-    const monthStart = new Date(
-      visibleMonth.getFullYear(),
-      visibleMonth.getMonth(),
-      1,
-    );
-    const gridStart = new Date(monthStart);
-    gridStart.setDate(monthStart.getDate() - monthStart.getDay());
-    return Array.from({ length: 42 }, (_, index) => {
-      const date = new Date(gridStart);
-      date.setDate(gridStart.getDate() + index);
-      return date;
-    });
-  }, [visibleMonth]);
-  const monthLabel = new Intl.DateTimeFormat(locale, {
-    month: "long",
-    year: "numeric",
-  }).format(visibleMonth);
+  const cursor = selectedDate ?? today;
+  const currentYear = today.getFullYear();
+  const cursorYear = cursor.getFullYear();
+  const cursorMonth = cursor.getMonth();
+  const cursorDay = cursor.getDate();
   const selectedLabel = selectedDate
-    ? new Intl.DateTimeFormat(locale, { dateStyle: "long" }).format(
-        selectedDate,
-      )
-    : "Escolha o dia da viagem";
-  const weekdayFormatter = new Intl.DateTimeFormat(locale, {
-    weekday: "short",
-  });
-  const weekdays = Array.from({ length: 7 }, (_, index) => {
-    const day = new Date(2026, 7, 16 + index);
-    return weekdayFormatter.format(day).replace(".", "");
-  });
+    ? new Intl.DateTimeFormat(locale, { dateStyle: "long" }).format(selectedDate)
+    : "Escolha a data da viagem";
+  const days = Array.from(
+    { length: new Date(cursorYear, cursorMonth + 1, 0).getDate() },
+    (_, index) => {
+      const day = index + 1;
+      return {
+        value: day,
+        label: String(day).padStart(2, "0"),
+        disabled:
+          cursorYear === currentYear &&
+          cursorMonth === today.getMonth() &&
+          day < today.getDate(),
+      };
+    },
+  );
+  const months = Array.from({ length: 12 }, (_, month) => ({
+    value: month,
+    label: new Intl.DateTimeFormat(locale, { month: "short" })
+      .format(new Date(2026, month, 1))
+      .replace(".", ""),
+    disabled: cursorYear === currentYear && month < today.getMonth(),
+  }));
+  const years = Array.from({ length: 6 }, (_, index) => ({
+    value: currentYear + index,
+    label: String(currentYear + index),
+  }));
+  const commit = (year: number, month: number, day: number) => {
+    const next = new Date(
+      year,
+      month,
+      Math.min(day, new Date(year, month + 1, 0).getDate()),
+    );
+    if (next >= today) onChange(dateToIso(next));
+  };
 
   return (
-    <div className="ep-inline-calendar" aria-label="Selecione a data da viagem">
-      <div className="ep-inline-calendar__selection" aria-live="polite">
+    <div className="ep-date-wheel" aria-label="Selecione a data da viagem">
+      <div className="ep-date-wheel__selection" aria-live="polite">
         <CalendarDays size={18} aria-hidden="true" />
         <span>
           <small>Data escolhida</small>
           <b>{selectedLabel}</b>
         </span>
       </div>
-      <div className="ep-inline-calendar__header">
-        <button
-          type="button"
-          aria-label="Mês anterior"
-          onClick={() =>
-            setVisibleMonth(
-              (current) =>
-                new Date(current.getFullYear(), current.getMonth() - 1, 1),
-            )
-          }
-        >
-          <ChevronLeft size={18} />
-        </button>
-        <strong>{monthLabel}</strong>
-        <button
-          type="button"
-          aria-label="Próximo mês"
-          onClick={() =>
-            setVisibleMonth(
-              (current) =>
-                new Date(current.getFullYear(), current.getMonth() + 1, 1),
-            )
-          }
-        >
-          <ChevronRight size={18} />
-        </button>
-      </div>
-      <div className="ep-inline-calendar__weekdays" aria-hidden="true">
-        {weekdays.map((weekday) => (
-          <span key={weekday}>{weekday}</span>
-        ))}
-      </div>
-      <div className="ep-inline-calendar__grid" role="grid">
-        {calendarDays.map((date) => {
-          const iso = dateToIso(date);
-          const outsideMonth = date.getMonth() !== visibleMonth.getMonth();
-          const disabled = date < today;
-          const selected = iso === value;
-          return (
-            <button
-              type="button"
-              role="gridcell"
-              key={iso}
-              className={`${outsideMonth ? "is-outside" : ""}${selected ? " is-selected" : ""}`}
-              disabled={disabled}
-              aria-pressed={selected}
-              aria-label={new Intl.DateTimeFormat(locale, {
-                dateStyle: "full",
-              }).format(date)}
-              onClick={() => onChange(iso)}
-            >
-              {date.getDate()}
-            </button>
-          );
-        })}
+      <div className="ep-date-wheel__columns">
+        <DateWheelColumn
+          label="Dia"
+          options={days}
+          selected={selectedDate ? cursorDay : undefined}
+          onSelect={(day) => commit(cursorYear, cursorMonth, day)}
+        />
+        <DateWheelColumn
+          label="Mês"
+          options={months}
+          selected={selectedDate ? cursorMonth : undefined}
+          onSelect={(month) => commit(cursorYear, month, cursorDay)}
+        />
+        <DateWheelColumn
+          label="Ano"
+          options={years}
+          selected={selectedDate ? cursorYear : undefined}
+          onSelect={(year) => commit(year, cursorMonth, cursorDay)}
+        />
       </div>
     </div>
   );
