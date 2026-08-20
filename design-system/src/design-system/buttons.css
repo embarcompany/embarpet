@@ -32,7 +32,7 @@
 .ep-ds-button--analysis:hover { border-color:rgba(0,67,74,.16); background:#38dce7; }
 .ep-ds-button--analysis > span { transition:opacity .18s ease; }
 .ep-ds-button--analysis.is-flying > span { opacity:.22; }
-.ep-ds-button__plane { position:absolute; z-index:2; top:50%; right:.72em; width:1.55em; height:auto; object-fit:contain; opacity:.26; pointer-events:none; transform:translateY(-50%); transition:opacity .2s ease; }
+.ep-ds-button__plane { position:absolute; z-index:2; top:50%; right:.72em; width:1.55em; height:auto; object-fit:contain; opacity:0; pointer-events:none; transform:translateY(-50%); transition:opacity .2s ease; }
 .ep-ds-button__plane.is-flying { right:auto; left:0; width:min(var(--ep-button-plane-size),58%); height:auto; opacity:0; will-change:left,opacity,transform; animation:ep-ds-plane-cross 1s linear both; }
 @keyframes ep-ds-plane-cross { 0% { left:0; opacity:0; transform:translate(-110%,-50%); } 6% { opacity:1; } 94% { opacity:1; } 100% { left:100%; opacity:0; transform:translate(10%,-50%); } }
 

@@ -30,7 +30,7 @@ const Demo = ({ title, note, component, variant, use, avoid, code, children, dar
       </dl>
     </header>
     <div className={`ep-buttons-demo__body${interactive ? " is-interactive" : ""}`}>
-      {interactive ? <span className="ep-buttons-demo__hint">Passe o mouse · demonstração automática</span> : null}
+      {interactive ? <span className="ep-buttons-demo__hint">Passe o mouse ou use o teclado para testar</span> : null}
       <div className="ep-buttons-demo__stage">{children}</div>
       <pre><code>{code}</code></pre>
     </div>
@@ -45,18 +45,18 @@ export default function ButtonsPage() {
       <a href="/">← Voltar ao site</a>
       <p>Embarpet Design System</p>
       <h1>Botões com função clara.</h1>
-      <span>Uma fonte de verdade para conversão, navegação e interface.</span>
+      <span>Catálogo isolado, derivado dos padrões já aprovados na index. O site é a referência visual; esta página documenta função e comportamento.</span>
     </header>
     <section className="ep-buttons-page__content">
-      <Demo title="01 · Conversão" note="O único botão com avião. A imagem estacionada antecipa o movimento; neste playground, o percurso também roda automaticamente." component="AnalysisButton" variant="analysis" use="Iniciar ou retomar a análise da viagem." avoid="Navegação editorial e ações utilitárias." code={'<AnalysisButton size="md">Começar minha análise</AnalysisButton>'} interactive>
-        <Sized label="sm · 38 px"><AnalysisButton size="sm" demoAutoPlay demoDelay={0}>Analisar viagem</AnalysisButton></Sized>
-        <Sized label="md · 46 px"><AnalysisButton demoAutoPlay demoDelay={1500}>Começar minha análise</AnalysisButton></Sized>
-        <Sized label="lg · 54 px"><AnalysisButton size="lg" demoAutoPlay demoDelay={3000}>Planejar viagem do meu pet</AnalysisButton></Sized>
+      <Demo title="01 · Conversão" note="O avião aparece apenas na interação e conclui o percurso iniciado. Fora do hover, o CTA permanece limpo, como na index aprovada." component="AnalysisButton" variant="analysis" use="Iniciar ou retomar a análise da viagem." avoid="Navegação editorial e ações utilitárias." code={'<AnalysisButton size="md">Começar minha análise</AnalysisButton>'} interactive>
+        <Sized label="sm · uso compacto"><AnalysisButton size="sm">Analisar viagem</AnalysisButton></Sized>
+        <Sized label="md · padrão do site"><AnalysisButton>Começar minha análise</AnalysisButton></Sized>
+        <Sized label="lg · destaque excepcional"><AnalysisButton size="lg">Planejar viagem do meu pet</AnalysisButton></Sized>
       </Demo>
       <Demo title="02 · Navegação interna" note="A seta vive em um núcleo próprio e amplia o espaço da cápsula sem alterar sua altura." component="InternalLink" variant="internal" use="Equipe, histórias, modalidades e conteúdos." avoid="Envio de formulário ou conversão principal." code={'<InternalLink href="/equipe">Conhecer a equipe</InternalLink>'}>
-        <Sized label="md · padrão"><InternalLink href="#">Saiba mais</InternalLink></Sized>
-        <Sized label="md · padrão"><InternalLink href="#">Conhecer a equipe</InternalLink></Sized>
-        <Sized label="lg · destaque"><InternalLink href="#" size="lg">Assistir completo</InternalLink></Sized>
+        <Sized label="md · padrão do site"><InternalLink href="#">Saiba mais</InternalLink></Sized>
+        <Sized label="md · mesmo componente"><InternalLink href="#">Conhecer a equipe</InternalLink></Sized>
+        <Sized label="md · mesmo componente"><InternalLink href="#">Assistir completo</InternalLink></Sized>
       </Demo>
       <Demo title="03 · Interface" note="Ações funcionais com peso suficiente para modais e formulários, sem competir com a conversão." component="InterfaceButton / BackButton" variant="primary · secondary · ghost" use="Continuar, ver resumo, voltar e cancelar." avoid="CTAs comerciais fora de fluxos." code={'<InterfaceButton trailingIcon={ArrowRight}>Ver resumo</InterfaceButton>'}>
         <InterfaceButton>Continuar</InterfaceButton>
