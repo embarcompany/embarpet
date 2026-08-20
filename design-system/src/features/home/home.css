@@ -1502,7 +1502,7 @@ main > .ep-final-fly-in { order:12; }
 }
 .ep-home-luxury .ep-eyebrow::after { content:"PetLuxo · cuidado dedicado"; }
 .ep-home-authority__content .ep-eyebrow::after { content:"Experiência que vira segurança"; }
-.ep-destination-selector__intro .ep-eyebrow::after { content:"A rota orienta o plano"; }
+.ep-destination-selector__intro .ep-eyebrow::after { content:"O destino define os próximos passos"; }
 
 /* Equipe: autoridade humana concentrada em uma composição mais direta. */
 .ep-home-service { padding-block:clamp(44px,5vw,72px); }
