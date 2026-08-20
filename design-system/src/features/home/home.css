@@ -289,7 +289,7 @@
 .ep-destination-selector__intro button,.ep-case-canvas__center > a,.ep-home-luxury__actions > a { border-radius:999px!important; }
 
 /* PetLuxo: uma camada editorial própria, com contraste premium e informação em progressão. */
-.ep-home-luxury { position:relative; width:calc(100% - 20px); margin:10px auto; overflow:hidden; border:1px solid rgba(218,177,91,.46); border-radius:30px; background:radial-gradient(circle at 8% 16%,rgba(214,170,87,.15),transparent 25%),radial-gradient(circle at 90% 80%,rgba(0,177,183,.11),transparent 29%),linear-gradient(118deg,#121714 0%,#1c2924 56%,#171611 100%); color:#fff9ec; }
+.ep-home-luxury { position:relative; width:calc(100% - 20px); margin:10px auto; overflow:hidden; border:1px solid rgba(218,177,91,.46); border-radius:30px; background:radial-gradient(circle at 8% 16%,rgba(214,170,87,.12),transparent 25%),radial-gradient(circle at 90% 80%,rgba(0,157,172,.08),transparent 29%),linear-gradient(118deg,#080c0a 0%,#101813 56%,#0a0907 100%); color:#fff9ec; }
 .ep-home-luxury::before { position:absolute; inset:14px; border:1px solid rgba(238,203,130,.12); border-radius:22px; pointer-events:none; content:""; }
 .ep-home-luxury__grid { position:relative; display:grid; grid-template-columns:minmax(280px,.82fr) minmax(0,1.18fr); gap:clamp(38px,6vw,92px); align-items:center; padding-block:clamp(48px,6.6vw,86px); }
 .ep-home-luxury__image { position:relative; isolation:isolate; width:min(100%,445px); min-height:0; aspect-ratio:4 / 5; overflow:hidden; border:1px solid rgba(231,193,109,.55); border-radius:26px; background:#11201d; }
@@ -1141,8 +1141,8 @@
   font-style:normal;
 }
 .ep-home-service .ep-title-lg em,
-.ep-home-luxury .ep-title-lg em,
 .ep-final-fly-in h2 em { background:transparent; color:var(--ep-turq); }
+.ep-home-luxury .ep-title-lg em { background:transparent; color:#e7c16d; }
 .ep-conversion-hero__copy .ep-title-xl em { background:transparent; color:var(--ep-turq-deep); }
 .ep-hero-highlight {
   display:inline;
