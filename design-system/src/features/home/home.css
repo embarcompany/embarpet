@@ -2349,3 +2349,11 @@ main > .ep-home-faq {
     height:36px;
   }
 }
+
+/* PetLuxo uses its own framed background, so spacing lives in the inner grid only. */
+.ep-home-luxury { padding-block:0; }
+.ep-home-luxury__grid { padding-block:clamp(30px,3.2vw,46px); }
+@media (max-width:700px) {
+  .ep-home-luxury { padding-block:0; }
+  .ep-home-luxury__grid { padding-block:28px; }
+}
