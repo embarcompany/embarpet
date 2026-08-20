@@ -1485,7 +1485,9 @@ main > .ep-final-fly-in { order:12; }
   color:var(--ep-paper);
   text-align:left;
   backdrop-filter:blur(10px);
-  animation:ep-founder-badge-float 3.2s ease-in-out infinite;
+  transform:translate3d(0,0,0);
+  will-change:transform;
+  animation:ep-founder-badge-float 2.4s cubic-bezier(.45,0,.55,1) infinite;
 }
 .ep-home-ceo figcaption.ep-home-service__identity strong { font-size:16px; letter-spacing:-.04em; line-height:1.05; }
 .ep-home-ceo figcaption.ep-home-service__identity span { color:#c8f5ef; font-size:10px; font-weight:760; line-height:1.3; }
@@ -1497,15 +1499,12 @@ main > .ep-final-fly-in { order:12; }
   }
 }
 @keyframes ep-founder-badge-float {
-  0%,100% { transform:translateY(0); }
-  50% { transform:translateY(-7px); }
+  0%,100% { transform:translate3d(0,0,0); }
+  50% { transform:translate3d(0,-12px,0); }
 }
 @media (max-width:700px) {
   .ep-home-ceo figcaption.ep-home-service__identity { bottom:14px; left:14px; padding:9px 12px; }
   .ep-home-ceo figcaption.ep-home-service__identity strong { font-size:14px; }
-}
-@media (prefers-reduced-motion:reduce) {
-  .ep-home-ceo figcaption.ep-home-service__identity { animation:none; }
 }
 
 /* Modal de diagnóstico: ocupa melhor o painel e oferece controles confortáveis para leitura e toque. */
