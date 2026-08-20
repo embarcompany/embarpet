@@ -741,6 +741,8 @@
 }
 .ep-ds-button.ep-ds-button--internal.ep-ds-button--full { width:100%!important; }
 .ep-ds-button.ep-ds-button--internal.ep-ds-button--full .ep-ds-button__arrow { margin-left:auto!important; }
+.ep-modality-rail .ep-modality-actions .ep-ds-button.ep-ds-button--internal { width:100%!important; }
+.ep-modality-rail .ep-modality-actions .ep-ds-button.ep-ds-button--internal .ep-ds-button__arrow { margin-left:auto!important; }
 .ep-ds-button.ep-ds-button--internal.ep-ds-button--on-dark {
   border-color:rgba(255,255,255,.78)!important;
   background:rgba(255,255,255,.04)!important;
