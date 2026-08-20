@@ -456,6 +456,15 @@ main section[id] { scroll-margin-top:84px; }
 .ep-nav-cta,
 .ep-nav-mobile-cta { border-color:var(--ep-nav-action); background:var(--ep-nav-action); color:var(--ep-teal); }
 .ep-nav-utilities a:hover { color:#fff; }
+.ep-nav-utilities .ep-language-selector__list { display:grid; gap:4px; padding-block:2px; }
+.ep-nav-utilities .ep-language-selector__list a { min-height:44px; padding-inline:10px; color:var(--ep-teal); }
+.ep-nav-utilities .ep-language-selector__list a:hover,
+.ep-nav-utilities .ep-language-selector__list a:focus-visible,
+.ep-nav-utilities .ep-language-selector__list a[aria-selected="true"] {
+  outline:0;
+  background:var(--ep-soft);
+  color:var(--ep-teal);
+}
 
 /* Diagnóstico — data, progresso e contexto de rota como um sistema único. */
 .ep-required-mark { display:inline!important; margin:0!important; color:#c23c43!important; font-size:1em!important; font-weight:900!important; line-height:1; }
