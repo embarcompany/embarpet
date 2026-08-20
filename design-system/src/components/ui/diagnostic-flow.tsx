@@ -842,7 +842,8 @@ function RoutePreview({
 }: RouteData & { petCount: number }) {
   const petLabel = petCount
     ? `${petCount} ${petCount === 1 ? "pet" : "pets"}`
-    : "Inclua seu pet";
+    : "";
+  const hasRouteMeta = Boolean(petLabel || period);
   return (
     <div className="ep-flow-route-preview" aria-live="polite">
       <span className="ep-flow-route-preview__icon">
@@ -862,10 +863,12 @@ function RoutePreview({
               {destination || "Destino"}
             </span>
           </b>
-          <span className="ep-flow-route-preview__meta">
-            <em>{petLabel}</em>
-            <em>{period || "Defina o prazo"}</em>
-          </span>
+          {hasRouteMeta ? (
+            <span className="ep-flow-route-preview__meta">
+              {petLabel ? <em>{petLabel}</em> : null}
+              {period ? <em>{period}</em> : null}
+            </span>
+          ) : null}
         </span>
       </span>
     </div>
