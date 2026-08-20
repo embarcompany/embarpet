@@ -2596,3 +2596,17 @@ main > .ep-home-faq {
     background:linear-gradient(180deg,rgba(247,251,251,0),#f7fbfb 22%);
   }
 }
+
+/* Mídia: a thumb reproduz a prévia; o CTA textual existe somente ao lado. */
+.ep-home-press__video button span {
+  display:grid;
+  width:50px;
+  min-width:50px;
+  height:50px;
+  min-height:50px;
+  place-items:center;
+  gap:0;
+  padding:0;
+  border-radius:50%;
+  font-size:0;
+}
