@@ -1918,14 +1918,14 @@ main > .ep-home-notice { order:12; }
 .ep-home-service__team-badge {
   position:absolute;
   z-index:4;
-  top:54%;
+  top:auto;
   bottom:auto;
   display:grid;
-  min-height:68px;
+  min-height:88px;
   align-content:center;
-  gap:4px;
+  gap:6px;
   margin:0;
-  padding:12px 18px;
+  padding:15px 20px;
   border:1px solid rgba(255,255,255,.3);
   border-radius:18px;
   background:rgba(3,67,74,.82);
@@ -1935,12 +1935,16 @@ main > .ep-home-notice { order:12; }
 }
 .ep-home-ceo figcaption.ep-home-service__identity {
   right:auto;
-  left:0;
+  bottom:15%;
+  left:clamp(30px,7vw,104px);
+  min-width:194px;
   animation:ep-founder-badge-left 2.8s cubic-bezier(.45,0,.55,1) infinite;
 }
 .ep-home-service__team-badge {
-  right:0;
+  top:24%;
+  right:clamp(30px,7vw,104px);
   left:auto;
+  min-width:150px;
   animation:ep-founder-badge-right 2.8s .35s cubic-bezier(.45,0,.55,1) infinite;
 }
 .ep-home-ceo figcaption.ep-home-service__identity strong,
@@ -1959,12 +1963,12 @@ main > .ep-home-notice { order:12; }
 }
 .ep-home-service__team-badge strong { color:var(--ep-turq); font-size:24px; }
 @keyframes ep-founder-badge-left {
-  0%,100% { transform:translate(-8%,-50%); }
-  50% { transform:translate(-8%,calc(-50% - 8px)); }
+  0%,100% { transform:translate3d(0,0,0); }
+  50% { transform:translate3d(0,-7px,0); }
 }
 @keyframes ep-founder-badge-right {
-  0%,100% { transform:translate(8%,-50%); }
-  50% { transform:translate(8%,calc(-50% - 8px)); }
+  0%,100% { transform:translate3d(0,-5px,0); }
+  50% { transform:translate3d(0,2px,0); }
 }
 @media (max-width:700px) {
   .ep-home-ceo figcaption.ep-home-service__identity,
@@ -1977,7 +1981,8 @@ main > .ep-home-notice { order:12; }
     animation:none;
   }
   .ep-home-ceo figcaption.ep-home-service__identity { left:10px; }
-  .ep-home-service__team-badge { right:10px; }
+  .ep-home-ceo figcaption.ep-home-service__identity { min-width:168px; }
+  .ep-home-service__team-badge { right:10px; min-width:118px; }
   .ep-home-ceo figcaption.ep-home-service__identity strong { font-size:14px; }
   .ep-home-service__team-badge strong { font-size:20px; }
 }
