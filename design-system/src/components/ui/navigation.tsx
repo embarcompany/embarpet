@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AlertTriangle, ArrowRight, Check, ChevronDown, ClipboardCheck, HeartHandshake, MapPin, Menu, Route, Search, X, type LucideIcon } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { languageOptions, localizePath, useLocale } from "../../i18n/locale";
@@ -12,11 +12,22 @@ export function LanguageSelector({ compact = false }: { compact?: boolean }) {
   const { locale, text } = useLocale();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const current = languageOptions.find((option) => option.code === locale) ?? languageOptions[0];
   const normalize = (value: string) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase();
   const filteredOptions = languageOptions.filter((option) => normalize(`${option.label} ${option.shortLabel} ${option.code}`).includes(normalize(query.trim())));
-  const close = () => { setOpen(false); setQuery(""); };
-  return <div className={cn("ep-language-selector", compact && "ep-language-selector--compact")} onMouseEnter={() => setOpen(true)} onMouseLeave={close} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) close(); }}>
+  const cancelScheduledClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = null;
+  };
+  const openMenu = () => { cancelScheduledClose(); setOpen(true); };
+  const close = () => { cancelScheduledClose(); setOpen(false); setQuery(""); };
+  const scheduleClose = () => {
+    cancelScheduledClose();
+    closeTimer.current = setTimeout(close, 180);
+  };
+  useEffect(() => () => cancelScheduledClose(), []);
+  return <div className={cn("ep-language-selector", compact && "ep-language-selector--compact")} onMouseEnter={openMenu} onMouseLeave={scheduleClose} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) close(); }}>
     <button type="button" aria-label={text.language} aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen((currentOpen) => !currentOpen)}><span><img src={current.flagSrc} alt="" aria-hidden="true" />{current.shortLabel}</span></button>
     {open ? <div className="ep-language-selector__menu">
       <label className="ep-language-selector__search"><Search size={15} aria-hidden="true" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar idioma" aria-label="Buscar idioma" /></label>
