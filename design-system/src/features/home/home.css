@@ -1868,12 +1868,22 @@ main > .ep-home-notice { order:12; }
   transform:none!important;
 }
 .ep-home-process--cycle .ep-home-process__cta {
-  align-self:center!important;
   justify-content:center!important;
-  margin-inline:auto!important;
+  gap:0!important;
+  padding-inline:18px!important;
+  background:var(--ep-gradient-idv)!important;
 }
 .ep-home-process__cta:hover,
-.ep-home-process__cta:focus-visible { gap:9px!important; }
+.ep-home-process__cta:focus-visible {
+  gap:0!important;
+  background:var(--ep-gradient-idv)!important;
+}
+@media (min-width:621px) {
+  .ep-home-process--cycle .ep-home-process__cta {
+    align-self:flex-start!important;
+    margin-inline:0!important;
+  }
+}
 .ep-home-process__cta::after,
 .ep-home-luxury .ep-button--secondary::after,
 .ep-final-fly-in .ep-button--primary::after,
