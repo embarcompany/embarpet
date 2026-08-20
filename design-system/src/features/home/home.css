@@ -2276,3 +2276,25 @@ main > .ep-home-faq {
     margin-top:16px;
   }
 }
+/* Circle Flags: SVGs stay circular in hero, destinations and country search. */
+.ep-destination-selector__choices img,
+.ep-destination-selector__choices button img {
+  width:44px;
+  height:44px;
+  border:0;
+  border-radius:50%;
+  object-fit:contain;
+}
+.ep-hero-route-starter__options button > img {
+  width:24px;
+  height:24px;
+  border:0;
+  border-radius:50%;
+  object-fit:contain;
+}
+@media (max-width:600px) {
+  .ep-destination-selector__choices button img {
+    width:36px;
+    height:36px;
+  }
+}

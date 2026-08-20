@@ -78,7 +78,7 @@ function RouteField({ label, field, value, active, invalid, onChange, onFocus, o
     <span className="ep-hero-route-starter__field-content"><span>{label}</span><input data-hero-route-field={field} value={value} onChange={(event) => onChange(event.target.value)} onFocus={onFocus} onBlur={onBlur} placeholder={invalid ? requiredMessage : placeholder} autoComplete="off" aria-invalid={invalid} aria-expanded={showOptions} aria-controls={`hero-${field}-options`} /></span>
     {showOptions ? <span className="ep-hero-route-starter__options" id={`hero-${field}-options`} role="listbox">
       {suggestions.map((suggestion) => <button type="button" key={suggestion.code} role="option" onMouseDown={(event) => event.preventDefault()} onClick={() => chooseSuggestion(suggestion)}>
-        <img src={countryFlagSvg(suggestion.code)} alt="" width="24" height="18" /><b>{suggestion.name}</b><small>{suggestion.code}</small>
+        <img src={countryFlagSvg(suggestion.code)} alt="" width="24" height="24" /><b>{suggestion.name}</b><small>{suggestion.code}</small>
       </button>)}
     </span> : null}
   </label>;

@@ -541,3 +541,20 @@ main section[id] { scroll-margin-top:84px; }
   95% { opacity:1; }
   100% { left:100%; opacity:0; transform:translate(10%,-50%); }
 }
+/* Circle Flags: preserve the provider's native circular SVG proportion everywhere. */
+.ep-phone-country-trigger img,
+.ep-phone-country-options img,
+.ep-airport-field__options button > img {
+  width:24px;
+  height:24px;
+  border:0;
+  border-radius:50%;
+  object-fit:contain;
+}
+.ep-route-country-flag {
+  width:22px;
+  height:22px;
+  border:0;
+  border-radius:50%;
+  object-fit:contain;
+}

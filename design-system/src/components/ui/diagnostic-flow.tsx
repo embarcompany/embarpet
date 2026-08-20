@@ -714,7 +714,7 @@ export function DiagnosticFlow({
                     src={countryFlagSvg(phoneCountry.code)}
                     alt={`Bandeira de ${phoneCountry.name}`}
                     width="24"
-                    height="18"
+                    height="24"
                   />
                   <small>{phoneCountry.dial}</small>
                   <ChevronDown size={13} aria-hidden="true" />
@@ -745,7 +745,7 @@ export function DiagnosticFlow({
                           src={countryFlagSvg(country.code)}
                           alt=""
                           width="24"
-                          height="18"
+                          height="24"
                         />
                         <span>
                           <b>{country.name}</b>
@@ -947,7 +947,7 @@ function CityAirportField({
                 src={countryFlagSvg(suggestion.code)}
                 alt=""
                 width="24"
-                height="18"
+                height="24"
               />
               <b>{suggestion.name}</b>
               <small>{suggestion.code}</small>
@@ -977,7 +977,7 @@ function CountryFlag({ code, name }: { code?: string; name?: string }) {
       src={countryFlagSvg(resolvedCode)}
       alt={`Bandeira de ${name || resolvedCode}`}
       width="22"
-      height="16"
+      height="22"
     />
   );
 }
