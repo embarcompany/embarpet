@@ -509,10 +509,25 @@ main section[id] { scroll-margin-top:84px; }
 /* O avião do CTA acompanha a escala tipográfica do próprio botão. */
 .ep-nav-cta__plane {
   left:0;
-  width:min(7em,58%);
+  width:min(7.2em,58%);
   height:auto;
   object-fit:contain;
   transform:translate(-110%,-50%);
+}
+
+/* A aeronave usa a mesma razão tipográfica da hero: 7.2em em qualquer CTA. */
+.ep-modality-rail .ep-modality-actions__plane {
+  left:0;
+  width:min(7.2em,58%);
+  height:auto;
+  object-fit:contain;
+  transform:translate(-110%,-50%);
+}
+@keyframes ep-modality-plane-image-cross-large {
+  0% { left:0; opacity:0; transform:translate(-110%,-50%); }
+  5% { opacity:1; }
+  95% { opacity:1; }
+  100% { left:100%; opacity:0; transform:translate(10%,-50%); }
 }
 @keyframes ep-nav-plane-cross {
   0% { left:0; opacity:0; transform:translate(-110%,-50%); }
