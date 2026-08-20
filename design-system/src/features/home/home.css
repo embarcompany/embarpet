@@ -1682,7 +1682,49 @@ main > .ep-final-fly-in { order:12; }
 .ep-analysis-modal__content .ep-flow-card:has(.ep-flow-validation) .ep-pet-detail input:placeholder-shown,
 .ep-analysis-modal__content .ep-flow-card:has(.ep-flow-validation) .ep-contact-input:has(input:placeholder-shown) { border-color:#c75151; background:#fffafa; }
 .ep-analysis-modal__content .ep-flow-card:has(.ep-flow-validation) .ep-pet-choice-grid:not(:has(.is-selected)) { border-radius:13px; outline:2px solid rgba(199,81,81,.42); outline-offset:4px; }
+
+/* Modal form type scale: one hierarchy for every diagnostic step. */
+.ep-analysis-modal {
+  --ep-modal-kicker-size:12px;
+  --ep-modal-title-size:clamp(28px,2.3vw,34px);
+  --ep-modal-body-size:14px;
+  --ep-modal-label-size:13px;
+  --ep-modal-control-size:16px;
+  --ep-modal-helper-size:12px;
+  --ep-modal-action-size:14px;
+}
+.ep-analysis-modal__content .ep-flow-kicker { font-size:var(--ep-modal-kicker-size); line-height:1.25; }
+.ep-analysis-modal__content .ep-flow-title { font-size:var(--ep-modal-title-size); line-height:1.05; }
+.ep-analysis-modal__content .ep-flow-intro { font-size:var(--ep-modal-body-size); line-height:1.5; }
+.ep-analysis-modal__content .ep-airport-field > span:first-child,
+.ep-analysis-modal__content .ep-field > span:first-child,
+.ep-analysis-modal__content .ep-pet-detail__kind > span:first-child,
+.ep-analysis-modal__content .ep-pet-detail__fields label > span { font-size:var(--ep-modal-label-size); font-weight:750; line-height:1.3; }
+.ep-analysis-modal__content .ep-airport-field__input input,
+.ep-analysis-modal__content .ep-contact-input input,
+.ep-analysis-modal__content .ep-pet-detail__select input,
+.ep-analysis-modal__content .ep-pet-detail__fields input { font-size:var(--ep-modal-control-size)!important; line-height:1.35; }
+.ep-analysis-modal__content .ep-period-pills > button {
+  min-height:54px;
+  padding-inline:20px 14px;
+  font-size:var(--ep-modal-control-size);
+  font-weight:750;
+  line-height:1.25;
+}
+.ep-analysis-modal__content .ep-specific-date,
+.ep-analysis-modal__content .ep-pet-detail__undefined,
+.ep-analysis-modal__content .ep-multi-pet-trigger,
+.ep-analysis-modal__content .ep-flow-route-preview__meta em { font-size:var(--ep-modal-helper-size); }
+.ep-analysis-modal__content .ep-pet-choice > button > span:last-child,
+.ep-analysis-modal__content .ep-other-pet__heading > button span { font-size:var(--ep-modal-label-size); }
+.ep-analysis-modal__content .ep-flow-actions .ep-button { font-size:var(--ep-modal-action-size); }
 @media (max-width:700px) {
+  .ep-analysis-modal {
+    --ep-modal-title-size:28px;
+    --ep-modal-body-size:13px;
+    --ep-modal-label-size:13px;
+    --ep-modal-control-size:16px;
+  }
   .ep-analysis-modal__panel { height:calc(100dvh - 16px); min-height:0; }
   .ep-analysis-modal__content { padding:54px 13px 14px; }
   .ep-analysis-modal__content .ep-diagnostic-flow { gap:11px; }

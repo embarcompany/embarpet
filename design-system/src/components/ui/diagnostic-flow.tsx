@@ -909,7 +909,7 @@ function CityAirportField({
   return (
     <label className="ep-airport-field">
       <span>
-        {label}: <RequiredMark />
+        {label} <RequiredMark />
       </span>
       <span className="ep-airport-field__input">
         <MapPin size={15} aria-hidden="true" />
@@ -923,7 +923,7 @@ function CityAirportField({
           onBlur={() => window.setTimeout(() => setOpen(false), 120)}
           placeholder={text.cityPlaceholder}
           autoComplete="off"
-          aria-label={`${label}: ${text.cityPlaceholder}`}
+          aria-label={`${label}. ${text.cityPlaceholder}`}
           aria-expanded={open && canSuggest && suggestions.length > 0}
           aria-controls={`${label.toLowerCase()}-country-options`}
           required
