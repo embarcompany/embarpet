@@ -29,6 +29,7 @@ import {
 import { trackConversionEvent } from "../../lib/analytics";
 import { countryFlagSvg } from "../../lib/country-flag";
 import { useLocale } from "../../i18n/locale";
+import { BackButton, InterfaceButton } from "./buttons";
 
 type Step = 1 | 2 | 3 | 4;
 type PetKind = "Cachorro" | "Gato" | "Hamster" | "Exótico" | "Outro";
@@ -799,9 +800,9 @@ export function DiagnosticFlow({
             {route.origin} → {route.destination} · {pets.length}{" "}
             {pets.length === 1 ? "pet" : "pets"}
           </p>
-          <button type="button" className="ep-button ep-button--primary">
-            Continuar no WhatsApp <ArrowRight size={16} />
-          </button>
+          <InterfaceButton type="button" size="lg" trailingIcon={ArrowRight}>
+            Continuar no WhatsApp
+          </InterfaceButton>
           <small>
             Fluxo de frontend: o envio ao banco será conectado na próxima fase.
           </small>
@@ -1142,24 +1143,18 @@ function FlowActions({
         </small>
       ) : null}
       {back ? (
-        <button
-          className="ep-button ep-button--text"
-          type="button"
-          onClick={back}
-        >
-          <ArrowLeft size={16} />
-          Voltar
-        </button>
+        <BackButton type="button" size="lg" onClick={back}>Voltar</BackButton>
       ) : null}
-      <button
-        className="ep-button ep-button--primary"
+      <InterfaceButton
+        fullWidth
+        size="lg"
+        trailingIcon={ArrowRight}
         type="button"
         aria-disabled={disabled}
         onClick={advance}
       >
         {nextLabel}
-        <ArrowRight size={16} />
-      </button>
+      </InterfaceButton>
     </div>
   );
 }

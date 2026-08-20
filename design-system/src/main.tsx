@@ -6,6 +6,7 @@ import "./design-system/buttons.css";
 import "./features/home/home.css";
 import "./features/analysis/analysis.css";
 import "./features/thank-you/thank-you.css";
+import "./design-system/visual-contract.css";
 import { App } from "./app/App";
 
 const root = document.getElementById("root")!;

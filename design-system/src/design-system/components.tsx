@@ -1,8 +1,8 @@
 import { useRef, type FormEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import { Icon, type IconName } from "./icons";
-import { Button, Notice, SelectField, TextField } from "./primitives";
+import { Notice, SelectField, TextField } from "./primitives";
 import { trackConversionEvent } from "../lib/analytics";
-import { InternalLink } from "../components/ui/buttons";
+import { AnalysisButton, InterfaceButton, InternalLink } from "../components/ui/buttons";
 
 export type RouteData = { origin: string; destination: string; period: string };
 
@@ -13,7 +13,7 @@ export function RouteFieldGroup({ values, onChange, compact = false }: { values:
 
 export function DiagnosticForm({ value, onChange, onSubmit }: { value: RouteData; onChange: (next: RouteData) => void; onSubmit: (data: RouteData) => void }) {
   const submit = (event: FormEvent) => { event.preventDefault(); onSubmit(value); };
-  return <form className="ep-diagnostic-form" onSubmit={submit}><div className="ep-diagnostic-meta"><b>Etapa 1 de 3 · A sua viagem</b><span>Leva menos de um minuto</span></div><div className="ep-diagnostic-layout"><RouteFieldGroup values={value} onChange={onChange} /><Button type="submit" icon="arrow">Continuar análise</Button></div><Notice>A modalidade é definida a partir da rota, do pet e das regras vigentes.</Notice></form>;
+  return <form className="ep-diagnostic-form" onSubmit={submit}><div className="ep-diagnostic-meta"><b>Etapa 1 de 3 · A sua viagem</b><span>Leva menos de um minuto</span></div><div className="ep-diagnostic-layout"><RouteFieldGroup values={value} onChange={onChange} /><AnalysisButton type="submit">Continuar análise</AnalysisButton></div><Notice>A modalidade é definida a partir da rota, do pet e das regras vigentes.</Notice></form>;
 }
 
 export function TrustStrip({ items }: { items: Array<{ icon: IconName; children: string }> }) {
@@ -53,7 +53,7 @@ export function ProcessList({ items }: { items: Array<{ title: string; copy: str
 
 export function DestinationExplorer({ onSelect }: { onSelect: (destination: string) => void }) {
   const regions = [{ icon:"route" as IconName, title:"Estados Unidos", subtitle:"Planejamento para a rota Brasil–EUA", copy:"Uma boa viagem começa antes da passagem. Conte seu caso para uma análise individual.", countries:["Estados Unidos"] }, { icon:"world" as IconName, title:"União Europeia", subtitle:"Contextos diferentes dentro da mesma região", copy:"Comece pelos destinos mais procurados e mantenha o contexto no diagnóstico.", countries:["Portugal","Espanha","Itália","França","Alemanha"] }, { icon:"document" as IconName, title:"Mercosul", subtitle:"Planejamento regional, com atenção ao caso", copy:"A proximidade não tira a necessidade de um plano bem montado.", countries:["Argentina","Uruguai","Paraguai"] }];
-  return <div className="ep-destination-explorer">{regions.map((region, index) => <details key={region.title} open={index === 0}><summary><span><Icon name={region.icon} /><span><b>{region.title}</b><small>{region.subtitle}</small></span></span><Icon name="chevron" /></summary><div className="ep-region-body"><p>{region.copy}</p><div>{region.countries.map((country) => <Button type="button" variant="secondary" key={country} onClick={() => onSelect(country)}>{country}</Button>)}</div></div></details>)}</div>;
+  return <div className="ep-destination-explorer">{regions.map((region, index) => <details key={region.title} open={index === 0}><summary><span><Icon name={region.icon} /><span><b>{region.title}</b><small>{region.subtitle}</small></span></span><Icon name="chevron" /></summary><div className="ep-region-body"><p>{region.copy}</p><div>{region.countries.map((country) => <InterfaceButton type="button" tone="secondary" size="sm" key={country} onClick={() => onSelect(country)}>{country}</InterfaceButton>)}</div></div></details>)}</div>;
 }
 
 export function ScrollRouteIn({ imageSrc, imageAlt, eyebrow, title }: { imageSrc: string; imageAlt: string; eyebrow: string; title: string }) {

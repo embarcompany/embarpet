@@ -1,0 +1,75 @@
+/*
+ * Contrato visual Embarpet
+ *
+ * Camada canônica carregada depois das páginas. Ela não desenha seções;
+ * garante que todas usem a mesma tipografia, ritmo, superfície e interação.
+ */
+
+html { overflow-x:hidden; background:var(--ep-surface-page); }
+body { overflow-x:hidden; background:var(--ep-surface-page); font-size:var(--ep-font-size-body); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+main { display:flex; min-width:0; flex-direction:column; background:var(--ep-surface-page); }
+img,video,svg { max-width:100%; }
+
+/* Hierarquia e leitura */
+.ep-title-xl,.ep-title-lg,.ep-title-md,.ep-title-sm { color:var(--ep-teal); font-weight:var(--ep-weight-bold); text-wrap:balance; }
+.ep-title-xl { font-size:clamp(48px,4.7vw,68px); line-height:.98; }
+.ep-title-lg { font-size:clamp(38px,3.8vw,56px); line-height:1; }
+.ep-title-md { font-size:clamp(24px,2.2vw,32px); line-height:1.08; }
+.ep-title-sm { font-size:clamp(18px,1.6vw,22px); line-height:1.15; }
+.ep-title-xl em,.ep-title-lg em,.ep-title-md em { color:var(--ep-turq-deep); font-style:normal; font-weight:inherit; }
+.ep-copy { max-width:var(--ep-content-reading); color:var(--ep-muted); font-size:clamp(15px,1.15vw,17px); line-height:var(--ep-leading-body); }
+
+/* Pílula editorial única */
+.ep-eyebrow { display:inline-flex; width:max-content; min-height:32px; align-items:center; padding:0 12px; border:1px solid rgba(0,157,172,.22); border-radius:var(--ep-radius-pill); background:rgba(228,250,247,.74); color:var(--ep-teal); font-size:10px; font-weight:800; letter-spacing:.02em; line-height:1; text-transform:none; }
+.ep-home-service .ep-eyebrow { border-color:rgba(255,255,255,.2); background:rgba(255,255,255,.08); color:var(--ep-paper); }
+.ep-home-luxury .ep-eyebrow { border-color:rgba(231,193,109,.4); background:rgba(225,182,88,.12); color:#f3d28e; }
+
+/* Ritmo das seções da index */
+.ep-home-modalities,.ep-home-process-section,.ep-home-press,.ep-home-cases,.ep-home-authority,.ep-home-destinations,main > .ep-home-faq { padding-block:var(--ep-section-space); }
+.ep-home-service { margin-block:10px; }
+.ep-home-luxury { margin-block:10px; }
+.ep-home-modalities__intro,.ep-home-press__heading { max-width:780px; margin-inline:auto; }
+.ep-home-modalities__intro .ep-title-lg,.ep-home-press__heading .ep-title-lg { margin-top:var(--ep-stack-eyebrow-title); }
+.ep-home-modalities__intro .ep-copy,.ep-home-press__heading .ep-copy { margin-top:var(--ep-stack-title-copy); }
+.ep-home-service__grid,.ep-home-process,.ep-home-luxury__grid,.ep-home-authority__grid,.ep-home-faq { column-gap:var(--ep-layout-gap); }
+.ep-home-service__content,.ep-home-process__intro,.ep-home-luxury__content,.ep-home-authority__content,.ep-destination-selector__intro { display:flex; flex-direction:column; align-items:flex-start; }
+.ep-home-service__content > .ep-title-lg,.ep-home-process__intro > .ep-title-lg,.ep-home-luxury__content > .ep-title-lg,.ep-home-authority__content > .ep-title-lg,.ep-destination-selector__intro > h2 { margin:var(--ep-stack-eyebrow-title) 0 0; }
+.ep-home-service__content > .ep-copy,.ep-home-process__intro > .ep-copy,.ep-home-luxury__content > .ep-copy,.ep-home-authority__content > .ep-copy,.ep-destination-selector__intro > p:not(.ep-eyebrow) { margin:var(--ep-stack-title-copy) 0 0; }
+.ep-home-service__content > a,.ep-home-process__intro > button,.ep-home-luxury__actions,.ep-home-authority__content > a { margin-top:var(--ep-stack-content-action); }
+
+/* Superfícies, mídia e cards */
+.ep-card,.ep-modality-rail article,.ep-home-press__feature,.ep-home-press__grid > a,.ep-home-luxury__list > span,.ep-faq-item,.ep-destination-selector__panel,.ep-destination-selector__choices button { border-color:var(--ep-stroke-soft); }
+.ep-card,.ep-home-press__feature,.ep-destination-selector__panel { border-radius:var(--ep-radius-md); box-shadow:none; }
+.ep-modality-rail article,.ep-home-press__grid > a,.ep-home-luxury__list > span,.ep-destination-selector__choices button { border-radius:var(--ep-radius-sm); box-shadow:none; }
+.ep-modality-rail__media,.ep-home-luxury__image,.ep-home-authority__mosaic,.ep-home-press__video { border-radius:var(--ep-radius-md); }
+.ep-modality-rail article,.ep-home-press__grid > a,.ep-home-luxury__list > span,.ep-destination-selector__choices button { transition:border-color var(--ep-motion-base) var(--ep-ease-standard),background-color var(--ep-motion-base) var(--ep-ease-standard),transform var(--ep-motion-base) var(--ep-ease-standard); }
+
+/* Formulários e controles */
+.ep-field { gap:8px; }
+.ep-field > span { color:var(--ep-teal); font-size:12px; font-weight:800; }
+.ep-field input,.ep-field select,.ep-flow-card input,.ep-flow-card select { min-height:var(--ep-control-height-lg); border-color:var(--ep-stroke-soft); border-radius:var(--ep-radius-sm); background:var(--ep-surface-paper); color:var(--ep-ink); font-size:15px; }
+.ep-field input:focus,.ep-field select:focus,.ep-flow-card input:focus,.ep-flow-card select:focus { border-color:var(--ep-turq-deep); outline:3px solid rgba(0,209,226,.16); outline-offset:1px; }
+.ep-flow-actions .ep-ds-button { flex:1 1 0; }
+.ep-flow-actions--single .ep-ds-button { width:100%; }
+.ep-flow-actions--split .ep-ds-button { width:50%; }
+.ep-flow-actions .ep-ds-button[aria-disabled="true"] { opacity:1; }
+
+/* Não permitir que CSS de seção recrie os botões canônicos. */
+.ep-ds-button { border-radius:var(--ep-radius-pill); }
+.ep-home-process__cta.ep-ds-button { display:inline-flex; width:auto; align-self:flex-start; }
+.ep-home-luxury__actions .ep-ds-button { margin:0; }
+.ep-final-fly-in .ep-ds-button { margin-inline:auto; }
+
+@media (max-width:700px) {
+  .ep-title-xl { font-size:clamp(40px,12vw,52px); }
+  .ep-title-lg { font-size:clamp(32px,9.5vw,42px); }
+  .ep-copy { font-size:15px; }
+  .ep-home-modalities,.ep-home-process-section,.ep-home-press,.ep-home-cases,.ep-home-authority,.ep-home-destinations,main > .ep-home-faq { padding-block:var(--ep-section-space-mobile); }
+  .ep-home-service__grid,.ep-home-process,.ep-home-luxury__grid,.ep-home-authority__grid,.ep-home-faq { row-gap:36px; }
+  .ep-eyebrow { min-height:30px; padding-inline:11px; }
+  .ep-flow-actions--split .ep-ds-button { width:100%; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
+}
