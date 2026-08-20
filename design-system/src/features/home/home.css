@@ -2396,3 +2396,15 @@ main > .ep-home-faq {
   .ep-home-luxury { padding-block:0; }
   .ep-home-luxury__grid { padding-block:28px; }
 }
+
+/* Equipe: aproxima a narrativa do retrato sem perder a margem externa segura. */
+@media (min-width:701px) {
+  .ep-home-service__grid {
+    column-gap:0;
+  }
+
+  .ep-home-service__content {
+    padding-left:clamp(24px,3vw,52px);
+    padding-right:clamp(32px,5vw,84px);
+  }
+}
