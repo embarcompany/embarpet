@@ -1899,26 +1899,36 @@ main > .ep-home-notice { order:12; }
 .ep-home-process--framework {
   grid-template-columns:minmax(300px,.78fr) minmax(520px,1.22fr);
   align-items:center;
+  gap:clamp(48px,7vw,104px);
+}
+.ep-home-process--framework > .ep-home-process__intro {
+  min-height:0;
+  align-self:center;
+  justify-content:center;
+  padding-bottom:0;
 }
 .ep-home-process__framework {
-  overflow:hidden;
-  border:1px solid rgba(0,157,172,.2);
-  border-radius:28px;
-  background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(231,249,247,.86));
+  display:grid;
+  align-self:center;
+  align-content:center;
+  gap:18px;
 }
 .ep-home-process__framework-heading {
   display:flex;
-  min-height:88px;
+  min-height:0;
   align-items:center;
   gap:14px;
-  padding:18px 22px;
-  background:var(--ep-teal);
-  color:var(--ep-paper);
+  padding:0;
+  color:var(--ep-teal);
 }
 .ep-home-process__framework-heading img {
-  width:45px;
-  height:45px;
-  flex:0 0 45px;
+  width:42px;
+  height:42px;
+  flex:0 0 42px;
+  padding:8px;
+  border:1px solid rgba(0,157,172,.22);
+  border-radius:50%;
+  background:rgba(255,255,255,.66);
   object-fit:contain;
 }
 .ep-home-process__framework-heading span,
@@ -1928,7 +1938,7 @@ main > .ep-home-notice { order:12; }
 }
 .ep-home-process__framework-heading small {
   margin-bottom:3px;
-  color:var(--ep-turq);
+  color:var(--ep-turq-deep);
   font-size:10px;
   font-weight:800;
   letter-spacing:.08em;
@@ -1942,7 +1952,7 @@ main > .ep-home-notice { order:12; }
   display:grid;
   gap:12px;
   margin:0;
-  padding:18px;
+  padding:0;
   list-style:none;
 }
 .ep-home-process__framework li {
@@ -2023,13 +2033,25 @@ main > .ep-home-notice { order:12; }
   transform:translateX(3px);
 }
 @media (max-width:800px) {
-  .ep-home-process--framework { grid-template-columns:1fr; }
+  .ep-home-process--framework {
+    grid-template-columns:1fr;
+    gap:44px;
+  }
+  .ep-home-process--framework > .ep-home-process__intro {
+    align-items:center;
+    text-align:center;
+  }
+  .ep-home-process--framework > .ep-home-process__intro .ep-copy {
+    margin-inline:auto;
+  }
+  .ep-home-process--framework > .ep-home-process__intro .ep-home-process__cta {
+    align-self:center!important;
+  }
 }
 @media (max-width:620px) {
-  .ep-home-process__framework { border-radius:22px; }
-  .ep-home-process__framework-heading { min-height:76px; padding:14px 16px; }
+  .ep-home-process__framework-heading { min-height:0; padding:0; }
   .ep-home-process__framework-heading img { width:39px; height:39px; flex-basis:39px; }
-  .ep-home-process__framework ol { gap:10px; padding:12px; }
+  .ep-home-process__framework ol { gap:10px; padding:0; }
   .ep-home-process__framework li:not(:last-child)::after { left:28px; height:10px; }
   .ep-home-process__framework li > a {
     min-height:84px;
