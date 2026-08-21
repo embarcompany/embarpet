@@ -37,8 +37,7 @@
 .ep-mobile-journey,.ep-mobile-planner { display:none; }
 .ep-nav-mobile-cta { border:0; cursor:pointer; font:inherit; }
 @media (max-width:620px) {
-  .ep-site-header,
-  .ep-site-notice {
+  .ep-site-header {
     /* 100% acompanha a largura útil da página. 100dvw inclui a área da barra
        de rolagem em alguns webviews e criava a falsa margem lateral. */
     width:100%!important;
@@ -76,7 +75,7 @@
 @media (max-width:560px) { .ep-modality-rail { grid-template-columns:1fr; }.ep-modality-rail article,.ep-modality-rail article:nth-child(3) { min-height:220px; border-left:1px solid var(--ep-line); }.ep-modality-rail > article > svg { margin-bottom:38px; }.ep-process-list li { grid-template-columns:44px 1fr; }.ep-process-list li > svg { display:none; }.ep-region-body { padding-left:0; }.ep-scroll-route { min-height:560px; }.ep-scroll-route__frame { min-height:540px; }.ep-scroll-route img { width:96vw; opacity:.55; } }
 
 /* Navegação sempre acessível; sem sombra para manter a linguagem visual Embarpet. */
-.ep-site-header,.ep-site-header--overlay { position:sticky; z-index:40; top:0; background:var(--ep-nav-background); backdrop-filter:none; }.ep-site-notice { position:relative; z-index:41; display:flex; min-height:36px; align-items:center; justify-content:center; gap:8px; padding:7px 46px 7px 20px; border-bottom:1px solid #e9c95b; background:#fff4c9; color:#614f13; text-align:center; }.ep-site-notice svg { flex:0 0 auto; color:#a87900; }.ep-site-notice p { margin:0; font-size:10px; line-height:1.35; }.ep-site-notice b { color:#4d3c05; }.ep-site-notice button { position:absolute; top:50%; right:16px; display:grid; width:24px; height:24px; place-items:center; padding:0; border:0; border-radius:50%; background:transparent; color:#765e0a; transform:translateY(-50%); }.ep-site-notice button:hover { background:rgba(97,79,19,.1); color:#4d3c05; }
+.ep-site-header,.ep-site-header--overlay { position:sticky; z-index:40; top:0; background:var(--ep-nav-background); backdrop-filter:none; }
 main section[id] { scroll-margin-top:84px; }
 
 /* Prova social compacta: pessoas, avaliação e credenciais no mesmo ritmo visual. */
@@ -85,7 +84,6 @@ main section[id] { scroll-margin-top:84px; }
 /* Ajuda contextual no WhatsApp: aparece apenas na primeira rolagem da sessão. */
 .ep-whatsapp-float { display:flex; align-items:center; gap:10px; }.ep-whatsapp-trigger { overflow:hidden; background:#25d366; border-color:#128c3f; }.ep-whatsapp-trigger img { width:25px; height:25px; }.ep-whatsapp-nudge { display:grid; gap:2px; min-width:185px; padding:10px 13px; border:1px solid var(--ep-teal); border-radius:999px; background:var(--ep-paper); color:var(--ep-teal); text-align:left; animation:ep-whatsapp-nudge .32s ease-out both; }.ep-whatsapp-nudge b { font-size:11px; }.ep-whatsapp-nudge span { color:var(--ep-muted); font-size:9px; font-weight:650; }.ep-whatsapp-avatar { overflow:hidden; background:var(--ep-paper); }.ep-whatsapp-avatar img { width:24px; height:24px; }.ep-whatsapp-popover { border-color:#128c3f; }.ep-whatsapp-popover > button:last-child { border-color:#128c3f; background:#25d366; color:#063e22; }.ep-whatsapp-popover > button:last-child:hover { background:#1fbe5e; }@keyframes ep-whatsapp-nudge { from { opacity:0; transform:translateX(12px); } to { opacity:1; transform:translateX(0); } }
 @media (max-width:760px) { .ep-authority-band { grid-template-columns:1fr 1fr; margin:-34px 10px -34px; width:calc(100% - 20px); border-inline:1px solid var(--ep-line); }.ep-authority-band > div { min-height:72px; }.ep-authority-band__metric--people { grid-column:span 2; }.ep-whatsapp-nudge { min-width:0; max-width:170px; }.ep-team-avatars { width:103px; } }
-@media (max-width:620px) { .ep-site-notice { min-height:50px; align-items:flex-start; padding:7px 44px 7px 16px; }.ep-site-notice p { font-size:9px; }.ep-site-notice button { right:10px; } }
 
 .ep-pet-count--initial { margin-top:10px; animation:ep-count-reveal .24s ease-out both; }
 @keyframes ep-count-reveal { from { opacity:0; transform:translateY(-5px); } to { opacity:1; transform:translateY(0); } }
@@ -409,6 +407,9 @@ main section[id] { scroll-margin-top:84px; }
 .ep-flow-route-preview__meta { display:flex; flex:0 0 auto; align-items:center; gap:6px; }
 .ep-flow-route-preview__meta em { display:inline-flex; min-height:24px; align-items:center; padding:0 9px; border:1px solid rgba(0,157,172,.16); border-radius:999px; background:rgba(255,255,255,.74); }
 .ep-flow-validation { grid-column:1/-1; margin:0; color:#a53434; font-size:10px; font-weight:750; text-align:center; }
+.ep-flow-international-notice { display:flex; align-items:flex-start; gap:8px; margin:14px 0 0; padding:10px 12px; border:1px solid rgba(182,132,0,.22); border-radius:10px; background:#fff8dd; color:#67500b; font-size:11px; line-height:1.45; }
+.ep-flow-international-notice svg { flex:0 0 auto; margin-top:1px; color:#ad7b00; }
+.ep-flow-international-notice b { color:#5b4404; }
 .ep-diagnostic-flow--route-first .ep-flow-card > .ep-flow-route-preview,
 .ep-diagnostic-flow--route-first .ep-flow-card > .ep-flow-summary { display:none; }
 @media (max-width:600px) {
@@ -419,6 +420,7 @@ main section[id] { scroll-margin-top:84px; }
   .ep-flow-journey-header .ep-flow-route-preview__content small { grid-column:auto; }
   .ep-flow-journey-header .ep-flow-route-preview__content em { justify-self:start; }
   .ep-flow-route-preview__main { align-items:flex-start; flex-direction:column; gap:5px; }
+  .ep-flow-international-notice { margin-top:12px; padding:9px 10px; font-size:10px; }
 }
 
 /* Hero de conversão: contexto à esquerda, prova visual real à direita. */

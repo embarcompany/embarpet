@@ -4,6 +4,7 @@ import { useMemo, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
+  AlertTriangle,
   Bird,
   CalendarDays,
   Cat,
@@ -84,7 +85,7 @@ export function DiagnosticFlow({
   integrated?: boolean;
   analyticsSource?: string;
 }) {
-  const { path } = useLocale();
+  const { path, text } = useLocale();
   // O pop-up móvel começa pela rota; o formulário da hero desktop preserva a ordem original.
   const [step, setStep] = useState<Step>(routeFirst && !startAtPet ? 2 : 1);
   const [firstKind, setFirstKind] = useState<PetKind | "">("");
@@ -495,6 +496,12 @@ export function DiagnosticFlow({
           <h2 className="ep-flow-title">Para onde <em>vocês vão?</em></h2>
           <p className="ep-flow-intro">
             A rota e o prazo já ajudam a abrir a conversa certa.
+          </p>
+          <p className="ep-flow-international-notice" role="note">
+            <AlertTriangle size={16} aria-hidden="true" />
+            <span>
+              <b>Aviso importante:</b> {text.notice}
+            </span>
           </p>
           <RoutePreview {...route} petCount={selectedPetCount} />
           <div className="ep-flow-fields ep-flow-fields--stack">
