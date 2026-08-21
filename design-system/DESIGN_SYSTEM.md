@@ -1,5 +1,7 @@
 # Sistema de design Embarpet
 
+> **Fonte de composição:** este documento define os fundamentos técnicos. Para propósito de seção, ordem narrativa e arquiteturas reutilizáveis, consultar [`../docs/design-system/README.md`](../docs/design-system/README.md). A index aprovada é a página dourada do sistema.
+
 ## Trabalho do sistema
 
 O sistema deve fazer a pessoa sentir, nesta ordem: **segurança, clareza e acolhimento**. Ele não existe para “deixar bonito”; existe para reduzir a ansiedade de uma decisão complexa e conduzir à análise de viagem.
