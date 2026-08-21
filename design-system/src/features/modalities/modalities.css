@@ -146,10 +146,11 @@
 
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content { order:2; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__visual { order:1; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-steps { grid-template-columns:repeat(2,minmax(0,1fr)); max-width:920px; margin-left:auto; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-container { display:grid; grid-template-columns:minmax(250px,.72fr) minmax(0,1.28fr); column-gap:var(--ep-layout-gap); row-gap:var(--ep-space-4); align-items:start; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-modality-section-heading { padding-top:10px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-steps { grid-column:2; grid-template-columns:repeat(2,minmax(0,1fr)); max-width:none; margin:0; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-steps li { min-height:176px; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-steps li:nth-child(even) { transform:translateY(36px); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-steps li:nth-child(even):hover { transform:translateY(32px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-inline-cta { grid-column:1 / -1; margin-top:0; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-authority figure { order:-1; }
 
 .ep-modality-page--compartimento-de-cargas .ep-modality-visual-plan__grid { grid-template-columns:.86fr 1.14fr; }
@@ -179,6 +180,8 @@
   .ep-modality-steps li:nth-child(3) { border-left:1px solid var(--ep-line); }
   .ep-modality-page--viagem-na-cabine .ep-modality-benefits__grid ul { grid-template-columns:1fr; }
   .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content,.ep-modality-page--bagagem-acompanhada .ep-modality-hero__visual,.ep-modality-page--bagagem-acompanhada .ep-modality-authority figure,.ep-modality-page--suporte-emocional .ep-modality-authority__grid > div,.ep-modality-page--viagem-na-cabine .ep-modality-proof__grid > img { order:initial; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-container { grid-template-columns:1fr; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-steps { grid-column:auto; }
   .ep-modality-page--compartimento-de-cargas .ep-modality-visual-plan__grid,.ep-modality-page--compartimento-de-cargas .ep-modality-proof__grid { grid-template-columns:1fr; }
 }
 @media (max-width:600px) {
@@ -190,7 +193,6 @@
   .ep-modality-hero__visual ul { grid-template-columns:1fr; right:20px; bottom:20px; left:20px; gap:6px; }
   .ep-modality-steps { grid-template-columns:1fr; }
   .ep-modality-page--bagagem-acompanhada .ep-modality-steps { grid-template-columns:1fr; margin-left:0; }
-  .ep-modality-page--bagagem-acompanhada .ep-modality-steps li:nth-child(even),.ep-modality-page--bagagem-acompanhada .ep-modality-steps li:nth-child(even):hover { transform:none; }
   .ep-modality-steps li,.ep-modality-steps li:nth-child(3) { min-height:154px; border-left:1px solid var(--ep-line); }
   .ep-modality-steps li > span { margin-bottom:26px; }
   .ep-modality-proof__grid > img { height:320px; }

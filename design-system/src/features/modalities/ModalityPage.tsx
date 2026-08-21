@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, FileText, HeartHandshake, Package, Plane, Route, ShieldCheck, Star } from "lucide-react";
 import { SiteHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
-import { AnalysisButton, InternalLink } from "../../components/ui/buttons";
+import { AnalysisButton } from "../../components/ui/buttons";
 import { useLocale } from "../../i18n/locale";
 import { setPageMetadata } from "../../lib/seo";
 import { modalityCaseMosaic, modalityContent, modalitySocialProof, modalityStorytelling, modalityVisualPlan, type ModalityContent } from "./modality-content";
@@ -19,7 +19,7 @@ function VisualStory({ visual, items }: { visual: { label: string; solutionTitle
   return <section className="ep-section ep-modality-visual-plan">
     <div className="ep-container ep-modality-visual-plan__grid">
       <div className="ep-modality-human-mosaic" aria-label="Registros reais de embarques acompanhados pela Embarpet">
-        {items.slice(0, 3).map((item) => <figure key={item.image}><img src={item.image} alt={item.alt} loading="lazy" /><figcaption>{item.label}</figcaption></figure>)}
+        {items.slice(0, 3).map((item) => <figure key={item.image}><img src={item.image} alt={item.alt} loading="eager" /><figcaption>{item.label}</figcaption></figure>)}
       </div>
       <div><p className="ep-eyebrow">{visual.label}</p><h2 className="ep-title-lg">{visual.solutionTitle}</h2><p className="ep-copy">{visual.solutionCopy}</p><ul className="ep-modality-visual-plan__proof"><li><CheckCircle2 aria-hidden="true" />Leitura humana da rota e do pet</li><li><CheckCircle2 aria-hidden="true" />Requisitos traduzidos em próximos passos</li><li><CheckCircle2 aria-hidden="true" />Acompanhamento conectado à operação</li></ul></div>
     </div>
@@ -120,7 +120,7 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
 
       <section className="ep-section ep-modality-faq"><div className="ep-container ep-modality-faq__grid"><div><p className="ep-eyebrow">Dúvidas sobre {modality.label.toLocaleLowerCase("pt-BR")}</p><h2 className="ep-title-lg">Respostas antes de <em>decidir.</em></h2></div><div>{modality.faqs.map((faq) => <details key={faq.question}><summary>{faq.question}<ChevronRight aria-hidden="true" /></summary><p>{faq.answer}</p></details>)}</div></div></section>
 
-      <section className="ep-modality-final"><div className="ep-container ep-modality-final__inner"><p className="ep-eyebrow">Próximo passo</p><h2 className="ep-title-lg">Conte a sua rota. A análise começa <em>pelo contexto.</em></h2><p className="ep-copy">Em poucos passos, reunimos as informações que ajudam a avaliar esta e outras possibilidades para a viagem do seu pet.</p><div><AnalysisButton size="lg" onClick={() => startAnalysis(modality.slug, path)}>Começar minha análise</AnalysisButton><InternalLink size="lg" href={path("/#modalidades")}>Ver todas as modalidades</InternalLink></div></div></section>
+      <section className="ep-modality-final"><div className="ep-container ep-modality-final__inner"><p className="ep-eyebrow">Próximo passo</p><h2 className="ep-title-lg">Conte a sua rota. A análise começa <em>pelo contexto.</em></h2><p className="ep-copy">Em poucos passos, reunimos as informações que ajudam a avaliar esta e outras possibilidades para a viagem do seu pet.</p><div><AnalysisButton size="lg" onClick={() => startAnalysis(modality.slug, path)}>Começar minha análise</AnalysisButton></div></div></section>
     </main>
     <SiteFooter logoSrc="/logo-embarpet-dark.png" groups={[
       { title:"Planeje a viagem", links:[{ label:"Como funciona", href:"/#como-funciona" },{ label:"Modalidades", href:"/#modalidades" },{ label:"Destinos", href:"/#destinos" }] },
