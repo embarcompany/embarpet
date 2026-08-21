@@ -196,3 +196,36 @@ export const modalitySocialProof: Record<ModalitySlug, { image: string; alt: str
     copy: "Nenhuma família deveria atravessar essa decisão sozinha. A experiência acumulada pela equipe ajuda a traduzir regras e possibilidades com responsabilidade.",
   },
 };
+
+/** Galerias por modalidade: imagens reais que mostram jornadas e operações,
+ * sem prometer que uma foto isolada representa uma regra ou resultado individual. */
+export const modalityCaseMosaic: Record<ModalitySlug, Array<{ image: string; alt: string; label: string }>> = {
+  "viagem-na-cabine": [
+    { image: "/embarpet-marquee-cabin-dog.webp", alt: "Pet em cabine durante uma viagem", label: "Pet em cabine" },
+    { image: "/embarpet-marquee-cabin-pomeranian.webp", alt: "Pet em contexto de aeronave", label: "Jornada aérea" },
+    { image: "/embarpet-marquee-window-flight.webp", alt: "Pet observando a janela do avião", label: "Rota internacional" },
+    { image: "/embarpet-mosaico-cabine.jpeg", alt: "Pet em viagem internacional", label: "Embarque acompanhado" },
+    { image: "/embarpet-viagem-cabine.jpg", alt: "Pet em ambiente de avião", label: "História real" },
+  ],
+  "bagagem-acompanhada": [
+    { image: "/embarpet-marquee-family-airport.webp", alt: "Família com pet no aeroporto", label: "Família e pet" },
+    { image: "/embarpet-bagagem-acompanhada.webp", alt: "Consultora Embarpet com pets em aeroporto", label: "Operação coordenada" },
+    { image: "/embarpet-marquee-welcome-family.webp", alt: "Família recebendo o pet", label: "Encontro planejado" },
+    { image: "/embarpet-mosaico-encontro.jpg", alt: "Tutora com pet após a viagem", label: "Chegada da família" },
+    { image: "/case-renato-paiva.jpeg", alt: "Jornada acompanhada pela Embarpet", label: "História acompanhada" },
+  ],
+  "compartimento-de-cargas": [
+    { image: "/embarpet-marquee-airport-crate.webp", alt: "Caixa de transporte em aeroporto", label: "Preparação da caixa" },
+    { image: "/embarpet-carga-viva-operacao.jpeg", alt: "Equipe com caixas de transporte em aeroporto", label: "Operação real" },
+    { image: "/embarpet-crate-preparation.png", alt: "Preparação de caixa de transporte para pet", label: "Critérios técnicos" },
+    { image: "/embarpet-marquee-cockatiel.webp", alt: "Ave em contexto de transporte", label: "Outras espécies" },
+    { image: "/embarpet-mosaico-cuidado.jpg", alt: "Tutor com pet em momento de cuidado", label: "Cuidado em cada etapa" },
+  ],
+  "suporte-emocional": [
+    { image: "/embarpet-suporte-emocional.jpg", alt: "Família e pet em contexto de viagem", label: "Família em viagem" },
+    { image: "/case-talles-magno.jpg", alt: "Tutor com pet em contexto de viagem", label: "História acompanhada" },
+    { image: "/embarpet-marquee-carrier-car.webp", alt: "Pet em transporte com a família", label: "Rotina da jornada" },
+    { image: "/embarpet-marquee-road-trip.webp", alt: "Pet em deslocamento com a família", label: "Próximo passo" },
+    { image: "/case-leandro-hassum.jpeg", alt: "Tutor e pet em um momento de encontro", label: "Relação de confiança" },
+  ],
+};

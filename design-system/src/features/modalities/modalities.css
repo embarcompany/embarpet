@@ -99,6 +99,19 @@
 .ep-modality-authority figure::after { position:absolute; inset:auto 0 0; height:34%; background:linear-gradient(transparent,rgba(4,67,74,.78)); content:""; pointer-events:none; }
 .ep-modality-authority figure img { width:100%; height:100%; position:absolute; inset:0; object-fit:cover; }
 .ep-modality-authority figcaption { position:absolute; z-index:1; right:18px; bottom:18px; left:18px; color:var(--ep-paper); font-size:12px; font-weight:800; }
+.ep-modality-cases { overflow:hidden; background:var(--ep-page); }
+.ep-modality-cases__heading { display:grid; justify-items:center; max-width:720px; margin:0 auto var(--ep-space-5); text-align:center; }
+.ep-modality-cases__heading .ep-title-lg { max-width:18ch; margin:var(--ep-stack-title-copy) 0 0; }
+.ep-modality-cases__heading .ep-copy { max-width:58ch; margin:var(--ep-stack-title-copy) 0 0; }
+.ep-modality-cases__viewport { width:100%; overflow:hidden; }
+.ep-modality-cases__track { display:flex; width:max-content; gap:12px; padding:0 12px; animation:ep-modality-case-marquee 42s linear infinite; }
+.ep-modality-cases__track:hover { animation-play-state:paused; }
+.ep-modality-cases figure { position:relative; width:clamp(212px,19vw,290px); height:clamp(245px,24vw,350px); margin:0; overflow:hidden; border-radius:var(--ep-radius-md); background:var(--ep-soft); }
+.ep-modality-cases figure::after { position:absolute; inset:auto 0 0; height:38%; background:linear-gradient(transparent,rgba(4,67,74,.72)); content:""; pointer-events:none; }
+.ep-modality-cases img { width:100%; height:100%; object-fit:cover; transition:transform .5s cubic-bezier(.2,.8,.2,1); }
+.ep-modality-cases figure:hover img { transform:scale(1.05); }
+.ep-modality-cases figcaption { position:absolute; z-index:1; right:14px; bottom:14px; left:14px; color:var(--ep-paper); font-size:12px; font-weight:800; }
+@keyframes ep-modality-case-marquee { from { transform:translateX(0); } to { transform:translateX(calc(-50% - 6px)); } }
 .ep-modality-faq { background:var(--ep-soft); }
 .ep-modality-faq__grid { align-items:start; }
 .ep-modality-faq__grid > div:last-child { display:grid; gap:8px; }
@@ -132,6 +145,9 @@
   .ep-modality-steps li > span { margin-bottom:26px; }
   .ep-modality-proof__grid > img { height:320px; }
   .ep-modality-authority figure { min-height:320px; }
+  .ep-modality-cases__heading { align-items:start; justify-items:start; text-align:left; }
+  .ep-modality-cases__track { animation-duration:52s; }
+  .ep-modality-cases figure { width:238px; height:286px; }
   .ep-modality-authority__metrics { grid-template-columns:1fr; }
   .ep-modality-authority__metrics > div { border-right:0; border-bottom:1px solid var(--ep-line); }
   .ep-modality-authority__metrics > div:last-child { border-bottom:0; }

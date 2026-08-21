@@ -5,7 +5,7 @@ import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisButton, InternalLink } from "../../components/ui/buttons";
 import { useLocale } from "../../i18n/locale";
 import { setPageMetadata } from "../../lib/seo";
-import { modalityContent, modalitySocialProof, modalityStorytelling, modalityVisualPlan, type ModalityContent } from "./modality-content";
+import { modalityCaseMosaic, modalityContent, modalitySocialProof, modalityStorytelling, modalityVisualPlan, type ModalityContent } from "./modality-content";
 
 function startAnalysis(slug: string, path: (value: string) => string) {
   window.location.assign(path(`/viajar?modalidade=${encodeURIComponent(slug)}`));
@@ -26,6 +26,7 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
   const storytelling = modalityStorytelling[modality.slug];
   const visualPlan = modalityVisualPlan[modality.slug];
   const socialProof = modalitySocialProof[modality.slug];
+  const cases = modalityCaseMosaic[modality.slug];
   useEffect(() => setPageMetadata({ title: modality.seo.title, description: modality.seo.description, canonicalPath: `/modalidades/${modality.slug}` }), [modality]);
 
   return <>
@@ -98,6 +99,20 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
         <div><p className="ep-eyebrow">Experiência comprovada</p><h2 className="ep-title-lg">Decisões mais seguras começam com <em>quem vive a operação.</em></h2><p className="ep-copy">{socialProof.copy}</p><div className="ep-modality-authority__metrics"><div><strong>+2.000</strong><span>embarques<br />realizados</span></div><div><img src="/logo-google.svg" alt="Google" /><strong>4,9</strong><span aria-label="Avaliação 4,9 no Google"><Star size={11} fill="currentColor" /><Star size={11} fill="currentColor" /><Star size={11} fill="currentColor" /><Star size={11} fill="currentColor" /><Star size={11} fill="currentColor" /></span></div><div className="ep-modality-authority__members"><img src="/logo-ipata.svg" alt="IPATA" /><img src="/logo-iata.svg" alt="IATA" /><span>Membro IPATA<br />e IATA</span></div></div><AnalysisButton onClick={() => startAnalysis(modality.slug, path)}>Começar minha análise</AnalysisButton></div>
         <figure><img src={socialProof.image} alt={socialProof.alt} loading="lazy" /><figcaption>{socialProof.label}</figcaption></figure>
       </div></section>
+
+      <section className="ep-section ep-modality-cases">
+        <div className="ep-container"><div className="ep-modality-cases__heading">
+          <p className="ep-eyebrow">Jornadas que acontecem de verdade</p>
+          <h2 className="ep-title-lg">Cada caso é diferente. O cuidado precisa ser <em>consistente.</em></h2>
+          <p className="ep-copy">Imagens reais de famílias, pets e momentos de operação acompanhados pela Embarpet.</p>
+        </div></div>
+        <div className="ep-modality-cases__viewport"><div className="ep-modality-cases__track">
+          {[...cases, ...cases].map((item, index) => <figure key={`${item.image}-${index}`} aria-hidden={index >= cases.length}>
+            <img src={item.image} alt={index < cases.length ? item.alt : ""} loading="lazy" />
+            <figcaption>{item.label}</figcaption>
+          </figure>)}
+        </div></div>
+      </section>
 
       <section className="ep-section ep-modality-faq"><div className="ep-container ep-modality-faq__grid"><div><p className="ep-eyebrow">Dúvidas sobre {modality.label.toLocaleLowerCase("pt-BR")}</p><h2 className="ep-title-lg">Respostas antes de <em>decidir.</em></h2></div><div>{modality.faqs.map((faq) => <details key={faq.question}><summary>{faq.question}<ChevronRight aria-hidden="true" /></summary><p>{faq.answer}</p></details>)}</div></div></section>
 
