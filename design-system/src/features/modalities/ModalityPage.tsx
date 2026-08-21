@@ -50,7 +50,7 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
       ] },
       { label:text.navContent, href:path("/#faq") },
     ]} />
-    <main className="ep-modality-page">
+    <main className={`ep-modality-page ep-modality-page--${modality.slug}`}>
       <section className="ep-modality-hero">
         <div className="ep-container ep-modality-hero__grid">
           <div className="ep-modality-hero__content">
