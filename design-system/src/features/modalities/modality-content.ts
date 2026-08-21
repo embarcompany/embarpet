@@ -87,3 +87,47 @@ export const modalityContent: Record<ModalitySlug, ModalityContent> = {
     slug:"suporte-emocional", label:"Suporte emocional", eyebrow:"Orientação responsável", title:"Uma análise responsável para casos de", titleHighlight:"suporte emocional.", intro:"O suporte emocional exige uma leitura cuidadosa da documentação, da rota e das regras aplicáveis. Não há promessa de aceitação: existe orientação para entender o que pode ser considerado.", heroImage:"/embarpet-suporte-emocional.jpg", heroAlt:"Família e pet dentro de uma aeronave", heroFacts:["Regras variam por companhia", "Documentação é decisiva", "Alternativas também são avaliadas"], whatTitle:"Como funciona essa orientação?", whatCopy:"A Embarpet analisa o contexto apresentado, os documentos e as regras da companhia aérea ou do destino. Se a modalidade não se aplicar, a conversa evolui para possibilidades de transporte viáveis para a viagem.", howItWorks:[{ number:"01", title:"Entendemos o contexto", copy:"A necessidade e a rota são consideradas com cuidado." },{ number:"02", title:"Lemos as regras vigentes", copy:"Companhia, destino e tipo de documento importam." },{ number:"03", title:"Orientamos os documentos", copy:"Explicamos o que precisa ser confirmado antes da viagem." },{ number:"04", title:"Indicamos próximos passos", copy:"A análise pode apontar alternativas quando necessário." }], decisionTitle:"O que precisa ser confirmado antes de seguir?", decisionCopy:"A aceitação depende de regras que podem variar entre companhias, destinos e tipos de documento. Por isso, a orientação responsável evita promessas e começa pela análise do caso.", decisionPoints:["Critérios e políticas da companhia aérea", "Documentação aplicável ao contexto", "Alternativas de embarque quando necessário"], benefitTitle:"Acolher a necessidade também é orientar com verdade.", benefitCopy:"O papel da Embarpet é verificar o cenário com responsabilidade e mostrar o próximo passo possível — inclusive quando a modalidade não se aplica e outra solução protege melhor a viagem.", benefits:["Leitura das políticas e documentos aplicáveis", "Expectativa alinhada antes da compra ou reserva", "Alternativas avaliadas quando necessário"], proofImage:"/embarpet-suporte-emocional.jpg", proofAlt:"Tutor com pet em contexto de viagem aérea", proofTitle:"Clareza antes de criar expectativa.", proofCopy:"Quando se trata de suporte emocional, nossa função é traduzir o que as regras permitem e construir um próximo passo responsável para a família e o pet.", faqs:[{ question:"Suporte emocional garante que meu pet viaje na cabine?", answer:"Não. A aceitação depende das políticas vigentes, documentação e análise da companhia aérea. A Embarpet não promete aprovação antes dessa verificação." }, ...sharedFaqs], seo:{ title:"Suporte Emocional e Viagem com Pets | Embarpet", description:"Entenda como a Embarpet orienta casos de suporte emocional em viagens internacionais com pets, sem promessas de aprovação." },
   },
 };
+
+/** Conteúdo de tensão e resolução: evita uma LP técnica demais e faz cada
+ * modalidade responder à dúvida que a família realmente traz para a conversa. */
+export const modalityStorytelling: Record<ModalitySlug, {
+  painTitle: string;
+  painCopy: string;
+  painPoints: string[];
+  reassuranceTitle: string;
+  reassuranceCopy: string;
+  reassurancePoints: string[];
+}> = {
+  "viagem-na-cabine": {
+    painTitle: "Querer o pet perto não elimina as dúvidas da viagem.",
+    painCopy: "Muitas famílias chegam com a cabine como primeira preferência — e com receio de descobrir tarde demais que peso, bolsa, conexão ou companhia mudam o plano. A ansiedade não está só no voo: está em não saber o que é realmente possível.",
+    painPoints: ["Medo de criar expectativa antes de validar a rota", "Insegurança sobre peso, medidas e acomodação", "Receio de uma regra mudar perto do embarque"],
+    reassuranceTitle: "A proximidade é considerada. O contexto decide.",
+    reassuranceCopy: "Em vez de prometer cabine, a Embarpet verifica os critérios que sustentam essa possibilidade e apresenta alternativas quando a jornada pede outra escolha.",
+    reassurancePoints: ["Preferência da família considerada desde o início", "Critérios conferidos antes de reservar", "Alternativas explicadas sem perder a clareza"],
+  },
+  "bagagem-acompanhada": {
+    painTitle: "O mesmo voo não significa que tudo já está resolvido.",
+    painCopy: "Quando pet e tutor viajam no mesmo itinerário, a expectativa é de simplicidade. Mas reserva, caixa, conexão, horários de entrega e documentos precisam conversar entre si para que o dia do voo não vire uma sequência de improvisos.",
+    painPoints: ["Dúvida sobre onde e quando entregar o pet", "Reserva do tutor sem a validação da operação do animal", "Documentos e caixa preparados fora do cronograma"],
+    reassuranceTitle: "Uma viagem só funciona bem quando as etapas se encontram.",
+    reassuranceCopy: "Acompanhamos a lógica do itinerário inteiro para alinhar o pet à viagem da família — não como um detalhe separado no fim da reserva.",
+    reassurancePoints: ["Roteiro do tutor e do pet lidos juntos", "Orientação para os marcos do aeroporto", "Próximos passos objetivos antes do embarque"],
+  },
+  "compartimento-de-cargas": {
+    painTitle: "A dúvida não deveria virar medo por falta de informação.",
+    painCopy: "É comum ouvir relatos incompletos e imaginar que o compartimento de cargas é sempre a última opção. Na prática, a segurança está em entender a estrutura da operação, a rota, a caixa e o perfil do pet — antes de aceitar ou descartar qualquer possibilidade.",
+    painPoints: ["Receio por informações genéricas ou contraditórias", "Preocupação com porte, caixa e conexões", "Medo de descobrir exigências perto da data da viagem"],
+    reassuranceTitle: "Clareza técnica transforma receio em decisão possível.",
+    reassuranceCopy: "Quando essa modalidade é compatível com a viagem, ela é planejada com os requisitos certos. Quando não é, a análise aponta outro caminho — sem forçar uma resposta pronta.",
+    reassurancePoints: ["Leitura individual de porte, rota e espécie", "Planejamento antecipado da operação", "Decisão baseada em critérios, não em suposições"],
+  },
+  "suporte-emocional": {
+    painTitle: "A necessidade da família merece acolhimento, não promessa vazia.",
+    painCopy: "Em casos de suporte emocional, as regras variam e as informações disponíveis nem sempre são claras. A maior frustração é descobrir uma limitação depois de comprar a passagem ou organizar toda a viagem em torno de uma expectativa que não foi validada.",
+    painPoints: ["Insegurança sobre aceitação pela companhia", "Documentos sem confirmação de aplicabilidade", "Receio de perder tempo ou tomar decisões irreversíveis"],
+    reassuranceTitle: "A resposta responsável também protege a sua viagem.",
+    reassuranceCopy: "Lemos o caso com cuidado, explicamos o que precisa ser confirmado e indicamos o próximo caminho viável — mesmo que ele seja diferente da expectativa inicial.",
+    reassurancePoints: ["Orientação honesta antes de qualquer compromisso", "Critérios e documentos avaliados com contexto", "Alternativas quando a modalidade não se aplica"],
+  },
+};

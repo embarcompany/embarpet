@@ -1,17 +1,18 @@
 import { useEffect } from "react";
-import { Check, CheckCircle2, ChevronRight, ClipboardCheck, FileText, HeartHandshake, Package, Plane, Route, ShieldCheck } from "lucide-react";
+import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, FileText, HeartHandshake, Package, Plane, Route, ShieldCheck } from "lucide-react";
 import { SiteHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisButton, InternalLink } from "../../components/ui/buttons";
 import { useLocale } from "../../i18n/locale";
 import { setPageMetadata } from "../../lib/seo";
-import { modalityContent, type ModalityContent } from "./modality-content";
+import { modalityContent, modalityStorytelling, type ModalityContent } from "./modality-content";
 
 function startAnalysis(slug: string, path: (value: string) => string) {
   window.location.assign(path(`/viajar?modalidade=${encodeURIComponent(slug)}`));
 }
 export function ModalityPage({ modality }: { modality: ModalityContent }) {
   const { path, text } = useLocale();
+  const storytelling = modalityStorytelling[modality.slug];
   useEffect(() => setPageMetadata({ title: modality.seo.title, description: modality.seo.description, canonicalPath: `/modalidades/${modality.slug}` }), [modality]);
 
   return <>
@@ -50,6 +51,11 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
         <p className="ep-copy">{modality.whatCopy}</p>
       </div></section>
 
+      <section className="ep-section ep-modality-pain"><div className="ep-container ep-modality-pain__grid">
+        <div><p className="ep-eyebrow">Antes de decidir</p><h2 className="ep-title-lg">{storytelling.painTitle}</h2><p className="ep-copy">{storytelling.painCopy}</p></div>
+        <ul>{storytelling.painPoints.map((point) => <li key={point}><CircleAlert aria-hidden="true" /><span>{point}</span></li>)}</ul>
+      </div></section>
+
       <section className="ep-section ep-modality-process"><div className="ep-container">
         <div className="ep-modality-section-heading"><p className="ep-eyebrow">Do primeiro contato ao embarque</p><h2 className="ep-title-lg">Cada etapa existe para dar <em>clareza à decisão.</em></h2></div>
         <ol className="ep-modality-steps">{modality.howItWorks.map((step, index) => <li key={step.number}><span>{step.number}</span><div><h3>{step.title}</h3><p>{step.copy}</p></div>{index < modality.howItWorks.length - 1 ? <ChevronRight aria-hidden="true" /> : null}</li>)}</ol>
@@ -64,6 +70,11 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
       <section className="ep-section ep-modality-benefits"><div className="ep-container ep-modality-benefits__grid">
         <div><p className="ep-eyebrow">O que esta escolha resolve</p><h2 className="ep-title-lg">{modality.benefitTitle}</h2><p className="ep-copy">{modality.benefitCopy}</p></div>
         <ul>{modality.benefits.map((benefit) => <li key={benefit}><Check aria-hidden="true" /><span>{benefit}</span></li>)}</ul>
+      </div></section>
+
+      <section className="ep-section ep-modality-reassurance"><div className="ep-container ep-modality-reassurance__grid">
+        <div><p className="ep-eyebrow">O que muda com uma boa análise</p><h2 className="ep-title-lg">{storytelling.reassuranceTitle}</h2><p className="ep-copy">{storytelling.reassuranceCopy}</p><AnalysisButton onClick={() => startAnalysis(modality.slug, path)}>Começar minha análise</AnalysisButton></div>
+        <ol>{storytelling.reassurancePoints.map((point, index) => <li key={point}><span>0{index + 1}</span><p>{point}</p></li>)}</ol>
       </div></section>
 
       <section className="ep-section ep-modality-proof"><div className="ep-container ep-modality-proof__grid"><img src={modality.proofImage} alt={modality.proofAlt} loading="lazy" /><div><p className="ep-eyebrow">Experiência que orienta</p><h2 className="ep-title-lg">{modality.proofTitle}</h2><p className="ep-copy">{modality.proofCopy}</p><div className="ep-modality-proof__links"><span><ShieldCheck aria-hidden="true" />Leitura técnica da viagem</span><span><FileText aria-hidden="true" />Documentação com contexto</span><span><ClipboardCheck aria-hidden="true" />Operação acompanhada</span></div><AnalysisButton onClick={() => startAnalysis(modality.slug, path)}>Avaliar esta possibilidade</AnalysisButton></div></div></section>
