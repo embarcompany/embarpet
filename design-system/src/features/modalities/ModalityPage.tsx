@@ -1,18 +1,30 @@
 import { useEffect } from "react";
-import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, FileText, HeartHandshake, Package, Plane, Route, ShieldCheck } from "lucide-react";
+import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, FileText, HeartHandshake, Image as ImageIcon, Package, Plane, Route, ShieldCheck } from "lucide-react";
 import { SiteHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisButton, InternalLink } from "../../components/ui/buttons";
 import { useLocale } from "../../i18n/locale";
 import { setPageMetadata } from "../../lib/seo";
-import { modalityContent, modalityStorytelling, type ModalityContent } from "./modality-content";
+import { modalityContent, modalityStorytelling, modalityVisualPlan, type ModalityContent } from "./modality-content";
 
 function startAnalysis(slug: string, path: (value: string) => string) {
   window.location.assign(path(`/viajar?modalidade=${encodeURIComponent(slug)}`));
 }
+
+function VisualPlaceholder({ label, title, description, direction }: { label: string; title: string; description: string; direction: string }) {
+  return <section className="ep-section ep-modality-visual-plan">
+    <div className="ep-container ep-modality-visual-plan__grid">
+      <figure className={`ep-modality-placeholder ep-modality-placeholder--${direction}`} aria-label={`Placeholder: ${title}`}>
+        <div><ImageIcon aria-hidden="true" /><span>Placeholder de fotografia real</span></div>
+      </figure>
+      <div><p className="ep-eyebrow">{label}</p><h2 className="ep-title-lg">{title}</h2><p className="ep-copy">{description}</p><span className="ep-modality-visual-plan__note">Direção de arte para substituição posterior.</span></div>
+    </div>
+  </section>;
+}
 export function ModalityPage({ modality }: { modality: ModalityContent }) {
   const { path, text } = useLocale();
   const storytelling = modalityStorytelling[modality.slug];
+  const visualPlan = modalityVisualPlan[modality.slug];
   useEffect(() => setPageMetadata({ title: modality.seo.title, description: modality.seo.description, canonicalPath: `/modalidades/${modality.slug}` }), [modality]);
 
   return <>
@@ -55,6 +67,8 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
         <div><p className="ep-eyebrow">Antes de decidir</p><h2 className="ep-title-lg">{storytelling.painTitle}</h2><p className="ep-copy">{storytelling.painCopy}</p></div>
         <ul>{storytelling.painPoints.map((point) => <li key={point}><CircleAlert aria-hidden="true" /><span>{point}</span></li>)}</ul>
       </div></section>
+
+      <VisualPlaceholder {...visualPlan} />
 
       <section className="ep-section ep-modality-process"><div className="ep-container">
         <div className="ep-modality-section-heading"><p className="ep-eyebrow">Do primeiro contato ao embarque</p><h2 className="ep-title-lg">Cada etapa existe para dar <em>clareza à decisão.</em></h2></div>

@@ -131,3 +131,39 @@ export const modalityStorytelling: Record<ModalitySlug, {
     reassurancePoints: ["Orientação honesta antes de qualquer compromisso", "Critérios e documentos avaliados com contexto", "Alternativas quando a modalidade não se aplica"],
   },
 };
+
+/**
+ * Mapa de fotografia para a próxima direção de arte. Enquanto a curadoria não
+ * está fechada, a interface usa estes placeholders para validar escala e ritmo.
+ */
+export const modalityVisualPlan: Record<ModalitySlug, {
+  label: string;
+  title: string;
+  description: string;
+  direction: "cabin" | "luggage" | "cargo" | "support";
+}> = {
+  "viagem-na-cabine": {
+    label: "Imagem de contexto",
+    title: "O pet perto do tutor, antes do embarque.",
+    description: "Foto real de pet, tutor e bolsa de transporte em ambiente de aeroporto ou aeronave. O foco é proximidade com responsabilidade — não uma promessa automática de cabine.",
+    direction: "cabin",
+  },
+  "bagagem-acompanhada": {
+    label: "Imagem de contexto",
+    title: "O itinerário da família começa antes do portão.",
+    description: "Foto real de tutor, pet e caixa ou bolsa no aeroporto. A cena precisa mostrar coordenação e preparação, não apenas um pet posando para a câmera.",
+    direction: "luggage",
+  },
+  "compartimento-de-cargas": {
+    label: "Imagem de contexto",
+    title: "Operação real, explicada com clareza.",
+    description: "Foto de caixa adequada, equipe ou área operacional do aeroporto. A imagem existe para desmistificar a modalidade com contexto técnico e humano.",
+    direction: "cargo",
+  },
+  "suporte-emocional": {
+    label: "Imagem de contexto",
+    title: "A necessidade da família também faz parte da análise.",
+    description: "Foto real de família com pet em contexto de viagem. A direção deve ser acolhedora e sóbria, sem sugerir que a aceitação é garantida.",
+    direction: "support",
+  },
+};
