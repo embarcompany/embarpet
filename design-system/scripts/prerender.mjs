@@ -13,14 +13,19 @@ const pages = {
   en: { path: "/en/", lang: "en", title: "International Pet Transport | Embarpet", description: "Plan your pet’s international trip with route analysis, documentation and air-travel options." },
   es: { path: "/es/", lang: "es", title: "Transporte Internacional de Mascotas | Embarpet", description: "Planifica el viaje internacional de tu mascota con análisis de ruta, documentación y opciones de transporte aéreo." },
   ja: { path: "/ja/", lang: "ja", title: "国際ペット輸送 | Embarpet", description: "ルート、書類、航空輸送の選択肢を確認しながら、ペットの国際移動を計画できます。" },
+  "modalidades/viagem-na-cabine": { path: "/modalidades/viagem-na-cabine", lang: "pt-BR", title: "Viagem de Pet na Cabine | Embarpet", description: "Saiba quando um pet pode viajar na cabine e entenda os critérios de porte, rota, caixa de transporte e documentação internacional." },
+  "modalidades/bagagem-acompanhada": { path: "/modalidades/bagagem-acompanhada", lang: "pt-BR", title: "Bagagem Acompanhada para Pets | Embarpet", description: "Entenda como funciona a bagagem acompanhada para transporte internacional de pets no mesmo voo do tutor." },
+  "modalidades/compartimento-de-cargas": { path: "/modalidades/compartimento-de-cargas", lang: "pt-BR", title: "Compartimento de Cargas para Pets | Embarpet", description: "Entenda como funciona o transporte internacional de pets em compartimento de cargas e receba uma análise da rota, do pet e da documentação." },
+  "modalidades/suporte-emocional": { path: "/modalidades/suporte-emocional", lang: "pt-BR", title: "Suporte Emocional e Viagem com Pets | Embarpet", description: "Entenda como a Embarpet orienta casos de suporte emocional em viagens internacionais com pets, sem promessas de aprovação." },
 };
 
 const { render } = await import(pathToFileURL(resolve(serverOutput, "entry-server.js")).href);
 const template = await readFile(templatePath, "utf8");
-const alternateLinks = `${Object.entries(pages).map(([locale, page]) => `<link rel="alternate" hreflang="${locale}" href="${siteUrl}${page.path}" />`).join("\n    ")}\n    <link rel="alternate" hreflang="x-default" href="${siteUrl}/" />`;
+const localePages = Object.entries(pages).filter(([key]) => ["pt-BR", "en", "es", "ja"].includes(key));
+const alternateLinks = `${localePages.map(([locale, page]) => `<link rel="alternate" hreflang="${locale}" href="${siteUrl}${page.path}" />`).join("\n    ")}\n    <link rel="alternate" hreflang="x-default" href="${siteUrl}/" />`;
 
 function renderPage(locale, page) {
-  const renderedRoot = `<div id="root">${render(locale)}</div>`;
+  const renderedRoot = `<div id="root">${render(locale, page.path)}</div>`;
   if (!template.includes('<div id="root"></div>')) throw new Error("Could not find the application root for prerendering.");
   return template
     .replace('<div id="root"></div>', renderedRoot)
@@ -35,9 +40,11 @@ function renderPage(locale, page) {
 }
 
 for (const [locale, page] of Object.entries(pages)) {
-  const destination = locale === "pt-BR" ? templatePath : resolve(dist, locale, "index.html");
-  if (locale !== "pt-BR") await mkdir(resolve(dist, locale), { recursive: true });
-  await writeFile(destination, renderPage(locale, page), "utf8");
+  const renderLocale = page.path.startsWith("/modalidades/") ? "pt-BR" : locale;
+  const isRoot = locale === "pt-BR";
+  const destination = isRoot ? templatePath : resolve(dist, locale, "index.html");
+  if (!isRoot) await mkdir(resolve(dist, locale), { recursive: true });
+  await writeFile(destination, renderPage(renderLocale, page), "utf8");
 }
 
 await rm(serverOutput, { recursive: true, force: true });
