@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, FileText, HeartHandshake, Image as ImageIcon, Package, Plane, Route, ShieldCheck } from "lucide-react";
+import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, FileText, HeartHandshake, Image as ImageIcon, Package, Plane, Route, ShieldCheck, Star } from "lucide-react";
 import { SiteHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisButton, InternalLink } from "../../components/ui/buttons";
 import { useLocale } from "../../i18n/locale";
 import { setPageMetadata } from "../../lib/seo";
-import { modalityContent, modalityStorytelling, modalityVisualPlan, type ModalityContent } from "./modality-content";
+import { modalityContent, modalitySocialProof, modalityStorytelling, modalityVisualPlan, type ModalityContent } from "./modality-content";
 
 function startAnalysis(slug: string, path: (value: string) => string) {
   window.location.assign(path(`/viajar?modalidade=${encodeURIComponent(slug)}`));
@@ -25,6 +25,7 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
   const { path, text } = useLocale();
   const storytelling = modalityStorytelling[modality.slug];
   const visualPlan = modalityVisualPlan[modality.slug];
+  const socialProof = modalitySocialProof[modality.slug];
   useEffect(() => setPageMetadata({ title: modality.seo.title, description: modality.seo.description, canonicalPath: `/modalidades/${modality.slug}` }), [modality]);
 
   return <>
@@ -92,6 +93,11 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
       </div></section>
 
       <section className="ep-section ep-modality-proof"><div className="ep-container ep-modality-proof__grid"><img src={modality.proofImage} alt={modality.proofAlt} loading="lazy" /><div><p className="ep-eyebrow">Experiência que orienta</p><h2 className="ep-title-lg">{modality.proofTitle}</h2><p className="ep-copy">{modality.proofCopy}</p><div className="ep-modality-proof__links"><span><ShieldCheck aria-hidden="true" />Leitura técnica da viagem</span><span><FileText aria-hidden="true" />Documentação com contexto</span><span><ClipboardCheck aria-hidden="true" />Operação acompanhada</span></div><AnalysisButton onClick={() => startAnalysis(modality.slug, path)}>Avaliar esta possibilidade</AnalysisButton></div></div></section>
+
+      <section className="ep-section ep-modality-authority"><div className="ep-container ep-modality-authority__grid">
+        <div><p className="ep-eyebrow">Experiência comprovada</p><h2 className="ep-title-lg">Decisões mais seguras começam com <em>quem vive a operação.</em></h2><p className="ep-copy">{socialProof.copy}</p><div className="ep-modality-authority__metrics"><div><strong>+2.000</strong><span>embarques<br />realizados</span></div><div><img src="/logo-google.svg" alt="Google" /><strong>4,9</strong><span aria-label="Avaliação 4,9 no Google"><Star size={11} fill="currentColor" /><Star size={11} fill="currentColor" /><Star size={11} fill="currentColor" /><Star size={11} fill="currentColor" /><Star size={11} fill="currentColor" /></span></div><div className="ep-modality-authority__members"><img src="/logo-ipata.svg" alt="IPATA" /><img src="/logo-iata.svg" alt="IATA" /><span>Membro IPATA<br />e IATA</span></div></div><AnalysisButton onClick={() => startAnalysis(modality.slug, path)}>Começar minha análise</AnalysisButton></div>
+        <figure><img src={socialProof.image} alt={socialProof.alt} loading="lazy" /><figcaption>{socialProof.label}</figcaption></figure>
+      </div></section>
 
       <section className="ep-section ep-modality-faq"><div className="ep-container ep-modality-faq__grid"><div><p className="ep-eyebrow">Dúvidas sobre {modality.label.toLocaleLowerCase("pt-BR")}</p><h2 className="ep-title-lg">Respostas antes de <em>decidir.</em></h2></div><div>{modality.faqs.map((faq) => <details key={faq.question}><summary>{faq.question}<ChevronRight aria-hidden="true" /></summary><p>{faq.answer}</p></details>)}</div></div></section>
 

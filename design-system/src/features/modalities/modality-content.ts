@@ -167,3 +167,32 @@ export const modalityVisualPlan: Record<ModalitySlug, {
     direction: "support",
   },
 };
+
+/** Prova social aparece em todas as LPs, sem atribuir uma modalidade específica
+ * a uma história quando o que foi acompanhado foi a jornada completa. */
+export const modalitySocialProof: Record<ModalitySlug, { image: string; alt: string; label: string; copy: string }> = {
+  "viagem-na-cabine": {
+    image: "/case-talles-magno.jpg",
+    alt: "Tutor com pet em contexto de viagem",
+    label: "Histórias que acompanham a viagem",
+    copy: "Cada embarque tem uma combinação própria de rota, prazo e perfil do pet. É por isso que experiência não substitui análise: ela melhora a leitura do seu caso.",
+  },
+  "bagagem-acompanhada": {
+    image: "/case-renato-paiva.jpeg",
+    alt: "Família atendida pela Embarpet durante uma jornada internacional",
+    label: "Histórias que acompanham a viagem",
+    copy: "Por trás de cada chegada há uma sequência de decisões coordenadas. A experiência da Embarpet ajuda a transformar uma viagem complexa em próximos passos claros.",
+  },
+  "compartimento-de-cargas": {
+    image: "/case-leandro-hassum.jpeg",
+    alt: "Tutor e pet em um momento de encontro",
+    label: "Histórias que acompanham a viagem",
+    copy: "A segurança da operação nasce de preparação e acompanhamento. Mais de dois mil embarques realizados ajudam a nossa equipe a reconhecer o que a rota exige antes do dia do voo.",
+  },
+  "suporte-emocional": {
+    image: "/embarpet-suporte-emocional.jpg",
+    alt: "Pet em contexto de viagem internacional",
+    label: "Histórias que acompanham a viagem",
+    copy: "Nenhuma família deveria atravessar essa decisão sozinha. A experiência acumulada pela equipe ajuda a traduzir regras e possibilidades com responsabilidade.",
+  },
+};
