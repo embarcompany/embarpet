@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, FileText, HeartHandshake, Image as ImageIcon, Package, Plane, Route, ShieldCheck, Star } from "lucide-react";
+import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, FileText, HeartHandshake, Package, Plane, Route, ShieldCheck, Star } from "lucide-react";
 import { SiteHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisButton, InternalLink } from "../../components/ui/buttons";
@@ -11,13 +11,13 @@ function startAnalysis(slug: string, path: (value: string) => string) {
   window.location.assign(path(`/viajar?modalidade=${encodeURIComponent(slug)}`));
 }
 
-function VisualPlaceholder({ label, title, description, direction }: { label: string; title: string; description: string; direction: string }) {
+function VisualStory({ visual, items }: { visual: { label: string; solutionTitle: string; solutionCopy: string }; items: Array<{ image: string; alt: string; label: string }> }) {
   return <section className="ep-section ep-modality-visual-plan">
     <div className="ep-container ep-modality-visual-plan__grid">
-      <figure className={`ep-modality-placeholder ep-modality-placeholder--${direction}`} aria-label={`Placeholder: ${title}`}>
-        <div><ImageIcon aria-hidden="true" /><span>Placeholder de fotografia real</span></div>
-      </figure>
-      <div><p className="ep-eyebrow">{label}</p><h2 className="ep-title-lg">{title}</h2><p className="ep-copy">{description}</p><span className="ep-modality-visual-plan__note">Direção de arte para substituição posterior.</span></div>
+      <div className="ep-modality-human-mosaic" aria-label="Registros reais de embarques acompanhados pela Embarpet">
+        {items.slice(0, 3).map((item) => <figure key={item.image}><img src={item.image} alt={item.alt} loading="lazy" /><figcaption>{item.label}</figcaption></figure>)}
+      </div>
+      <div><p className="ep-eyebrow">{visual.label}</p><h2 className="ep-title-lg">{visual.solutionTitle}</h2><p className="ep-copy">{visual.solutionCopy}</p><ul className="ep-modality-visual-plan__proof"><li><CheckCircle2 aria-hidden="true" />Leitura humana da rota e do pet</li><li><CheckCircle2 aria-hidden="true" />Requisitos traduzidos em próximos passos</li><li><CheckCircle2 aria-hidden="true" />Acompanhamento conectado à operação</li></ul></div>
     </div>
   </section>;
 }
@@ -70,7 +70,7 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
         <ul>{storytelling.painPoints.map((point) => <li key={point}><CircleAlert aria-hidden="true" /><span>{point}</span></li>)}</ul>
       </div></section>
 
-      <VisualPlaceholder {...visualPlan} />
+      <VisualStory visual={visualPlan} items={cases} />
 
       <section className="ep-section ep-modality-process"><div className="ep-container">
         <div className="ep-modality-section-heading"><p className="ep-eyebrow">Do primeiro contato ao embarque</p><h2 className="ep-title-lg">Cada etapa existe para dar <em>clareza à decisão.</em></h2></div>

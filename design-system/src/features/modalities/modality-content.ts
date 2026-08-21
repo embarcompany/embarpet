@@ -140,30 +140,40 @@ export const modalityVisualPlan: Record<ModalitySlug, {
   label: string;
   title: string;
   description: string;
+  solutionTitle: string;
+  solutionCopy: string;
   direction: "cabin" | "luggage" | "cargo" | "support";
 }> = {
   "viagem-na-cabine": {
     label: "Imagem de contexto",
     title: "O pet perto do tutor, antes do embarque.",
     description: "Foto real de pet, tutor e bolsa de transporte em ambiente de aeroporto ou aeronave. O foco é proximidade com responsabilidade — não uma promessa automática de cabine.",
+    solutionTitle: "Proximidade só é boa quando a jornada inteira é viável.",
+    solutionCopy: "A Embarpet cruza perfil do pet, regras da companhia e roteiro da família antes de transformar a cabine em uma possibilidade real.",
     direction: "cabin",
   },
   "bagagem-acompanhada": {
     label: "Imagem de contexto",
     title: "O itinerário da família começa antes do portão.",
     description: "Foto real de tutor, pet e caixa ou bolsa no aeroporto. A cena precisa mostrar coordenação e preparação, não apenas um pet posando para a câmera.",
+    solutionTitle: "O itinerário do tutor e o do pet precisam conversar.",
+    solutionCopy: "Da reserva à retirada, a equipe organiza os pontos que conectam o voo da família à operação do pet.",
     direction: "luggage",
   },
   "compartimento-de-cargas": {
     label: "Imagem de contexto",
     title: "Operação real, explicada com clareza.",
     description: "Foto de caixa adequada, equipe ou área operacional do aeroporto. A imagem existe para desmistificar a modalidade com contexto técnico e humano.",
+    solutionTitle: "O que parece complexo fica claro quando cada requisito tem dono.",
+    solutionCopy: "Equipe, caixa, rota, reserva e documentos entram no mesmo plano para que a decisão seja técnica, humana e antecipada.",
     direction: "cargo",
   },
   "suporte-emocional": {
     label: "Imagem de contexto",
     title: "A necessidade da família também faz parte da análise.",
     description: "Foto real de família com pet em contexto de viagem. A direção deve ser acolhedora e sóbria, sem sugerir que a aceitação é garantida.",
+    solutionTitle: "Acolher também é explicar o que pode — e o que não pode — acontecer.",
+    solutionCopy: "A Embarpet lê as regras e os documentos com responsabilidade para proteger a família de expectativas que não foram confirmadas.",
     direction: "support",
   },
 };
