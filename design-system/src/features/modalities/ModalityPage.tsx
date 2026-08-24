@@ -83,7 +83,7 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
       </div></section>
 
       <section className="ep-section ep-modality-decision"><div className="ep-container ep-modality-decision__grid">
-        <div><p className="ep-eyebrow">Quando ela pode fazer sentido</p><h2 className="ep-title-lg">{modality.decisionTitle}</h2><p className="ep-copy">{modality.decisionCopy}</p></div>
+        <div><p className="ep-eyebrow">Quando ela pode fazer sentido</p><h2 className="ep-title-lg">{modality.decisionTitle}</h2><p className="ep-copy">{modality.decisionCopy}</p><AnalysisButton onClick={() => startAnalysis(modality.slug, path)}>Analisar esta possibilidade</AnalysisButton></div>
         <ul>{modality.decisionPoints.map((point, index) => { const PointIcon = decisionIcons[index]; return <li key={point}><PointIcon aria-hidden="true" /><span>{point}</span></li>; })}</ul>
       </div></section>
 
