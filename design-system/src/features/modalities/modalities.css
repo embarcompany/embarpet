@@ -137,11 +137,13 @@
 .ep-modality-faq details[open] summary svg { transform:rotate(90deg); }
 .ep-modality-faq details p { max-width:62ch; margin:0; padding:0 18px 20px; color:var(--ep-muted); font-size:14px; line-height:1.55; }
 .ep-modality-final { margin:10px; padding:var(--ep-section-space) 0; border-radius:var(--ep-radius-lg); background:var(--ep-teal); color:var(--ep-paper); overflow:hidden; }
-.ep-modality-final__inner { display:grid; justify-items:center; max-width:820px; text-align:center; }
+.ep-modality-final__inner { position:relative; display:grid; justify-items:center; max-width:820px; text-align:center; }
+.ep-modality-final__content { position:relative; z-index:1; display:grid; justify-items:center; max-width:820px; }
 .ep-modality-final .ep-eyebrow { border-color:rgba(255,255,255,.24); background:rgba(255,255,255,.1); color:var(--ep-paper); }
 .ep-modality-final .ep-title-lg { max-width:18ch; }
 .ep-modality-final .ep-copy { color:#c5e5e2; }
-.ep-modality-final__inner > div { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:var(--ep-space-4); }
+.ep-modality-final__content > div { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:var(--ep-space-4); }
+.ep-modality-cutout { display:none; pointer-events:none; user-select:none; }
 
 /* Cada modalidade usa a mesma base, mas não a mesma distribuição. */
 .ep-modality-page--viagem-na-cabine .ep-modality-introduction__grid { grid-template-columns:1fr; max-width:820px; text-align:center; }
@@ -191,11 +193,12 @@
 .ep-modality-page--bagagem-acompanhada .ep-modality-inline-cta { grid-column:1 / -1; margin-top:0; }
 
 .ep-modality-page--bagagem-acompanhada .ep-modality-decision { background:linear-gradient(125deg,#e6f8f5 0%,#f9fffe 61%,#ddf7f3 100%); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid { grid-template-columns:minmax(0,1fr) minmax(360px,.92fr); gap:clamp(42px,7vw,112px); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid > div { grid-column:1; grid-row:1; max-width:560px; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid ul { grid-column:2; grid-row:1; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid { grid-template-columns:minmax(360px,.86fr) minmax(0,1.14fr); grid-template-rows:auto auto; gap:clamp(24px,3vw,44px) clamp(48px,7vw,118px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid > div { grid-column:2; grid-row:1; max-width:560px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid ul { grid-column:2; grid-row:2; grid-template-columns:repeat(3,minmax(0,1fr)); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid .ep-title-lg { max-width:12ch; font-size:clamp(38px,3.65vw,58px); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid li { min-height:104px; padding:20px; font-size:16px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid li { min-height:132px; padding:20px; font-size:15px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-cutout--family { display:block; grid-column:1; grid-row:1 / span 2; align-self:end; width:min(118%,580px); max-height:610px; margin:0 0 -8% -11%; object-fit:contain; object-position:center bottom; filter:drop-shadow(0 20px 26px rgba(5,67,74,.13)); }
 
 .ep-modality-page--bagagem-acompanhada .ep-modality-benefits { padding-block:clamp(80px,8vw,126px); background:var(--ep-page); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-benefits__grid > div { max-width:760px; }
@@ -205,11 +208,12 @@
 .ep-modality-page--bagagem-acompanhada .ep-modality-benefits__grid li svg { width:28px; height:28px; }
 
 .ep-modality-page--bagagem-acompanhada .ep-modality-reassurance { padding-block:clamp(84px,8.5vw,132px); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid { grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:clamp(46px,7vw,108px); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid > div { order:1; max-width:560px; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid ol { order:2; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid { grid-template-columns:minmax(280px,.72fr) minmax(280px,.82fr) minmax(320px,1.02fr); gap:clamp(28px,4vw,64px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid > div { grid-column:2; order:initial; max-width:480px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid ol { grid-column:3; order:initial; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid .ep-title-lg { max-width:11ch; font-size:clamp(38px,3.7vw,59px); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid li { min-height:94px; padding:19px 20px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-cutout--operation { display:block; grid-column:1; align-self:end; width:clamp(300px,28vw,460px); max-height:520px; margin:0 0 -12% -14%; object-fit:contain; object-position:center bottom; filter:drop-shadow(0 20px 28px rgba(0,0,0,.22)); }
 
 .ep-modality-page--bagagem-acompanhada .ep-modality-proof { background:linear-gradient(135deg,#f7fffe 0%,#ebf9f7 100%); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-proof__grid { grid-template-columns:minmax(360px,.96fr) minmax(0,1.04fr); gap:clamp(44px,7vw,110px); }
@@ -233,8 +237,12 @@
 .ep-modality-page--bagagem-acompanhada .ep-modality-faq__grid { grid-template-columns:minmax(0,.76fr) minmax(420px,1.24fr); gap:clamp(42px,7vw,110px); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-faq .ep-title-lg { max-width:10ch; font-size:clamp(38px,3.8vw,60px); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-faq summary { min-height:86px; padding:0 22px; font-size:17px; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-final { padding-block:clamp(100px,10vw,154px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-final { padding-block:clamp(92px,9vw,142px); background:linear-gradient(120deg,#043f46 0%,#075a61 48%,#009dac 100%); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-final__inner { justify-items:start; max-width:var(--ep-content); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-final__content { justify-items:start; max-width:600px; text-align:left; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-final__content > div { justify-content:flex-start; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-final .ep-title-lg { max-width:14ch; font-size:clamp(42px,4.4vw,70px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-cutout--passport { display:block; position:absolute; z-index:0; right:-5%; bottom:-18%; width:clamp(310px,31vw,520px); max-height:570px; object-fit:contain; object-position:right bottom; filter:drop-shadow(0 28px 30px rgba(0,0,0,.24)); }
 
 .ep-modality-page--compartimento-de-cargas .ep-modality-visual-plan__grid { grid-template-columns:.86fr 1.14fr; }
 .ep-modality-page--compartimento-de-cargas .ep-modality-decision { background:linear-gradient(140deg,#03434a,#006f79); color:var(--ep-paper); }
@@ -268,6 +276,12 @@
   .ep-modality-page--bagagem-acompanhada .ep-modality-introduction__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-visual-plan__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-proof__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-authority__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-faq__grid { grid-template-columns:1fr; }
   .ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid > div,.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid ul { grid-column:auto; grid-row:auto; }
   .ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid > div,.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid ol,.ep-modality-page--bagagem-acompanhada .ep-modality-proof__grid > img,.ep-modality-page--bagagem-acompanhada .ep-modality-proof__grid > div,.ep-modality-page--bagagem-acompanhada .ep-modality-authority figure,.ep-modality-page--bagagem-acompanhada .ep-modality-authority__grid > div { order:initial; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-cutout--family { grid-column:auto; grid-row:auto; width:min(90%,480px); max-height:460px; margin:0 auto -10%; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid ul { grid-template-columns:1fr; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-cutout--operation { grid-column:auto; width:min(76%,380px); margin:0 auto -12%; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-final__inner,.ep-modality-page--bagagem-acompanhada .ep-modality-final__content { justify-items:center; text-align:center; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-final__content > div { justify-content:center; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-cutout--passport { opacity:.26; right:-12%; width:min(78vw,430px); }
   .ep-modality-visual-plan__proof,.ep-modality-benefits__grid ul,.ep-modality-proof__links { grid-template-columns:1fr; }
   .ep-modality-page--compartimento-de-cargas .ep-modality-visual-plan__grid,.ep-modality-page--compartimento-de-cargas .ep-modality-proof__grid { grid-template-columns:1fr; }
 }
@@ -296,6 +310,6 @@
   .ep-modality-authority__metrics > div:last-child { border-bottom:0; }
   .ep-modality-inline-cta { align-items:stretch; flex-direction:column; padding:16px; }
   .ep-modality-inline-cta .ep-ds-button { width:100%; }
-  .ep-modality-final__inner > div { width:100%; flex-direction:column; }
-  .ep-modality-final__inner .ep-ds-button { width:100%; }
+  .ep-modality-final__content > div { width:100%; flex-direction:column; }
+  .ep-modality-final__content .ep-ds-button { width:100%; }
 }

@@ -83,6 +83,7 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
       </div></section>
 
       <section className="ep-section ep-modality-decision"><div className="ep-container ep-modality-decision__grid">
+        {modality.slug === "bagagem-acompanhada" ? <img className="ep-modality-cutout ep-modality-cutout--family" src="/embarpet-familia-pet-cutout.png" alt="" aria-hidden="true" loading="lazy" /> : null}
         <div><p className="ep-eyebrow">Quando ela pode fazer sentido</p><h2 className="ep-title-lg">{modality.decisionTitle}</h2><p className="ep-copy">{modality.decisionCopy}</p><AnalysisButton onClick={() => startAnalysis(modality.slug, path)}>Analisar esta possibilidade</AnalysisButton></div>
         <ul>{modality.decisionPoints.map((point, index) => { const PointIcon = decisionIcons[index]; return <li key={point}><PointIcon aria-hidden="true" /><span>{point}</span></li>; })}</ul>
       </div></section>
@@ -93,6 +94,7 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
       </div></section>
 
       <section className="ep-section ep-modality-reassurance"><div className="ep-container ep-modality-reassurance__grid">
+        {modality.slug === "bagagem-acompanhada" ? <img className="ep-modality-cutout ep-modality-cutout--operation" src="/embarpet-bagagem-operacao-cutout.png" alt="" aria-hidden="true" loading="lazy" /> : null}
         <div><p className="ep-eyebrow">O que muda com uma boa análise</p><h2 className="ep-title-lg">{storytelling.reassuranceTitle}</h2><p className="ep-copy">{storytelling.reassuranceCopy}</p><AnalysisButton onClick={() => startAnalysis(modality.slug, path)}>Começar minha análise</AnalysisButton></div>
         <ol>{storytelling.reassurancePoints.map((point, index) => <li key={point}><span>0{index + 1}</span><p>{point}</p></li>)}</ol>
       </div></section>
@@ -120,7 +122,10 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
 
       <section className="ep-section ep-modality-faq"><div className="ep-container ep-modality-faq__grid"><div><p className="ep-eyebrow">Dúvidas sobre {modality.label.toLocaleLowerCase("pt-BR")}</p><h2 className="ep-title-lg">Respostas antes de <em>decidir.</em></h2></div><div>{modality.faqs.map((faq) => <details key={faq.question}><summary>{faq.question}<ChevronRight aria-hidden="true" /></summary><p>{faq.answer}</p></details>)}</div></div></section>
 
-      <section className="ep-modality-final"><div className="ep-container ep-modality-final__inner"><p className="ep-eyebrow">Próximo passo</p><h2 className="ep-title-lg">Conte a sua rota. A análise começa <em>pelo contexto.</em></h2><p className="ep-copy">Em poucos passos, reunimos as informações que ajudam a avaliar esta e outras possibilidades para a viagem do seu pet.</p><div><AnalysisButton size="lg" onClick={() => startAnalysis(modality.slug, path)}>Começar minha análise</AnalysisButton></div></div></section>
+      <section className="ep-modality-final"><div className="ep-container ep-modality-final__inner">
+        {modality.slug === "bagagem-acompanhada" ? <img className="ep-modality-cutout ep-modality-cutout--passport" src="/embarpet-pet-passaporte-cutout.png" alt="" aria-hidden="true" loading="lazy" /> : null}
+        <div className="ep-modality-final__content"><p className="ep-eyebrow">Próximo passo</p><h2 className="ep-title-lg">Conte a sua rota. A análise começa <em>pelo contexto.</em></h2><p className="ep-copy">Em poucos passos, reunimos as informações que ajudam a avaliar esta e outras possibilidades para a viagem do seu pet.</p><div><AnalysisButton size="lg" onClick={() => startAnalysis(modality.slug, path)}>Começar minha análise</AnalysisButton></div></div>
+      </div></section>
     </main>
     <SiteFooter logoSrc="/logo-embarpet-dark.png" groups={[
       { title:"Planeje a viagem", links:[{ label:"Como funciona", href:"/#como-funciona" },{ label:"Modalidades", href:"/#modalidades" },{ label:"Destinos", href:"/#destinos" }] },
