@@ -193,12 +193,13 @@
 .ep-modality-page--bagagem-acompanhada .ep-modality-inline-cta { grid-column:1 / -1; margin-top:0; }
 
 .ep-modality-page--bagagem-acompanhada .ep-modality-decision { background:linear-gradient(125deg,#e6f8f5 0%,#f9fffe 61%,#ddf7f3 100%); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid { grid-template-columns:minmax(360px,.86fr) minmax(0,1.14fr); grid-template-rows:auto auto; gap:clamp(24px,3vw,44px) clamp(48px,7vw,118px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid { position:relative; grid-template-columns:minmax(360px,.86fr) minmax(0,1.14fr); grid-template-rows:auto auto; gap:clamp(26px,3vw,46px) clamp(52px,7vw,120px); min-height:clamp(570px,45vw,690px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid::before { position:absolute; z-index:0; bottom:-4%; left:-3%; width:min(40%,520px); height:72%; border-radius:var(--ep-radius-lg) var(--ep-radius-lg) 0 0; background:linear-gradient(160deg,rgba(0,202,215,.16),rgba(0,157,172,.03)); content:""; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid > div { grid-column:2; grid-row:1; max-width:560px; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid ul { grid-column:2; grid-row:2; grid-template-columns:repeat(3,minmax(0,1fr)); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid .ep-title-lg { max-width:12ch; font-size:clamp(38px,3.65vw,58px); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid li { min-height:132px; padding:20px; font-size:15px; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-cutout--family { display:block; grid-column:1; grid-row:1 / span 2; align-self:end; width:min(118%,580px); max-height:610px; margin:0 0 -8% -11%; object-fit:contain; object-position:center bottom; filter:drop-shadow(0 20px 26px rgba(5,67,74,.13)); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid li { min-height:138px; padding:20px 18px; font-size:15px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-cutout--family { z-index:1; display:block; grid-column:1; grid-row:1 / span 2; align-self:end; width:min(120%,600px); max-height:640px; margin:0 0 -10% -12%; object-fit:contain; object-position:center bottom; filter:drop-shadow(0 24px 30px rgba(5,67,74,.14)); }
 
 .ep-modality-page--bagagem-acompanhada .ep-modality-benefits { padding-block:clamp(80px,8vw,126px); background:var(--ep-page); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-benefits__grid > div { max-width:760px; }
@@ -208,12 +209,12 @@
 .ep-modality-page--bagagem-acompanhada .ep-modality-benefits__grid li svg { width:28px; height:28px; }
 
 .ep-modality-page--bagagem-acompanhada .ep-modality-reassurance { padding-block:clamp(84px,8.5vw,132px); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid { grid-template-columns:minmax(280px,.72fr) minmax(280px,.82fr) minmax(320px,1.02fr); gap:clamp(28px,4vw,64px); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid > div { grid-column:2; order:initial; max-width:480px; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid ol { grid-column:3; order:initial; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid { grid-template-columns:minmax(360px,.88fr) minmax(360px,1.12fr); grid-template-rows:auto minmax(190px,1fr); align-items:start; gap:clamp(24px,3vw,44px) clamp(60px,8vw,132px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid > div { grid-column:1; grid-row:1; order:initial; max-width:510px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid ol { grid-column:2; grid-row:1 / span 2; order:initial; align-self:center; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid .ep-title-lg { max-width:11ch; font-size:clamp(38px,3.7vw,59px); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid li { min-height:94px; padding:19px 20px; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-cutout--operation { display:block; grid-column:1; align-self:end; width:clamp(300px,28vw,460px); max-height:520px; margin:0 0 -12% -14%; object-fit:contain; object-position:center bottom; filter:drop-shadow(0 20px 28px rgba(0,0,0,.22)); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid li { min-height:102px; padding:20px 22px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-cutout--operation { display:block; grid-column:1; grid-row:2; align-self:end; width:clamp(330px,31vw,530px); max-height:500px; margin:0 0 -16% -13%; object-fit:contain; object-position:center bottom; filter:drop-shadow(0 24px 32px rgba(0,0,0,.24)); }
 
 .ep-modality-page--bagagem-acompanhada .ep-modality-proof { background:linear-gradient(135deg,#f7fffe 0%,#ebf9f7 100%); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-proof__grid { grid-template-columns:minmax(360px,.96fr) minmax(0,1.04fr); gap:clamp(44px,7vw,110px); }
@@ -242,7 +243,7 @@
 .ep-modality-page--bagagem-acompanhada .ep-modality-final__content { justify-items:start; max-width:600px; text-align:left; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-final__content > div { justify-content:flex-start; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-final .ep-title-lg { max-width:14ch; font-size:clamp(42px,4.4vw,70px); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-cutout--passport { display:block; position:absolute; z-index:0; right:-5%; bottom:-18%; width:clamp(310px,31vw,520px); max-height:570px; object-fit:contain; object-position:right bottom; filter:drop-shadow(0 28px 30px rgba(0,0,0,.24)); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-cutout--passport { display:block; position:absolute; z-index:0; right:-3%; bottom:-20%; width:clamp(340px,34vw,570px); max-height:610px; object-fit:contain; object-position:right bottom; filter:drop-shadow(0 28px 30px rgba(0,0,0,.24)); }
 
 .ep-modality-page--compartimento-de-cargas .ep-modality-visual-plan__grid { grid-template-columns:.86fr 1.14fr; }
 .ep-modality-page--compartimento-de-cargas .ep-modality-decision { background:linear-gradient(140deg,#03434a,#006f79); color:var(--ep-paper); }
@@ -274,6 +275,8 @@
   .ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-container { grid-template-columns:1fr; }
   .ep-modality-page--bagagem-acompanhada .ep-modality-steps { grid-column:auto; }
   .ep-modality-page--bagagem-acompanhada .ep-modality-introduction__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-visual-plan__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-proof__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-authority__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-faq__grid { grid-template-columns:1fr; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid { min-height:0; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid::before { display:none; }
   .ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid > div,.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid ul { grid-column:auto; grid-row:auto; }
   .ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid > div,.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid ol,.ep-modality-page--bagagem-acompanhada .ep-modality-proof__grid > img,.ep-modality-page--bagagem-acompanhada .ep-modality-proof__grid > div,.ep-modality-page--bagagem-acompanhada .ep-modality-authority figure,.ep-modality-page--bagagem-acompanhada .ep-modality-authority__grid > div { order:initial; }
   .ep-modality-page--bagagem-acompanhada .ep-modality-cutout--family { grid-column:auto; grid-row:auto; width:min(90%,480px); max-height:460px; margin:0 auto -10%; }
