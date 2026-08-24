@@ -57,6 +57,8 @@
 .ep-modality-inline-cta { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-top:var(--ep-space-4); padding:18px 20px; border:1px solid rgba(0,157,172,.25); border-radius:var(--ep-radius-md); background:linear-gradient(100deg,rgba(232,249,247,.88),var(--ep-paper)); box-shadow:0 14px 28px rgba(5,67,74,.045); }
 .ep-modality-inline-cta > span { color:var(--ep-teal); font-size:15px; font-weight:700; }
 .ep-modality-decision { background:var(--ep-soft); }
+.ep-modality-decision__grid > div { grid-column:2; }
+.ep-modality-decision__grid ul { grid-column:1; grid-row:1; }
 .ep-modality-decision__grid > div { display:grid; gap:var(--ep-stack-title-copy); justify-items:start; }
 .ep-modality-decision__grid .ep-title-lg,.ep-modality-decision__grid .ep-copy { margin:0; }
 .ep-modality-decision__grid ul { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:0; padding:0; list-style:none; }
@@ -64,13 +66,16 @@
 .ep-modality-decision__grid li:hover { border-color:rgba(0,157,172,.46); background:var(--ep-paper); transform:translateY(-3px); }
 .ep-modality-decision__grid li svg { width:22px; height:22px; color:var(--ep-turq-deep); }
 .ep-modality-benefits { background:var(--ep-page); }
-.ep-modality-benefits__grid > div { display:grid; justify-items:start; gap:var(--ep-stack-title-copy); }
+.ep-modality-benefits__grid { grid-template-columns:1fr; justify-items:center; text-align:center; }
+.ep-modality-benefits__grid > div { display:grid; justify-items:center; gap:var(--ep-stack-title-copy); max-width:700px; }
 .ep-modality-benefits__grid .ep-title-lg,.ep-modality-benefits__grid .ep-copy { margin:0; }
 .ep-modality-benefits__grid ul { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:0; padding:0; list-style:none; }
 .ep-modality-benefits__grid li { display:grid; align-content:start; gap:14px; min-height:158px; padding:18px; border:1px solid var(--ep-line); border-radius:var(--ep-radius-sm); background:linear-gradient(145deg,var(--ep-soft),rgba(232,249,247,.92)); color:var(--ep-teal); font-size:14px; font-weight:700; line-height:1.35; transition:background .25s ease,border-color .25s ease,transform .25s ease,box-shadow .25s ease; }
 .ep-modality-benefits__grid li:hover { border-color:rgba(0,157,172,.45); background:#e5f9f7; box-shadow:0 12px 24px rgba(5,67,74,.06); transform:translateY(-3px); }
 .ep-modality-benefits__grid li svg { width:22px; height:22px; color:var(--ep-turq-deep); }
 .ep-modality-reassurance { background:var(--ep-teal); color:var(--ep-paper); }
+.ep-modality-reassurance__grid > div { order:2; }
+.ep-modality-reassurance__grid ol { order:1; }
 .ep-modality-reassurance .ep-eyebrow { border-color:rgba(255,255,255,.26); background:rgba(255,255,255,.1); color:var(--ep-paper); }
 .ep-modality-reassurance .ep-copy { color:#c5e5e2; }
 .ep-modality-reassurance__grid ol { display:grid; gap:10px; margin:0; padding:0; list-style:none; }
@@ -79,6 +84,8 @@
 .ep-modality-reassurance__grid li > span { color:var(--ep-turq); font-size:13px; font-weight:800; }
 .ep-modality-reassurance__grid li p { margin:0; color:var(--ep-paper); font-size:15px; font-weight:700; line-height:1.35; }
 .ep-modality-proof { background:var(--ep-page); }
+.ep-modality-proof__grid > img { order:2; }
+.ep-modality-proof__grid > div { order:1; }
 .ep-modality-proof__grid > img { width:100%; height:440px; object-fit:cover; border-radius:var(--ep-radius-lg); }
 .ep-modality-proof__grid > div { display:grid; justify-items:start; gap:var(--ep-stack-title-copy); }
 .ep-modality-proof__grid .ep-title-lg,.ep-modality-proof__grid .ep-copy { margin:0; }
@@ -98,7 +105,7 @@
 .ep-modality-authority__members { display:grid!important; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:7px!important; }
 .ep-modality-authority__members img { width:100%; max-width:46px; max-height:27px; object-fit:contain; object-position:left center; }
 .ep-modality-authority__members span { grid-column:1 / -1; margin-top:2px; }
-.ep-modality-authority figure { position:relative; min-height:390px; margin:0; overflow:hidden; border-radius:var(--ep-radius-lg); background:var(--ep-teal); }
+.ep-modality-authority figure { position:relative; order:-1; min-height:390px; margin:0; overflow:hidden; border-radius:var(--ep-radius-lg); background:var(--ep-teal); }
 .ep-modality-authority figure::after { position:absolute; inset:auto 0 0; height:34%; background:linear-gradient(transparent,rgba(4,67,74,.78)); content:""; pointer-events:none; }
 .ep-modality-authority figure img { width:100%; height:100%; position:absolute; inset:0; object-fit:cover; }
 .ep-modality-authority figcaption { position:absolute; z-index:1; right:18px; bottom:18px; left:18px; color:var(--ep-paper); font-size:12px; font-weight:800; }
@@ -143,7 +150,6 @@
 .ep-modality-page--viagem-na-cabine .ep-modality-benefits__grid > div { max-width:620px; }
 .ep-modality-page--viagem-na-cabine .ep-modality-benefits__grid ul { grid-template-columns:repeat(3,minmax(0,1fr)); }
 .ep-modality-page--viagem-na-cabine .ep-modality-benefits__grid li { min-height:136px; align-items:flex-start; }
-.ep-modality-page--viagem-na-cabine .ep-modality-proof__grid > img { order:2; }
 
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content { order:2; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__visual { order:1; }
@@ -152,7 +158,6 @@
 .ep-modality-page--bagagem-acompanhada .ep-modality-steps { grid-column:2; grid-template-columns:repeat(2,minmax(0,1fr)); max-width:none; margin:0; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-steps li { min-height:176px; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-inline-cta { grid-column:1 / -1; margin-top:0; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-authority figure { order:-1; }
 
 .ep-modality-page--compartimento-de-cargas .ep-modality-visual-plan__grid { grid-template-columns:.86fr 1.14fr; }
 .ep-modality-page--compartimento-de-cargas .ep-modality-decision { background:linear-gradient(140deg,#03434a,#006f79); color:var(--ep-paper); }
@@ -172,7 +177,6 @@
 .ep-modality-page--suporte-emocional .ep-modality-reassurance__grid li { border-color:rgba(0,157,172,.22); background:rgba(255,255,255,.66); }
 .ep-modality-page--suporte-emocional .ep-modality-reassurance__grid li p { color:var(--ep-teal); }
 .ep-modality-page--suporte-emocional .ep-modality-reassurance__grid li > span { color:var(--ep-turq-deep); }
-.ep-modality-page--suporte-emocional .ep-modality-authority__grid > div { order:2; }
 
 @media (max-width:900px) {
   .ep-modality-hero__grid,.ep-modality-introduction__grid,.ep-modality-pain__grid,.ep-modality-visual-plan__grid,.ep-modality-decision__grid,.ep-modality-benefits__grid,.ep-modality-reassurance__grid,.ep-modality-proof__grid,.ep-modality-authority__grid,.ep-modality-faq__grid { grid-template-columns:1fr; }
@@ -180,7 +184,8 @@
   .ep-modality-steps { grid-template-columns:1fr 1fr; }
   .ep-modality-steps li:nth-child(3) { border-left:1px solid var(--ep-line); }
   .ep-modality-page--viagem-na-cabine .ep-modality-benefits__grid ul { grid-template-columns:1fr; }
-  .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content,.ep-modality-page--bagagem-acompanhada .ep-modality-hero__visual,.ep-modality-page--bagagem-acompanhada .ep-modality-authority figure,.ep-modality-page--suporte-emocional .ep-modality-authority__grid > div,.ep-modality-page--viagem-na-cabine .ep-modality-proof__grid > img { order:initial; }
+  .ep-modality-decision__grid > div,.ep-modality-decision__grid ul,.ep-modality-reassurance__grid > div,.ep-modality-reassurance__grid ol,.ep-modality-proof__grid > img,.ep-modality-proof__grid > div,.ep-modality-authority figure { grid-column:auto; grid-row:auto; order:initial; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content,.ep-modality-page--bagagem-acompanhada .ep-modality-hero__visual { order:initial; }
   .ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-container { grid-template-columns:1fr; }
   .ep-modality-page--bagagem-acompanhada .ep-modality-steps { grid-column:auto; }
   .ep-modality-visual-plan__proof,.ep-modality-decision__grid ul,.ep-modality-benefits__grid ul,.ep-modality-proof__links { grid-template-columns:1fr; }
