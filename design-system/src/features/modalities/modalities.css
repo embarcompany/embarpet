@@ -154,11 +154,87 @@
 
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content { order:2; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__visual { order:1; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-hero { padding-block:clamp(74px,8.5vw,132px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-hero__grid { align-items:center; gap:clamp(42px,6vw,96px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-hero__content { max-width:620px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-hero__content .ep-title-xl { max-width:10ch; font-size:clamp(48px,5.05vw,82px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-hero__content .ep-copy { max-width:50ch; font-size:clamp(17px,1.38vw,20px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-hero__visual { min-height:clamp(470px,43vw,640px); box-shadow:0 26px 54px rgba(5,67,74,.14); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-hero__visual li { min-height:58px; padding:12px; font-size:12px; }
+
+/* Bagagem acompanhada: a sequência alterna prova, decisão e orientação para
+   evitar a repetição de duas colunas com a mesma leitura em toda a LP. */
+.ep-modality-page--bagagem-acompanhada .ep-modality-introduction { padding-block:clamp(74px,8vw,116px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-introduction__grid { grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:clamp(46px,7vw,116px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-introduction__grid .ep-title-lg { max-width:13ch; font-size:clamp(36px,3.65vw,58px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-introduction__grid .ep-copy { align-self:center; padding:28px 30px; }
+
+.ep-modality-page--bagagem-acompanhada .ep-modality-visual-plan { background:linear-gradient(180deg,var(--ep-page) 0%,#f2fbfa 100%); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-visual-plan__grid { grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr); align-items:stretch; gap:clamp(38px,5vw,78px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-human-mosaic { min-height:clamp(440px,39vw,560px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-human-mosaic figure:first-child { grid-row:1 / -1; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-visual-plan__grid > div { align-content:center; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-visual-plan__grid .ep-title-lg { max-width:12ch; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-visual-plan__proof { grid-template-columns:1fr; gap:8px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-visual-plan__proof li { grid-template-columns:24px 1fr; align-items:center; min-height:74px; padding:14px 16px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-visual-plan__proof svg { width:18px; }
+
 .ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-container { display:grid; grid-template-columns:minmax(250px,.72fr) minmax(0,1.28fr); column-gap:var(--ep-layout-gap); row-gap:var(--ep-space-4); align-items:start; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-modality-section-heading { padding-top:0; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-process { background:linear-gradient(135deg,#f4fcfb 0%,var(--ep-page) 58%,#edf9f8 100%); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-container { padding:clamp(26px,3vw,42px); border:1px solid rgba(0,157,172,.16); border-radius:var(--ep-radius-lg); background:rgba(255,255,255,.66); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-modality-section-heading { padding-top:6px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-modality-section-heading .ep-title-lg { max-width:11ch; font-size:clamp(38px,3.45vw,56px); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-steps { grid-column:2; grid-template-columns:repeat(2,minmax(0,1fr)); max-width:none; margin:0; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-steps li { min-height:176px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-steps li { min-height:192px; padding:22px; background:rgba(255,255,255,.9); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-steps li > span { margin-bottom:16px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-steps h3 { font-size:20px; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-inline-cta { grid-column:1 / -1; margin-top:0; }
+
+.ep-modality-page--bagagem-acompanhada .ep-modality-decision { background:linear-gradient(125deg,#e6f8f5 0%,#f9fffe 61%,#ddf7f3 100%); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid { grid-template-columns:minmax(0,1fr) minmax(360px,.92fr); gap:clamp(42px,7vw,112px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid > div { grid-column:1; grid-row:1; max-width:560px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid ul { grid-column:2; grid-row:1; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid .ep-title-lg { max-width:12ch; font-size:clamp(38px,3.65vw,58px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid li { min-height:104px; padding:20px; font-size:16px; }
+
+.ep-modality-page--bagagem-acompanhada .ep-modality-benefits { padding-block:clamp(80px,8vw,126px); background:var(--ep-page); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-benefits__grid > div { max-width:760px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-benefits__grid .ep-title-lg { max-width:13ch; font-size:clamp(38px,3.7vw,58px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-benefits__grid ul { width:min(100%,1000px); margin-top:clamp(12px,2vw,28px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-benefits__grid li { min-height:186px; padding:24px; text-align:left; font-size:16px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-benefits__grid li svg { width:28px; height:28px; }
+
+.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance { padding-block:clamp(84px,8.5vw,132px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid { grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:clamp(46px,7vw,108px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid > div { order:1; max-width:560px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid ol { order:2; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid .ep-title-lg { max-width:11ch; font-size:clamp(38px,3.7vw,59px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid li { min-height:94px; padding:19px 20px; }
+
+.ep-modality-page--bagagem-acompanhada .ep-modality-proof { background:linear-gradient(135deg,#f7fffe 0%,#ebf9f7 100%); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-proof__grid { grid-template-columns:minmax(360px,.96fr) minmax(0,1.04fr); gap:clamp(44px,7vw,110px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-proof__grid > img { order:1; height:clamp(440px,40vw,570px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-proof__grid > div { order:2; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-proof__grid .ep-title-lg { max-width:12ch; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-proof__links { grid-template-columns:1fr; gap:8px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-proof__links span { grid-template-columns:24px 1fr; align-items:center; min-height:72px; padding:14px 16px; }
+
+.ep-modality-page--bagagem-acompanhada .ep-modality-authority { background:var(--ep-page); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-authority__grid { grid-template-columns:minmax(0,.92fr) minmax(390px,1.08fr); gap:clamp(42px,7vw,110px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-authority figure { order:2; min-height:450px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-authority__grid > div { order:1; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-authority .ep-title-lg { max-width:12ch; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-authority__metrics > div { min-height:104px; padding:18px; }
+
+.ep-modality-page--bagagem-acompanhada .ep-modality-cases { padding-block:clamp(76px,8vw,122px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-cases__heading { max-width:800px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-cases__heading .ep-title-lg { max-width:14ch; font-size:clamp(38px,3.8vw,60px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-faq { padding-block:clamp(80px,8vw,122px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-faq__grid { grid-template-columns:minmax(0,.76fr) minmax(420px,1.24fr); gap:clamp(42px,7vw,110px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-faq .ep-title-lg { max-width:10ch; font-size:clamp(38px,3.8vw,60px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-faq summary { min-height:86px; padding:0 22px; font-size:17px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-final { padding-block:clamp(100px,10vw,154px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-final .ep-title-lg { max-width:14ch; font-size:clamp(42px,4.4vw,70px); }
 
 .ep-modality-page--compartimento-de-cargas .ep-modality-visual-plan__grid { grid-template-columns:.86fr 1.14fr; }
 .ep-modality-page--compartimento-de-cargas .ep-modality-decision { background:linear-gradient(140deg,#03434a,#006f79); color:var(--ep-paper); }
@@ -189,6 +265,9 @@
   .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content,.ep-modality-page--bagagem-acompanhada .ep-modality-hero__visual { order:initial; }
   .ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-container { grid-template-columns:1fr; }
   .ep-modality-page--bagagem-acompanhada .ep-modality-steps { grid-column:auto; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-introduction__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-visual-plan__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-proof__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-authority__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-faq__grid { grid-template-columns:1fr; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid > div,.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid ul { grid-column:auto; grid-row:auto; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid > div,.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid ol,.ep-modality-page--bagagem-acompanhada .ep-modality-proof__grid > img,.ep-modality-page--bagagem-acompanhada .ep-modality-proof__grid > div,.ep-modality-page--bagagem-acompanhada .ep-modality-authority figure,.ep-modality-page--bagagem-acompanhada .ep-modality-authority__grid > div { order:initial; }
   .ep-modality-visual-plan__proof,.ep-modality-benefits__grid ul,.ep-modality-proof__links { grid-template-columns:1fr; }
   .ep-modality-page--compartimento-de-cargas .ep-modality-visual-plan__grid,.ep-modality-page--compartimento-de-cargas .ep-modality-proof__grid { grid-template-columns:1fr; }
 }
@@ -201,6 +280,9 @@
   .ep-modality-hero__visual ul { grid-template-columns:1fr; right:20px; bottom:20px; left:20px; gap:6px; }
   .ep-modality-steps { grid-template-columns:1fr; }
   .ep-modality-page--bagagem-acompanhada .ep-modality-steps { grid-template-columns:1fr; margin-left:0; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-container { padding:20px; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-hero__visual { min-height:400px; }
+  .ep-modality-page--bagagem-acompanhada .ep-modality-visual-plan__proof,.ep-modality-page--bagagem-acompanhada .ep-modality-benefits__grid ul { width:100%; }
   .ep-modality-steps li,.ep-modality-steps li:nth-child(3) { min-height:154px; border-left:1px solid var(--ep-line); }
   .ep-modality-steps li > span { margin-bottom:26px; }
   .ep-modality-proof__grid > img { height:320px; }
