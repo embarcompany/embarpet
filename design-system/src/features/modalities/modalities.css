@@ -44,8 +44,9 @@
 .ep-modality-visual-plan__proof li { display:grid; align-content:start; gap:10px; min-height:118px; padding:16px; border:1px solid var(--ep-line); border-radius:var(--ep-radius-sm); background:var(--ep-paper); color:var(--ep-teal); font-size:13px; font-weight:750; line-height:1.35; transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease; }
 .ep-modality-visual-plan__proof li:hover { border-color:rgba(0,157,172,.46); box-shadow:0 12px 24px rgba(5,67,74,.07); transform:translateY(-3px); }
 .ep-modality-visual-plan__proof svg { width:20px; flex:0 0 auto; color:var(--ep-turq-deep); }
-.ep-modality-section-heading { display:grid; gap:var(--ep-stack-title-copy); max-width:720px; }
-.ep-modality-section-heading .ep-title-lg { max-width:16ch; }
+.ep-modality-section-heading { display:grid; justify-items:start; align-content:start; gap:var(--ep-stack-title-copy); max-width:720px; }
+.ep-modality-section-heading .ep-eyebrow { width:auto; }
+.ep-modality-section-heading .ep-title-lg { max-width:18ch; margin:0; }
 .ep-modality-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:var(--ep-space-5) 0 0; padding:0; list-style:none; }
 .ep-modality-steps li { position:relative; min-height:220px; padding:24px; border:1px solid var(--ep-line); border-radius:var(--ep-radius-sm); background:var(--ep-page); transition:border-color .25s ease,transform .25s ease,background .25s ease; }
 .ep-modality-steps li:hover { border-color:rgba(0,157,172,.5); background:var(--ep-soft); transform:translateY(-4px); }
@@ -154,7 +155,7 @@
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content { order:2; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__visual { order:1; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-container { display:grid; grid-template-columns:minmax(250px,.72fr) minmax(0,1.28fr); column-gap:var(--ep-layout-gap); row-gap:var(--ep-space-4); align-items:start; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-modality-section-heading { padding-top:10px; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-modality-section-heading { padding-top:0; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-steps { grid-column:2; grid-template-columns:repeat(2,minmax(0,1fr)); max-width:none; margin:0; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-steps li { min-height:176px; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-inline-cta { grid-column:1 / -1; margin-top:0; }
