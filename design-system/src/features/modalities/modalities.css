@@ -154,7 +154,7 @@
 
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content { order:2; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__visual { order:1; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-hero { padding-block:clamp(74px,8.5vw,132px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-hero { padding-block:clamp(30px,3.5vw,52px) clamp(82px,8vw,122px); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__grid { align-items:center; gap:clamp(42px,6vw,96px); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content { max-width:620px; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content .ep-title-xl { max-width:10ch; font-size:clamp(48px,5.05vw,82px); }
