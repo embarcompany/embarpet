@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, FileText, HeartHandshake, Package, Plane, Route, ShieldCheck, Star } from "lucide-react";
+import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, FileText, HeartHandshake, Package, Route, ShieldCheck, Star } from "lucide-react";
 import { SiteHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisButton } from "../../components/ui/buttons";
@@ -34,22 +34,7 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
   useEffect(() => setPageMetadata({ title: modality.seo.title, description: modality.seo.description, canonicalPath: `/modalidades/${modality.slug}` }), [modality]);
 
   return <>
-    <SiteHeader logoSrc="/logo-embarpet-dark.png" activeLabel={text.navModalities} cta={{ label:text.analyze, href:path("/viajar") }} items={[
-      { label:text.navHow, href:path("/#como-funciona") },
-      { label:text.navModalities, href:path("/#modalidades"), children:[
-        { label:"Viagem na cabine", href:path("/modalidades/viagem-na-cabine"), description:"Com o tutor na cabine, quando perfil e rota permitem.", icon:Plane },
-        { label:"Bagagem acompanhada", href:path("/modalidades/bagagem-acompanhada"), description:"No mesmo voo do tutor, em compartimento apropriado.", icon:Package },
-        { label:"Compartimento de cargas", href:path("/modalidades/compartimento-de-cargas"), description:"Operação dedicada para diferentes portes e rotas.", icon:Route },
-        { label:"Suporte emocional", href:path("/modalidades/suporte-emocional"), description:"Orientação para casos sujeitos a critérios específicos.", icon:HeartHandshake },
-      ] },
-      { label:text.navServices, href:path("/#servicos") },
-      { label:text.navDestinations, href:path("/#destinos"), children:[
-        { label:"Estados Unidos", href:path("/#destinos"), description:"Planejamento da rota Brasil–EUA.", icon:Route },
-        { label:"União Europeia", href:path("/#destinos"), description:"Cada país pede leitura própria.", icon:Route },
-        { label:"Mercosul", href:path("/#destinos"), description:"Planejamento regional com atenção ao caso.", icon:Route },
-      ] },
-      { label:text.navContent, href:path("/#faq") },
-    ]} />
+    <SiteHeader logoSrc="/logo-embarpet-dark.png" activeLabel={text.navModalities} />
     <main className={`ep-modality-page ep-modality-page--${modality.slug}`}>
       <section className="ep-modality-hero">
         <div className="ep-container ep-modality-hero__grid">

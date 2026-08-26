@@ -5,7 +5,7 @@ import { Button, Notice, SectionHeading } from "../../design-system/primitives";
 import { InternationalTransfer, type Region } from "../../components/ui/country-accordion";
 import { ScrollFlyIn } from "../../components/ui/hero-section-3";
 import { FAQItem } from "../../components/ui/system";
-import { ArrowRight, ClipboardCheck, Crown, FileText, Globe2, Headset, HeartHandshake, MapPin, Package, Pause, Plane, Play, Route, ShieldCheck, Volume2, VolumeX, X } from "lucide-react";
+import { ArrowRight, ClipboardCheck, Crown, FileText, Globe2, Headset, HeartHandshake, MapPin, Pause, Play, ShieldCheck, Volume2, VolumeX, X } from "lucide-react";
 import { SiteHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { WhatsAppFloat, type LeadContext } from "../../components/ui/whatsapp-float";
@@ -238,22 +238,7 @@ export default function EmbarpetHome() {
   };
   const leadContext: LeadContext = { source:"home", page:"/", origin:route.origin, destination:route.destination, period:route.period };
 
-  return <>{analysisOpen ? <div className="ep-analysis-modal" role="dialog" aria-modal="true" aria-label={text.startAnalysis}><button className="ep-analysis-modal__backdrop" type="button" onClick={closeAnalysis} aria-label={text.close} /><section className="ep-analysis-modal__panel"><button className="ep-analysis-modal__close" type="button" onClick={closeAnalysis} aria-label={text.close}><X size={21} /></button><div className="ep-analysis-modal__content"><DiagnosticFlow routeFirst startAtPet={Boolean(analysisRoute.origin && analysisRoute.destination && analysisRoute.period)} initialRoute={analysisRoute} analyticsSource="index_modal" /></div></section></div> : null}<SiteHeader overlay logoSrc="/logo-embarpet-dark.png" items={[
-    { label:text.navHow, href:"#como-funciona" },
-    { label:text.navModalities, href:"#modalidades", children:[
-      { label:"Viagem na cabine", href:"#modalidades", description:"Com o tutor na cabine, quando perfil e rota permitem.", icon:Plane },
-      { label:"Bagagem acompanhada", href:"#modalidades", description:"No mesmo voo do tutor, em compartimento apropriado.", icon:Package },
-      { label:"Compartimento de cargas", href:"#modalidades", description:"Operação dedicada e flexível para diferentes portes e rotas.", icon:Route },
-      { label:"Suporte emocional", href:"#modalidades", description:"Orientação para casos sujeitos a critérios específicos.", icon:HeartHandshake },
-    ] },
-    { label:text.navServices, href:"#servicos" },
-    { label:text.navDestinations, href:"#destinos", children:[
-      { label:"Estados Unidos", href:"#destinos", description:"Planejamento da rota Brasil–EUA.", icon:Route },
-      { label:"União Europeia", href:"#destinos", description:"Cada país pede leitura própria.", icon:Route },
-      { label:"Mercosul", href:"#destinos", description:"Planejamento regional com atenção ao caso.", icon:Route },
-    ] },
-    { label:text.navContent, href:"#faq" },
-  ]} /><main>
+  return <>{analysisOpen ? <div className="ep-analysis-modal" role="dialog" aria-modal="true" aria-label={text.startAnalysis}><button className="ep-analysis-modal__backdrop" type="button" onClick={closeAnalysis} aria-label={text.close} /><section className="ep-analysis-modal__panel"><button className="ep-analysis-modal__close" type="button" onClick={closeAnalysis} aria-label={text.close}><X size={21} /></button><div className="ep-analysis-modal__content"><DiagnosticFlow routeFirst startAtPet={Boolean(analysisRoute.origin && analysisRoute.destination && analysisRoute.period)} initialRoute={analysisRoute} analyticsSource="index_modal" /></div></section></div> : null}<SiteHeader overlay logoSrc="/logo-embarpet-dark.png" /><main>
     <ConversionHero aside={<aside className="ep-hero-showcase" aria-label="Embarpet em operação"><img className="ep-hero-showcase__pet" src="/embarpet-hero-pets-air-travel.webp" alt="Cachorro, gato, coelho, hamster e ave em uma composição sobre viagem internacional de pets" /><section className="ep-hero-showcase__vsl"><div className="ep-hero-showcase__video">{heroVideoFullLoaded ? <><video ref={heroVideoRef} src="/embarpet-hero-vsl.mp4" poster="/embarpet-hero-vsl-poster.jpg" aria-label="Acompanhamento Embarpet em contexto de viagem" autoPlay playsInline preload="auto" onPause={() => setHeroVideoPaused(true)} onPlay={() => setHeroVideoPaused(false)} /><button type="button" aria-label={heroVideoPaused ? "Reproduzir vídeo" : "Pausar vídeo"} className="ep-hero-video__sound is-playing" onClick={() => { if (heroVideoRef.current?.paused) void heroVideoRef.current.play(); else heroVideoRef.current?.pause(); }}>{heroVideoPaused ? <Play size={14} /> : <Pause size={14} />}</button></> : <button type="button" className="ep-hero-showcase__poster" aria-label="Reproduzir vídeo sobre a Embarpet" onClick={() => { setHeroVideoFullLoaded(true); setHeroVideoPaused(false); }}><img src="/embarpet-hero-vsl-poster.jpg" alt="Thamires Félix apresentando a operação da Embarpet" fetchPriority="high" decoding="async" /><span><Play size={18} fill="currentColor" /></span></button>}</div></section></aside>}>
       <div className="ep-hero-proof" aria-label="Mais de dois mil embarques realizados e avaliação 4,9 no Google"><div className="ep-hero-proof__metric"><span className="ep-team-avatars" aria-hidden="true"><i /><i /><i /><i /></span><strong>+2.000</strong><small>embarques<br />realizados</small></div><div className="ep-hero-proof__metric"><img src="/logo-google.svg" alt="Google" /><strong>4,9</strong><small>avaliação<br />no Google</small></div></div>
       <h1 className="ep-title-xl">{text.heroTitleBefore}<span className="ep-hero-highlight">{text.heroTitleHighlight}</span><span className="ep-hero-flags" aria-hidden="true">{["BR", "US", "PT", "ES", "IT"].map((code) => <img key={code} src={countryFlagSvg(code)} alt="" />)}</span></h1>
