@@ -45,6 +45,36 @@ function VisualStory({ visual, items }: { visual: { label: string; solutionTitle
     </div>
   </section>;
 }
+
+function BagagemDecisionMap({ path }: { path: (value: string) => string }) {
+  const cards = [
+    { icon: Route, title: "Tutor e pet no mesmo roteiro", copy: "A família segue no voo e a operação do pet precisa conversar com esse itinerário." },
+    { icon: Package, title: "Caixa validada antes da reserva", copy: "Medidas, ventilação e padrão aceito pela companhia entram na decisão." },
+    { icon: ShieldCheck, title: "Companhia e rota compatíveis", copy: "Nem toda rota aceita a mesma modalidade, conexão ou prazo operacional." },
+    { icon: ClipboardCheck, title: "Documentação dentro do tempo certo", copy: "O cronograma evita que exigências apareçam só perto do embarque." },
+  ];
+  return <section className="ep-section ep-modality-fit">
+    <div className="ep-container ep-modality-fit__grid">
+      <div className="ep-modality-fit__content">
+        <p className="ep-eyebrow">Mapa da decisão</p>
+        <h2 className="ep-title-lg">A modalidade certa nasce quando <em>rota, caixa e prazo</em> se encaixam.</h2>
+        <p className="ep-copy">Bagagem acompanhada pode ser uma excelente alternativa, mas ela não é decidida só pelo desejo de ir no mesmo voo. Primeiro, a gente entende o contexto para reduzir improviso no aeroporto.</p>
+        <AnalysisButton onClick={() => startAnalysis("bagagem-acompanhada", path)}>Ver se serve para minha rota</AnalysisButton>
+      </div>
+      <div className="ep-modality-fit__cards">
+        {cards.map((card) => {
+          const CardIcon = card.icon;
+          return <article key={card.title}>
+            <CardIcon aria-hidden="true" />
+            <h3>{card.title}</h3>
+            <p>{card.copy}</p>
+          </article>;
+        })}
+      </div>
+    </div>
+  </section>;
+}
+
 export function ModalityPage({ modality }: { modality: ModalityContent }) {
   const { path, text } = useLocale();
   const storytelling = modalityStorytelling[modality.slug];
@@ -73,6 +103,8 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
         <ScrollReveal className="ep-modality-introduction__heading"><p className="ep-eyebrow">Entenda esta modalidade</p><h2 className="ep-title-lg">{modality.whatTitle} <em>{modality.whatTitleHighlight}</em></h2></ScrollReveal>
         <ScrollReveal className="ep-modality-introduction__copy"><p className="ep-copy">{modality.whatCopy}</p></ScrollReveal>
       </div></section>
+
+      {modality.slug === "bagagem-acompanhada" ? <BagagemDecisionMap path={path} /> : null}
 
       <section className="ep-section ep-modality-pain"><div className="ep-container ep-modality-pain__grid">
         <div><p className="ep-eyebrow">Antes de decidir</p><h2 className="ep-title-lg">{storytelling.painTitle}</h2><p className="ep-copy">{storytelling.painCopy}</p></div>
