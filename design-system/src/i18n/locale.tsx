@@ -75,11 +75,13 @@ export function getLocaleFromPath(pathname: string): Locale {
 }
 
 export function localizePath(locale: Locale, path = "/") {
-  const [pathname, query = ""] = path.split("?");
+  const [pathWithQuery, hash = ""] = path.split("#");
+  const [pathname, query = ""] = pathWithQuery.split("?");
   const localePrefix = locales.filter((item) => item !== "pt-BR").join("|");
   const barePath = pathname.replace(new RegExp(`^/(${localePrefix})(?=/|$)`), "") || "/";
   const base = locale === "pt-BR" ? barePath : `/${locale}${barePath === "/" ? "/" : barePath}`;
-  return query ? `${base}?${query}` : base;
+  const destination = query ? `${base}?${query}` : base;
+  return hash ? `${destination}#${hash}` : destination;
 }
 
 export function LocaleProvider({ locale: initialLocale, children }: { locale: Locale; children: ReactNode }) {
