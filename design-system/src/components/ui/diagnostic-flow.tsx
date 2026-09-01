@@ -3,6 +3,7 @@
 import { useMemo, useRef, useState } from "react";
 import {
   ArrowLeft,
+  ArrowLeftRight,
   ArrowRight,
   AlertTriangle,
   Bird,
@@ -266,6 +267,17 @@ export function DiagnosticFlow({
     });
     onRouteChange?.(route);
     go(routeFirst ? 1 : 3);
+  };
+  const swapRoute = () => {
+    const nextOrigin = route.destination;
+    setRoute((current) => ({
+      ...current,
+      origin: current.destination,
+      destination: current.origin,
+      originCode: current.destinationCode,
+      destinationCode: current.originCode,
+    }));
+    setPhoneCountry(dialFromOrigin(nextOrigin));
   };
   const complete = () => {
     const lead: PublicLead = {
@@ -550,6 +562,17 @@ export function DiagnosticFlow({
                 }
                 counterpartCode={route.originCode}
               />
+              {route.origin && route.destination ? (
+                <button
+                  type="button"
+                  className="ep-route-inline__swap"
+                  onClick={swapRoute}
+                  aria-label="Inverter origem e destino"
+                  title="Inverter origem e destino"
+                >
+                  <ArrowLeftRight size={16} aria-hidden="true" />
+                </button>
+              ) : null}
             </div>
             <div className="ep-travel-timing">
               <div className="ep-field">
