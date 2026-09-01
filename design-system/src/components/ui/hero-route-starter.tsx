@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MapPin, PlaneTakeoff } from "lucide-react";
+import { ArrowLeftRight, MapPin, PlaneTakeoff } from "lucide-react";
 import { resolveCountryCode, useCountrySuggestions } from "../../hooks/use-country-suggestions";
 import { useLocale } from "../../i18n/locale";
 import { countryFlagSvg } from "../../lib/country-flag";
@@ -28,6 +28,16 @@ export function HeroRouteStarter() {
       if (next[otherCodeField] === "BR") return { ...next, [otherField]: "", [otherCodeField]: undefined };
       return next;
     });
+    setActiveField(null);
+  };
+  const swapRoute = () => {
+    setRoute((current) => ({
+      ...current,
+      origin: current.destination,
+      destination: current.origin,
+      originCode: current.destinationCode,
+      destinationCode: current.originCode,
+    }));
     setActiveField(null);
   };
 
@@ -63,6 +73,17 @@ export function HeroRouteStarter() {
           counterpartCode={route.originCode}
           placeholder={text.cityPlaceholder}
         />
+        {route.origin && route.destination ? (
+          <button
+            type="button"
+            className="ep-hero-route-starter__swap"
+            onClick={swapRoute}
+            aria-label="Inverter origem e destino"
+            title="Inverter origem e destino"
+          >
+            <ArrowLeftRight aria-hidden="true" />
+          </button>
+        ) : null}
       </div>
       <button className="ep-hero-route-starter__submit is-ready" type="submit" aria-label={text.startAnalysis}><span>{text.startAnalysis}</span><img src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" /></button>
     </form>
