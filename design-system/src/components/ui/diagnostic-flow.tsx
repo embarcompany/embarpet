@@ -85,7 +85,7 @@ export function DiagnosticFlow({
   integrated?: boolean;
   analyticsSource?: string;
 }) {
-  const { path, text } = useLocale();
+  const { path, text, locale } = useLocale();
   // O pop-up móvel começa pela rota; o formulário da hero desktop preserva a ordem original.
   const [step, setStep] = useState<Step>(routeFirst && !startAtPet ? 2 : 1);
   const [firstKind, setFirstKind] = useState<PetKind | "">("");
@@ -99,8 +99,8 @@ export function DiagnosticFlow({
     origin: initialRoute?.origin ?? "",
     destination: initialRoute?.destination ?? "",
     period: initialRoute?.period ?? "",
-    originCode: initialRoute?.originCode,
-    destinationCode: initialRoute?.destinationCode,
+    originCode: initialRoute?.originCode ?? resolveCountryCode(initialRoute?.origin ?? "", locale),
+    destinationCode: initialRoute?.destinationCode ?? resolveCountryCode(initialRoute?.destination ?? "", locale),
   });
   const [pets, setPets] = useState<PetDetail[]>([]);
   const [activePetDetail, setActivePetDetail] = useState(0);
@@ -137,9 +137,21 @@ export function DiagnosticFlow({
       });
     setStep(next);
   };
+  const isBrazil = (name: string, code?: string) =>
+    (code ?? resolveCountryCode(name, locale)) === "BR";
+  const hasValidInternationalRoute = () => {
+    const originIsBrazil = isBrazil(route.origin, route.originCode);
+    const destinationIsBrazil = isBrazil(route.destination, route.destinationCode);
+    return Boolean(route.origin && route.destination) && originIsBrazil !== destinationIsBrazil;
+  };
   const setRouteField = (field: keyof RouteData, value: string) => {
     if (value.trim()) trackStart();
-    setRoute((current) => ({ ...current, [field]: value }));
+    setRoute((current) => ({
+      ...current,
+      [field]: value,
+      ...(field === "origin" ? { originCode: resolveCountryCode(value, locale) } : {}),
+      ...(field === "destination" ? { destinationCode: resolveCountryCode(value, locale) } : {}),
+    }));
     if (field === "origin") setPhoneCountry(dialFromOrigin(value));
   };
   const setRouteCountry = (
@@ -148,11 +160,27 @@ export function DiagnosticFlow({
     code?: string,
   ) => {
     if (name.trim()) trackStart();
-    setRoute((current) => ({
-      ...current,
-      [field]: name,
-      [field === "origin" ? "originCode" : "destinationCode"]: code,
-    }));
+    setRoute((current) => {
+      const selectedCode = code ?? resolveCountryCode(name, locale);
+      const selectedIsBrazil = isBrazil(name, selectedCode);
+      const counterpart = field === "origin" ? "destination" : "origin";
+      const counterpartCode = field === "origin" ? "destinationCode" : "originCode";
+      const next = {
+        ...current,
+        [field]: name,
+        [field === "origin" ? "originCode" : "destinationCode"]: selectedCode,
+      };
+
+      // Toda análise é internacional: Brasil ↔ outro país. Ao selecionar um
+      // país estrangeiro, o outro lado da rota vira Brasil automaticamente.
+      if (selectedCode && !selectedIsBrazil) {
+        return { ...next, [counterpart]: "Brasil", [counterpartCode]: "BR" };
+      }
+      if (selectedCode === "BR" && isBrazil(String(next[counterpart] ?? ""), String(next[counterpartCode] ?? "") || undefined)) {
+        return { ...next, [counterpart]: "", [counterpartCode]: undefined };
+      }
+      return next;
+    });
     if (field === "origin") setPhoneCountry(dialFromOrigin(name));
   };
   const updateKindCount = (kind: PetKind, count: number) =>
@@ -512,6 +540,7 @@ export function DiagnosticFlow({
                 onChange={(value, code) =>
                   setRouteCountry("origin", value, code)
                 }
+                counterpartCode={route.destinationCode}
               />
               <CityAirportField
                 label="Destino"
@@ -519,6 +548,7 @@ export function DiagnosticFlow({
                 onChange={(value, code) =>
                   setRouteCountry("destination", value, code)
                 }
+                counterpartCode={route.originCode}
               />
             </div>
             <div className="ep-travel-timing">
@@ -559,7 +589,7 @@ export function DiagnosticFlow({
             back={routeFirst ? undefined : () => go(1)}
             next={advanceRoute}
             nextLabel="Continuar"
-            disabled={!route.origin || !route.destination || !route.period}
+            disabled={!hasValidInternationalRoute() || !route.period}
           />
         </div>
       )}
@@ -922,14 +952,21 @@ function CityAirportField({
   label,
   value,
   onChange,
+  counterpartCode,
 }: {
   label: "Origem" | "Destino";
   value: string;
   onChange: (value: string, code?: string) => void;
+  counterpartCode?: string;
 }) {
   const [open, setOpen] = useState(false);
   const { locale, text } = useLocale();
-  const suggestions = useCountrySuggestions(value, open, locale);
+  const suggestions = useCountrySuggestions(value, open, locale).filter((suggestion) => {
+    if (!counterpartCode) return true;
+    // Se um lado é Brasil, o outro precisa ser internacional; se já há um
+    // país estrangeiro, a única contraparte válida é Brasil.
+    return counterpartCode === "BR" ? suggestion.code !== "BR" : suggestion.code === "BR";
+  });
   const canSuggest = value.trim().length >= 2;
   const chooseSuggestion = (suggestion: (typeof suggestions)[number]) => {
     onChange(suggestion.name, suggestion.code);

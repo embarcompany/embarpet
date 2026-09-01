@@ -2,20 +2,32 @@
 
 import { useState } from "react";
 import { MapPin, PlaneTakeoff } from "lucide-react";
-import { useCountrySuggestions } from "../../hooks/use-country-suggestions";
+import { resolveCountryCode, useCountrySuggestions } from "../../hooks/use-country-suggestions";
 import { useLocale } from "../../i18n/locale";
 import { countryFlagSvg } from "../../lib/country-flag";
 
-type RouteStarterData = { origin: string; destination: string };
+type RouteStarterData = { origin: string; destination: string; originCode?: string; destinationCode?: string };
 
 export function HeroRouteStarter() {
-  const { text } = useLocale();
+  const { text, locale } = useLocale();
   const [route, setRoute] = useState<RouteStarterData>({ origin: "", destination: "" });
   const [activeField, setActiveField] = useState<"origin" | "destination" | null>(null);
 
-  const setField = (field: keyof RouteStarterData, value: string) => setRoute((current) => ({ ...current, [field]: value }));
-  const chooseRouteValue = (field: "origin" | "destination", value: string) => {
-    setField(field, value);
+  const setField = (field: "origin" | "destination", value: string) => setRoute((current) => ({
+    ...current,
+    [field]: value,
+    [field === "origin" ? "originCode" : "destinationCode"]: resolveCountryCode(value, locale),
+  }));
+  const chooseRouteValue = (field: "origin" | "destination", value: string, code: string) => {
+    const otherField = field === "origin" ? "destination" : "origin";
+    const otherCodeField = field === "origin" ? "destinationCode" : "originCode";
+    const codeField = field === "origin" ? "originCode" : "destinationCode";
+    setRoute((current) => {
+      const next = { ...current, [field]: value, [codeField]: code };
+      if (code !== "BR") return { ...next, [otherField]: "Brasil", [otherCodeField]: "BR" };
+      if (next[otherCodeField] === "BR") return { ...next, [otherField]: "", [otherCodeField]: undefined };
+      return next;
+    });
     setActiveField(null);
   };
 
@@ -33,7 +45,8 @@ export function HeroRouteStarter() {
           onChange={(value) => { setField("origin", value); setActiveField("origin"); }}
           onFocus={() => setActiveField("origin")}
           onBlur={() => window.setTimeout(() => setActiveField(null), 120)}
-          onResolve={(value) => chooseRouteValue("origin", value)}
+          onResolve={(value, code) => chooseRouteValue("origin", value, code)}
+          counterpartCode={route.destinationCode}
           placeholder={text.cityPlaceholder}
         />
         <span className="ep-hero-route-starter__line" aria-hidden="true" />
@@ -46,7 +59,8 @@ export function HeroRouteStarter() {
           onChange={(value) => { setField("destination", value); setActiveField("destination"); }}
           onFocus={() => setActiveField("destination")}
           onBlur={() => window.setTimeout(() => setActiveField(null), 120)}
-          onResolve={(value) => chooseRouteValue("destination", value)}
+          onResolve={(value, code) => chooseRouteValue("destination", value, code)}
+          counterpartCode={route.originCode}
           placeholder={text.cityPlaceholder}
         />
       </div>
@@ -55,7 +69,7 @@ export function HeroRouteStarter() {
   );
 }
 
-function RouteField({ label, field, value, active, invalid, onChange, onFocus, onBlur, onResolve, placeholder }: {
+function RouteField({ label, field, value, active, invalid, onChange, onFocus, onBlur, onResolve, counterpartCode, placeholder }: {
   label: string;
   field: "origin" | "destination";
   value: string;
@@ -64,14 +78,18 @@ function RouteField({ label, field, value, active, invalid, onChange, onFocus, o
   onChange: (value: string) => void;
   onFocus: () => void;
   onBlur: () => void;
-  onResolve: (value: string) => void;
+  onResolve: (value: string, code: string) => void;
+  counterpartCode?: string;
   placeholder: string;
 }) {
   const { text, locale } = useLocale();
-  const suggestions = useCountrySuggestions(value, active, locale);
+  const suggestions = useCountrySuggestions(value, active, locale).filter((suggestion) => {
+    if (!counterpartCode) return true;
+    return counterpartCode === "BR" ? suggestion.code !== "BR" : suggestion.code === "BR";
+  });
   const showOptions = active && value.trim().length >= 2 && suggestions.length > 0;
   const requiredMessage = field === "origin" ? text.originRequired : text.destinationRequired;
-  const chooseSuggestion = (suggestion: typeof suggestions[number]) => onResolve(suggestion.name);
+  const chooseSuggestion = (suggestion: typeof suggestions[number]) => onResolve(suggestion.name, suggestion.code);
 
   return <label className={`ep-hero-route-starter__field${invalid ? " is-invalid" : ""}`}>
     <span className="ep-hero-route-starter__field-icon" aria-hidden="true">{field === "origin" ? <PlaneTakeoff /> : <MapPin />}</span>
