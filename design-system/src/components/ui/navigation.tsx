@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowRight, Check, ChevronDown, ClipboardCheck, HeartHandshake, MapPin, Menu, Package, Plane, Route, Search, X, type LucideIcon } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, ClipboardCheck, Globe2, HeartHandshake, MapPin, Menu, Package, Plane, Route, Search, X, type LucideIcon } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { languageOptions, localizePath, useLocale } from "../../i18n/locale";
+import { countryFlagSvg } from "../../lib/country-flag";
 
-export type NavigationLink = { label: string; href: string; description?: string; icon?: LucideIcon };
+export type NavigationLink = { label: string; href: string; description?: string; icon?: LucideIcon; flagSrc?: string };
 export type NavigationItem = NavigationLink & { children?: NavigationLink[] };
 
 export function LanguageSelector({ compact = false }: { compact?: boolean }) {
@@ -50,9 +51,14 @@ export function SiteHeader({ logoSrc, items, cta, utilityItems = [], activeLabel
     ] },
     { label:text.navServices, href:path("/#servicos") },
     { label:text.navDestinations, href:path("/#destinos"), children:[
-      { label:"Estados Unidos", href:path("/#destinos"), description:"Planejamento da rota Brasil–EUA.", icon:Route },
-      { label:"União Europeia", href:path("/#destinos"), description:"Cada país pede leitura própria.", icon:Route },
-      { label:"Mercosul", href:path("/#destinos"), description:"Planejamento regional com atenção ao caso.", icon:Route },
+      { label:"Estados Unidos", href:path("/#destinos"), description:"Rota prioritária para muitas famílias.", flagSrc:countryFlagSvg("US") },
+      { label:"Portugal", href:path("/#destinos"), description:"Planejamento para entrada na Europa.", flagSrc:countryFlagSvg("PT") },
+      { label:"Espanha", href:path("/#destinos"), description:"Requisitos definidos pela rota e pelo pet.", flagSrc:countryFlagSvg("ES") },
+      { label:"Itália", href:path("/#destinos"), description:"Uma leitura própria antes do embarque.", flagSrc:countryFlagSvg("IT") },
+      { label:"Argentina", href:path("/#destinos"), description:"Planejamento regional com atenção ao caso.", flagSrc:countryFlagSvg("AR") },
+      { label:"Uruguai", href:path("/#destinos"), description:"Documentação e operação conectadas.", flagSrc:countryFlagSvg("UY") },
+      { label:"Paraguai", href:path("/#destinos"), description:"A rota orienta as próximas etapas.", flagSrc:countryFlagSvg("PY") },
+      { label:"Outros destinos", href:path("/#destinos"), description:"Conte outra rota para começarmos a análise.", icon:Globe2 },
     ] },
     { label:text.navContent, href:path("/#faq") },
   ], [path, text.navContent, text.navDestinations, text.navHow, text.navModalities, text.navServices]);
@@ -73,7 +79,7 @@ export function SiteHeader({ logoSrc, items, cta, utilityItems = [], activeLabel
   ];
   return <>
     <header className={cn("ep-site-header", overlay && "ep-site-header--overlay")}><nav className="ep-site-nav ep-container" aria-label="Main navigation">
-      <div className="ep-site-nav__left"><a className="ep-site-logo" href={path("/")}><img src={logoSrc} alt="Embarpet" /></a><div className="ep-site-nav__desktop">{navigationItems.map((item) => item.children?.length ? <div key={item.label} className="ep-nav-dropdown" onMouseEnter={() => setOpen(item.label)} onMouseLeave={() => setOpen(null)} onFocus={() => setOpen(item.label)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(null); }}><button type="button" className={cn(activeLabel === item.label && "is-active", open === item.label && "is-open")} aria-expanded={open === item.label} onClick={() => setOpen((current) => current === item.label ? null : item.label)}>{item.label}<ChevronDown size={15} /></button>{open === item.label ? <div className="ep-mega-menu">{item.children.map((child) => { const ChildIcon = child.icon ?? ArrowRight; return <a key={child.label} href={child.href} onClick={() => setOpen(null)}><span><ChildIcon size={16} /></span><div><b>{child.label}</b>{child.description ? <small>{child.description}</small> : null}</div></a>; })}</div> : null}</div> : <a className={cn(activeLabel === item.label && "is-active")} key={item.label} href={item.href}>{item.label}</a>)}</div></div>
+      <div className="ep-site-nav__left"><a className="ep-site-logo" href={path("/")}><img src={logoSrc} alt="Embarpet" /></a><div className="ep-site-nav__desktop">{navigationItems.map((item) => item.children?.length ? <div key={item.label} className="ep-nav-dropdown" onMouseEnter={() => setOpen(item.label)} onMouseLeave={() => setOpen(null)} onFocus={() => setOpen(item.label)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(null); }}><button type="button" className={cn(activeLabel === item.label && "is-active", open === item.label && "is-open")} aria-expanded={open === item.label} onClick={() => setOpen((current) => current === item.label ? null : item.label)}>{item.label}<ChevronDown size={15} /></button>{open === item.label ? <div className={cn("ep-mega-menu", item.label === text.navDestinations && "ep-mega-menu--destinations")}>{item.children.map((child) => { const ChildIcon = child.icon ?? ArrowRight; return <a key={child.label} href={child.href} onClick={() => setOpen(null)}><span>{child.flagSrc ? <img src={child.flagSrc} alt="" aria-hidden="true" /> : <ChildIcon size={16} />}</span><div><b>{child.label}</b>{child.description ? <small>{child.description}</small> : null}</div></a>; })}</div> : null}</div> : <a className={cn(activeLabel === item.label && "is-active")} key={item.label} href={item.href}>{item.label}</a>)}</div></div>
       <div className="ep-site-nav__right"><div className="ep-nav-utilities"><LanguageSelector />{utilityItems.map((item) => { const UtilityIcon = item.icon; return <a key={item.label} href={item.href}>{UtilityIcon ? <UtilityIcon size={15} /> : null}{item.label}</a>; })}</div><a className="ep-nav-cta" href={resolvedCta.href} onClick={(event) => { if (resolvedCta.href === path("/analise") && isHome) { event.preventDefault(); openMobilePlanner(); } }}><span>{resolvedCta.label}</span><img className="ep-nav-cta__plane" src="/embarpet-cta-plane-top.webp" alt="" aria-hidden="true" /></a></div>
       <button className="ep-nav-mobile-cta" type="button" onClick={() => openMobilePlanner()}><span>{text.startTrip}</span></button><button className="ep-nav-mobile-toggle" type="button" aria-label={mobileOpen ? text.close : "Open menu"} aria-expanded={mobileOpen} onClick={() => setMobileOpen((value) => !value)}>{mobileOpen ? <X size={22} /> : <Menu size={22} />}</button>
     </nav><div className="ep-mobile-journey"><div className="ep-mobile-shortcuts" aria-label="Navigation shortcuts">{mobileShortcutItems.map(({ href, icon: Icon, label }) => <a key={label} href={href}><Icon size={16} /><span>{label}</span></a>)}</div><div className="ep-mobile-route-search"><MapPin size={17} aria-hidden="true" /><button className="ep-mobile-route-search__trigger" type="button" onClick={openMobilePlanner}>{text.wherePetGoes}</button><button className="ep-mobile-route-search__cta" type="button" onClick={openMobilePlanner}>{text.startTrip}</button></div></div>{mobileOpen ? <div className="ep-mobile-menu"><div className="ep-container">{navigationItems.map((item) => <div key={item.label}><a href={item.href} onClick={() => setMobileOpen(false)}>{item.label}</a>{item.children?.map((child) => <a key={child.label} className="ep-mobile-menu__child" href={child.href} onClick={() => setMobileOpen(false)}>{child.label}</a>)}</div>)}<LanguageSelector /><button className="ep-nav-cta" type="button" onClick={openMobilePlanner}>{resolvedCta.label} →</button></div></div> : null}</header>
