@@ -20,6 +20,10 @@
 .ep-modality-introduction__grid > div { display:grid; gap:var(--ep-stack-title-copy); }
 .ep-modality-introduction__grid .ep-title-lg { max-width:15ch; margin:0; }
 .ep-modality-introduction__grid .ep-copy { max-width:58ch; margin:0; padding:24px 26px; border:1px solid var(--ep-line); border-radius:var(--ep-radius-md); background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(232,249,247,.72)); box-shadow:0 12px 28px rgba(5,67,74,.045); font-size:clamp(17px,1.6vw,20px); line-height:1.55; }
+.ep-modality-introduction__heading,.ep-modality-introduction__copy { opacity:0; transform:translateY(24px); transition:opacity .66s cubic-bezier(.22,1,.36,1),transform .66s cubic-bezier(.22,1,.36,1); }
+.ep-modality-introduction__copy { transition-delay:.12s; }
+.ep-modality-introduction__heading.is-revealed,.ep-modality-introduction__copy.is-revealed { opacity:1; transform:translateY(0); }
+.ep-modality-introduction .ep-title-lg em { color:var(--ep-turquoise); font-style:normal; }
 .ep-modality-pain { position:relative; background:linear-gradient(135deg,#7d2430,#a93c42); color:#fff8f6; }
 .ep-modality-pain .ep-eyebrow { border-color:rgba(255,241,235,.34); background:rgba(255,255,255,.08); color:#fff8f6; }
 .ep-modality-pain .ep-title-lg { color:#fff8f6; }
@@ -170,6 +174,10 @@
 .ep-modality-page--bagagem-acompanhada .ep-modality-introduction__grid { grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:clamp(46px,7vw,116px); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-introduction__grid .ep-title-lg { max-width:13ch; font-size:clamp(36px,3.65vw,58px); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-introduction__grid .ep-copy { align-self:center; padding:28px 30px; }
+
+@media (prefers-reduced-motion:reduce) {
+  .ep-modality-introduction__heading,.ep-modality-introduction__copy { opacity:1; transform:none; transition:none; }
+}
 
 .ep-modality-page--bagagem-acompanhada .ep-modality-visual-plan { background:linear-gradient(180deg,var(--ep-page) 0%,#f2fbfa 100%); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-visual-plan__grid { grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr); align-items:stretch; gap:clamp(38px,5vw,78px); }

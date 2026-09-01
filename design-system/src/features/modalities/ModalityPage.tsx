@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, FileText, HeartHandshake, Package, Route, ShieldCheck, Star } from "lucide-react";
 import { SiteHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
@@ -6,6 +6,26 @@ import { AnalysisButton } from "../../components/ui/buttons";
 import { useLocale } from "../../i18n/locale";
 import { setPageMetadata } from "../../lib/seo";
 import { modalityCaseMosaic, modalityContent, modalitySocialProof, modalityStorytelling, modalityVisualPlan, type ModalityContent } from "./modality-content";
+
+function ScrollReveal({ children, className = "" }: { children: ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) { element.classList.add("is-revealed"); return; }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      element.classList.add("is-revealed");
+      observer.disconnect();
+    }, { threshold: 0.22 });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  return <div ref={ref} className={`ep-scroll-reveal ${className}`.trim()}>{children}</div>;
+}
 
 const modalityStepIcons = [Route, ShieldCheck, FileText, ClipboardCheck];
 const decisionIcons = [Route, ShieldCheck, Package];
@@ -50,8 +70,8 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
       </section>
 
       <section className="ep-section ep-modality-introduction"><div className="ep-container ep-modality-introduction__grid">
-        <div><p className="ep-eyebrow">Entenda esta modalidade</p><h2 className="ep-title-lg">{modality.whatTitle}</h2></div>
-        <p className="ep-copy">{modality.whatCopy}</p>
+        <ScrollReveal className="ep-modality-introduction__heading"><p className="ep-eyebrow">Entenda esta modalidade</p><h2 className="ep-title-lg">{modality.whatTitle} <em>{modality.whatTitleHighlight}</em></h2></ScrollReveal>
+        <ScrollReveal className="ep-modality-introduction__copy"><p className="ep-copy">{modality.whatCopy}</p></ScrollReveal>
       </div></section>
 
       <section className="ep-section ep-modality-pain"><div className="ep-container ep-modality-pain__grid">
