@@ -9,7 +9,7 @@ import { countryFlagSvg } from "../../lib/country-flag";
 type RouteStarterData = { origin: string; destination: string; originCode?: string; destinationCode?: string };
 
 export function HeroRouteStarter() {
-  const { text, locale } = useLocale();
+  const { text, locale, path } = useLocale();
   const [route, setRoute] = useState<RouteStarterData>({ origin: "", destination: "" });
   const [activeField, setActiveField] = useState<"origin" | "destination" | null>(null);
 
@@ -19,6 +19,10 @@ export function HeroRouteStarter() {
     [field === "origin" ? "originCode" : "destinationCode"]: resolveCountryCode(value, locale),
   }));
   const chooseRouteValue = (field: "origin" | "destination", value: string, code: string) => {
+    if (field === "destination" && code.toUpperCase() === "US") {
+      window.location.assign(path("/destinos/estados-unidos"));
+      return;
+    }
     const otherField = field === "origin" ? "destination" : "origin";
     const otherCodeField = field === "origin" ? "destinationCode" : "originCode";
     const codeField = field === "origin" ? "originCode" : "destinationCode";
@@ -41,7 +45,13 @@ export function HeroRouteStarter() {
     setActiveField(null);
   };
 
-  const start = () => window.dispatchEvent(new CustomEvent("embarp:open-analysis", { detail: route }));
+  const start = () => {
+    if (route.destinationCode?.toUpperCase() === "US") {
+      window.location.assign(path("/destinos/estados-unidos"));
+      return;
+    }
+    window.dispatchEvent(new CustomEvent("embarp:open-analysis", { detail: route }));
+  };
 
   return (
     <form className="ep-hero-route-starter" onSubmit={(event) => { event.preventDefault(); start(); }} noValidate>
