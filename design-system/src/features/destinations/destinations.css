@@ -316,4 +316,7 @@
   .ep-us-comparison__heading h2,
   .ep-us-mosaic__heading h2,
   .ep-us-faq h2 { font-size:clamp(32px,9vw,42px); }
+
+  .ep-us-ai-warning h2 { max-width:none; font-size:clamp(31px,9.2vw,36px); letter-spacing:-.06em; line-height:1.02; text-wrap:balance; }
+  .ep-us-method .ep-us-section-heading { max-width:none; }
 }
