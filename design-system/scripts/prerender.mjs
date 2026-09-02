@@ -17,6 +17,7 @@ const pages = {
   "modalidades/bagagem-acompanhada": { path: "/modalidades/bagagem-acompanhada", lang: "pt-BR", title: "Bagagem Acompanhada para Pets | Embarpet", description: "Entenda como funciona a bagagem acompanhada para transporte internacional de pets no mesmo voo do tutor." },
   "modalidades/compartimento-de-cargas": { path: "/modalidades/compartimento-de-cargas", lang: "pt-BR", title: "Compartimento de Cargas para Pets | Embarpet", description: "Entenda como funciona o transporte internacional de pets em compartimento de cargas e receba uma análise da rota, do pet e da documentação." },
   "modalidades/suporte-emocional": { path: "/modalidades/suporte-emocional", lang: "pt-BR", title: "Suporte Emocional e Viagem com Pets | Embarpet", description: "Entenda como a Embarpet orienta casos de suporte emocional em viagens internacionais com pets, sem promessas de aprovação." },
+  "destinos/estados-unidos": { path: "/destinos/estados-unidos", lang: "pt-BR", title: "Levar Pet para os Estados Unidos | Embarpet", description: "Comece a planejar a viagem do seu pet para os Estados Unidos com uma análise da rota, do perfil do animal e dos próximos passos." },
 };
 
 const { render } = await import(pathToFileURL(resolve(serverOutput, "entry-server.js")).href);

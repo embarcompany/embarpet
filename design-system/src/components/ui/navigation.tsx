@@ -51,7 +51,7 @@ export function SiteHeader({ logoSrc, items, cta, utilityItems = [], activeLabel
     ] },
     { label:text.navServices, href:path("/#servicos") },
     { label:text.navDestinations, href:path("/#destinos"), children:[
-      { label:"Estados Unidos", href:path("/#destinos"), description:"Rota prioritária para muitas famílias.", flagSrc:countryFlagSvg("US") },
+      { label:"Estados Unidos", href:path("/destinos/estados-unidos"), description:"Rota prioritária para muitas famílias.", flagSrc:countryFlagSvg("US") },
       { label:"Portugal", href:path("/#destinos"), description:"Planejamento para entrada na Europa.", flagSrc:countryFlagSvg("PT") },
       { label:"Espanha", href:path("/#destinos"), description:"Requisitos definidos pela rota e pelo pet.", flagSrc:countryFlagSvg("ES") },
       { label:"Itália", href:path("/#destinos"), description:"Uma leitura própria antes do embarque.", flagSrc:countryFlagSvg("IT") },

@@ -3,6 +3,7 @@ import AnalysisPage from "../features/analysis/AnalysisPage";
 import ThankYouPage from "../features/thank-you/ThankYouPage";
 import ButtonsPage from "../features/buttons/ButtonsPage";
 import { ModalityPage } from "../features/modalities/ModalityPage";
+import DestinationUnitedStatesPage from "../features/destinations/DestinationUnitedStatesPage";
 import { modalityContent, type ModalitySlug } from "../features/modalities/modality-content";
 import { getLocaleFromPath, locales, LocaleProvider, type Locale } from "../i18n/locale";
 
@@ -15,6 +16,7 @@ export function App({ initialLocale = "pt-BR", initialPath = "/" }: { initialLoc
   const modalitySlug = route.startsWith("/modalidades/") ? route.slice("/modalidades/".length) as ModalitySlug : null;
   const page = modalitySlug && modalityContent[modalitySlug]
     ? <ModalityPage modality={modalityContent[modalitySlug]} />
+    : route === "/destinos/estados-unidos" ? <DestinationUnitedStatesPage />
     : route === "/viajar" ? <AnalysisPage /> : route === "/obrigado" ? <ThankYouPage /> : route === "/design-system/botoes" ? <ButtonsPage /> : <EmbarpetHome />;
   return <LocaleProvider locale={locale}>{page}</LocaleProvider>;
 }
