@@ -1,0 +1,17 @@
+import { AnalysisButton } from "../../../components/ui/buttons";
+import { FAQItem } from "../../../components/ui/system";
+
+const indexFaqs = [
+  ["Como transportar meu animal de estimação em avião?", "O transporte aéreo de animais começa pela análise de origem, destino, prazo, espécie, porte e regras da companhia aérea. Com isso, avaliamos possibilidades como viagem na cabine, bagagem acompanhada ou compartimento de cargas, além do planejamento da documentação."],
+  ["O deck inferior do avião é confortável para pets?", "Quando a modalidade é bagagem acompanhada ou compartimento de cargas, o pet viaja em compartimento apropriado da aeronave. As condições dependem da companhia aérea, rota, caixa de transporte e critérios operacionais; por isso cada embarque precisa ser avaliado individualmente."],
+  ["Alguém viaja com meu animal no deck inferior?", "O pet não viaja acompanhado por uma pessoa dentro do compartimento de transporte. A operação é conduzida pela companhia aérea e pelas equipes de solo; quando aplicável, o tutor segue no mesmo voo e recebe orientação sobre cada etapa do embarque."],
+  ["Animais braquicefálicos podem viajar de avião?", "Cães e gatos braquicefálicos podem ter restrições específicas por causa de características respiratórias. A possibilidade de transporte aéreo depende da raça, condição veterinária, companhia aérea, rota e modalidade disponível no momento da viagem."],
+  ["O transporte aéreo de animais é seguro?", "O transporte de pets por avião segue processos, normas e cuidados próprios, mas a segurança depende de uma decisão bem planejada: rota adequada, documentação, caixa correta, condição do animal e regras atualizadas da companhia aérea e do destino."],
+  ["Como preparar meu animal para o transporte aéreo?", "A preparação para viagem de pet inclui adaptação à caixa de transporte, consulta veterinária quando indicada, documentação, rotina de alimentação e orientações para o dia do voo. O plano correto varia conforme o perfil do animal e a rota internacional."],
+  ["O que é CVI para viagem internacional com pet?", "O CVI, ou Certificado Veterinário Internacional, é um documento oficial usado no processo de saída do Brasil com animal de estimação. Os requisitos e a emissão seguem o fluxo da autoridade competente e as exigências do país de destino."],
+  ["Como escolher a caixa de transporte ideal para meu pet?", "A caixa de transporte para avião precisa respeitar as medidas do pet, ventilação, material, modalidade de embarque e regras da companhia aérea. Uma caixa adequada permite que o animal fique em posição natural e atende às especificações da viagem."],
+] as const;
+
+export function FaqSection({ onStartPlanning }: { onStartPlanning: () => void }) {
+  return <section className="ep-us-faq" id="faq"><div className="ep-container ep-us-faq__grid"><div><p className="ep-us-kicker">Dúvidas comuns</p><h2>A viagem do seu pet não precisa estar <em>toda resolvida.</em></h2><p className="ep-us-faq__intro">Você pode começar <strong>mesmo sem data fechada ou todos os documentos em mãos.</strong></p><div className="ep-us-section-cta ep-us-faq__cta--desktop"><AnalysisButton onClick={onStartPlanning}>Quero falar sobre o meu pet</AnalysisButton></div></div><div className="ep-us-faq__list">{indexFaqs.map(([question, answer]) => <FAQItem key={question} question={question}>{answer}</FAQItem>)}</div><div className="ep-us-section-cta ep-us-faq__cta--mobile"><AnalysisButton onClick={onStartPlanning}>Quero falar sobre o meu pet</AnalysisButton></div></div></section>;
+}

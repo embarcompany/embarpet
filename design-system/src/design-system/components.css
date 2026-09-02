@@ -68,6 +68,22 @@
   .ep-conversion-hero__form { display:none!important; }
   .ep-mobile-menu { width:100%; }
   .ep-mobile-menu .ep-container { width:100%; padding-inline:20px; }
+  .ep-site-header--compact-mobile + main { padding-top:0; }
+  .ep-site-header--compact-mobile .ep-site-nav { display:grid; box-sizing:border-box; width:calc(100% - 40px); height:52px; min-height:52px; grid-template-columns:minmax(0,1fr) auto auto; align-items:center; gap:8px; margin-inline:auto; padding-inline:0; }
+  .ep-site-header--compact-mobile .ep-site-nav__left { display:flex; min-width:0; align-items:center; }
+  .ep-site-header--compact-mobile .ep-site-logo img { width:100px; }
+  .ep-site-header--compact-mobile .ep-nav-mobile-cta { display:inline-flex!important; min-height:34px; align-self:center; justify-content:center; margin-left:0; padding-inline:11px; font-size:10px; font-weight:900; letter-spacing:-.02em; line-height:1; }
+  .ep-site-header--compact-mobile .ep-nav-mobile-toggle { align-self:center; margin:0; }
+  .ep-site-header--compact-mobile .ep-mobile-menu .ep-container { justify-items:center; text-align:center; }
+  .ep-site-header--compact-mobile .ep-mobile-menu .ep-container > div { width:100%; }
+  .ep-site-header--compact-mobile .ep-mobile-menu a { text-align:center; }
+  .ep-site-header--compact-mobile .ep-mobile-menu__child { padding-left:0!important; }
+  .ep-site-header--compact-mobile .ep-language-selector { justify-self:center; }
+}
+@media (max-width:359px) {
+  .ep-site-header--compact-mobile .ep-site-nav { width:calc(100% - 32px); gap:6px; }
+  .ep-site-header--compact-mobile .ep-site-logo img { width:86px; }
+  .ep-site-header--compact-mobile .ep-nav-mobile-cta { padding-inline:8px; font-size:9px; }
 }
 @media (max-width:900px) { .ep-footer-grid { grid-template-columns:1fr 1fr; }.ep-footer-brand { grid-column:span 2; }.ep-footer-bottom { display:grid; } }
 @media (max-width:620px) { .ep-footer-cta { min-height:240px; align-items:flex-start; flex-direction:column; justify-content:center; }.ep-footer-grid { grid-template-columns:1fr; }.ep-footer-brand { grid-column:auto; }.ep-footer-bottom div { flex-wrap:wrap; }.ep-whatsapp-float { right:16px; bottom:16px; } }
