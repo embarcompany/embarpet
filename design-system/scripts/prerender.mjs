@@ -41,7 +41,7 @@ function renderPage(locale, page) {
 }
 
 for (const [locale, page] of Object.entries(pages)) {
-  const renderLocale = page.path.startsWith("/modalidades/") ? "pt-BR" : locale;
+  const renderLocale = page.path.startsWith("/modalidades/") || page.path.startsWith("/destinos/") ? "pt-BR" : locale;
   const isRoot = locale === "pt-BR";
   const destination = isRoot ? templatePath : resolve(dist, locale, "index.html");
   if (!isRoot) await mkdir(resolve(dist, locale), { recursive: true });

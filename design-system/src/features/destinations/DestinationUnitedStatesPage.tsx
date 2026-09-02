@@ -1,29 +1,26 @@
-import { useEffect, useState } from "react";
-import { ArrowRight, CalendarDays, Cat, Check, CircleHelp, ClipboardCheck, Dog, HeartHandshake, MapPin, Package, PawPrint, Plane, Route, ShieldCheck, UsersRound } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowLeftRight, CalendarDays, Check, CheckCircle2, ClipboardCheck, MessageCircle, PawPrint, Pencil, Route, ShieldCheck, Smartphone, UsersRound, X } from "lucide-react";
 import { AnalysisButton } from "../../components/ui/buttons";
+import { SiteFooter } from "../../components/ui/footer";
+import { ScrollFlyIn } from "../../components/ui/hero-section-3";
+import { SiteHeader } from "../../components/ui/navigation";
 import { FAQItem } from "../../components/ui/system";
 import { useLocale } from "../../i18n/locale";
 import { setPageMetadata } from "../../lib/seo";
 
-type PetType = "Cachorro" | "Gato" | "Outro";
-
-const questions = [
-  "Será que ainda dá tempo de planejar a viagem?",
-  "Como saber qual caminho faz sentido para o meu pet?",
-  "E se um detalhe aparecer perto do embarque?",
-];
-
-const possibilities = [
-  { icon: Plane, title: "Mais perto de você", copy: "Quando a viagem pode ser planejada com o pet próximo à família." },
-  { icon: Route, title: "No mesmo roteiro", copy: "Quando tutor e pet precisam seguir uma jornada coordenada." },
-  { icon: Package, title: "Operação dedicada", copy: "Quando porte, rota ou planejamento pedem outra estrutura." },
-  { icon: HeartHandshake, title: "Acompanhamento especializado", copy: "Quando a família busca uma presença mais próxima nos marcos combinados." },
+const painPoints = [
+  { icon: X, title: "Seu pet pode não embarcar", copy: "Um documento incompatível, uma exigência sanitária fora do prazo ou uma regra da operação ignorada podem interromper a viagem no aeroporto." },
+  { icon: X, title: "Prazo perdido não se recupera no dia do voo", copy: "Vacina, exame, certificado e validação têm datas próprias. Descobrir isso quando a viagem está perto pode mudar todo o plano da sua família." },
+  { icon: X, title: "A passagem não garante o transporte do seu pet", copy: "Companhia, conexão, porte, caixa de transporte e destino precisam funcionar juntos antes de o seu pet chegar ao aeroporto." },
+  { icon: X, title: "Uma conexão pode comprometer todo o plano", copy: "Seu pet não pode ser incluído no roteiro no último momento. Cada trecho precisa estar compatível com a operação da viagem." },
 ];
 
 export default function DestinationUnitedStatesPage() {
   const { path } = useLocale();
   const [period, setPeriod] = useState("");
-  const [pet, setPet] = useState<PetType | "">("");
+  const [routeInverted, setRouteInverted] = useState(false);
+  const [heroVisible, setHeroVisible] = useState(true);
+  const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => setPageMetadata({
     title: "Levar Pet para os Estados Unidos | Embarpet",
@@ -31,68 +28,88 @@ export default function DestinationUnitedStatesPage() {
     canonicalPath: "/destinos/estados-unidos",
   }), []);
 
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero) return;
+    const observer = new IntersectionObserver(([entry]) => setHeroVisible(entry.isIntersecting), { threshold: 0.15 });
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
+
   const startPlanning = () => {
-    const query = new URLSearchParams({ origin: "Brasil", destination: "Estados Unidos" });
+    const query = new URLSearchParams(routeInverted
+      ? { origin: "Estados Unidos", destination: "Brasil" }
+      : { origin: "Brasil", destination: "Estados Unidos" });
     if (period) query.set("period", period);
-    if (pet) query.set("pet", pet);
     window.location.assign(`${path("/viajar")}?${query.toString()}`);
   };
 
-  return <main className="ep-destination-lp">
-    <header className="ep-destination-lp__header">
-      <div className="ep-container ep-destination-lp__nav">
-        <a href={path("/")} className="ep-destination-lp__logo"><img src="/logo-embarpet-dark.png" alt="Embarpet" /></a>
-        <a href="#planejar" className="ep-destination-lp__nav-cta">Começar o planejamento <ArrowRight size={15} aria-hidden="true" /></a>
-      </div>
-    </header>
+  const pageNavigation = [
+    { label: "Por que a Embarpet", href: "#autoridade" },
+    { label: "Como ajudamos", href: "#plano" },
+    { label: "Dúvidas", href: "#faq" },
+  ];
 
-    <section className="ep-us-hero" id="planejar">
+  return <><SiteHeader logoSrc="/logo-embarpet-dark.png" items={pageNavigation} cta={{ label: "Começar o planejamento", href: "#planejar" }} />
+    <main className="ep-destination-lp">
+    <section ref={heroRef} className={heroVisible ? "ep-us-hero is-in-view" : "ep-us-hero"} id="planejar">
       <div className="ep-container ep-us-hero__grid">
         <div className="ep-us-hero__copy">
-          <p className="ep-us-route"><img src="/flags/br.svg" alt="Brasil" /><span>Brasil</span><i>→</i><img src="/flags/us.svg" alt="Estados Unidos" /><span>Estados Unidos</span></p>
-          <h1>Levar seu pet para os <em>Estados Unidos</em> não precisa ser um salto no escuro.</h1>
-          <p className="ep-us-hero__intro">Uma viagem internacional pede decisões que façam sentido juntas. Conte o básico do seu caso e comece a organizar os próximos passos.</p>
-          <div className="ep-us-proof" aria-label="Provas institucionais Embarpet"><span><b>+2.000</b> embarques realizados</span><i aria-hidden="true" /><span><b>4,9</b> avaliação no Google</span></div>
+          <div className="ep-us-proof" aria-label="Mais de dois mil embarques realizados e avaliação 4,9 no Google"><div className="ep-us-proof__seal"><strong>+2.000</strong><span>embarques realizados</span><i aria-hidden="true" /><img src="/logo-google.svg" alt="Google" /><strong>4,9</strong><span>avaliação no Google</span></div></div>
+          <h1>Leve seu pet para os <em>Estados Unidos</em><br />com segurança.</h1>
+          <p className="ep-us-hero__intro">Você não precisa entender de regras, documentos ou companhia aérea. <strong>Conte sobre seu pet e a sua viagem.</strong> Nós organizamos o que precisa ser visto antes do embarque.</p>
         </div>
-        <div className="ep-us-hero__planner">
-          <div className="ep-us-planner__heading"><span><ClipboardCheck size={18} aria-hidden="true" /></span><div><small>Seu ponto de partida</small><h2>Comece pelo que você já sabe.</h2></div></div>
-          <div className="ep-us-planner__route"><span><MapPin size={16} aria-hidden="true" /><small>Origem</small><b>Brasil</b></span><i><Plane size={16} aria-hidden="true" /></i><span><MapPin size={16} aria-hidden="true" /><small>Destino</small><b>Estados Unidos</b></span></div>
-          <fieldset className="ep-us-planner__field"><legend><CalendarDays size={16} aria-hidden="true" />Quando vocês pretendem viajar?</legend><div className="ep-us-choice-row">{["1 a 3 meses", "3 a 6 meses", "Mais de 6 meses", "Ainda não sei"].map((item) => <button type="button" key={item} className={period === item ? "is-selected" : ""} aria-pressed={period === item} onClick={() => setPeriod(item)}>{period === item ? <Check size={14} aria-hidden="true" /> : null}{item}</button>)}</div></fieldset>
-          <fieldset className="ep-us-planner__field"><legend><PawPrint size={16} aria-hidden="true" />Quem vai viajar?</legend><div className="ep-us-choice-row ep-us-choice-row--pets">{(["Cachorro", "Gato", "Outro"] as PetType[]).map((item) => { const Icon = item === "Cachorro" ? Dog : item === "Gato" ? Cat : PawPrint; return <button type="button" key={item} className={pet === item ? "is-selected" : ""} aria-pressed={pet === item} onClick={() => setPet(item)}><Icon size={15} aria-hidden="true" />{item}</button>; })}</div></fieldset>
-          <AnalysisButton size="lg" fullWidth onClick={startPlanning}>Começar o planejamento</AnalysisButton>
-          <p className="ep-us-planner__note">Você não precisa saber todos os detalhes agora.</p>
+        <div className="ep-us-hero__planner-wrap">
+          <img className="ep-us-planner__pet-documents" src="/embarpet-pet-documentos-formulario.png" alt="Cachorro com documentos internacionais de viagem e visto aprovado" />
+          <div className="ep-us-hero__planner">
+          <div className="ep-us-planner__heading"><div><h2>Comece sua análise em menos de 2 minutos.</h2></div></div>
+          <div className="ep-us-planner__route"><span><img src={routeInverted ? "/flags/us.svg" : "/flags/br.svg"} alt={routeInverted ? "Bandeira dos Estados Unidos" : "Bandeira do Brasil"} /><span><small>Origem</small><b>{routeInverted ? "Estados Unidos" : "Brasil"}</b></span></span><span><img src={routeInverted ? "/flags/br.svg" : "/flags/us.svg"} alt={routeInverted ? "Bandeira do Brasil" : "Bandeira dos Estados Unidos"} /><span><small>Destino</small><b>{routeInverted ? "Brasil" : "Estados Unidos"}</b></span><button className="ep-us-planner__route-edit" type="button" onClick={() => window.location.assign(path("/viajar"))} aria-label="Editar destino" title="Editar destino"><Pencil size={14} aria-hidden="true" /></button></span><button className="ep-us-planner__route-swap" type="button" onClick={() => setRouteInverted((current) => !current)} aria-label="Inverter origem e destino" title="Inverter origem e destino" aria-pressed={routeInverted}><ArrowLeftRight size={16} aria-hidden="true" /></button></div>
+          <fieldset className="ep-us-planner__field"><legend><span><CalendarDays size={16} aria-hidden="true" /></span>Quando vocês pretendem viajar?</legend><div className="ep-us-choice-row">{["1 a 3 meses", "3 a 6 meses", "Mais de 6 meses", "Ainda não sei"].map((item) => <button type="button" key={item} className={period === item ? "is-selected" : ""} aria-pressed={period === item} onClick={() => setPeriod(item)}>{period === item ? <Check size={14} aria-hidden="true" /> : null}{item}</button>)}</div></fieldset>
+          <AnalysisButton size="lg" fullWidth onClick={startPlanning}>Continuar minha análise</AnalysisButton>
+            <p className="ep-us-planner__note">Leva menos de 2 minutos. Você não precisa ter tudo definido agora.</p>
+          </div>
         </div>
       </div>
+    </section>
+
+    <section className="ep-us-authority" id="autoridade">
+      <div className="ep-container ep-us-authority__grid"><div className="ep-us-authority__copy"><p className="ep-us-kicker">Seu pet em mãos seguras</p><h2>Seu pet vai viajar com uma equipe especialista em <em>transporte internacional.</em></h2><p>A Embarpet trabalha com importação e exportação de pets. Você recebe suporte de quem conhece a operação e sabe onde a viagem do seu pet exige atenção.</p><div className="ep-us-authority__proof"><strong>+2.000 <span>pets embarcados</span></strong><div className="ep-us-authority__credentials" aria-label="Membro IPATA e IATA"><span><img src="/logo-ipata.png" alt="IPATA" /><small>Membro credenciado</small></span><i aria-hidden="true" /><span><img src="/logo-iata.png" alt="IATA" /><small>Membro credenciado</small></span></div></div><div className="ep-us-section-cta"><AnalysisButton onClick={startPlanning}>Quero falar sobre o meu pet</AnalysisButton></div></div><div className="ep-us-authority__bento" aria-label="Momentos de pets e famílias atendidos pela Embarpet"><figure><img src="/case-leandro-hassum.jpeg" alt="Tutor com a equipe Embarpet no aeroporto" loading="lazy" /></figure><figure><img src="/case-talles-magno.jpg" alt="Tutor e pet em Nova York" loading="lazy" /></figure><figure><img src="/embarpet-marquee-welcome-family.webp" alt="Família reencontrando seu pet" loading="lazy" /></figure></div></div>
     </section>
 
     <section className="ep-us-doubt">
-      <div className="ep-container ep-us-doubt__grid"><div><p className="ep-us-kicker">Uma jornada grande começa pequena</p><h2>Você não precisa descobrir <em>tudo sozinho</em> antes de começar.</h2><p>O destino importa. Mas o perfil do seu pet, o momento da sua família e a forma de organizar cada decisão também.</p></div><div className="ep-us-doubt__questions">{questions.map((question, index) => <article key={question}><span>0{index + 1}</span><CircleHelp size={21} aria-hidden="true" /><p>{question}</p></article>)}</div></div>
+      <div className="ep-container"><div className="ep-us-doubt__heading"><p className="ep-us-kicker">UM ERRO PODE PARAR O EMBARQUE</p><h2>Sem suporte especializado, seu pet <em>pode não embarcar.</em></h2></div><div className="ep-us-doubt__content"><figure className="ep-us-doubt__visual"><img src="/embarpet-pet-caixa-bagagem-dor.png" alt="Pet ao lado da caixa de transporte e bagagem para viagem" loading="lazy" /></figure><div className="ep-us-doubt__questions">{painPoints.map(({ icon: Icon, title, copy }) => <article key={title}><Icon size={30} aria-hidden="true" /><p><b>{title}</b><small>{copy}</small></p></article>)}</div></div></div>
     </section>
 
-    <section className="ep-us-method">
-      <div className="ep-container"><div className="ep-us-section-heading"><p className="ep-us-kicker">O método Embarpet</p><h2>A gente começa pelo que você já sabe. <em>O resto ganha caminho.</em></h2><p>Sem despejar burocracia. Sem pedir que você escolha uma modalidade antes de entender a viagem.</p></div><ol className="ep-us-steps">{[
-        { icon: UsersRound, title: "Você conta o básico", copy: "Destino, período e o perfil do seu pet já nos dão um ponto de partida." },
-        { icon: Route, title: "A gente lê a jornada", copy: "Rota, possibilidades e pontos de atenção entram na mesma conversa." },
-        { icon: ShieldCheck, title: "Vocês seguem com um plano", copy: "A equipe orienta os próximos marcos conforme o caso avança." },
-      ].map(({ icon: Icon, title, copy }, index) => <li key={title}><span>0{index + 1}</span><Icon size={25} aria-hidden="true" /><h3>{title}</h3><p>{copy}</p></li>)}</ol></div>
+    <section className="ep-us-ai-warning" aria-label="Limite de informações isoladas para planejar uma viagem com pet"><div className="ep-container"><div className="ep-us-ai-warning__logos" aria-label="ChatGPT, Claude e Gemini"><img src="/logo-openai-isotype.svg" alt="ChatGPT" /><img src="/logo-claude-isotype.svg" alt="Claude" /><img src="/logo-gemini-isotype.svg" alt="Gemini" /></div><h2>Uma informação isolada do ChatGPT pode fazer seu pet <em>não embarcar.</em></h2></div></section>
+
+    <section className="ep-us-method" id="plano">
+      <div className="ep-container"><div className="ep-us-section-heading"><p className="ep-us-kicker">Como a Embarpet ajuda</p><h2>Você cuida do seu pet. <em>Nós cuidamos da operação.</em></h2><p>Em vez de deixar você sozinho diante de informações soltas, transformamos a viagem do seu pet em <strong>próximos passos que fazem sentido para a rota.</strong></p></div><ol className="ep-us-steps">{[
+        { icon: UsersRound, title: "Você fala sobre seu pet", copy: "Destino, período e informações básicas já mostram por onde começar." },
+        { icon: Route, title: "Nós avaliamos a viagem", copy: "Rota, exigências e operação são lidas juntas antes de qualquer decisão." },
+        { icon: ShieldCheck, title: "Seu pet embarca com segurança", copy: "A Embarpet coordena cada etapa da viagem para que o seu pet chegue aos Estados Unidos com você." },
+      ].map(({ icon: Icon, title, copy }, index) => <li key={title}><span>0{index + 1}</span><Icon size={25} aria-hidden="true" /><h3>{title}</h3><p>{copy}</p></li>)}</ol><div className="ep-us-method__cta"><AnalysisButton onClick={startPlanning}>Quero ajuda para a viagem do meu pet</AnalysisButton></div></div>
     </section>
 
-    <section className="ep-us-decision-map">
-      <div className="ep-container ep-us-decision-map__grid"><div className="ep-us-decision-map__copy"><p className="ep-us-kicker">O caso vem antes da resposta</p><h2>O país de chegada é só uma parte <em>da decisão.</em></h2><p>É por isso que uma busca no Google não substitui uma análise conectada da viagem de vocês.</p><button type="button" className="ep-us-text-cta" onClick={startPlanning}>Entender os próximos passos <ArrowRight size={16} aria-hidden="true" /></button></div><div className="ep-us-decision-map__visual" aria-label="Elementos que compõem a análise da viagem"><div className="ep-us-decision-map__center"><img src="/flags/us.svg" alt="" aria-hidden="true" /><b>Estados Unidos</b><small>o destino</small></div><span className="is-pet"><PawPrint size={19} />Seu pet</span><span className="is-route"><Route size={19} />Sua rota</span><span className="is-time"><CalendarDays size={19} />Seu momento</span><span className="is-family"><UsersRound size={19} />Sua família</span></div></div>
+    <section className="ep-us-support"><div className="ep-container ep-us-support__grid"><figure className="ep-us-support__visual"><img src="/embarpet-whatsapp-suporte-pet.png" alt="Conversa pelo WhatsApp com a equipe Embarpet acompanhada por um pet" loading="lazy" /></figure><div className="ep-us-support__copy"><p className="ep-us-kicker">Suporte pelo WhatsApp</p><h2>Da sua primeira dúvida ao embarque, <em>tudo pelo WhatsApp.</em></h2><p>Você tem uma <strong>equipe especialista</strong> para orientar cada decisão da viagem do seu pet.</p><ul>{[{ icon: Smartphone, label: "Atendimento 100% digital-first" }, { icon: MessageCircle, label: "Direto do seu WhatsApp" }, { icon: PawPrint, label: "Orientação até o embarque do seu pet" }].map(({ icon: Icon, label }) => <li key={label}><Icon size={19} aria-hidden="true" />{label}</li>)}</ul><AnalysisButton onClick={startPlanning}>Quero falar com a Embarpet</AnalysisButton></div></div></section>
+
+    <section className="ep-us-comparison"><div className="ep-container"><div className="ep-us-comparison__heading"><p className="ep-us-kicker">Planejamento com suporte</p><h2>Por que planejar com a <em>Embarpet?</em></h2></div><div className="ep-us-comparison__table" role="table" aria-label="Comparação entre fazer a viagem sozinho e contar com a Embarpet"><div className="ep-us-comparison__row ep-us-comparison__row--head" role="row"><b role="columnheader">O que a viagem do seu pet exige</b><b role="columnheader"><span className="ep-us-comparison__alone-heading">Fazer sozinho</span></b><b role="columnheader"><img src="/logo-embarpet-light.png" alt="Embarpet" /></b></div>{[["Entender o que a rota pede", "Informações soltas e difíceis de confirmar", "Análise personalizada da viagem"],["Organizar documentos e prazos", "Risco de deixar algo importante passar", "Checklist e orientação por etapa"],["Escolher uma operação compatível", "Decisão sem leitura da rota completa", "Rota, pet e operação avaliados juntos"],["Preparar o seu pet para o dia do voo", "Orientações genéricas, sem olhar para a viagem", "Orientações adequadas ao seu caso"],["Acompanhar cada etapa", "Dúvidas e mudanças resolvidas por conta própria", "Equipe especialista ao seu lado"],["Ajustar o plano quando algo muda", "Imprevistos tratados sem apoio especializado", "Suporte para reorganizar os próximos passos"],["Chegar ao embarque com segurança", "Preocupação até o último momento", "Planejamento para o pet embarcar com você"]].map(([need, alone, withUs]) => <div className="ep-us-comparison__row" role="row" key={need}><b role="cell">{need}</b><span role="cell"><X size={15} aria-hidden="true" />{alone}</span><span role="cell"><CheckCircle2 size={15} aria-hidden="true" />{withUs}</span></div>)}</div><div className="ep-us-comparison__cta"><AnalysisButton onClick={startPlanning}>Quero planejar com a Embarpet</AnalysisButton></div></div></section>
+
+    <section className="ep-us-mosaic">
+      <div className="ep-container"><div className="ep-us-mosaic__heading"><p className="ep-us-kicker">Embarques reais</p><h2>Seu pet também pode chegar <em>com você.</em></h2><p><strong>Mais de 2.000 pets já embarcaram com a Embarpet</strong> para encontrar suas famílias do outro lado da viagem.</p></div><div className="ep-us-mosaic__grid" aria-label="Momentos reais de embarques internacionais realizados pela Embarpet"><figure className="is-main"><img src="/case-leandro-hassum.jpeg" alt="Tutor com a equipe Embarpet no aeroporto" loading="lazy" /></figure><figure className="is-wide"><img src="/case-talles-magno.jpg" alt="Tutor e pet em Nova York" loading="lazy" /></figure><figure><img src="/embarpet-mosaico-cabine.jpeg" alt="Pet viajando na cabine de um avião" loading="lazy" /></figure><figure><img src="/embarpet-mosaico-cuidado.jpg" alt="Tutor em momento de cuidado com seu pet" loading="lazy" /></figure><figure className="is-tall"><img src="/embarpet-mosaico-encontro.jpg" alt="Tutora reencontrando seu pet" loading="lazy" /></figure></div><div className="ep-us-mosaic__cta"><AnalysisButton onClick={startPlanning}>Quero planejar a viagem do meu pet</AnalysisButton></div></div>
     </section>
 
-    <section className="ep-us-possibilities">
-      <div className="ep-container"><div className="ep-us-possibilities__heading"><p className="ep-us-kicker">Possibilidades de jornada</p><h2>Existem caminhos possíveis. O certo é descobrir qual conversa <em>com a viagem de vocês.</em></h2></div><div className="ep-us-possibilities__grid">{possibilities.map(({ icon: Icon, title, copy }) => <article key={title}><Icon size={24} aria-hidden="true" /><h3>{title}</h3><p>{copy}</p><span>Entendido no contexto do caso</span></article>)}</div></div>
+    <section className="ep-us-faq" id="faq">
+      <div className="ep-container ep-us-faq__grid"><div><p className="ep-us-kicker">Dúvidas comuns</p><h2>A viagem do seu pet não precisa estar <em>toda resolvida.</em></h2><p className="ep-us-faq__intro">Você pode começar <strong>mesmo sem data fechada ou todos os documentos em mãos.</strong></p><div className="ep-us-section-cta"><AnalysisButton onClick={startPlanning}>Quero falar sobre o meu pet</AnalysisButton></div></div><div className="ep-us-faq__list"><FAQItem question="Ainda não tenho todos os documentos. Posso começar?">Pode. Conte o que já sabe sobre seu pet e a viagem.</FAQItem><FAQItem question="Ainda não sei a data exata. Isso atrapalha?">Não. Um período aproximado já permite começar a análise.</FAQItem><FAQItem question="Meu pet é grande ou tem uma condição específica. Vocês podem ajudar?">Sim. É por isso que avaliamos seu pet, a rota e o período antes de indicar os próximos passos.</FAQItem><FAQItem question="O que preciso informar para começar?">Origem, destino, período aproximado e informações básicas sobre o seu pet.</FAQItem></div></div>
     </section>
 
-    <section className="ep-us-case">
-      <div className="ep-container ep-us-case__grid"><figure><img src="/case-leandro-hassum.jpeg" alt="Leandro Hassum com a equipe Embarpet no aeroporto" loading="lazy" /><figcaption>Brasil → Estados Unidos</figcaption></figure><div><p className="ep-us-kicker">Jornadas que acontecem de verdade</p><h2>Toda jornada começa com uma dúvida. <em>Esta também começou.</em></h2><p>Uma viagem internacional não é uma sequência solta de tarefas. É uma história de família que precisa de planejamento, presença e uma equipe que entenda a operação.</p><div className="ep-us-case__proof"><img src="/logo-ipata.svg" alt="IPATA" /><img src="/logo-iata.svg" alt="IATA" /><span>Experiência que acompanha cada etapa da jornada.</span></div></div></div>
-    </section>
-
-    <section className="ep-us-faq">
-      <div className="ep-container ep-us-faq__grid"><div><p className="ep-us-kicker">Dúvidas antes de começar</p><h2>Você não precisa ter todas as respostas para <em>falar com a gente.</em></h2></div><div className="ep-us-faq__list"><FAQItem question="Ainda dá tempo de planejar uma viagem para os Estados Unidos?">O melhor ponto de partida é entender o período que vocês têm e o perfil da viagem. A partir disso, a equipe organiza uma leitura do caso e dos próximos passos possíveis.</FAQItem><FAQItem question="Meu pet pode viajar comigo para os Estados Unidos?">As possibilidades dependem da rota, do perfil do pet, do momento da viagem e de critérios operacionais. A análise existe justamente para avaliar esse conjunto antes de indicar um caminho.</FAQItem><FAQItem question="Como vocês definem a modalidade da viagem?">A modalidade não é escolhida isoladamente. Nós conectamos o contexto da família, o perfil do pet e a rota para entender o que pode fazer sentido na jornada.</FAQItem><FAQItem question="O que preciso informar para começar?">Origem, destino, período aproximado e informações básicas sobre o pet já são suficientes para abrir a primeira conversa.</FAQItem></div></div>
-    </section>
-
-    <section className="ep-us-final"><div className="ep-container ep-us-final__inner"><div><p className="ep-us-kicker">Próximo passo</p><h2>O destino é Estados Unidos. <em>A viagem é de vocês.</em></h2><p>Comece pelo que já sabe. O restante a gente organiza junto.</p><AnalysisButton size="lg" onClick={startPlanning}>Começar a análise da viagem</AnalysisButton></div><img src="/embarpet-familia-pet-cutout.png" alt="Família e pet juntos" loading="lazy" /></div></section>
-  </main>;
+    <ScrollFlyIn className="ep-final-fly-in" imageUrl="/embarpet-cta-plane-top.webp" imageAlt="Avião Embarpet cruzando a tela"><div className="mx-auto max-w-3xl px-4 text-center"><div className="ep-final-impact" aria-label="Mais de dois mil embarques realizados"><span className="ep-final-impact__avatars" aria-hidden="true"><i /><i /><i /><i /></span><strong>+2.000</strong><small>embarques<br />realizados</small></div><h2 className="mt-2 text-5xl font-bold leading-tight text-white md:text-7xl">Seu pet vai com você. <em>Vamos planejar essa viagem?</em></h2><p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-white/75">Conte o que você já sabe. A equipe Embarpet começa pela <strong>rota, pelo período e pelas informações do seu pet.</strong></p><button type="button" onClick={startPlanning} className="ep-button ep-button--primary mt-8">Quero planejar a viagem do meu pet</button><small className="mt-3 block text-xs text-white/65">Você não precisa ter tudo definido para começar.</small></div></ScrollFlyIn>
+  </main><SiteFooter logoSrc="/logo-embarpet-dark.png" note="Planejamento individual para a viagem do seu pet aos Estados Unidos." brandCta={{ label: "Começar o planejamento", href: "#planejar" }} quickLinks={[
+    { label: "Começar o planejamento", description: "Conte o básico da viagem", href: "#planejar", icon: ClipboardCheck },
+    { label: "Como ajudamos seu pet", description: "Veja como funciona o suporte", href: "#plano", icon: Route },
+    { label: "Tirar dúvidas da viagem", description: "Respostas antes de começar", href: "#faq", icon: ShieldCheck },
+  ]} groups={[
+    { title: "Sua viagem", links: [{ label: "Começar o planejamento", href: "#planejar" }, { label: "Como ajudamos", href: "#plano" }] },
+    { title: "Embarpet", links: [{ label: "Por que a Embarpet", href: "#autoridade" }, { label: "Falar sobre meu pet", href: "#planejar" }] },
+    { title: "Dúvidas", links: [{ label: "Perguntas frequentes", href: "#faq" }, { label: "Voltar ao início", href: "#planejar" }] },
+  ]} showLanguageLink={false} /></>;
 }
