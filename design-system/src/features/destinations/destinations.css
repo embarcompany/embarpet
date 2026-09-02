@@ -220,6 +220,7 @@
   .ep-us-support__copy > .ep-ds-button { width:100%; justify-content:center; }
 
   .ep-us-comparison__table { width:100%; }
+  .ep-us-comparison__heading { text-align:center; }
   .ep-us-comparison__table { display:flex; gap:12px; overflow-x:auto; overflow-y:hidden; margin-top:28px; padding-bottom:8px; border:0; border-radius:0; background:transparent; scroll-behavior:smooth; scroll-snap-type:x mandatory; scrollbar-width:none; overscroll-behavior-inline:contain; -webkit-overflow-scrolling:touch; }
   .ep-us-comparison__table::-webkit-scrollbar { display:none; }
   .ep-us-comparison__row--head { display:none; }
@@ -250,7 +251,9 @@
   .ep-us-mosaic__cta .ep-ds-button,.ep-us-comparison__cta .ep-ds-button,.ep-us-method__cta .ep-ds-button,.ep-us-section-cta .ep-ds-button { width:100%; justify-content:center; }
 
   .ep-us-faq__grid { gap:34px; }
+  .ep-us-faq__grid > div:first-child { text-align:center; }
   .ep-us-faq h2 { max-width:13ch; }
+  .ep-us-faq h2,.ep-us-faq__intro { margin-inline:auto; }
   .ep-us-faq__list { min-width:0; }
   .ep-us-faq__list summary { gap:12px; }
   .ep-us-faq__cta--desktop { display:none; }
@@ -287,4 +290,30 @@
   .ep-us-doubt__heading h2,.ep-us-doubt__heading > p:last-of-type { margin-inline:auto; }
   .ep-us-doubt__content { justify-items:center; }
   .ep-us-doubt__visual,.ep-us-doubt__questions { width:100%; margin-inline:auto; }
+}
+
+/* Tipografia mobile: a composição define a quebra, não limites arbitrários em caracteres. */
+@media (max-width:700px) {
+  .ep-us-hero h1,
+  .ep-us-authority h2,
+  .ep-us-doubt h2,
+  .ep-us-method h2,
+  .ep-us-support__copy h2,
+  .ep-us-comparison__heading h2,
+  .ep-us-mosaic__heading h2,
+  .ep-us-faq h2 {
+    max-width:none;
+    letter-spacing:-.055em;
+    line-height:1.02;
+    text-wrap:balance;
+  }
+
+  .ep-us-hero h1 { font-size:clamp(38px,10.5vw,50px); }
+  .ep-us-authority h2,
+  .ep-us-doubt h2,
+  .ep-us-method h2,
+  .ep-us-support__copy h2,
+  .ep-us-comparison__heading h2,
+  .ep-us-mosaic__heading h2,
+  .ep-us-faq h2 { font-size:clamp(32px,9vw,42px); }
 }
