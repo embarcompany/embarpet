@@ -156,6 +156,7 @@
 .ep-us-ai-warning__logos img { display:block; width:31px; height:31px; opacity:.62; filter:grayscale(1) brightness(.62); object-fit:contain; }
 .ep-us-ai-warning h2 { max-width:19ch; margin:0 auto; color:var(--ep-teal); font-size:clamp(36px,4.4vw,62px); letter-spacing:-.075em; line-height:.96; }
 .ep-us-ai-warning h2 em { color:#b02230; font-style:normal; }
+.ep-us-ai-warning__proof { max-width:42ch; margin:22px auto 0; color:#6d3d42; font-size:13px; font-weight:750!important; line-height:1.45; }
 .ep-us-ai-warning__typing-dot { display:block; width:9px; height:9px; margin:0 auto 22px; border-radius:50%; background:#b02230; opacity:0; }
 .ep-us-ai-warning h2 > span,.ep-us-ai-warning h2 em > span { display:inline-block; clip-path:inset(0 0 0 0); }
 .ep-us-ai-warning.is-prepared h2 > span,.ep-us-ai-warning.is-prepared h2 em > span { clip-path:inset(0 100% 0 0); opacity:0; }
