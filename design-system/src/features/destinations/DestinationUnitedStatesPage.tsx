@@ -63,8 +63,8 @@ export function DestinationPage({ destination }: { destination: DestinationLandi
       <HeroPlannerSection destination={destination} period={period} routeInverted={routeInverted} heroVisible={heroVisible} heroRef={heroRef} onPeriodChange={setPeriod} onToggleRoute={() => setRouteInverted((current) => !current)} onEditDestination={() => startPlanning("route_edit")} onStartPlanning={() => startPlanning()} />
       <AuthoritySection onStartPlanning={() => startPlanning("authority")} />
       <ServicesSection destination={destination} onStartPlanning={() => startPlanning("services")} />
-      <ModalitiesSection />
       <RiskSection />
+      <ModalitiesSection />
       <AiWarningSection />
       <MethodSection destination={destination} onStartPlanning={() => startPlanning("method")} />
       <GoogleReviewsSection onStartPlanning={() => startPlanning("google_reviews")} />

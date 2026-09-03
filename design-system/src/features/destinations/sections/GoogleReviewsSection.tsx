@@ -22,10 +22,13 @@ function ReviewCard({ review }: { review: (typeof googleReviews)[number] }) {
 }
 
 function ReviewTrack({ reviews, reverse = false }: { reviews: readonly (typeof googleReviews)[number][]; reverse?: boolean }) {
+  // Cada metade precisa ser mais larga que a maior viewport. Assim a faixa invertida
+  // nunca revela um espaço vazio antes de reencontrar sua cópia.
+  const loopReviews = [...reviews, ...reviews];
   return <div className="ep-us-google-reviews__viewport">
     <div className={`ep-us-google-reviews__track${reverse ? " is-reverse" : ""}`}>
-      <div className="ep-us-google-reviews__set">{reviews.map((review) => <ReviewCard key={review.name} review={review} />)}</div>
-      <div className="ep-us-google-reviews__set" aria-hidden="true">{reviews.map((review) => <ReviewCard key={review.name} review={review} />)}</div>
+      <div className="ep-us-google-reviews__set">{loopReviews.map((review, index) => <ReviewCard key={`${review.name}-${index}`} review={review} />)}</div>
+      <div className="ep-us-google-reviews__set" aria-hidden="true">{loopReviews.map((review, index) => <ReviewCard key={`${review.name}-${index}`} review={review} />)}</div>
     </div>
   </div>;
 }
