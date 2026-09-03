@@ -49,7 +49,7 @@ export function SiteFooter({ logoSrc, groups, note = "Transporte internacional d
           </div>
         </div>
 
-        <div className="ep-footer-bottom"><span>© Embarpet · Todos os direitos reservados</span><span className="ep-footer-credit">Criado por <b>Montuan MKT Digital</b> e <b>Igor Marin Santos</b></span><div>{showLanguageLink ? <a href="#idioma"><Globe2 size={13} /> PT</a> : null}<a href="/privacidade">Privacidade</a><a href="/termos">Termos de uso</a></div></div>
+        <div className="ep-footer-bottom"><span>© Embarpet · Todos os direitos reservados</span><span className="ep-footer-credit">Criado por <a href="https://montuan.com.br" target="_blank" rel="noopener noreferrer"><b>Montuan MKT Digital</b></a> e <a href="https://igormarin.com.br" target="_blank" rel="noopener noreferrer"><b>Igor Marin Santos</b></a></span><div>{showLanguageLink ? <a href="#idioma"><Globe2 size={13} /> PT</a> : null}<a href="/privacidade">Privacidade</a><a href="/termos">Termos de uso</a></div></div>
       </div>
     </footer>
   );
