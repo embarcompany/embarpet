@@ -1,5 +1,6 @@
 .ep-destination-lp { padding-bottom:10px; background:var(--ep-page); color:var(--ep-ink); }
 .ep-destination-lp > .ep-home-modalities { order:initial; }
+.ep-destination-lp > .ep-home-luxury { order:initial; }
 .ep-destination-lp .ep-home-modalities__intro .ep-eyebrow { font-size:10px!important; font-weight:800!important; }
 .ep-destination-lp .ep-home-modalities__intro .ep-eyebrow::after { display:none!important; content:none!important; }
 .ep-us-text-cta { display:inline-flex; align-items:center; gap:8px; color:var(--ep-teal); font-size:13px; font-weight:800; text-decoration:none; }
