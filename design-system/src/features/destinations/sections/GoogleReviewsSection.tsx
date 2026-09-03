@@ -32,7 +32,7 @@ function ReviewTrack({ reverse = false }: { reverse?: boolean }) {
 export function GoogleReviewsSection() {
   return <section className="ep-us-google-reviews" aria-labelledby="google-reviews-title">
     <div className="ep-container ep-us-google-reviews__heading">
-      <p className="ep-us-kicker"><img src="/logo-google.svg" alt="Google" /> Avaliações reais</p>
+      <p className="ep-us-kicker ep-us-google-reviews__trust"><span><img src="/logo-google.svg" alt="Google" /><strong>4,9</strong> avaliação no Google</span><i aria-hidden="true" /><span><img src="/reclame-aqui-ra1000.png" alt="RA1000 Reclame AQUI" /> Empresa credenciada</span></p>
       <h2 id="google-reviews-title">Quem já viveu a jornada, <em>recomenda.</em></h2>
       <p>Relatos de famílias que confiaram a viagem internacional dos seus pets à Embarpet.</p>
     </div>

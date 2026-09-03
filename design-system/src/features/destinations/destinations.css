@@ -415,8 +415,12 @@
 /* Avaliações Google: duas faixas duplicadas para um loop contínuo, sem salto visual. */
 .ep-us-google-reviews { overflow:hidden; padding-block:28px 72px; background:var(--ep-paper); }
 .ep-us-google-reviews__heading { max-width:690px; text-align:center; }
-.ep-us-google-reviews__heading .ep-us-kicker { display:inline-flex; align-items:center; gap:7px; }
-.ep-us-google-reviews__heading .ep-us-kicker img { width:15px; height:15px; object-fit:contain; }
+.ep-us-google-reviews__heading .ep-us-google-reviews__trust { display:inline-flex; min-height:34px; align-items:center; gap:9px; padding:4px 10px; border:1px solid rgba(0,157,172,.18); border-radius:999px; background:#f4fbfa; color:#46757a; font-size:10px; font-weight:800; letter-spacing:0; text-transform:none; }
+.ep-us-google-reviews__trust > span { display:inline-flex; align-items:center; gap:5px; white-space:nowrap; }
+.ep-us-google-reviews__trust > span > img:first-child { width:15px; height:15px; object-fit:contain; }
+.ep-us-google-reviews__trust strong { color:var(--ep-teal); font-size:12px; font-weight:900; }
+.ep-us-google-reviews__trust > i { width:1px; height:20px; background:rgba(0,113,121,.17); }
+.ep-us-google-reviews__trust > span:last-child > img { width:42px; height:23px; object-fit:contain; object-position:center; }
 .ep-us-google-reviews__heading h2 { margin:10px auto 12px; color:var(--ep-teal); font-size:clamp(33px,4vw,52px); line-height:1.02; letter-spacing:-.055em; }
 .ep-us-google-reviews__heading h2 em { color:var(--ep-cyan); font-style:normal; }
 .ep-us-google-reviews__heading > p:last-child { max-width:54ch; margin-inline:auto; color:var(--ep-muted); font-size:15px; line-height:1.55; }
@@ -440,6 +444,9 @@
   .ep-us-google-reviews { padding-block:20px 58px; }
   .ep-us-google-reviews__heading h2 { font-size:clamp(31px,9vw,42px); text-wrap:balance; }
   .ep-us-google-reviews__heading > p:last-child { font-size:14px; }
+  .ep-us-google-reviews__heading .ep-us-google-reviews__trust { gap:7px; padding-inline:8px; font-size:9px; }
+  .ep-us-google-reviews__trust > span { gap:4px; }
+  .ep-us-google-reviews__trust > span:last-child > img { width:35px; height:20px; }
   .ep-us-google-reviews__tracks { gap:10px; margin-top:26px; }
   .ep-us-google-reviews__track,.ep-us-google-reviews__set { gap:10px; }
   .ep-us-google-reviews__card { width:min(78vw,290px); min-height:150px; padding:16px; }
