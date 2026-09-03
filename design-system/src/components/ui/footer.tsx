@@ -1,11 +1,17 @@
 import { ArrowUpRight, BookOpenText, ChevronDown, Compass, Globe2, MapPinned, MessageCircle, Route, ShieldCheck, type LucideIcon } from "lucide-react";
+import type { MouseEvent } from "react";
 
 export type FooterGroup = { title: string; links: Array<{ label: string; href: string }> };
 export type FooterQuickLink = { label: string; description: string; href: string; icon: LucideIcon };
 
 const footerGroupIcons = [Route, BookOpenText, Compass];
 
-export function SiteFooter({ logoSrc, groups, note = "Transporte internacional de pets com planejamento individual.", quickLinks = defaultQuickLinks, brandCta = { label: "Falar sobre a viagem", href: "#analise" }, showLanguageLink = true, minimal = false }: { logoSrc: string; groups: FooterGroup[]; note?: string; quickLinks?: FooterQuickLink[]; brandCta?: { label: string; href: string }; showLanguageLink?: boolean; minimal?: boolean }) {
+export function SiteFooter({ logoSrc, groups, note = "Transporte internacional de pets com planejamento individual.", quickLinks = defaultQuickLinks, brandCta = { label: "Falar sobre a viagem", href: "#analise" }, showLanguageLink = true, minimal = false, onAnalysisClick }: { logoSrc: string; groups: FooterGroup[]; note?: string; quickLinks?: FooterQuickLink[]; brandCta?: { label: string; href: string }; showLanguageLink?: boolean; minimal?: boolean; onAnalysisClick?: () => void }) {
+  const openAnalysisLink = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!onAnalysisClick || href !== "#planejar") return;
+    event.preventDefault();
+    onAnalysisClick();
+  };
   const socials = [
     { label: "Instagram", href: "https://www.instagram.com/embarpet/", iconSrc: "/icons/social/instagram-white.svg" },
     { label: "Facebook", href: "https://www.facebook.com/embarpet/", iconSrc: "/icons/social/facebook-white.svg" },
@@ -28,18 +34,18 @@ export function SiteFooter({ logoSrc, groups, note = "Transporte internacional d
             <div className="ep-footer-socials" aria-label="Redes sociais da Embarpet">
               {socials.map(({ label, href, iconSrc }) => <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} title={label}><img src={iconSrc} alt="" /></a>)}
             </div>
-            <a href={brandCta.href}>{brandCta.label} <ArrowUpRight size={15} /></a>
+            <a href={brandCta.href} onClick={(event) => openAnalysisLink(event, brandCta.href)}>{brandCta.label} <ArrowUpRight size={15} /></a>
           </div>
 
           <nav className="ep-footer-desktop-nav" aria-label="Navegação do rodapé">
             {groups.map((group, index) => {
               const Icon = footerGroupIcons[index] ?? Compass;
-              return <section key={group.title} className="ep-footer-group ep-footer-group--desktop"><div className="ep-footer-group__title"><span><Icon size={16} /></span><b>{group.title}</b></div>{group.links.map((link) => <a key={link.label} href={link.href}><span>{link.label}</span><ArrowUpRight size={13} aria-hidden="true" /></a>)}</section>;
+              return <section key={group.title} className="ep-footer-group ep-footer-group--desktop"><div className="ep-footer-group__title"><span><Icon size={16} /></span><b>{group.title}</b></div>{group.links.map((link) => <a key={link.label} href={link.href} onClick={(event) => openAnalysisLink(event, link.href)}><span>{link.label}</span><ArrowUpRight size={13} aria-hidden="true" /></a>)}</section>;
             })}
           </nav>
 
           <div className="ep-footer-mobile-nav">
-            {groups.map((group) => <details key={group.title} className="ep-footer-group"><summary><b>{group.title}</b><ChevronDown size={16} aria-hidden="true" /></summary>{group.links.map((link) => <a key={link.label} href={link.href}>{link.label}</a>)}</details>)}
+            {groups.map((group) => <details key={group.title} className="ep-footer-group"><summary><b>{group.title}</b><ChevronDown size={16} aria-hidden="true" /></summary>{group.links.map((link) => <a key={link.label} href={link.href} onClick={(event) => openAnalysisLink(event, link.href)}>{link.label}</a>)}</details>)}
           </div>
         </div>
 
