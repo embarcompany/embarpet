@@ -606,20 +606,20 @@ main section[id] { scroll-margin-top:84px; }
   object-fit:contain;
 }
 
-/* Data definida: mantém a interação de rolagem, com altura proporcional ao modal. */
-.ep-date-wheel--compact { gap:7px; margin-top:0; padding:8px 10px; border-radius:12px; }
-.ep-date-wheel--compact .ep-date-wheel__compact-heading { display:flex; align-items:center; gap:8px; color:var(--ep-teal); }
-.ep-date-wheel--compact .ep-date-wheel__compact-heading > svg { flex:0 0 auto; color:var(--ep-turq-deep); }
-.ep-date-wheel--compact .ep-date-wheel__compact-heading span { display:grid; gap:1px; }
-.ep-date-wheel--compact .ep-date-wheel__compact-heading b { font-size:11px; }
-.ep-date-wheel--compact .ep-date-wheel__compact-heading small { color:var(--ep-muted); font-size:9px; }
-.ep-date-wheel--compact .ep-date-wheel__columns { grid-template-columns:.72fr 1.2fr .85fr; gap:6px; }
-.ep-date-wheel--compact .ep-date-wheel__column { gap:3px; }
-.ep-date-wheel--compact .ep-date-wheel__column > span { font-size:9px!important; }
-.ep-date-wheel--compact .ep-date-wheel__scroller { height:72px; border-radius:9px; scroll-snap-type:y mandatory; }
-.ep-date-wheel--compact .ep-date-wheel__scroller::before { top:20px; right:5px; left:5px; height:30px; border-radius:6px; }
-.ep-date-wheel--compact .ep-date-wheel__scroller > i { height:20px; }
-.ep-date-wheel--compact .ep-date-wheel__scroller button { height:32px; padding:0 5px; font-size:11px; scroll-snap-align:center; }
+/* Data definida: rolagem preservada em uma faixa baixa, sem repetir informação visual. */
+.ep-date-wheel--compact { gap:5px; margin-top:0; padding:0; border:0; border-radius:0; background:transparent; }
+.ep-date-wheel--compact .ep-date-wheel__compact-heading { display:flex; align-items:center; gap:7px; min-height:20px; color:var(--ep-teal); }
+.ep-date-wheel--compact .ep-date-wheel__compact-heading > svg { width:14px; height:14px; flex:0 0 auto; color:var(--ep-turq-deep); }
+.ep-date-wheel--compact .ep-date-wheel__compact-heading span { display:flex; min-width:0; align-items:baseline; gap:7px; }
+.ep-date-wheel--compact .ep-date-wheel__compact-heading b { font-size:10px; white-space:nowrap; }
+.ep-date-wheel--compact .ep-date-wheel__compact-heading small { overflow:hidden; color:var(--ep-muted); font-size:9px; text-overflow:ellipsis; white-space:nowrap; }
+.ep-date-wheel--compact .ep-date-wheel__columns { grid-template-columns:.72fr 1.2fr .85fr; gap:5px; }
+.ep-date-wheel--compact .ep-date-wheel__column { gap:0; }
+.ep-date-wheel--compact .ep-date-wheel__column > span { display:none; }
+.ep-date-wheel--compact .ep-date-wheel__scroller { height:54px; border-color:rgba(0,157,172,.18); border-radius:8px; background:#fbfefe; scroll-snap-type:y mandatory; }
+.ep-date-wheel--compact .ep-date-wheel__scroller::before { top:12px; right:5px; left:5px; height:28px; border-color:rgba(0,157,172,.16); border-radius:6px; }
+.ep-date-wheel--compact .ep-date-wheel__scroller > i { height:12px; }
+.ep-date-wheel--compact .ep-date-wheel__scroller button { height:28px; padding:0 5px; font-size:10px; scroll-snap-align:center; }
 
 /* Regra final: o botão de inverter não possui conector visual atrás dele. */
 .ep-route-inline--airport::before,

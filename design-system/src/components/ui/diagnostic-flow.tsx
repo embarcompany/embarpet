@@ -1116,7 +1116,7 @@ function CompactDateWheelColumn({
   useEffect(() => {
     const index = options.findIndex((option) => option.value === selected);
     if (index < 0 || !scrollerRef.current) return;
-    scrollerRef.current.scrollTop = index * 32;
+    scrollerRef.current.scrollTop = index * 28;
     window.requestAnimationFrame(() => { readyForScroll.current = true; });
   }, [options, selected]);
 
@@ -1124,7 +1124,7 @@ function CompactDateWheelColumn({
     if (!readyForScroll.current) return;
     if (scrollFrame.current !== undefined) window.cancelAnimationFrame(scrollFrame.current);
     scrollFrame.current = window.requestAnimationFrame(() => {
-      const option = options[Math.round(target.scrollTop / 32)];
+      const option = options[Math.round(target.scrollTop / 28)];
       if (option && !option.disabled && option.value !== selected) onSelect(option.value);
     });
   };
