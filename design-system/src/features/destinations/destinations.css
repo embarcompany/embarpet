@@ -135,6 +135,7 @@
 .ep-destination-services { padding:clamp(72px,8vw,108px) 0; background:#f5fbfa; }
 .ep-destination-services__heading { max-width:730px; margin:0 auto; text-align:center; }
 .ep-destination-services__heading h2 { margin:12px 0 0; color:var(--ep-teal); font-size:clamp(34px,4.1vw,54px); letter-spacing:-.07em; line-height:.98; }
+.ep-destination-services__title-break { display:block; }
 .ep-destination-services__heading h2 em { color:var(--ep-turq-deep); font-style:normal; }
 .ep-destination-services__heading > p:last-child { max-width:610px; margin:17px auto 0; color:var(--ep-muted); font-size:14px; line-height:1.55; }
 .ep-destination-services__grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:13px; margin-top:40px; }
@@ -180,6 +181,7 @@
 @media (max-width:700px) {
   .ep-destination-services { padding-block:58px; }
   .ep-destination-services__heading { text-align:center; }
+  .ep-destination-services__title-break { display:none; }
   .ep-destination-services__grid { grid-template-columns:1fr; gap:10px; margin-top:29px; }
   .ep-destination-services__card { min-height:0; padding:19px; }
   .ep-destination-services__card { display:grid; grid-template-columns:44px minmax(0,1fr); column-gap:13px; align-items:start; }
