@@ -281,8 +281,8 @@ export function DiagnosticFlow({
   };
   const complete = () => {
     const lead: PublicLead = {
-      source: "hero-diagnostic",
-      page: "/",
+      source: analyticsSource,
+      page: typeof window === "undefined" ? "/" : window.location.pathname,
       ...route,
       species: pets.map((pet) => pet.kind).join(", "),
       size: pets.map((pet) => pet.weight).join(", "),
@@ -294,6 +294,7 @@ export function DiagnosticFlow({
       destino: route.destination,
       animal: lead.species ?? "Pet",
       prazo: route.period,
+      source: analyticsSource,
     });
     trackConversionEvent("form_submitted", {
       source: analyticsSource,

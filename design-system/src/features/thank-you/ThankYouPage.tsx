@@ -5,12 +5,12 @@ import { setPageMetadata } from "../../lib/seo";
 import { useLocale } from "../../i18n/locale";
 
 const EMBARPET_WHATSAPP = "551149694604";
-type ThankYouContext = { destination: string; animal: string; period: string; modality: string };
+type ThankYouContext = { destination: string; animal: string; period: string; modality: string; source: string };
 
 function contextFromLocation(): ThankYouContext {
-  if (typeof window === "undefined") return { destination: "seu destino", animal: "seu pet", period: "", modality: "" };
+  if (typeof window === "undefined") return { destination: "seu destino", animal: "seu pet", period: "", modality: "", source: "direct" };
   const query = new URLSearchParams(window.location.search);
-  return { destination: query.get("destino") || "seu destino", animal: query.get("animal") || "pet", period: query.get("prazo") || "", modality: query.get("modalidade") || "" };
+  return { destination: query.get("destino") || "seu destino", animal: query.get("animal") || "pet", period: query.get("prazo") || "", modality: query.get("modalidade") || "", source: query.get("source") || "direct" };
 }
 function cleanDestination(value: string) { return value.split("·")[0].trim() || "seu destino"; }
 function toWhatsappUrl(context: ThankYouContext) {
@@ -25,12 +25,12 @@ export default function ThankYouPage() {
   const whatsappUrl = useMemo(() => toWhatsappUrl(context), [context]);
   useEffect(() => {
     const restoreMetadata = setPageMetadata({ title: `${text.whatsapp} | Embarpet`, description: text.thankYouCopy, canonicalPath: path("/obrigado"), robots: "noindex, nofollow" });
-    trackConversionEvent("thank_you_view", { destination, animal: context.animal, has_period: Boolean(context.period) });
+    trackConversionEvent("thank_you_view", { source: context.source, destination, animal: context.animal, has_period: Boolean(context.period) });
     return restoreMetadata;
-  }, [context.animal, context.period, destination, path, text.thankYouCopy, text.whatsapp]);
+  }, [context.animal, context.period, context.source, destination, path, text.thankYouCopy, text.whatsapp]);
   const continueToWhatsApp = () => {
-    trackConversionEvent("whatsapp_click_after_form", { destination, animal: context.animal, has_period: Boolean(context.period) });
-    trackConversionEvent("lead_continued_whatsapp", { destination, animal: context.animal, has_period: Boolean(context.period) });
+    trackConversionEvent("whatsapp_click_after_form", { source: context.source, destination, animal: context.animal, has_period: Boolean(context.period) });
+    trackConversionEvent("lead_continued_whatsapp", { source: context.source, destination, animal: context.animal, has_period: Boolean(context.period) });
   };
   return <main className="ep-thank-you-page">
     <header className="ep-thank-you-page__header"><a href={path("/")} aria-label={text.backHome}><img src="/logo-embarpet-dark.png" alt="Embarpet" /></a></header>
