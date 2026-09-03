@@ -104,7 +104,10 @@ export function DiagnosticFlow({
     {},
   );
   const [otherPets, setOtherPets] = useState<string[]>([]);
-  const [activeOtherPet, setActiveOtherPet] = useState(0);
+  const [isChoosingOtherSpecies, setIsChoosingOtherSpecies] = useState(false);
+  const [editingOtherSpecies, setEditingOtherSpecies] = useState<string | null>(null);
+  const [otherSpeciesDraft, setOtherSpeciesDraft] = useState("");
+  const [otherSpeciesQuantity, setOtherSpeciesQuantity] = useState(1);
   const [route, setRoute] = useState<RouteData>({
     origin: initialRoute?.origin ?? "",
     destination: initialRoute?.destination ?? "",
@@ -121,10 +124,20 @@ export function DiagnosticFlow({
   const [hasSpecificDate, setHasSpecificDate] = useState(false);
   const hasTrackedStart = useRef(false);
   const otherPetCount = petCounts.Outro ?? 0;
-  const activeOtherIndex = Math.min(
-    activeOtherPet,
-    Math.max(0, otherPetCount - 1),
-  );
+  const totalOtherPets = hasMultiplePets
+    ? otherPetCount
+    : firstKind === "Outro"
+      ? 1
+      : 0;
+  const identifiedOtherPets = otherPets.filter((pet) => pet.trim()).length;
+  const otherSpecies = Array.from(
+    otherPets.reduce((species, name) => {
+      const normalized = name.trim();
+      if (!normalized) return species;
+      species.set(normalized, (species.get(normalized) ?? 0) + 1);
+      return species;
+    }, new Map<string, number>()),
+  ).map(([name, count]) => ({ name, count }));
   const selectedPetCount = hasMultiplePets
     ? Object.values(petCounts).reduce((total, count) => total + (count ?? 0), 0)
     : firstKind
@@ -212,13 +225,11 @@ export function DiagnosticFlow({
       updateKindCount("Outro", count ? 0 : 1);
       if (!firstKind && !count) setFirstKind("Outro");
       setOtherPets(count ? [] : [""]);
-      setActiveOtherPet(0);
       return;
     }
     if (firstKind === "Outro") {
       setFirstKind("");
       setOtherPets([]);
-      setActiveOtherPet(0);
       return;
     }
     setFirstKind("Outro");
@@ -236,9 +247,46 @@ export function DiagnosticFlow({
       setOtherPets((current) =>
         Array.from({ length: count }, (_, index) => current[index] ?? ""),
       );
-      setActiveOtherPet((current) => Math.min(current, Math.max(0, count - 1)));
     }
     if (nextCount > 0 && !firstKind) setFirstKind(kind);
+  };
+  const beginOtherSpeciesStep = () => {
+    setEditingOtherSpecies(null);
+    setOtherSpeciesDraft("");
+    setOtherSpeciesQuantity(1);
+    setIsChoosingOtherSpecies(true);
+  };
+  const editOtherSpecies = (name: string, count: number) => {
+    setEditingOtherSpecies(name);
+    setOtherSpeciesDraft(name);
+    setOtherSpeciesQuantity(count);
+  };
+  const saveOtherSpecies = () => {
+    const name = otherSpeciesDraft.trim();
+    if (!name || !totalOtherPets) return;
+    const remaining = otherPets.filter(
+      (pet) => !editingOtherSpecies || pet.trim() !== editingOtherSpecies,
+    );
+    const available = totalOtherPets - remaining.filter((pet) => pet.trim()).length;
+    const quantity = Math.max(1, Math.min(otherSpeciesQuantity, available));
+    setOtherPets(
+      [...remaining.filter((pet) => pet.trim()), ...Array(quantity).fill(name)].slice(
+        0,
+        totalOtherPets,
+      ),
+    );
+    setEditingOtherSpecies(null);
+    setOtherSpeciesDraft("");
+    setOtherSpeciesQuantity(1);
+  };
+  const removeOtherSpecies = () => {
+    if (!editingOtherSpecies) return;
+    setOtherPets((current) =>
+      current.filter((pet) => pet.trim() !== editingOtherSpecies),
+    );
+    setEditingOtherSpecies(null);
+    setOtherSpeciesDraft("");
+    setOtherSpeciesQuantity(1);
   };
   const createPetsFromKinds = () => {
     const selected = Object.entries(petCounts).flatMap(([kind, count]) =>
@@ -260,6 +308,14 @@ export function DiagnosticFlow({
           ],
     );
     setActivePetDetail(0);
+  };
+  const advancePets = () => {
+    if (totalOtherPets > 0) {
+      beginOtherSpeciesStep();
+      return;
+    }
+    createPetsFromKinds();
+    go(routeFirst ? 3 : 2);
   };
   const changePet = (index: number, field: keyof PetDetail, value: string) =>
     setPets((current) =>
@@ -355,7 +411,7 @@ export function DiagnosticFlow({
           <RoutePreview {...route} petCount={selectedPetCount} />
         </header>
       ) : null}
-      {step === 1 && (
+      {step === 1 && !isChoosingOtherSpecies && (
         <div className="ep-flow-card">
           <p className="ep-flow-kicker">Sobre seu pet</p>
           <h2 className="ep-flow-title">
@@ -443,54 +499,7 @@ export function DiagnosticFlow({
                 <CircleHelp size={17} />
                 <span>Outro</span>
               </button>
-              {(hasMultiplePets ? otherPetCount > 0 : firstKind === "Outro") ? (
-                <input
-                  value={otherPets[activeOtherIndex] ?? ""}
-                  onChange={(event) =>
-                    setOtherPets((current) =>
-                      current.map((pet, index) =>
-                        index === activeOtherIndex ? event.target.value : pet,
-                      ),
-                    )
-                  }
-                  onKeyDown={(event) => {
-                    if (
-                      !hasMultiplePets &&
-                      event.key === "Enter" &&
-                      otherPets[0]
-                    )
-                      selectSinglePet("Outro");
-                  }}
-                  placeholder={
-                    hasMultiplePets
-                      ? `Qual animal ${activeOtherIndex + 1}? *`
-                      : "Qual animal? *"
-                  }
-                  aria-label={`Qual é o outro animal ${activeOtherIndex + 1}?`}
-                  aria-required="true"
-                />
-              ) : null}
             </div>
-            {hasMultiplePets && otherPetCount > 1 ? (
-              <div className="ep-other-pet__sequence">
-                <span>
-                  Animal {activeOtherIndex + 1} de {otherPetCount}
-                </span>
-                {activeOtherIndex < otherPetCount - 1 ? (
-                  <button
-                    type="button"
-                    disabled={!otherPets[activeOtherIndex]}
-                    onClick={() => setActiveOtherPet((current) => current + 1)}
-                  >
-                    Próximo animal <ArrowRight size={13} />
-                  </button>
-                ) : (
-                  <button type="button" onClick={() => setActiveOtherPet(0)}>
-                    Revisar animais
-                  </button>
-                )}
-              </div>
-            ) : null}
             {hasMultiplePets ? (
               <div className="ep-pet-choice__quantity">
                 <button
@@ -524,18 +533,109 @@ export function DiagnosticFlow({
           </button>
           <FlowActions
             back={routeFirst ? () => go(2) : undefined}
-            next={() => {
-              createPetsFromKinds();
-              go(routeFirst ? 3 : 2);
-            }}
+            next={advancePets}
             nextLabel="Continuar"
             disabled={
               hasMultiplePets
-                ? (otherPetCount > 0 &&
-                    otherPets.slice(0, otherPetCount).some((pet) => !pet)) ||
-                  Object.values(petCounts).every((count) => !count)
-                : !firstKind || (firstKind === "Outro" && !otherPets[0])
+                ? Object.values(petCounts).every((count) => !count)
+                : !firstKind
             }
+          />
+        </div>
+      )}
+
+      {step === 1 && isChoosingOtherSpecies && (
+        <div className="ep-flow-card ep-other-species-step">
+          <p className="ep-flow-kicker">Outros pets</p>
+          <h2 className="ep-flow-title">
+            Quais outros pets <em>vão viajar?</em>
+          </h2>
+          <p className="ep-flow-intro">
+            Identifique cada espécie para montarmos uma análise compatível com todos.
+          </p>
+          <div className="ep-other-species-summary" aria-live="polite">
+            <span>{identifiedOtherPets} de {totalOtherPets} pets identificados</span>
+            <i aria-hidden="true"><b style={{ width: `${(identifiedOtherPets / totalOtherPets) * 100}%` }} /></i>
+          </div>
+          <div className="ep-other-species-chips" aria-label="Espécies adicionadas">
+            {otherSpecies.map(({ name, count }) => (
+              <button
+                type="button"
+                className={editingOtherSpecies === name ? "is-active" : ""}
+                key={name}
+                onClick={() => editOtherSpecies(name, count)}
+              >
+                <span>{name}</span>
+                <b>× {count}</b>
+              </button>
+            ))}
+            {identifiedOtherPets < totalOtherPets ? (
+              <button
+                type="button"
+                className="ep-other-species-chips__add"
+                onClick={() => {
+                  setEditingOtherSpecies(null);
+                  setOtherSpeciesDraft("");
+                  setOtherSpeciesQuantity(1);
+                }}
+              >
+                <Plus size={14} aria-hidden="true" /> Adicionar espécie
+              </button>
+            ) : null}
+          </div>
+          <div className="ep-other-species-editor">
+            <label>
+              <span>Espécie</span>
+              <input
+                value={otherSpeciesDraft}
+                onChange={(event) => setOtherSpeciesDraft(event.target.value)}
+                placeholder="Ex.: coelho, ave, tartaruga"
+                autoFocus
+              />
+            </label>
+            <div className="ep-other-species-editor__quantity">
+              <span>Quantidade</span>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setOtherSpeciesQuantity((current) => Math.max(1, current - 1))}
+                  aria-label="Diminuir quantidade"
+                ><Minus size={14} /></button>
+                <b>{otherSpeciesQuantity}</b>
+                <button
+                  type="button"
+                  onClick={() => setOtherSpeciesQuantity((current) => Math.min(totalOtherPets - identifiedOtherPets + (editingOtherSpecies ? (otherSpecies.find((species) => species.name === editingOtherSpecies)?.count ?? 0) : 0), current + 1))}
+                  aria-label="Aumentar quantidade"
+                ><Plus size={14} /></button>
+              </div>
+            </div>
+            <button
+              type="button"
+              className="ep-other-species-editor__save"
+              onClick={saveOtherSpecies}
+              disabled={!otherSpeciesDraft.trim()}
+            >
+              <Check size={14} aria-hidden="true" /> Salvar
+            </button>
+            {editingOtherSpecies ? (
+              <button
+                type="button"
+                className="ep-other-species-editor__remove"
+                onClick={removeOtherSpecies}
+              >
+                Remover
+              </button>
+            ) : null}
+          </div>
+          <FlowActions
+            back={() => setIsChoosingOtherSpecies(false)}
+            next={() => {
+              createPetsFromKinds();
+              setIsChoosingOtherSpecies(false);
+              go(routeFirst ? 3 : 2);
+            }}
+            nextLabel="Continuar"
+            disabled={identifiedOtherPets !== totalOtherPets}
           />
         </div>
       )}
