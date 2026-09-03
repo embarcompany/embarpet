@@ -15,6 +15,11 @@ export type DestinationLandingContent = {
   };
   methodArrivalCopy: string;
   footerNote: string;
+  services: readonly {
+    icon: "plane" | "document" | "globe" | "stethoscope" | "sparkles";
+    title: string;
+    copy: string;
+  }[];
   faq: readonly DestinationFaq[];
   context: {
     title: string;
@@ -55,6 +60,13 @@ export const unitedStatesDestination: DestinationLandingContent = {
   },
   methodArrivalCopy: "A Embarpet coordena cada etapa da viagem para que o seu pet chegue aos Estados Unidos com você.",
   footerNote: "Planejamento individual para a viagem do seu pet aos Estados Unidos.",
+  services: [
+    { icon: "plane", title: "Embarque de animais", copy: "Avaliamos a modalidade, a rota e a operação mais compatíveis com a viagem do seu pet." },
+    { icon: "document", title: "Documentação para embarque", copy: "Organizamos os documentos, certificados e prazos que a sua rota pode exigir." },
+    { icon: "globe", title: "Importação de animais", copy: "O destino faz parte da análise: cada etapa é lida até a chegada aos Estados Unidos." },
+    { icon: "stethoscope", title: "Processo veterinário", copy: "Orientamos os cuidados, registros e etapas veterinárias relevantes para o embarque." },
+    { icon: "sparkles", title: "Acompanhamento especializado", copy: "Você tem uma equipe para orientar decisões e ajustes durante o planejamento da viagem." },
+  ],
   faq: [
     ["Quais documentos meu pet precisa para viajar para os Estados Unidos?", "A documentação para levar um pet aos Estados Unidos depende do perfil do animal, da rota e das exigências aplicáveis no momento da viagem. A análise considera vacinas, certificados, prazos e a operação escolhida antes do embarque."],
     ["Preciso de CVI para viajar com meu pet para os Estados Unidos?", "O CVI, ou Certificado Veterinário Internacional, pode fazer parte do processo de saída do Brasil com um animal de estimação. A necessidade e o fluxo correto são confirmados conforme a rota e as exigências vigentes para a viagem."],

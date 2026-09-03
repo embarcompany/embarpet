@@ -15,6 +15,7 @@ import { HeroPlannerSection } from "./sections/HeroPlannerSection";
 import { MethodSection } from "./sections/MethodSection";
 import { RiskSection } from "./sections/RiskSection";
 import { WhatsappSupportSection } from "./sections/WhatsappSupportSection";
+import { ServicesSection } from "./sections/ServicesSection";
 import { unitedStatesDestination, type DestinationLandingContent } from "./destination-content";
 
 export function DestinationPage({ destination }: { destination: DestinationLandingContent }) {
@@ -62,6 +63,7 @@ export function DestinationPage({ destination }: { destination: DestinationLandi
       <RiskSection />
       <AiWarningSection />
       <MethodSection destination={destination} onStartPlanning={() => startPlanning("method")} />
+      <ServicesSection destination={destination} onStartPlanning={() => startPlanning("services")} />
       <WhatsappSupportSection onStartPlanning={() => startPlanning("whatsapp")} />
       <ComparisonSection onStartPlanning={() => startPlanning("comparison")} />
       <EmbarkationMosaicSection onStartPlanning={() => startPlanning("embarkations")} />
