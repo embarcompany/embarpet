@@ -822,16 +822,19 @@ export function DiagnosticFlow({
                       <span>
                         Peso aproximado (kg) <RequiredMark />
                       </span>
-                      <input
-                        inputMode="decimal"
-                        value={pet.weight}
-                        onChange={(event) =>
-                          changePet(index, "weight", formatWeight(event.target.value))
-                        }
-                        placeholder="Ex.: 4,5 kg"
-                        aria-describedby={`pet-weight-hint-${index}`}
-                        required
-                      />
+                      <span className="ep-weight-input">
+                        <input
+                          inputMode="decimal"
+                          value={pet.weight}
+                          onChange={(event) =>
+                            changePet(index, "weight", formatWeight(event.target.value))
+                          }
+                          placeholder="Ex.: 4,5"
+                          aria-describedby={`pet-weight-hint-${index}`}
+                          required
+                        />
+                        <i aria-hidden="true">kg</i>
+                      </span>
                       <small id={`pet-weight-hint-${index}`}>Use quilogramas, com vírgula se necessário.</small>
                     </label>
                   </div>
