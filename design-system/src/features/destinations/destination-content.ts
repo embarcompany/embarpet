@@ -15,8 +15,11 @@ export type DestinationLandingContent = {
   };
   methodArrivalCopy: string;
   footerNote: string;
+  servicesHeading: string;
+  servicesHeadingHighlight: string;
+  servicesIntro: string;
   services: readonly {
-    icon: "plane" | "document" | "globe" | "stethoscope" | "sparkles";
+    icon: "plane" | "document" | "globe" | "stethoscope" | "box" | "sparkles";
     title: string;
     copy: string;
     variant?: "luxury";
@@ -61,11 +64,14 @@ export const unitedStatesDestination: DestinationLandingContent = {
   },
   methodArrivalCopy: "A Embarpet coordena cada etapa da viagem para que o seu pet chegue aos Estados Unidos com você.",
   footerNote: "Planejamento individual para a viagem do seu pet aos Estados Unidos.",
+  servicesHeading: "Nossos serviços para a",
+  servicesHeadingHighlight: "viagem internacional do seu pet.",
+  servicesIntro: "Do CVI à caixa de transporte, cada serviço é definido conforme seu pet, sua rota e as exigências do destino.",
   services: [
-    { icon: "plane", title: "Embarque de animais", copy: "Avaliamos a modalidade, a rota e a operação mais compatíveis com a viagem do seu pet." },
-    { icon: "document", title: "Documentação para embarque", copy: "Organizamos os documentos, certificados e prazos que a sua rota pode exigir." },
-    { icon: "globe", title: "Importação de animais", copy: "O destino faz parte da análise: cada etapa é lida até a chegada aos Estados Unidos." },
-    { icon: "stethoscope", title: "Processo veterinário", copy: "Orientamos os cuidados, registros e etapas veterinárias relevantes para o embarque." },
+    { icon: "plane", title: "Transporte internacional de pets", copy: "Avaliamos modalidade, rota e operação para o seu pet embarcar com segurança." },
+    { icon: "document", title: "CVI e documentação para embarque", copy: "Organizamos certificados, documentos e prazos que a rota pode exigir." },
+    { icon: "stethoscope", title: "Processo veterinário e exigências sanitárias", copy: "Orientamos microchip, vacinas, atestados e as etapas relevantes para a viagem." },
+    { icon: "box", title: "Caixa de transporte para avião", copy: "A caixa é avaliada conforme porte, modalidade de embarque e regras operacionais." },
     { icon: "sparkles", title: "Pet Luxo", copy: "Um acompanhamento dedicado para jornadas que pedem presença e coordenação ainda mais próximas.", variant: "luxury" },
   ],
   faq: [
