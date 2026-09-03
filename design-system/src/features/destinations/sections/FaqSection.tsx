@@ -1,6 +1,7 @@
 import { AnalysisButton } from "../../../components/ui/buttons";
 import { FAQItem } from "../../../components/ui/system";
 import { ArrowRight } from "lucide-react";
+import type { DestinationLandingContent } from "../destination-content";
 
 const indexFaqs = [
   ["Como transportar meu animal de estimação em avião?", "O transporte aéreo de animais começa pela análise de origem, destino, prazo, espécie, porte e regras da companhia aérea. Com isso, avaliamos possibilidades como viagem na cabine, bagagem acompanhada ou compartimento de cargas, além do planejamento da documentação."],
@@ -13,7 +14,8 @@ const indexFaqs = [
   ["Como escolher a caixa de transporte ideal para meu pet?", "A caixa de transporte para avião precisa respeitar as medidas do pet, ventilação, material, modalidade de embarque e regras da companhia aérea. Uma caixa adequada permite que o animal fique em posição natural e atende às especificações da viagem."],
 ] as const;
 
-export function FaqSection({ onStartPlanning }: { onStartPlanning: () => void }) {
+export function FaqSection({ destination, onStartPlanning }: { destination: DestinationLandingContent; onStartPlanning: () => void }) {
   const contextualAction = <button type="button" className="ep-us-faq__inline-cta" onClick={onStartPlanning}>Começar análise para minha rota <ArrowRight size={15} aria-hidden="true" /></button>;
-  return <section className="ep-us-faq" id="faq"><div className="ep-container ep-us-faq__grid"><div><p className="ep-us-kicker">Dúvidas comuns</p><h2>A viagem do seu pet não precisa estar <em>toda resolvida.</em></h2><p className="ep-us-faq__intro">Você pode começar <strong>mesmo sem data fechada ou todos os documentos em mãos.</strong></p><div className="ep-us-section-cta ep-us-faq__cta--desktop"><AnalysisButton onClick={onStartPlanning}>Quero falar sobre o meu pet</AnalysisButton></div></div><div className="ep-us-faq__list">{indexFaqs.map(([question, answer]) => <FAQItem key={question} question={question} action={contextualAction}>{answer}</FAQItem>)}</div><div className="ep-us-section-cta ep-us-faq__cta--mobile"><AnalysisButton onClick={onStartPlanning}>Quero falar sobre o meu pet</AnalysisButton></div></div></section>;
+  const faqs = [...destination.faq, ...indexFaqs];
+  return <section className="ep-us-faq" id="faq"><div className="ep-container ep-us-faq__grid"><div><p className="ep-us-kicker">Dúvidas comuns</p><h2>A viagem do seu pet não precisa estar <em>toda resolvida.</em></h2><p className="ep-us-faq__intro">Você pode começar <strong>mesmo sem data fechada ou todos os documentos em mãos.</strong></p><div className="ep-us-section-cta ep-us-faq__cta--desktop"><AnalysisButton onClick={onStartPlanning}>Quero falar sobre o meu pet</AnalysisButton></div></div><div className="ep-us-faq__list">{faqs.map(([question, answer]) => <FAQItem key={question} question={question} action={contextualAction}>{answer}</FAQItem>)}</div><div className="ep-us-section-cta ep-us-faq__cta--mobile"><AnalysisButton onClick={onStartPlanning}>Quero falar sobre o meu pet</AnalysisButton></div></div></section>;
 }

@@ -15,20 +15,21 @@ import { HeroPlannerSection } from "./sections/HeroPlannerSection";
 import { MethodSection } from "./sections/MethodSection";
 import { RiskSection } from "./sections/RiskSection";
 import { WhatsappSupportSection } from "./sections/WhatsappSupportSection";
+import { unitedStatesDestination, type DestinationLandingContent } from "./destination-content";
 
-export default function DestinationUnitedStatesPage() {
+export function DestinationPage({ destination }: { destination: DestinationLandingContent }) {
   const [period, setPeriod] = useState("");
   const [routeInverted, setRouteInverted] = useState(false);
   const [heroVisible, setHeroVisible] = useState(true);
   const [analysisOpen, setAnalysisOpen] = useState(false);
-  const [analysisSource, setAnalysisSource] = useState("destination_us_hero");
+  const [analysisSource, setAnalysisSource] = useState(`destination_${destination.analyticsKey}_hero`);
   const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => setPageMetadata({
-    title: "Levar Pet para os Estados Unidos | Embarpet",
-    description: "Comece a planejar a viagem do seu pet para os Estados Unidos com uma análise da rota, do perfil do animal e dos próximos passos.",
-    canonicalPath: "/destinos/estados-unidos",
-  }), []);
+    title: destination.meta.title,
+    description: destination.meta.description,
+    canonicalPath: `/destinos/${destination.slug}`,
+  }), [destination]);
 
   useEffect(() => {
     const hero = heroRef.current;
@@ -39,10 +40,11 @@ export default function DestinationUnitedStatesPage() {
   }, []);
 
   const analysisRoute: AnalysisRouteContext = routeInverted
-    ? { origin: "Estados Unidos", destination: "Brasil", originCode: "US", destinationCode: "BR", period }
-    : { origin: "Brasil", destination: "Estados Unidos", originCode: "BR", destinationCode: "US", period };
-  const startPlanning = (source = "destination_us_hero") => {
-    setAnalysisSource(source);
+    ? { origin: destination.country, destination: "Brasil", originCode: destination.countryCode, destinationCode: "BR", period }
+    : { origin: "Brasil", destination: destination.country, originCode: "BR", destinationCode: destination.countryCode, period };
+  const source = (placement: string) => `destination_${destination.analyticsKey}_${placement}`;
+  const startPlanning = (placement = "hero") => {
+    setAnalysisSource(source(placement));
     setAnalysisOpen(true);
   };
 
@@ -53,26 +55,30 @@ export default function DestinationUnitedStatesPage() {
   ];
 
   return <>
-    <SiteHeader logoSrc="/logo-embarpet-dark.png" items={pageNavigation} cta={{ label: "Começar o planejamento", href: "#planejar" }} showMobileJourney={false} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("destination_us_header")} />
+    <SiteHeader logoSrc="/logo-embarpet-dark.png" items={pageNavigation} cta={{ label: "Começar o planejamento", href: "#planejar" }} showMobileJourney={false} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />
     <main className="ep-destination-lp">
-      <HeroPlannerSection period={period} routeInverted={routeInverted} heroVisible={heroVisible} heroRef={heroRef} onPeriodChange={setPeriod} onToggleRoute={() => setRouteInverted((current) => !current)} onEditDestination={() => startPlanning("destination_us_route_edit")} onStartPlanning={() => startPlanning("destination_us_hero")} />
-      <AuthoritySection onStartPlanning={() => startPlanning("destination_us_authority")} />
+      <HeroPlannerSection destination={destination} period={period} routeInverted={routeInverted} heroVisible={heroVisible} heroRef={heroRef} onPeriodChange={setPeriod} onToggleRoute={() => setRouteInverted((current) => !current)} onEditDestination={() => startPlanning("route_edit")} onStartPlanning={() => startPlanning()} />
+      <AuthoritySection onStartPlanning={() => startPlanning("authority")} />
       <RiskSection />
       <AiWarningSection />
-      <MethodSection onStartPlanning={() => startPlanning("destination_us_method")} />
-      <WhatsappSupportSection onStartPlanning={() => startPlanning("destination_us_whatsapp")} />
-      <ComparisonSection onStartPlanning={() => startPlanning("destination_us_comparison")} />
-      <EmbarkationMosaicSection onStartPlanning={() => startPlanning("destination_us_embarkations")} />
-      <DestinationContextSection onStartPlanning={() => startPlanning("destination_us_context")} />
-      <FaqSection onStartPlanning={() => startPlanning("destination_us_faq")} />
-      <FinalCtaSection onStartPlanning={() => startPlanning("destination_us_final_cta")} />
+      <MethodSection destination={destination} onStartPlanning={() => startPlanning("method")} />
+      <WhatsappSupportSection onStartPlanning={() => startPlanning("whatsapp")} />
+      <ComparisonSection onStartPlanning={() => startPlanning("comparison")} />
+      <EmbarkationMosaicSection onStartPlanning={() => startPlanning("embarkations")} />
+      <DestinationContextSection destination={destination} onStartPlanning={() => startPlanning("context")} />
+      <FaqSection destination={destination} onStartPlanning={() => startPlanning("faq")} />
+      <FinalCtaSection onStartPlanning={() => startPlanning("final_cta")} />
     </main>
-    {!heroVisible ? <div className="ep-us-mobile-cta"><AnalysisButton size="lg" fullWidth onClick={() => startPlanning("destination_us_mobile_sticky")}>Começar análise</AnalysisButton></div> : null}
+    {!heroVisible ? <div className="ep-us-mobile-cta"><AnalysisButton size="lg" fullWidth onClick={() => startPlanning("mobile_sticky")}>Começar análise</AnalysisButton></div> : null}
     <AnalysisModal open={analysisOpen} onClose={() => setAnalysisOpen(false)} initialRoute={analysisRoute} analyticsSource={analysisSource} />
-    <SiteFooter minimal logoSrc="/logo-embarpet-dark.png" note="Planejamento individual para a viagem do seu pet aos Estados Unidos." brandCta={{ label: "Começar o planejamento", href: "#planejar" }} quickLinks={[]} onAnalysisClick={() => startPlanning("destination_us_footer")} groups={[
+    <SiteFooter minimal logoSrc="/logo-embarpet-dark.png" note={destination.footerNote} brandCta={{ label: "Começar o planejamento", href: "#planejar" }} quickLinks={[]} onAnalysisClick={() => startPlanning("footer")} groups={[
       { title: "Sua viagem", links: [{ label: "Começar o planejamento", href: "#planejar" }, { label: "Como ajudamos", href: "#plano" }] },
       { title: "Embarpet", links: [{ label: "Por que a Embarpet", href: "#autoridade" }, { label: "Falar sobre meu pet", href: "#planejar" }] },
       { title: "Dúvidas", links: [{ label: "Perguntas frequentes", href: "#faq" }, { label: "Voltar ao início", href: "#planejar" }] },
     ]} showLanguageLink={false} />
   </>;
+}
+
+export default function DestinationUnitedStatesPage() {
+  return <DestinationPage destination={unitedStatesDestination} />;
 }
