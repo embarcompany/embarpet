@@ -72,7 +72,7 @@ export function DestinationPage({ destination }: { destination: DestinationLandi
       <WhatsappSupportSection onStartPlanning={() => startPlanning("whatsapp")} />
       <ComparisonSection onStartPlanning={() => startPlanning("comparison")} />
       <EmbarkationMosaicSection onStartPlanning={() => startPlanning("embarkations")} />
-      <PetLuxoSection />
+      <PetLuxoSection onStartPlanning={() => startPlanning("petluxo")} />
       <DestinationContextSection destination={destination} onStartPlanning={() => startPlanning("context")} />
       <FaqSection destination={destination} onStartPlanning={() => startPlanning("faq")} />
       <FinalCtaSection onStartPlanning={() => startPlanning("final_cta")} />
