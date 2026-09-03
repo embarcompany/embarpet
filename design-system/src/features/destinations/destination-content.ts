@@ -22,7 +22,7 @@ export type DestinationLandingContent = {
     icon: "plane" | "document" | "globe" | "stethoscope" | "box" | "sparkles";
     title: string;
     copy: string;
-    variant?: "luxury";
+    topics: readonly string[];
   }[];
   faq: readonly DestinationFaq[];
   context: {
@@ -68,11 +68,10 @@ export const unitedStatesDestination: DestinationLandingContent = {
   servicesHeadingHighlight: "viagem internacional do seu pet.",
   servicesIntro: "Do CVI à caixa de transporte, cada serviço é definido conforme seu pet, sua rota e as exigências do destino.",
   services: [
-    { icon: "plane", title: "Transporte internacional de pets", copy: "Avaliamos modalidade, rota e operação para o seu pet embarcar com segurança." },
-    { icon: "document", title: "CVI e documentação para embarque", copy: "Organizamos certificados, documentos e prazos que a rota pode exigir." },
-    { icon: "stethoscope", title: "Processo veterinário e exigências sanitárias", copy: "Orientamos microchip, vacinas, atestados e as etapas relevantes para a viagem." },
-    { icon: "box", title: "Caixa de transporte para avião", copy: "A caixa é avaliada conforme porte, modalidade de embarque e regras operacionais." },
-    { icon: "sparkles", title: "Pet Luxo", copy: "Um acompanhamento dedicado para jornadas que pedem presença e coordenação ainda mais próximas.", variant: "luxury" },
+    { icon: "document", title: "CVI e documentação internacional", copy: "A documentação é planejada conforme a rota e o país de destino.", topics: ["Certificado Veterinário Internacional (CVI)", "Certificados e formulários do destino", "Prazos de emissão, validação e embarque"] },
+    { icon: "stethoscope", title: "Processo veterinário do pet", copy: "O histórico sanitário precisa conversar com a exigência da viagem.", topics: ["Microchip e identificação do animal", "Vacinas, atestados e registros veterinários", "Exames e etapas aplicáveis ao destino"] },
+    { icon: "box", title: "Caixa de transporte para avião", copy: "A orientação começa antes do aeroporto, pensando no bem-estar e na operação.", topics: ["Medidas, ventilação e posição natural do pet", "Padrão da companhia e modalidade de embarque", "Preparação da caixa e rotina do dia do voo"] },
+    { icon: "plane", title: "Rota e coordenação do embarque", copy: "Não é apenas comprar uma passagem: a operação precisa funcionar por inteiro.", topics: ["Companhia aérea, modalidade e disponibilidade", "Conexões, aeroporto e trecho completo", "Orientação até o momento do embarque"] },
   ],
   faq: [
     ["Quais documentos meu pet precisa para viajar para os Estados Unidos?", "A documentação para levar um pet aos Estados Unidos depende do perfil do animal, da rota e das exigências aplicáveis no momento da viagem. A análise considera vacinas, certificados, prazos e a operação escolhida antes do embarque."],
