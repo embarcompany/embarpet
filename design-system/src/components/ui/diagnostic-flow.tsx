@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import {
   ArrowLeft,
   ArrowLeftRight,
@@ -1112,6 +1112,8 @@ function CompactDateWheelColumn({
   const scrollerRef = useRef<HTMLDivElement>(null);
   const readyForScroll = useRef(false);
   const scrollFrame = useRef<number | undefined>(undefined);
+  const dragStart = useRef<{ y: number; scrollTop: number } | null>(null);
+  const dragged = useRef(false);
 
   useEffect(() => {
     const index = options.findIndex((option) => option.value === selected);
@@ -1129,11 +1131,30 @@ function CompactDateWheelColumn({
     });
   };
 
+  const startMouseDrag = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== "mouse") return;
+    dragStart.current = { y: event.clientY, scrollTop: event.currentTarget.scrollTop };
+    dragged.current = false;
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const moveMouseDrag = (event: PointerEvent<HTMLDivElement>) => {
+    if (!dragStart.current || event.pointerType !== "mouse") return;
+    const distance = event.clientY - dragStart.current.y;
+    if (Math.abs(distance) > 2) dragged.current = true;
+    event.currentTarget.scrollTop = dragStart.current.scrollTop - distance;
+  };
+  const finishMouseDrag = (event: PointerEvent<HTMLDivElement>) => {
+    if (!dragStart.current || event.pointerType !== "mouse") return;
+    dragStart.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    selectFromScroll(event.currentTarget);
+  };
+
   return <div className="ep-date-wheel__column">
     <span>{label}</span>
-    <div ref={scrollerRef} className="ep-date-wheel__scroller" onScroll={(event) => selectFromScroll(event.currentTarget)}>
+    <div ref={scrollerRef} className="ep-date-wheel__scroller" onScroll={(event) => selectFromScroll(event.currentTarget)} onPointerDown={startMouseDrag} onPointerMove={moveMouseDrag} onPointerUp={finishMouseDrag} onPointerCancel={finishMouseDrag} onClickCapture={(event) => { if (!dragged.current) return; event.preventDefault(); event.stopPropagation(); dragged.current = false; }}>
       <i aria-hidden="true" />
-      {options.map((option) => <button type="button" key={option.value} disabled={option.disabled} className={selected === option.value ? "is-selected" : ""} aria-pressed={selected === option.value} onClick={() => onSelect(option.value)}>{option.label}</button>)}
+      {options.map((option) => <button type="button" key={option.value} disabled={option.disabled} className={selected === option.value ? "is-selected" : ""} aria-pressed={selected === option.value} onClick={(event) => { if (!event.defaultPrevented) onSelect(option.value); }}>{option.label}</button>)}
       <i aria-hidden="true" />
     </div>
   </div>;
@@ -1149,7 +1170,8 @@ function CompactWheelDatePicker({
   const { locale } = useLocale();
   const selectedDate = isoToDate(value);
   const today = new Date();
-  const baseDate = selectedDate ?? today;
+  const firstAvailableDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+  const baseDate = selectedDate && selectedDate >= firstAvailableDate ? selectedDate : firstAvailableDate;
   const [cursor, setCursor] = useState(() => new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate()));
   const year = cursor.getFullYear();
   const month = cursor.getMonth();
@@ -1157,19 +1179,19 @@ function CompactWheelDatePicker({
   const currentYear = today.getFullYear();
   const commit = (nextYear: number, nextMonth: number, nextDay: number) => {
     const next = new Date(nextYear, nextMonth, Math.min(nextDay, new Date(nextYear, nextMonth + 1, 0).getDate()));
-    if (next < new Date(currentYear, today.getMonth(), today.getDate())) return;
+    if (next < firstAvailableDate) return;
     setCursor(next);
     onChange(dateToIso(next));
   };
   const days = Array.from({ length: new Date(year, month + 1, 0).getDate() }, (_, index) => ({
     value: index + 1,
     label: String(index + 1).padStart(2, "0"),
-    disabled: year === currentYear && month === today.getMonth() && index + 1 < today.getDate(),
+    disabled: new Date(year, month, index + 1) < firstAvailableDate,
   }));
   const months = Array.from({ length: 12 }, (_, index) => ({
     value: index,
     label: new Intl.DateTimeFormat(locale, { month: "short" }).format(new Date(2026, index, 1)).replace(".", ""),
-    disabled: year === currentYear && index < today.getMonth(),
+    disabled: new Date(year, index, 1) < new Date(firstAvailableDate.getFullYear(), firstAvailableDate.getMonth(), 1),
   }));
   const years = Array.from({ length: 6 }, (_, index) => ({ value: currentYear + index, label: String(currentYear + index) }));
 

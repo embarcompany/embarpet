@@ -616,7 +616,8 @@ main section[id] { scroll-margin-top:84px; }
 .ep-date-wheel--compact .ep-date-wheel__columns { grid-template-columns:.72fr 1.2fr .85fr; gap:5px; }
 .ep-date-wheel--compact .ep-date-wheel__column { gap:0; }
 .ep-date-wheel--compact .ep-date-wheel__column > span { display:none; }
-.ep-date-wheel--compact .ep-date-wheel__scroller { height:54px; border-color:rgba(0,157,172,.18); border-radius:8px; background:#fbfefe; scroll-snap-type:y mandatory; }
+.ep-date-wheel--compact .ep-date-wheel__scroller { height:54px; border-color:rgba(0,157,172,.18); border-radius:8px; background:#fbfefe; cursor:grab; scroll-snap-type:y mandatory; touch-action:pan-y; user-select:none; }
+.ep-date-wheel--compact .ep-date-wheel__scroller:active { cursor:grabbing; }
 .ep-date-wheel--compact .ep-date-wheel__scroller::before { top:12px; right:5px; left:5px; height:28px; border-color:rgba(0,157,172,.16); border-radius:6px; }
 .ep-date-wheel--compact .ep-date-wheel__scroller > i { height:12px; }
 .ep-date-wheel--compact .ep-date-wheel__scroller button { height:28px; padding:0 5px; font-size:10px; scroll-snap-align:center; }
