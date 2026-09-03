@@ -17,6 +17,7 @@ import { GoogleReviewsSection } from "./sections/GoogleReviewsSection";
 import { RiskSection } from "./sections/RiskSection";
 import { WhatsappSupportSection } from "./sections/WhatsappSupportSection";
 import { ServicesSection } from "./sections/ServicesSection";
+import { ModalitiesSection } from "./sections/ModalitiesSection";
 import { unitedStatesDestination, type DestinationLandingContent } from "./destination-content";
 
 export function DestinationPage({ destination }: { destination: DestinationLandingContent }) {
@@ -62,6 +63,7 @@ export function DestinationPage({ destination }: { destination: DestinationLandi
       <HeroPlannerSection destination={destination} period={period} routeInverted={routeInverted} heroVisible={heroVisible} heroRef={heroRef} onPeriodChange={setPeriod} onToggleRoute={() => setRouteInverted((current) => !current)} onEditDestination={() => startPlanning("route_edit")} onStartPlanning={() => startPlanning()} />
       <AuthoritySection onStartPlanning={() => startPlanning("authority")} />
       <ServicesSection destination={destination} onStartPlanning={() => startPlanning("services")} />
+      <ModalitiesSection />
       <RiskSection />
       <AiWarningSection />
       <MethodSection destination={destination} onStartPlanning={() => startPlanning("method")} />
