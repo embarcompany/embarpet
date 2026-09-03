@@ -2572,6 +2572,10 @@ main > .ep-home-faq {
 /* O shell compartilhado mantém o diagnóstico exatamente no centro da viewport. */
 .ep-analysis-modal { display:flex; align-items:center; justify-content:center; }
 .ep-analysis-modal__panel { flex:0 1 min(960px,100%); margin:auto; }
+@media (min-width:701px) {
+  .ep-analysis-modal { --ep-analysis-modal-gutter:clamp(16px,2vw,28px); padding:var(--ep-analysis-modal-gutter); }
+  .ep-analysis-modal__panel { height:min(780px,calc(100dvh - var(--ep-analysis-modal-gutter) - var(--ep-analysis-modal-gutter))); max-height:calc(100dvh - var(--ep-analysis-modal-gutter) - var(--ep-analysis-modal-gutter)); }
+}
 
 /* Mobile alto também cabe sem uma scrollbar artificial. */
 @media (max-width:700px) {
