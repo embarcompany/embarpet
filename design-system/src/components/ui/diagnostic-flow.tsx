@@ -69,6 +69,15 @@ const petKinds: { label: PetKind; icon: LucideIcon }[] = [
   { label: "Exótico", icon: Bird },
 ];
 
+const normalizedTravelPeriods: Record<string, string> = {
+  "1 a 3 meses": "Dentro de 1 a 3 meses",
+  "3 a 6 meses": "De 3 a 6 meses",
+  "Mais de 6 meses": "De 6 a 12 meses",
+  "Ainda não sei": "Sem data definida",
+};
+
+const normalizeTravelPeriod = (period: string) => normalizedTravelPeriods[period] ?? period;
+
 export function DiagnosticFlow({
   onComplete,
   onRouteChange,
@@ -99,7 +108,7 @@ export function DiagnosticFlow({
   const [route, setRoute] = useState<RouteData>({
     origin: initialRoute?.origin ?? "",
     destination: initialRoute?.destination ?? "",
-    period: initialRoute?.period ?? "",
+    period: normalizeTravelPeriod(initialRoute?.period ?? ""),
     originCode: initialRoute?.originCode ?? resolveCountryCode(initialRoute?.origin ?? "", locale),
     destinationCode: initialRoute?.destinationCode ?? resolveCountryCode(initialRoute?.destination ?? "", locale),
   });
