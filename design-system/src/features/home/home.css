@@ -2569,13 +2569,11 @@ main > .ep-home-faq {
   min-height:var(--ep-modal-action-height);
 }
 
-/* O shell compartilhado mantém o diagnóstico exatamente no centro da viewport. */
-.ep-analysis-modal { display:flex; align-items:center; justify-content:center; }
-.ep-analysis-modal__panel { flex:0 1 min(960px,100%); margin:auto; }
-@media (min-width:701px) {
-  .ep-analysis-modal { --ep-analysis-modal-gutter:clamp(16px,2vw,28px); padding:var(--ep-analysis-modal-gutter); }
-  .ep-analysis-modal__panel { height:min(780px,calc(100dvh - var(--ep-analysis-modal-gutter) - var(--ep-analysis-modal-gutter))); max-height:calc(100dvh - var(--ep-analysis-modal-gutter) - var(--ep-analysis-modal-gutter)); }
-}
+/* Centro geométrico: independente de zoom, scrollbar ou altura do conteúdo. */
+.ep-analysis-modal { --ep-analysis-modal-gutter:clamp(16px,2vw,28px); display:block; padding:0; }
+.ep-analysis-modal__panel { position:absolute; top:50%; left:50%; width:min(960px,calc(100vw - var(--ep-analysis-modal-gutter) - var(--ep-analysis-modal-gutter))); height:min(780px,calc(100dvh - var(--ep-analysis-modal-gutter) - var(--ep-analysis-modal-gutter))); max-height:calc(100dvh - var(--ep-analysis-modal-gutter) - var(--ep-analysis-modal-gutter)); margin:0; transform:translate(-50%,-50%); animation:ep-analysis-modal-enter-centered .3s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes ep-analysis-modal-enter-centered { from { opacity:0; transform:translate(-50%,calc(-50% + 18px)) scale(.985); } to { opacity:1; transform:translate(-50%,-50%) scale(1); } }
+@media (max-width:700px) { .ep-analysis-modal { --ep-analysis-modal-gutter:8px; } }
 
 /* Mobile alto também cabe sem uma scrollbar artificial. */
 @media (max-width:700px) {
