@@ -145,20 +145,6 @@
 .ep-destination-services__grid article.is-luxury h3 { position:relative; z-index:1; color:#fff7e8; }
 .ep-destination-services__grid article.is-luxury p { position:relative; z-index:1; color:#d7cbb3; }
 .ep-destination-services__cta { display:flex; justify-content:center; margin-top:28px; }
-.ep-us-modalities { padding:clamp(62px,7vw,94px) 0; background:var(--ep-paper); }
-.ep-us-modalities__heading { max-width:660px; margin:0 auto; text-align:center; }
-.ep-us-modalities__heading h2 { margin:12px 0 0; color:var(--ep-teal); font-size:clamp(33px,4vw,52px); letter-spacing:-.07em; line-height:.98; }
-.ep-us-modalities__heading h2 em { color:var(--ep-turq-deep); font-style:normal; }
-.ep-us-modalities__heading > p:last-child { max-width:590px; margin:17px auto 0; color:var(--ep-muted); font-size:14px; line-height:1.55; }
-.ep-us-modalities__grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:38px; }
-.ep-us-modalities__card { display:flex; min-height:208px; flex-direction:column; align-items:flex-start; padding:21px; border:1px solid rgba(0,113,121,.16); border-radius:17px; background:#f8fcfb; color:inherit; text-decoration:none; transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s ease,box-shadow .22s ease,background .22s ease; }
-.ep-us-modalities__card > span { display:grid; width:42px; height:42px; place-items:center; border-radius:12px; background:#e4f6f4; color:var(--ep-turq-deep); }
-.ep-us-modalities__card h3 { margin:18px 0 0; color:var(--ep-teal); font-size:18px; letter-spacing:-.045em; line-height:1.05; }
-.ep-us-modalities__card p { margin:10px 0 0; color:var(--ep-muted); font-size:12px; font-weight:500; line-height:1.48; }
-.ep-us-modalities__card b { display:flex; align-items:center; gap:6px; margin-top:auto; padding-top:16px; color:var(--ep-turq-deep); font-size:11px; font-weight:850; }
-.ep-us-modalities__card b svg { transition:transform .22s cubic-bezier(.2,.8,.2,1); }
-.ep-us-modalities__card:hover,.ep-us-modalities__card:focus-visible { border-color:rgba(0,157,172,.4); background:var(--ep-paper); box-shadow:0 13px 26px rgba(0,73,77,.08); outline:0; transform:translateY(-4px); }
-.ep-us-modalities__card:hover b svg,.ep-us-modalities__card:focus-visible b svg { transform:translate(2px,-2px); }
 @media (max-width:680px) { .ep-us-comparison__table { margin-top:32px; }.ep-us-comparison__row { grid-template-columns:1.05fr 1fr 1fr; }.ep-us-comparison__row > * { min-height:70px; padding:9px; font-size:9px; }.ep-us-comparison__row--head > * { min-height:50px; padding:9px; font-size:9px; }.ep-us-comparison__row--head > b:last-child img { max-width:92px; max-height:25px; }.ep-us-comparison__row > span:last-child { font-size:9px; } }
 .ep-us-hero__planner-wrap::before { display:none; }
 .ep-us-planner__heading { min-height:39px; }
@@ -210,11 +196,6 @@
   .ep-destination-services__grid h3 { margin:2px 0 0; font-size:17px; }
   .ep-destination-services__grid p { grid-column:2; margin-top:7px; }
   .ep-destination-services__cta,.ep-destination-services__cta .ep-button { width:100%; }
-  .ep-us-modalities { padding-block:58px; }
-  .ep-us-modalities__grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:28px; }
-  .ep-us-modalities__card { min-height:196px; padding:17px; }
-  .ep-us-modalities__card h3 { margin-top:15px; font-size:16px; }
-  .ep-us-modalities__card p { font-size:11px; }
 }
 .ep-us-hero { background:#f1fbfa; }
 .ep-us-comparison__row--head > b:last-child img { content:url('/logo-embarpet-dark.png'); }
