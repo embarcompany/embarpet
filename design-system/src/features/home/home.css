@@ -2614,6 +2614,29 @@ main > .ep-home-faq {
   }
 }
 
+/* O painel nunca deixa uma etapa vazar da viewport: o conteúdo rola dentro dele e a ação permanece acessível. */
+.ep-analysis-modal__content .ep-flow-card {
+  overflow-x:hidden;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-gutter:stable;
+}
+.ep-analysis-modal__content .ep-flow-actions {
+  position:sticky;
+  z-index:12;
+  bottom:0;
+  margin-top:auto;
+  padding-top:14px;
+  background:linear-gradient(180deg,rgba(247,251,251,0),#f7fbfb 28%);
+}
+@media (max-height:760px) {
+  .ep-analysis-modal__content .ep-flow-card:has(.ep-travel-timing) .ep-flow-intro { display:none; }
+  .ep-analysis-modal__content .ep-flow-card:has(.ep-travel-timing) .ep-flow-fields { margin-top:10px; }
+  .ep-analysis-modal__content .ep-flow-card:has(.ep-travel-timing) .ep-flow-kicker { margin-bottom:2px; }
+  .ep-analysis-modal__content .ep-specific-date-input { min-height:54px; padding-block:8px; }
+  .ep-analysis-modal__content .ep-specific-date-input small { display:none; }
+}
+
 /* Mídia: a thumb reproduz a prévia; o CTA textual existe somente ao lado. */
 .ep-home-press__video button span {
   position:absolute;
