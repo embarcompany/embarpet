@@ -402,9 +402,9 @@
 .ep-us-google-reviews__heading h2 em { color:var(--ep-cyan); font-style:normal; }
 .ep-us-google-reviews__heading > p:last-child { max-width:54ch; margin-inline:auto; color:var(--ep-muted); font-size:15px; line-height:1.55; }
 .ep-us-google-reviews__tracks { display:grid; gap:13px; margin-top:34px; }
-.ep-us-google-reviews__viewport { overflow:hidden; width:100%; mask-image:linear-gradient(to right, transparent, #000 5%, #000 95%, transparent); }
+.ep-us-google-reviews__viewport { overflow:hidden; width:100%; -webkit-mask-image:linear-gradient(to right, transparent, #000 5%, #000 95%, transparent); mask-image:linear-gradient(to right, transparent, #000 5%, #000 95%, transparent); }
 .ep-us-google-reviews__track,.ep-us-google-reviews__set { display:flex; width:max-content; align-items:stretch; gap:13px; }
-.ep-us-google-reviews__track { animation:ep-us-reviews-left 54s linear infinite; will-change:transform; }
+.ep-us-google-reviews__track { animation:ep-us-reviews-left 54s linear infinite; animation-play-state:running; will-change:transform; }
 .ep-us-google-reviews__track.is-reverse { animation-name:ep-us-reviews-right; }
 .ep-us-google-reviews__card { display:grid; grid-template-rows:auto minmax(0,1fr) auto; width:310px; min-height:159px; padding:18px; border:1px solid rgba(0,137,150,.16); border-radius:16px; background:rgba(239,250,250,.72); box-shadow:0 6px 18px rgba(0,75,81,.045); }
 .ep-us-google-reviews__card-head { display:flex; align-items:center; justify-content:space-between; gap:14px; }
@@ -427,6 +427,8 @@
   .ep-us-google-reviews__card > p { font-size:12px; }
 }
 
+/* As faixas são conteúdo de prova social, não uma microanimação decorativa: mantemos
+   o deslocamento ativo mesmo quando o sistema pede redução de movimento. */
 @media (prefers-reduced-motion:reduce) {
-  .ep-us-google-reviews__track,.ep-us-google-reviews__track.is-reverse { animation:none; }
+  .ep-us-google-reviews__track,.ep-us-google-reviews__track.is-reverse { animation-play-state:running; }
 }
