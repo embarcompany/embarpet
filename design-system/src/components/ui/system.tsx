@@ -18,8 +18,8 @@ export function Metric({ value, label, source }: { value: string; label: string;
   return <div className="ep-metric"><strong>{value}</strong><span>{label}</span>{source ? <small>{source}</small> : null}</div>;
 }
 
-export function FAQItem({ question, children }: { question: string; children: ReactNode }) {
-  return <details className="ep-faq-item"><summary>{question}<ChevronDown size={19} /></summary><div>{children}</div></details>;
+export function FAQItem({ question, children, action }: { question: string; children: ReactNode; action?: ReactNode }) {
+  return <details className="ep-faq-item"><summary>{question}<ChevronDown size={19} /></summary><div>{children}{action ? <div className="ep-faq-item__action">{action}</div> : null}</div></details>;
 }
 
 export function FormChoice({ title, description, selected, onClick }: { title: string; description: string; selected?: boolean; onClick?: () => void }) {

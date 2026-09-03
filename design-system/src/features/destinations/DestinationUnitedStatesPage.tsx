@@ -3,6 +3,7 @@ import { SiteFooter } from "../../components/ui/footer";
 import { SiteHeader } from "../../components/ui/navigation";
 import { useLocale } from "../../i18n/locale";
 import { setPageMetadata } from "../../lib/seo";
+import { AnalysisButton } from "../../components/ui/buttons";
 import { AiWarningSection } from "./sections/AiWarningSection";
 import { AuthoritySection } from "./sections/AuthoritySection";
 import { ComparisonSection } from "./sections/ComparisonSection";
@@ -65,6 +66,7 @@ export default function DestinationUnitedStatesPage() {
       <FaqSection onStartPlanning={startPlanning} />
       <FinalCtaSection onStartPlanning={startPlanning} />
     </main>
+    {!heroVisible ? <div className="ep-us-mobile-cta"><AnalysisButton size="lg" fullWidth onClick={startPlanning}>Começar análise</AnalysisButton></div> : null}
     <SiteFooter minimal logoSrc="/logo-embarpet-dark.png" note="Planejamento individual para a viagem do seu pet aos Estados Unidos." brandCta={{ label: "Começar o planejamento", href: "#planejar" }} quickLinks={[]} groups={[
       { title: "Sua viagem", links: [{ label: "Começar o planejamento", href: "#planejar" }, { label: "Como ajudamos", href: "#plano" }] },
       { title: "Embarpet", links: [{ label: "Por que a Embarpet", href: "#autoridade" }, { label: "Falar sobre meu pet", href: "#planejar" }] },

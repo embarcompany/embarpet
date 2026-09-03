@@ -50,7 +50,7 @@ export function HeroPlannerSection({
           </div>
           <fieldset className="ep-us-planner__field"><legend><span><CalendarDays size={16} aria-hidden="true" /></span>Quando vocês pretendem viajar?</legend><div className="ep-us-choice-row">{travelPeriods.map((item) => <button type="button" key={item} className={period === item ? "is-selected" : ""} aria-pressed={period === item} onClick={() => onPeriodChange(item)}>{period === item ? <Check size={14} aria-hidden="true" /> : null}{item}</button>)}</div></fieldset>
           <AnalysisButton size="lg" fullWidth onClick={onStartPlanning}>Continuar minha análise</AnalysisButton>
-          <p className="ep-us-planner__note">Leva menos de 2 minutos. Você não precisa ter tudo definido agora.</p>
+          <p className="ep-us-planner__note">Sem compromisso. Você recebe uma orientação inicial para a sua rota.</p>
         </div>
       </div>
     </div>
