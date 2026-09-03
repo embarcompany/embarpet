@@ -620,3 +620,7 @@ main section[id] { scroll-margin-top:84px; }
 .ep-date-wheel--compact .ep-date-wheel__scroller::before { top:20px; right:5px; left:5px; height:30px; border-radius:6px; }
 .ep-date-wheel--compact .ep-date-wheel__scroller > i { height:20px; }
 .ep-date-wheel--compact .ep-date-wheel__scroller button { height:32px; padding:0 5px; font-size:11px; scroll-snap-align:center; }
+
+/* Regra final: o botão de inverter não possui conector visual atrás dele. */
+.ep-route-inline--airport::before,
+.ep-route-inline--airport::after { display:none!important; content:none!important; }
