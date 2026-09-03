@@ -84,7 +84,7 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
   useEffect(() => setPageMetadata({ title: modality.seo.title, description: modality.seo.description, canonicalPath: `/modalidades/${modality.slug}` }), [modality]);
 
   return <>
-    <SiteHeader logoSrc="/logo-embarpet-dark.png" activeLabel={text.navModalities} />
+    <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" activeLabel={text.navModalities} />
     <main className={`ep-modality-page ep-modality-page--${modality.slug}`}>
       <section className="ep-modality-hero">
         <div className="ep-container ep-modality-hero__grid">

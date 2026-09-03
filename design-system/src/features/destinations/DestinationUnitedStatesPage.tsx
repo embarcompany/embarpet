@@ -59,7 +59,7 @@ export function DestinationPage({ destination }: { destination: DestinationLandi
   ];
 
   return <>
-    <SiteHeader logoSrc="/logo-embarpet-dark.png" items={pageNavigation} cta={{ label: "Começar o planejamento", href: "#planejar" }} showMobileJourney={false} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />
+    <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" items={pageNavigation} cta={{ label: "Começar o planejamento", href: "#planejar" }} showMobileJourney={false} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />
     <main className="ep-destination-lp">
       <HeroPlannerSection destination={destination} period={period} routeInverted={routeInverted} heroVisible={heroVisible} heroRef={heroRef} onPeriodChange={setPeriod} onToggleRoute={() => setRouteInverted((current) => !current)} onEditDestination={() => startPlanning("route_edit")} onStartPlanning={() => startPlanning()} />
       <AuthoritySection onStartPlanning={() => startPlanning("authority")} />
