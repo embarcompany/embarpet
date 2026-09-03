@@ -21,20 +21,22 @@ export function ComparisonSection({ onStartPlanning }: { onStartPlanning: () => 
 
     const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
     let timeout: ReturnType<typeof setTimeout> | undefined;
+    let isVisible = false;
 
     const stop = () => {
       if (timeout) window.clearTimeout(timeout);
       timeout = undefined;
     };
-    const canAutoplay = () => window.innerWidth <= 700 && !motionPreference.matches && !document.hidden;
+    const canAutoplay = () => window.innerWidth <= 700 && !motionPreference.matches && !document.hidden && isVisible;
     const moveToNextCard = () => {
       const cards = Array.from(table.querySelectorAll<HTMLElement>(".ep-us-comparison__row:not(.ep-us-comparison__row--head)"));
-      const firstCard = cards[0];
-      if (!firstCard) return;
-      const step = firstCard.getBoundingClientRect().width + 12;
-      const current = Math.round(table.scrollLeft / step);
+      if (!cards.length) return;
+      const current = cards.reduce((closestIndex, card, index) => {
+        const closest = cards[closestIndex];
+        return Math.abs(card.offsetLeft - table.scrollLeft) < Math.abs(closest.offsetLeft - table.scrollLeft) ? index : closestIndex;
+      }, 0);
       const next = current >= cards.length - 1 ? 0 : current + 1;
-      table.scrollTo({ left: next * step, behavior: "smooth" });
+      table.scrollTo({ left: cards[next].offsetLeft, behavior: "smooth" });
     };
     const schedule = (delay = 3600) => {
       stop();
@@ -47,8 +49,12 @@ export function ComparisonSection({ onStartPlanning }: { onStartPlanning: () => 
     const restart = () => schedule(1200);
     const resumeAfterInteraction = () => schedule(5000);
     const onVisibilityChange = () => document.hidden ? stop() : restart();
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      isVisible ? restart() : stop();
+    }, { threshold: 0.35 });
 
-    restart();
+    observer.observe(table);
     table.addEventListener("pointerenter", stop);
     table.addEventListener("pointerleave", restart);
     table.addEventListener("focusin", stop);
@@ -68,6 +74,7 @@ export function ComparisonSection({ onStartPlanning }: { onStartPlanning: () => 
       window.removeEventListener("resize", restart);
       document.removeEventListener("visibilitychange", onVisibilityChange);
       motionPreference.removeEventListener("change", restart);
+      observer.disconnect();
     };
   }, []);
 
