@@ -2569,6 +2569,10 @@ main > .ep-home-faq {
   min-height:var(--ep-modal-action-height);
 }
 
+/* O shell compartilhado mantém o diagnóstico exatamente no centro da viewport. */
+.ep-analysis-modal { display:flex; align-items:center; justify-content:center; }
+.ep-analysis-modal__panel { flex:0 1 min(960px,100%); margin:auto; }
+
 /* Mobile alto também cabe sem uma scrollbar artificial. */
 @media (max-width:700px) {
   .ep-analysis-modal {
