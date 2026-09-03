@@ -140,6 +140,12 @@
 .ep-destination-services__grid article > span { display:grid; width:44px; height:44px; place-items:center; border-radius:12px; background:var(--ep-soft); color:var(--ep-turq-deep); }
 .ep-destination-services__grid h3 { margin:18px 0 0; color:var(--ep-teal); font-size:18px; letter-spacing:-.045em; line-height:1.04; }
 .ep-destination-services__grid p { max-width:38ch; margin:10px 0 0; color:var(--ep-muted); font-size:12px; line-height:1.5; }
+.ep-destination-services__grid article.is-luxury { position:relative; overflow:hidden; border-color:rgba(218,177,91,.52); background:radial-gradient(circle at 12% 18%,rgba(214,170,87,.18),transparent 36%),linear-gradient(135deg,#123b3b,#082b30 64%,#152824); box-shadow:inset 0 1px 0 rgba(255,241,207,.1); }
+.ep-destination-services__grid article.is-luxury::after { position:absolute; right:-38px; bottom:-52px; width:155px; height:155px; border:1px solid rgba(231,193,109,.16); border-radius:50%; content:""; }
+.ep-destination-services__grid article.is-luxury:hover { border-color:#e7c16d; box-shadow:0 16px 32px rgba(8,43,48,.18),inset 0 1px 0 rgba(255,241,207,.14); }
+.ep-destination-services__grid article.is-luxury > span { position:relative; z-index:1; background:rgba(231,193,109,.13); color:#e7c16d; }
+.ep-destination-services__grid article.is-luxury h3 { position:relative; z-index:1; color:#fff7e8; }
+.ep-destination-services__grid article.is-luxury p { position:relative; z-index:1; color:#d7cbb3; }
 .ep-destination-services__cta { display:flex; justify-content:center; margin-top:28px; }
 @media (max-width:680px) { .ep-us-comparison__table { margin-top:32px; }.ep-us-comparison__row { grid-template-columns:1.05fr 1fr 1fr; }.ep-us-comparison__row > * { min-height:70px; padding:9px; font-size:9px; }.ep-us-comparison__row--head > * { min-height:50px; padding:9px; font-size:9px; }.ep-us-comparison__row--head > b:last-child img { max-width:92px; max-height:25px; }.ep-us-comparison__row > span:last-child { font-size:9px; } }
 .ep-us-hero__planner-wrap::before { display:none; }

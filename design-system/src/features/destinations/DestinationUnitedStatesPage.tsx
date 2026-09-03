@@ -59,11 +59,11 @@ export function DestinationPage({ destination }: { destination: DestinationLandi
     <SiteHeader logoSrc="/logo-embarpet-dark.png" items={pageNavigation} cta={{ label: "Começar o planejamento", href: "#planejar" }} showMobileJourney={false} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />
     <main className="ep-destination-lp">
       <HeroPlannerSection destination={destination} period={period} routeInverted={routeInverted} heroVisible={heroVisible} heroRef={heroRef} onPeriodChange={setPeriod} onToggleRoute={() => setRouteInverted((current) => !current)} onEditDestination={() => startPlanning("route_edit")} onStartPlanning={() => startPlanning()} />
+      <ServicesSection destination={destination} onStartPlanning={() => startPlanning("services")} />
       <AuthoritySection onStartPlanning={() => startPlanning("authority")} />
       <RiskSection />
       <AiWarningSection />
       <MethodSection destination={destination} onStartPlanning={() => startPlanning("method")} />
-      <ServicesSection destination={destination} onStartPlanning={() => startPlanning("services")} />
       <WhatsappSupportSection onStartPlanning={() => startPlanning("whatsapp")} />
       <ComparisonSection onStartPlanning={() => startPlanning("comparison")} />
       <EmbarkationMosaicSection onStartPlanning={() => startPlanning("embarkations")} />

@@ -19,6 +19,7 @@ export type DestinationLandingContent = {
     icon: "plane" | "document" | "globe" | "stethoscope" | "sparkles";
     title: string;
     copy: string;
+    variant?: "luxury";
   }[];
   faq: readonly DestinationFaq[];
   context: {
@@ -65,7 +66,7 @@ export const unitedStatesDestination: DestinationLandingContent = {
     { icon: "document", title: "Documentação para embarque", copy: "Organizamos os documentos, certificados e prazos que a sua rota pode exigir." },
     { icon: "globe", title: "Importação de animais", copy: "O destino faz parte da análise: cada etapa é lida até a chegada aos Estados Unidos." },
     { icon: "stethoscope", title: "Processo veterinário", copy: "Orientamos os cuidados, registros e etapas veterinárias relevantes para o embarque." },
-    { icon: "sparkles", title: "Acompanhamento especializado", copy: "Você tem uma equipe para orientar decisões e ajustes durante o planejamento da viagem." },
+    { icon: "sparkles", title: "Pet Luxo", copy: "Um acompanhamento dedicado para jornadas que pedem presença e coordenação ainda mais próximas.", variant: "luxury" },
   ],
   faq: [
     ["Quais documentos meu pet precisa para viajar para os Estados Unidos?", "A documentação para levar um pet aos Estados Unidos depende do perfil do animal, da rota e das exigências aplicáveis no momento da viagem. A análise considera vacinas, certificados, prazos e a operação escolhida antes do embarque."],
