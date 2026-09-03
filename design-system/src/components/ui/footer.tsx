@@ -5,7 +5,7 @@ export type FooterQuickLink = { label: string; description: string; href: string
 
 const footerGroupIcons = [Route, BookOpenText, Compass];
 
-export function SiteFooter({ logoSrc, groups, note = "Transporte internacional de pets com planejamento individual.", quickLinks = defaultQuickLinks, brandCta = { label: "Falar sobre a viagem", href: "#analise" }, showLanguageLink = true }: { logoSrc: string; groups: FooterGroup[]; note?: string; quickLinks?: FooterQuickLink[]; brandCta?: { label: string; href: string }; showLanguageLink?: boolean }) {
+export function SiteFooter({ logoSrc, groups, note = "Transporte internacional de pets com planejamento individual.", quickLinks = defaultQuickLinks, brandCta = { label: "Falar sobre a viagem", href: "#analise" }, showLanguageLink = true, minimal = false }: { logoSrc: string; groups: FooterGroup[]; note?: string; quickLinks?: FooterQuickLink[]; brandCta?: { label: string; href: string }; showLanguageLink?: boolean; minimal?: boolean }) {
   const socials = [
     { label: "Instagram", href: "https://www.instagram.com/embarpet/", iconSrc: "/icons/social/instagram-white.svg" },
     { label: "Facebook", href: "https://www.facebook.com/embarpet/", iconSrc: "/icons/social/facebook-white.svg" },
@@ -15,11 +15,11 @@ export function SiteFooter({ logoSrc, groups, note = "Transporte internacional d
   ];
 
   return (
-    <footer className="ep-site-footer">
+    <footer className={`ep-site-footer${minimal ? " ep-site-footer--minimal" : ""}`}>
       <div className="ep-container">
-        <div className="ep-footer-utility" aria-label="Acessos rápidos">
+        {quickLinks.length ? <div className="ep-footer-utility" aria-label="Acessos rápidos">
           {quickLinks.map(({ label, description, href, icon: Icon }) => <a href={href} key={label}><span className="ep-footer-utility__icon"><Icon size={16} /></span><span><b>{label}</b><small>{description}</small></span><ArrowUpRight size={15} /></a>)}
-        </div>
+        </div> : null}
 
         <div className="ep-footer-grid">
           <div className="ep-footer-brand">

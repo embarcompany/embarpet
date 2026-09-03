@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { ClipboardCheck, Route, ShieldCheck } from "lucide-react";
 import { SiteFooter } from "../../components/ui/footer";
 import { SiteHeader } from "../../components/ui/navigation";
 import { useLocale } from "../../i18n/locale";
@@ -64,11 +63,7 @@ export default function DestinationUnitedStatesPage() {
       <FaqSection onStartPlanning={startPlanning} />
       <FinalCtaSection onStartPlanning={startPlanning} />
     </main>
-    <SiteFooter logoSrc="/logo-embarpet-dark.png" note="Planejamento individual para a viagem do seu pet aos Estados Unidos." brandCta={{ label: "Começar o planejamento", href: "#planejar" }} quickLinks={[
-      { label: "Começar o planejamento", description: "Conte o básico da viagem", href: "#planejar", icon: ClipboardCheck },
-      { label: "Como ajudamos seu pet", description: "Veja como funciona o suporte", href: "#plano", icon: Route },
-      { label: "Tirar dúvidas da viagem", description: "Respostas antes de começar", href: "#faq", icon: ShieldCheck },
-    ]} groups={[
+    <SiteFooter minimal logoSrc="/logo-embarpet-dark.png" note="Planejamento individual para a viagem do seu pet aos Estados Unidos." brandCta={{ label: "Começar o planejamento", href: "#planejar" }} quickLinks={[]} groups={[
       { title: "Sua viagem", links: [{ label: "Começar o planejamento", href: "#planejar" }, { label: "Como ajudamos", href: "#plano" }] },
       { title: "Embarpet", links: [{ label: "Por que a Embarpet", href: "#autoridade" }, { label: "Falar sobre meu pet", href: "#planejar" }] },
       { title: "Dúvidas", links: [{ label: "Perguntas frequentes", href: "#faq" }, { label: "Voltar ao início", href: "#planejar" }] },
