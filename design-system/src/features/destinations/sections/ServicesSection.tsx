@@ -1,4 +1,4 @@
-import { BookOpenCheck, FileCheck2, Luggage, Plane, PlaneLanding, PlaneTakeoff, Sparkles, Stethoscope } from "lucide-react";
+import { FileCheck2, Luggage, Plane, PlaneLanding, PlaneTakeoff, Stethoscope } from "lucide-react";
 import { AnalysisButton } from "../../../components/ui/buttons";
 import type { DestinationLandingContent } from "../destination-content";
 
@@ -8,9 +8,7 @@ const serviceIcons = {
   takeoff: PlaneTakeoff,
   landing: PlaneLanding,
   stethoscope: Stethoscope,
-  passport: BookOpenCheck,
   box: Luggage,
-  sparkles: Sparkles,
 };
 
 export function ServicesSection({
