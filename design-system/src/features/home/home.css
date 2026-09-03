@@ -1510,7 +1510,7 @@ main > .ep-final-fly-in { order:12; }
 .ep-home-press .ep-eyebrow::before {
   display:none;
 }
-.ep-home-luxury .ep-eyebrow::after { content:"PetLuxo · cuidado dedicado"; }
+.ep-home-luxury .ep-eyebrow::after { content:"PetLuxo | cuidado dedicado"; }
 .ep-home-authority__content .ep-eyebrow::after { content:"Experiência que vira segurança"; }
 .ep-destination-selector__intro .ep-eyebrow::after { content:"O destino define os próximos passos"; }
 
