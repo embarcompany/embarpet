@@ -13,6 +13,7 @@ import { FaqSection } from "./sections/FaqSection";
 import { FinalCtaSection } from "./sections/FinalCtaSection";
 import { HeroPlannerSection } from "./sections/HeroPlannerSection";
 import { MethodSection } from "./sections/MethodSection";
+import { GoogleReviewsSection } from "./sections/GoogleReviewsSection";
 import { RiskSection } from "./sections/RiskSection";
 import { WhatsappSupportSection } from "./sections/WhatsappSupportSection";
 import { ServicesSection } from "./sections/ServicesSection";
@@ -64,6 +65,7 @@ export function DestinationPage({ destination }: { destination: DestinationLandi
       <RiskSection />
       <AiWarningSection />
       <MethodSection destination={destination} onStartPlanning={() => startPlanning("method")} />
+      <GoogleReviewsSection />
       <WhatsappSupportSection onStartPlanning={() => startPlanning("whatsapp")} />
       <ComparisonSection onStartPlanning={() => startPlanning("comparison")} />
       <EmbarkationMosaicSection onStartPlanning={() => startPlanning("embarkations")} />
