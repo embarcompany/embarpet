@@ -18,6 +18,7 @@ import { RiskSection } from "./sections/RiskSection";
 import { WhatsappSupportSection } from "./sections/WhatsappSupportSection";
 import { ServicesSection } from "./sections/ServicesSection";
 import { ModalitiesSection } from "./sections/ModalitiesSection";
+import { PetLuxoSection } from "../../components/ui/pet-luxo-section";
 import { unitedStatesDestination, type DestinationLandingContent } from "./destination-content";
 
 export function DestinationPage({ destination }: { destination: DestinationLandingContent }) {
@@ -71,6 +72,7 @@ export function DestinationPage({ destination }: { destination: DestinationLandi
       <WhatsappSupportSection onStartPlanning={() => startPlanning("whatsapp")} />
       <ComparisonSection onStartPlanning={() => startPlanning("comparison")} />
       <EmbarkationMosaicSection onStartPlanning={() => startPlanning("embarkations")} />
+      <PetLuxoSection />
       <DestinationContextSection destination={destination} onStartPlanning={() => startPlanning("context")} />
       <FaqSection destination={destination} onStartPlanning={() => startPlanning("faq")} />
       <FinalCtaSection onStartPlanning={() => startPlanning("final_cta")} />

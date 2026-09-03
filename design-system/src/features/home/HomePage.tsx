@@ -5,7 +5,7 @@ import { Button, Notice, SectionHeading } from "../../design-system/primitives";
 import { InternationalTransfer, type Region } from "../../components/ui/country-accordion";
 import { ScrollFlyIn } from "../../components/ui/hero-section-3";
 import { FAQItem } from "../../components/ui/system";
-import { ArrowRight, ClipboardCheck, Crown, FileText, Globe2, Headset, HeartHandshake, MapPin, Pause, Play, ShieldCheck, Volume2, VolumeX } from "lucide-react";
+import { ArrowRight, ClipboardCheck, FileText, Globe2, Headset, MapPin, Pause, Play } from "lucide-react";
 import { SiteHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { WhatsAppFloat, type LeadContext } from "../../components/ui/whatsapp-float";
@@ -13,6 +13,7 @@ import { HeroRouteStarter } from "../../components/ui/hero-route-starter";
 import { CaseDragCards } from "../../components/ui/case-drag-cards";
 import { AnalysisModal } from "../../components/ui/analysis-modal";
 import { InternalLink } from "../../components/ui/buttons";
+import { PetLuxoSection } from "../../components/ui/pet-luxo-section";
 import { useLocale } from "../../i18n/locale";
 import { countryFlagSvg } from "../../lib/country-flag";
 
@@ -185,8 +186,6 @@ export default function EmbarpetHome() {
   };
   const [route, setRoute] = useState<RouteData>({ origin:"", destination:"", period:"" });
   const [message, setMessage] = useState("");
-  const [petLuxoUnmuted, setPetLuxoUnmuted] = useState(false);
-  const [petLuxoFullVideoLoaded, setPetLuxoFullVideoLoaded] = useState(false);
   const [heroVideoFullLoaded, setHeroVideoFullLoaded] = useState(false);
   const [heroVideoPaused, setHeroVideoPaused] = useState(false);
   const [podcastPlaying, setPodcastPlaying] = useState(false);
@@ -269,7 +268,7 @@ export default function EmbarpetHome() {
       { id:"renato-paiva", title:"Renato Paiva", subtitle:"Jornada internacional com a Embarpet", instagramHandle:"@renatopaiva009", instagramUrl:"https://www.instagram.com/renatopaiva009/", imageSrc:"/case-renato-paiva.jpeg", imageAlt:"Renato Paiva com a equipe Embarpet" },
     ]} /></section>
 
-    <section className="ep-home-luxury" id="pet-luxo"><div className="ep-container ep-home-luxury__grid"><div className="ep-home-luxury__image"><video key={petLuxoFullVideoLoaded ? "petluxo-full" : "petluxo-preview"} poster="/embarpet-pet-luxo-real.jpeg" aria-label="Consultora Embarpet acompanhando pets no aeroporto" autoPlay loop muted={petLuxoFullVideoLoaded ? !petLuxoUnmuted : true} playsInline preload="metadata">{!petLuxoFullVideoLoaded ? <source src="/embarpet-petluxo-preview-5s.webm" type="video/webm" /> : null}<source src={petLuxoFullVideoLoaded ? "/embarpet-petluxo-baeta-alpargata.mp4" : "/embarpet-petluxo-preview-5s.mp4"} type="video/mp4" /></video><button type="button" className="ep-home-luxury__sound" onClick={() => { if (!petLuxoFullVideoLoaded) { setPetLuxoFullVideoLoaded(true); setPetLuxoUnmuted(true); return; } setPetLuxoUnmuted((current) => !current); }}>{petLuxoUnmuted ? <VolumeX size={15} /> : <Volume2 size={15} />}{petLuxoUnmuted ? "Silenciar" : "Ativar som"}</button></div><div className="ep-home-luxury__content"><p className="ep-eyebrow">Acompanhamento especializado</p><h2 className="ep-title-lg">Um consultor especializado <em>acompanha seu pet até você.</em></h2><p className="ep-copy">PetLuxo é um acompanhamento dedicado para jornadas que pedem presença e coordenação ainda mais próximas. Um consultor especializado conduz o pet com atenção aos marcos definidos até o encontro com a família.</p><div className="ep-home-luxury__list"><span><i>01</i><Crown size={17} /><b>Planejamento individual</b><small>Uma leitura própria para a jornada da família.</small></span><span><i>02</i><HeartHandshake size={17} /><b>Presença especializada</b><small>Um consultor acompanha o pet nos marcos combinados.</small></span><span><i>03</i><ShieldCheck size={17} /><b>Coordenação até o encontro</b><small>Cuidado contínuo até a entrega planejada.</small></span></div><div className="ep-home-luxury__actions"><InternalLink className="ep-ds-button--luxury" href="/pet-luxo">Saiba mais</InternalLink></div></div></div></section>
+    <PetLuxoSection />
 
     <InternationalTransfer subtitle="O destino define os próximos passos" title={<>Para qual país você pretende <em>levar seu pet?</em></>} description="Cada país exige documentos, prazos e procedimentos próprios para a entrada de animais. Escolha o destino para iniciarmos a leitura da rota e entendermos o que precisa ser planejado para a viagem." regions={regions} onCountrySelect={(country) => {
       if (country.code === "us") {
