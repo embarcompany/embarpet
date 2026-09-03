@@ -6,6 +6,7 @@ import { setPageMetadata } from "../../lib/seo";
 import { AiWarningSection } from "./sections/AiWarningSection";
 import { AuthoritySection } from "./sections/AuthoritySection";
 import { ComparisonSection } from "./sections/ComparisonSection";
+import { DestinationContextSection } from "./sections/DestinationContextSection";
 import { EmbarkationMosaicSection } from "./sections/EmbarkationMosaicSection";
 import { FaqSection } from "./sections/FaqSection";
 import { FinalCtaSection } from "./sections/FinalCtaSection";
@@ -60,6 +61,7 @@ export default function DestinationUnitedStatesPage() {
       <WhatsappSupportSection onStartPlanning={startPlanning} />
       <ComparisonSection onStartPlanning={startPlanning} />
       <EmbarkationMosaicSection onStartPlanning={startPlanning} />
+      <DestinationContextSection onStartPlanning={startPlanning} />
       <FaqSection onStartPlanning={startPlanning} />
       <FinalCtaSection onStartPlanning={startPlanning} />
     </main>
