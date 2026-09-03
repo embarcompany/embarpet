@@ -605,3 +605,18 @@ main section[id] { scroll-margin-top:84px; }
   border-radius:50%;
   object-fit:contain;
 }
+
+/* Data definida: mantém a interação de rolagem, com altura proporcional ao modal. */
+.ep-date-wheel--compact { gap:7px; margin-top:0; padding:8px 10px; border-radius:12px; }
+.ep-date-wheel--compact .ep-date-wheel__compact-heading { display:flex; align-items:center; gap:8px; color:var(--ep-teal); }
+.ep-date-wheel--compact .ep-date-wheel__compact-heading > svg { flex:0 0 auto; color:var(--ep-turq-deep); }
+.ep-date-wheel--compact .ep-date-wheel__compact-heading span { display:grid; gap:1px; }
+.ep-date-wheel--compact .ep-date-wheel__compact-heading b { font-size:11px; }
+.ep-date-wheel--compact .ep-date-wheel__compact-heading small { color:var(--ep-muted); font-size:9px; }
+.ep-date-wheel--compact .ep-date-wheel__columns { grid-template-columns:.72fr 1.2fr .85fr; gap:6px; }
+.ep-date-wheel--compact .ep-date-wheel__column { gap:3px; }
+.ep-date-wheel--compact .ep-date-wheel__column > span { font-size:9px!important; }
+.ep-date-wheel--compact .ep-date-wheel__scroller { height:72px; border-radius:9px; scroll-snap-type:y mandatory; }
+.ep-date-wheel--compact .ep-date-wheel__scroller::before { top:20px; right:5px; left:5px; height:30px; border-radius:6px; }
+.ep-date-wheel--compact .ep-date-wheel__scroller > i { height:20px; }
+.ep-date-wheel--compact .ep-date-wheel__scroller button { height:32px; padding:0 5px; font-size:11px; scroll-snap-align:center; }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowLeftRight,
@@ -590,7 +590,7 @@ export function DiagnosticFlow({
                   Quando pretende viajar? <RequiredMark />
                 </span>
                 {hasSpecificDate ? (
-                  <SpecificDateInput
+                  <CompactWheelDatePicker
                     value={route.period}
                     onChange={(value) => setRouteField("period", value)}
                   />
@@ -1092,25 +1092,96 @@ const isoToDate = (value: string) => {
     : undefined;
 };
 
-function SpecificDateInput({
+type DateWheelOption = {
+  value: number;
+  label: string;
+  disabled?: boolean;
+};
+
+function CompactDateWheelColumn({
+  label,
+  options,
+  selected,
+  onSelect,
+}: {
+  label: string;
+  options: DateWheelOption[];
+  selected: number;
+  onSelect: (value: number) => void;
+}) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const readyForScroll = useRef(false);
+  const scrollFrame = useRef<number | undefined>(undefined);
+
+  useEffect(() => {
+    const index = options.findIndex((option) => option.value === selected);
+    if (index < 0 || !scrollerRef.current) return;
+    scrollerRef.current.scrollTop = index * 32;
+    window.requestAnimationFrame(() => { readyForScroll.current = true; });
+  }, [options, selected]);
+
+  const selectFromScroll = (target: HTMLDivElement) => {
+    if (!readyForScroll.current) return;
+    if (scrollFrame.current !== undefined) window.cancelAnimationFrame(scrollFrame.current);
+    scrollFrame.current = window.requestAnimationFrame(() => {
+      const option = options[Math.round(target.scrollTop / 32)];
+      if (option && !option.disabled && option.value !== selected) onSelect(option.value);
+    });
+  };
+
+  return <div className="ep-date-wheel__column">
+    <span>{label}</span>
+    <div ref={scrollerRef} className="ep-date-wheel__scroller" onScroll={(event) => selectFromScroll(event.currentTarget)}>
+      <i aria-hidden="true" />
+      {options.map((option) => <button type="button" key={option.value} disabled={option.disabled} className={selected === option.value ? "is-selected" : ""} aria-pressed={selected === option.value} onClick={() => onSelect(option.value)}>{option.label}</button>)}
+      <i aria-hidden="true" />
+    </div>
+  </div>;
+}
+
+function CompactWheelDatePicker({
   value,
   onChange,
 }: {
   value: string;
   onChange: (value: string) => void;
 }) {
+  const { locale } = useLocale();
+  const selectedDate = isoToDate(value);
+  const today = new Date();
+  const baseDate = selectedDate ?? today;
+  const [cursor, setCursor] = useState(() => new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate()));
+  const year = cursor.getFullYear();
+  const month = cursor.getMonth();
+  const day = cursor.getDate();
+  const currentYear = today.getFullYear();
+  const commit = (nextYear: number, nextMonth: number, nextDay: number) => {
+    const next = new Date(nextYear, nextMonth, Math.min(nextDay, new Date(nextYear, nextMonth + 1, 0).getDate()));
+    if (next < new Date(currentYear, today.getMonth(), today.getDate())) return;
+    setCursor(next);
+    onChange(dateToIso(next));
+  };
+  const days = Array.from({ length: new Date(year, month + 1, 0).getDate() }, (_, index) => ({
+    value: index + 1,
+    label: String(index + 1).padStart(2, "0"),
+    disabled: year === currentYear && month === today.getMonth() && index + 1 < today.getDate(),
+  }));
+  const months = Array.from({ length: 12 }, (_, index) => ({
+    value: index,
+    label: new Intl.DateTimeFormat(locale, { month: "short" }).format(new Date(2026, index, 1)).replace(".", ""),
+    disabled: year === currentYear && index < today.getMonth(),
+  }));
+  const years = Array.from({ length: 6 }, (_, index) => ({ value: currentYear + index, label: String(currentYear + index) }));
+
   return (
-    <label className="ep-specific-date-input">
-      <CalendarDays size={18} aria-hidden="true" />
-      <span><b>Data da viagem</b><small>Escolha a data prevista para o embarque.</small></span>
-      <input
-        type="date"
-        min={dateToIso(new Date())}
-        value={isoToDate(value) ? value : ""}
-        onChange={(event) => onChange(event.target.value)}
-        aria-label="Data prevista para a viagem"
-      />
-    </label>
+    <div className="ep-date-wheel ep-date-wheel--compact" aria-label="Selecione a data da viagem">
+      <div className="ep-date-wheel__compact-heading"><CalendarDays size={15} aria-hidden="true" /><span><b>Selecione a data do embarque</b><small>{selectedDate ? new Intl.DateTimeFormat(locale, { dateStyle: "long" }).format(selectedDate) : "Deslize ou toque para ajustar."}</small></span></div>
+      <div className="ep-date-wheel__columns">
+        <CompactDateWheelColumn label="Dia" options={days} selected={day} onSelect={(nextDay) => commit(year, month, nextDay)} />
+        <CompactDateWheelColumn label="Mês" options={months} selected={month} onSelect={(nextMonth) => commit(year, nextMonth, day)} />
+        <CompactDateWheelColumn label="Ano" options={years} selected={year} onSelect={(nextYear) => commit(nextYear, month, day)} />
+      </div>
+    </div>
   );
 }
 
