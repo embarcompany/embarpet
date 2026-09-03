@@ -19,7 +19,7 @@ export type DestinationLandingContent = {
   servicesHeadingHighlight: string;
   servicesIntro: string;
   services: readonly {
-    icon: "plane" | "document" | "globe" | "stethoscope" | "box" | "sparkles";
+    icon: "plane" | "document" | "takeoff" | "landing" | "stethoscope" | "passport" | "box" | "sparkles";
     title: string;
     copy: string;
     variant?: "luxury";
@@ -70,10 +70,10 @@ export const unitedStatesDestination: DestinationLandingContent = {
   services: [
     { icon: "plane", title: "Embarque internacional de animais", copy: "Planejamento e coordenação da rota, companhia, modalidade, documentação, reservas e operação no aeroporto." },
     { icon: "document", title: "Documentação para embarque e CVI", copy: "Organização dos documentos conforme país, espécie e modalidade, incluindo CVI e Import Permit quando aplicáveis." },
-    { icon: "globe", title: "Exportação de animais a partir do Brasil", copy: "Saída internacional alinhando exigências brasileiras, destino, companhia, cronograma documental e chegada no exterior." },
-    { icon: "globe", title: "Importação de animais para o Brasil", copy: "Fluxo de retorno com documentação de origem, chegada, inspeção, liberação e conexão nacional quando necessária." },
+    { icon: "takeoff", title: "Exportação de animais a partir do Brasil", copy: "Saída internacional alinhando exigências brasileiras, destino, companhia, cronograma documental e chegada no exterior." },
+    { icon: "landing", title: "Importação de animais para o Brasil", copy: "Fluxo de retorno com documentação de origem, chegada, inspeção, liberação e conexão nacional quando necessária." },
     { icon: "stethoscope", title: "Processo veterinário", copy: "Coordenação com clínicas parceiras para microchip, vacinas, sorologia, atestado de saúde e exames exigidos." },
-    { icon: "document", title: "Passaporte animal", copy: "Documento que pode facilitar alguns fluxos quando aceito oficialmente; cada destino define se substitui o CVI." },
+    { icon: "passport", title: "Passaporte animal", copy: "Documento que pode facilitar alguns fluxos quando aceito oficialmente; cada destino define se substitui o CVI." },
     { icon: "box", title: "Caixa, kennel ou bolsa de transporte", copy: "Orientação técnica conforme porte, medidas, rota, aeronave, modalidade e requisitos aplicáveis da companhia aérea." },
     { icon: "sparkles", title: "Pet Luxo", copy: "Acompanhamento em cabine para pets elegíveis, sujeito à análise de peso, medidas, companhia aérea, destino e disponibilidade.", variant: "luxury" },
   ],
