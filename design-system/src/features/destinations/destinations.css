@@ -156,7 +156,7 @@
 .ep-us-ai-warning__logos img { display:block; width:31px; height:31px; opacity:.62; filter:grayscale(1) brightness(.62); object-fit:contain; }
 .ep-us-ai-warning h2 { max-width:19ch; margin:0 auto; color:var(--ep-teal); font-size:clamp(36px,4.4vw,62px); letter-spacing:-.075em; line-height:.96; }
 .ep-us-ai-warning h2 em { color:#b02230; font-style:normal; }
-.ep-us-ai-warning__proof { max-width:42ch; margin:22px auto 0; color:#6d3d42; font-size:13px; font-weight:750!important; line-height:1.45; }
+.ep-us-ai-warning__proof { display:inline-flex; max-width:calc(100% - 32px); align-items:center; gap:7px; margin:20px auto 0; color:#7a454b; font-size:12px; font-weight:750!important; line-height:1.3; white-space:nowrap; }.ep-us-ai-warning__proof > svg { flex:0 0 auto; color:#b02230; }
 .ep-us-ai-warning__typing-dot { display:block; width:9px; height:9px; margin:0 auto 22px; border-radius:50%; background:#b02230; opacity:0; }
 .ep-us-ai-warning h2 > span,.ep-us-ai-warning h2 em > span { display:inline-block; clip-path:inset(0 0 0 0); }
 .ep-us-ai-warning.is-prepared h2 > span,.ep-us-ai-warning.is-prepared h2 em > span { clip-path:inset(0 100% 0 0); opacity:0; }
@@ -167,6 +167,7 @@
 @keyframes ep-us-ai-write { from { clip-path:inset(0 100% 0 0); opacity:0; transform:translateY(.18em); } to { clip-path:inset(0 0 0 0); opacity:1; transform:translateY(0); } }
 @media (prefers-reduced-motion:reduce) { .ep-us-ai-warning__typing-dot { display:none; }.ep-us-ai-warning h2 > span,.ep-us-ai-warning h2 em > span,.ep-us-ai-warning.is-prepared h2 > span,.ep-us-ai-warning.is-prepared h2 em > span,.ep-us-ai-warning.is-in-view h2 > span,.ep-us-ai-warning.is-in-view h2 em > span { clip-path:none; opacity:1; animation:none; transform:none; } }
 @media (max-width:620px) { .ep-us-ai-warning { padding:72px 0; }.ep-us-ai-warning__logos { gap:12px; margin-bottom:19px; }.ep-us-ai-warning__logos img { width:27px; height:27px; } }
+@media (max-width:420px) { .ep-us-ai-warning__proof { gap:5px; font-size:10px; letter-spacing:-.02em; } }
 .ep-us-hero { background:#f1fbfa; }
 .ep-us-comparison__row--head > b:last-child img { content:url('/logo-embarpet-dark.png'); }
 .ep-us-authority__credentials > span { display:grid; justify-items:center; gap:4px; }
