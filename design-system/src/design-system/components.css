@@ -655,3 +655,9 @@ main section[id] { scroll-margin-top:84px; }
   .ep-other-species-editor { grid-template-columns:minmax(0,1fr) 106px; }
   .ep-other-species-editor__save,.ep-other-species-editor__remove { justify-content:center; }
 }
+
+/* Detalhes do pet: peso sempre é lido em kg e SRD comunica uma decisão, não um campo apenas bloqueado. */
+.ep-pet-detail__fields > label { position:relative; }
+.ep-pet-detail__fields > label > small { margin-top:-5px; color:var(--ep-muted); font-size:9px; font-weight:650; line-height:1.25; }
+.ep-pet-detail__fields > label.is-undefined input:disabled { border-color:rgba(0,157,172,.14); background:#f0f7f6; color:#739194; text-decoration:line-through; text-decoration-color:rgba(0,73,77,.48); text-decoration-thickness:1.5px; }
+.ep-pet-detail__fields > label.is-undefined > span { color:#739194; }

@@ -78,6 +78,47 @@ const normalizedTravelPeriods: Record<string, string> = {
 
 const normalizeTravelPeriod = (period: string) => normalizedTravelPeriods[period] ?? period;
 
+const phoneMasks: Record<string, { max: number; format: (digits: string) => string }> = {
+  BR: {
+    max: 11,
+    format: (digits) =>
+      digits.length <= 10
+        ? digits.replace(/^(\d{0,2})(\d{0,4})(\d{0,4}).*$/, (_, area, first, last) =>
+            [area && `(${area}${area.length === 2 ? ")" : ""}`, first, last].filter(Boolean).join(area.length === 2 ? " " : ""),
+          ).replace(/(\d{4}) (\d)/, "$1-$2")
+        : digits.replace(/^(\d{0,2})(\d{0,5})(\d{0,4}).*$/, (_, area, first, last) =>
+            [area && `(${area}${area.length === 2 ? ")" : ""}`, first, last].filter(Boolean).join(area.length === 2 ? " " : ""),
+          ).replace(/(\d{5}) (\d)/, "$1-$2"),
+  },
+  US: { max: 10, format: (digits) => digits.replace(/^(\d{0,3})(\d{0,3})(\d{0,4}).*$/, (_, area, first, last) => [area && `(${area}${area.length === 3 ? ")" : ""}`, first, last].filter(Boolean).join(area.length === 3 ? " " : "")).replace(/(\d{3}) (\d)/, "$1-$2") },
+  PT: { max: 9, format: (digits) => digits.replace(/(\d{3})(?=\d)/g, "$1 ").trim() },
+  ES: { max: 9, format: (digits) => digits.replace(/(\d{3})(?=\d)/g, "$1 ").trim() },
+  FR: { max: 9, format: (digits) => digits.replace(/(\d)(\d{0,2})(\d{0,2})(\d{0,2})(\d{0,2}).*$/, (_, a, b, c, d, e) => [a, b, c, d, e].filter(Boolean).join(" ")) },
+  AR: { max: 10, format: (digits) => digits.replace(/^(\d{0,2})(\d{0,4})(\d{0,4}).*$/, (_, area, first, last) => [area, first, last].filter(Boolean).join(" ")).replace(/(\d{4}) (\d)/, "$1-$2") },
+  UY: { max: 8, format: (digits) => digits.replace(/(\d{4})(?=\d)/g, "$1 ").trim() },
+  PY: { max: 9, format: (digits) => digits.replace(/(\d{3})(?=\d)/g, "$1 ").trim() },
+};
+
+const formatPhoneNumber = (value: string, countryCode: string) => {
+  const digits = value.replace(/\D/g, "");
+  const mask = phoneMasks[countryCode];
+  return mask ? mask.format(digits.slice(0, mask.max)) : digits.slice(0, 15).replace(/(\d{3})(?=\d)/g, "$1 ");
+};
+
+const normalizePhoneNumber = (value: string, countryCode: string) => {
+  const digits = value.replace(/\D/g, "");
+  return digits.slice(0, phoneMasks[countryCode]?.max ?? 15);
+};
+
+const formatWeight = (value: string) => {
+  const normalized = value.replace(/[^\d,.]/g, "").replace(".", ",");
+  if (!normalized) return "";
+  const [whole = "", ...decimal] = normalized.split(",");
+  const integer = whole.slice(0, 3) || "0";
+  const fraction = decimal.join("").slice(0, 2);
+  return normalized.includes(",") ? `${integer},${fraction}` : integer;
+};
+
 export function DiagnosticFlow({
   onComplete,
   onRouteChange,
@@ -352,7 +393,7 @@ export function DiagnosticFlow({
       species: pets.map((pet) => pet.kind).join(", "),
       size: pets.map((pet) => pet.weight).join(", "),
       name: contact.name,
-      phone: contact.phone,
+      phone: `${phoneCountry.dial}${contact.phone}`,
       consent: true,
     };
     const query = new URLSearchParams({
@@ -763,7 +804,7 @@ export function DiagnosticFlow({
                     </span>
                   </div>
                   <div className="ep-pet-detail__fields">
-                    <label>
+                    <label className={pet.breed === "Sem raça definida" ? "is-undefined" : ""}>
                       <span>
                         Raça ou espécie <RequiredMark />
                       </span>
@@ -785,11 +826,13 @@ export function DiagnosticFlow({
                         inputMode="decimal"
                         value={pet.weight}
                         onChange={(event) =>
-                          changePet(index, "weight", event.target.value)
+                          changePet(index, "weight", formatWeight(event.target.value))
                         }
-                        placeholder="Ex.: 0,15"
+                        placeholder="Ex.: 4,5 kg"
+                        aria-describedby={`pet-weight-hint-${index}`}
                         required
                       />
+                      <small id={`pet-weight-hint-${index}`}>Use quilogramas, com vírgula se necessário.</small>
                     </label>
                   </div>
                   <label className="ep-pet-detail__undefined">
@@ -950,11 +993,11 @@ export function DiagnosticFlow({
                 <input
                   aria-label="Número do WhatsApp"
                   inputMode="tel"
-                  value={contact.phone}
+                  value={formatPhoneNumber(contact.phone, phoneCountry.code)}
                   onChange={(event) =>
                     setContact((current) => ({
                       ...current,
-                      phone: event.target.value.replace(/\D/g, ""),
+                      phone: normalizePhoneNumber(event.target.value, phoneCountry.code),
                     }))
                   }
                   placeholder="Número do WhatsApp"
