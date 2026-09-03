@@ -101,7 +101,7 @@
 .ep-us-planner__route-swap:active { transform:translate(-50%,-50%) rotate(180deg) scale(.96); }
 @media (prefers-reduced-motion:reduce) { .ep-us-planner__route-edit,.ep-us-planner__route-swap { transition:none; }.ep-us-planner__route-edit:hover,.ep-us-planner__route-edit:focus-visible { transform:none; }.ep-us-planner__route-swap:hover,.ep-us-planner__route-swap:focus-visible,.ep-us-planner__route-swap:active { transform:translate(-50%,-50%); } }
 .ep-us-comparison__table { max-width:1040px; margin-top:46px; }
-.ep-us-comparison__row { grid-template-columns:1.08fr .96fr 1.16fr; }
+.ep-us-comparison__row { grid-template-columns:1.08fr 1fr 1fr; }
 .ep-us-comparison__row > * { min-height:68px; padding:14px 18px; font-size:13px; }
 .ep-us-comparison__row--head > * { min-height:76px; padding:16px 18px; font-size:14px; }
 .ep-us-comparison__row--head > b:last-child img { max-width:148px; max-height:40px; }
