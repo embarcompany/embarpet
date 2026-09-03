@@ -20,7 +20,7 @@ export function TrustStrip({ items }: { items: Array<{ icon: IconName; children:
   return <div className="ep-trust-strip">{items.map((item) => <span key={item.children}><Icon name={item.icon} />{item.children}</span>)}</div>;
 }
 
-export function ModalityRail({ items }: { items: Array<{ icon: IconName; title: string; copy: string; detailHref: string; imageSrc: string; imageAlt: string; ctaLabel: string; featured?: boolean; videoSrc?: string }> }) {
+export function ModalityRail({ items, onItemAction }: { items: Array<{ icon: IconName; title: string; copy: string; detailHref: string; imageSrc: string; imageAlt: string; ctaLabel: string; featured?: boolean; videoSrc?: string }>; onItemAction?: (title: string) => void }) {
   const railRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ pointerId: number; startX: number; startLeft: number } | null>(null);
   const suppressClickRef = useRef(false);
@@ -44,7 +44,7 @@ export function ModalityRail({ items }: { items: Array<{ icon: IconName; title: 
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
     window.setTimeout(() => { suppressClickRef.current = false; }, 0);
   };
-  return <div ref={railRef} className="ep-modality-rail" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag} onClickCapture={(event) => { if (suppressClickRef.current) { event.preventDefault(); event.stopPropagation(); } }}>{items.map((item) => <article key={item.title} className={item.featured ? "is-featured" : ""}><div className="ep-modality-rail__media">{item.videoSrc ? <video className="ep-modality-rail__video" src={item.videoSrc} poster={item.imageSrc} aria-label={item.imageAlt} autoPlay loop muted playsInline preload="metadata" /> : <img src={item.imageSrc} alt={item.imageAlt} loading="lazy" decoding="async" />}</div><div><h3>{item.title}</h3><p>{item.copy}</p><div className="ep-modality-actions"><InternalLink href={item.detailHref} onClick={() => trackConversionEvent("modality_clicked", { modality: item.title, action: "learn_more" })}>{item.ctaLabel}</InternalLink></div></div></article>)}</div>;
+  return <div ref={railRef} className="ep-modality-rail" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag} onClickCapture={(event) => { if (suppressClickRef.current) { event.preventDefault(); event.stopPropagation(); } }}>{items.map((item) => <article key={item.title} className={item.featured ? "is-featured" : ""}><div className="ep-modality-rail__media">{item.videoSrc ? <video className="ep-modality-rail__video" src={item.videoSrc} poster={item.imageSrc} aria-label={item.imageAlt} autoPlay loop muted playsInline preload="metadata" /> : <img src={item.imageSrc} alt={item.imageAlt} loading="lazy" decoding="async" />}</div><div><h3>{item.title}</h3><p>{item.copy}</p><div className="ep-modality-actions"><InternalLink href={onItemAction ? "#planejar" : item.detailHref} onClick={(event) => { if (onItemAction) { event.preventDefault(); trackConversionEvent("modality_clicked", { modality: item.title, action: "start_analysis" }); onItemAction(item.title); return; } trackConversionEvent("modality_clicked", { modality: item.title, action: "learn_more" }); }}>{item.ctaLabel}</InternalLink></div></div></article>)}</div>;
 }
 
 export function ProcessList({ items }: { items: Array<{ title: string; copy: string }> }) {

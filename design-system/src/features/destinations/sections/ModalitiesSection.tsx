@@ -7,9 +7,9 @@ const modalities = [
   { icon:"shield" as const, title:"Suporte emocional", copy:"Uma possibilidade para casos com necessidade comprovada de apoio emocional, sujeita às regras da companhia e às autorizações aplicáveis. Avaliamos a documentação e orientamos cada etapa para um embarque responsável.", ctaLabel:"Saiba mais", detailHref:"/modalidades/suporte-emocional", imageSrc:"/embarpet-suporte-emocional.jpg", imageAlt:"Família com pet em voo durante uma viagem" },
 ] as const;
 
-export function ModalitiesSection() {
+export function ModalitiesSection({ onStartPlanning }: { onStartPlanning: (modality: string) => void }) {
   return <section className="ep-home-modalities" id="modalidades" aria-labelledby="modalities-title"><div className="ep-container">
     <div className="ep-home-modalities__intro"><div><p className="ep-eyebrow">Modalidades de embarque</p><h2 className="ep-title-lg" id="modalities-title">Entenda como seu pet pode <em>viajar de avião.</em></h2></div><p className="ep-copy">Cabine, bagagem acompanhada, compartimento de cargas e suporte emocional funcionam de maneiras diferentes. Conheça cada modalidade antes de avaliarmos qual pode fazer sentido para o seu pet, a sua rota e a sua família.</p></div>
-    <ModalityRail items={[...modalities]} />
+    <ModalityRail items={[...modalities]} onItemAction={onStartPlanning} />
   </div></section>;
 }

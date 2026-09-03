@@ -67,7 +67,7 @@ export function DestinationPage({ destination }: { destination: DestinationLandi
       <RiskSection />
       <AiWarningSection />
       <MethodSection destination={destination} onStartPlanning={() => startPlanning("method")} />
-      <ModalitiesSection />
+      <ModalitiesSection onStartPlanning={() => startPlanning("modalities")} />
       <GoogleReviewsSection onStartPlanning={() => startPlanning("google_reviews")} />
       <WhatsappSupportSection onStartPlanning={() => startPlanning("whatsapp")} />
       <ComparisonSection onStartPlanning={() => startPlanning("comparison")} />
