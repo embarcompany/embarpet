@@ -137,8 +137,7 @@
 .ep-destination-services__heading h2 em { color:var(--ep-turq-deep); font-style:normal; }
 .ep-destination-services__heading > p:last-child { max-width:610px; margin:17px auto 0; color:var(--ep-muted); font-size:14px; line-height:1.55; }
 .ep-destination-services__grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:13px; margin-top:40px; }
-.ep-destination-services__card { min-height:218px; padding:22px; border:1px solid rgba(0,113,121,.15); border-radius:18px; background:rgba(255,255,255,.84); color:inherit; font:inherit; text-align:left; cursor:pointer; transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease; }
-.ep-destination-services__card:hover,.ep-destination-services__card:focus-visible { border-color:rgba(0,157,172,.4); box-shadow:0 14px 30px rgba(0,73,77,.07); outline:0; transform:translateY(-3px); }
+.ep-destination-services__card { min-height:218px; padding:22px; border:1px solid rgba(0,113,121,.15); border-radius:18px; background:rgba(255,255,255,.84); color:inherit; font:inherit; text-align:left; }
 .ep-destination-services__card > span { display:grid; width:44px; height:44px; place-items:center; border-radius:12px; background:var(--ep-soft); color:var(--ep-turq-deep); }
 .ep-destination-services__grid h3 { margin:18px 0 0; color:var(--ep-teal); font-size:18px; letter-spacing:-.045em; line-height:1.04; }
 .ep-destination-services__grid p { max-width:38ch; margin:10px 0 0; color:var(--ep-muted); font-size:12px; line-height:1.5; }
