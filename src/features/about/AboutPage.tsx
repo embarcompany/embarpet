@@ -343,11 +343,11 @@ export default function AboutPage() {
         <EmbarkationMarquee />
 
         {/* ==================================================================
-            3. A FUNDAÇÃO (2018): Split Screen Divididona (Foto Esquerda x Conteúdo Direita)
+            3. A FUNDAÇÃO (2018): Split Screen Divididona (Foto 100% Largura Esquerda x Conteúdo Direita)
             ================================================================== */}
-        <section className="ep-section ep-container ep-about-split-origin" id="origem">
+        <section className="ep-about-split-origin" id="origem">
           <div className="ep-about-split-origin__grid">
-            {/* Left Column: Full-Height Immersive Photo */}
+            {/* Left Column: Full-Width Immersive Photo on Left */}
             <div className="ep-about-split-origin__visual">
               <div className="ep-about-split-origin__photo-frame">
                 <img
@@ -364,41 +364,43 @@ export default function AboutPage() {
             </div>
 
             {/* Right Column: Editorial Storytelling Content */}
-            <div className="ep-about-split-origin__content">
-              <span className="ep-eyebrow">A Origem · 2018</span>
-              
-              <h2 className="ep-title-lg ep-about-split-origin__title">
-                Onde o amor aos animais encontrou a <em>coragem de transformar a aviação.</em>
-              </h2>
+            <div className="ep-about-split-origin__content-wrap">
+              <div className="ep-about-split-origin__content">
+                <span className="ep-eyebrow">A Origem · 2018</span>
+                
+                <h2 className="ep-title-lg ep-about-split-origin__title">
+                  Onde o amor aos animais encontrou a <em>coragem de transformar a aviação.</em>
+                </h2>
 
-              <p className="ep-copy ep-about-split-origin__lead">
-                Foi vivenciando de perto a complexidade da documentação sanitária internacional em Portugal que <strong>Daiane Sarmento e Thamires Felix</strong> perceberam o abismo enfrentado pelas famílias: regras confusas, companhias aéreas sem atendimento humanizado e o pavor constante de algo dar errado no embarque.
-              </p>
+                <p className="ep-copy ep-about-split-origin__lead">
+                  Foi vivenciando de perto a complexidade da documentação sanitária internacional em Portugal que <strong>Daiane Sarmento e Thamires Felix</strong> perceberam o abismo enfrentado pelas famílias: regras confusas, companhias aéreas sem atendimento humanizado e o pavor constante de algo dar errado no embarque.
+                </p>
 
-              <p className="ep-copy">
-                Decidiram transformar a burocracia em um plano de viagem previsível, unindo rigor veterinário, logística aérea e empatia inegociável.
-              </p>
+                <p className="ep-copy">
+                  Decidiram transformar a burocracia em um plano de viagem previsível, unindo rigor veterinário, logística aérea e empatia inegociável.
+                </p>
 
-              <div className="ep-about-split-origin__milestones">
-                <div className="ep-about-split-milestone">
-                  <span className="ep-about-split-milestone__badge">R$ 4.000</span>
-                  <div>
-                    <strong>O Ponto de Partida</strong>
-                    <p>Começamos com pouco capital e a certeza de que a vida de um pet não aceita margem de erro.</p>
+                <div className="ep-about-split-origin__milestones">
+                  <div className="ep-about-split-milestone">
+                    <span className="ep-about-split-milestone__badge">R$ 4.000</span>
+                    <div>
+                      <strong>O Ponto de Partida</strong>
+                      <p>Começamos com pouco capital e a certeza de que a vida de um pet não aceita margem de erro.</p>
+                    </div>
+                  </div>
+
+                  <div className="ep-about-split-milestone">
+                    <span className="ep-about-split-milestone__badge ep-about-split-milestone__badge--teal">+30 Especialistas</span>
+                    <div>
+                      <strong>Liderança Nacional</strong>
+                      <p>Evoluímos para a maior estrutura especializada em logística aérea pet da América Latina.</p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="ep-about-split-milestone">
-                  <span className="ep-about-split-milestone__badge ep-about-split-milestone__badge--teal">+30 Especialistas</span>
-                  <div>
-                    <strong>Liderança Nacional</strong>
-                    <p>Evoluímos para a maior estrutura especializada em logística aérea pet da América Latina.</p>
-                  </div>
+                <div className="ep-about-split-origin__quote">
+                  <em>“Para quem ama um animal como parte da família, a responsabilidade de embarcar é absoluta.”</em>
                 </div>
-              </div>
-
-              <div className="ep-about-split-origin__quote">
-                <em>“Para quem ama um animal como parte da família, a responsabilidade de embarcar é absoluta.”</em>
               </div>
             </div>
           </div>
