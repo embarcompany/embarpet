@@ -1,17 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
+  Award,
   CheckCircle2,
   Clock,
   Compass,
+  Eye,
   Heart,
   HeartHandshake,
+  Luggage,
   MapPin,
   PawPrint,
   Plane,
+  ShieldCheck,
   Sparkles,
+  Stethoscope,
+  Target,
 } from "lucide-react";
-import { ConversionHero } from "../../design-system/patterns";
 import { ScrollFlyIn } from "../../components/ui/hero-section-3";
 import { CaseDragCards } from "../../components/ui/case-drag-cards";
 import { SiteHeader } from "../../components/ui/navigation";
@@ -116,34 +121,55 @@ const methodologyStepsData = [
   {
     number: "01",
     icon: Compass,
-    title: "Diagnóstico & Viabilidade da Rota",
+    title: "Diagnóstico & Mapeamento da Rota",
     subtitle: "Análise estratégica de perfil e destino",
-    copy: "Avaliamos cada detalhe da sua rota e do perfil do seu pet para definir o melhor itinerário e antecipar todas as exigências do país de destino.",
+    copy: "Avaliamos a rota, a raça e as exigências oficiais para desenhar o plano ideal e antecipar qualquer necessidade com antecedência.",
   },
   {
     number: "02",
     icon: Clock,
-    title: "Planejamento Cronológico Integrado",
+    title: "Planejamento Cronológico de Prazos",
     subtitle: "Sincronia e previsibilidade em cada etapa",
-    copy: "Estruturamos um cronograma seguro para que todas as etapas veterinárias, documentais e operacionais aconteçam na janela exata do voo.",
+    copy: "Estruturamos todas as datas e prazos em um cronograma claro e sem imprevistos, respeitando o tempo de cada processo.",
   },
   {
     number: "03",
-    icon: Plane,
-    title: "Coordenação Logística & Presença em Solo",
-    subtitle: "Acompanhamento dedicado no aeroporto",
-    copy: "Cuidamos das reservas junto às companhias aéreas e mantemos suporte presencial na nossa base operacional em Guarulhos (GRU).",
+    icon: Stethoscope,
+    title: "Orientação Clínica & Bem-Estar",
+    subtitle: "Saúde e preparação tranquila",
+    copy: "Orientamos veterinários de confiança para padronizar laudos e atestados, garantindo total conformidade sanitária.",
   },
   {
     number: "04",
+    icon: Plane,
+    title: "Reserva Aérea & Rota Otimizada",
+    subtitle: "Conexões seguras e menor tempo de viagem",
+    copy: "Intermediação formal com companhias aéreas internacionais, priorizando itinerários confortáveis e conexões climatizadas.",
+  },
+  {
+    number: "05",
+    icon: Luggage,
+    title: "Ambientação & Caixa de Transporte",
+    subtitle: "Conforto e adequação biométrica",
+    copy: "Dimensionamento correto da caixa nos padrões internacionais e orientação de adaptação positiva para o pet viajar calmo.",
+  },
+  {
+    number: "06",
+    icon: ShieldCheck,
+    title: "Presença & Acompanhamento na Base GRU",
+    subtitle: "Suporte físico no maior aeroporto do país",
+    copy: "Nossa equipe de solo acompanha os procedimentos de fiscalização e acolhimento presencial na base de Guarulhos.",
+  },
+  {
+    number: "07",
     icon: HeartHandshake,
-    title: "Embarque Seguro & Reencontro da Família",
-    subtitle: "Tranquilidade até o abraço final",
-    copy: "Acompanhamento contínuo em tempo real durante todo o trajeto, para que você viva a chegada ao novo país com total paz de espírito.",
+    title: "Voo Assistido & Reencontro no Destino",
+    subtitle: "Tranquilidade até o primeiro abraço",
+    copy: "Acompanhamento em tempo real durante todo o trajeto, com suporte contínuo até a família se abraçar no novo país.",
   },
 ];
 
-function AboutMethodologyPipeline({ onOpenAnalysis }: { onOpenAnalysis: () => void }) {
+function CenteredMethodologyTimeline({ onOpenAnalysis }: { onOpenAnalysis: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [progressHeight, setProgressHeight] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
@@ -186,46 +212,48 @@ function AboutMethodologyPipeline({ onOpenAnalysis }: { onOpenAnalysis: () => vo
   }, []);
 
   return (
-    <div className="ep-about-pipeline" ref={containerRef}>
-      {/* Connected Vertical Progress Line */}
-      <div className="ep-about-pipeline__track" aria-hidden="true">
+    <div className="ep-about-centered-timeline" ref={containerRef}>
+      {/* Central Illuminated Spine */}
+      <div className="ep-about-centered-timeline__spine" aria-hidden="true">
         <div
-          className="ep-about-pipeline__bar"
+          className="ep-about-centered-timeline__bar"
           style={{ height: `${progressHeight}%` }}
         />
       </div>
 
-      <div className="ep-about-pipeline__steps">
+      <div className="ep-about-centered-timeline__steps">
         {methodologyStepsData.map((step, idx) => {
           const Icon = step.icon;
-          const isPassed = (progressHeight / 100) * methodologyStepsData.length >= idx + 0.3;
+          const isPassed = (progressHeight / 100) * methodologyStepsData.length >= idx + 0.35;
           const isCurrent = activeStep === idx;
+          const isEven = idx % 2 === 0;
 
           return (
             <div
               key={step.number}
               ref={(el) => { stepRefs.current[idx] = el; }}
-              className={`ep-about-pipeline__step ${isPassed ? "is-passed" : ""} ${isCurrent ? "is-active" : ""}`}
+              className={`ep-about-timeline-item ${isEven ? "is-left" : "is-right"} ${isPassed ? "is-passed" : ""} ${isCurrent ? "is-active" : ""}`}
             >
-              <div className="ep-about-pipeline__marker">
-                <div className="ep-about-pipeline__node">
+              {/* Central Node Badge with Number */}
+              <div className="ep-about-timeline-item__center">
+                <div className="ep-about-timeline-item__node">
                   <span>{step.number}</span>
                 </div>
               </div>
 
-              <div className="ep-about-pipeline__card">
-                <div className="ep-about-pipeline__card-head">
-                  <div className="ep-about-pipeline__card-icon">
-                    <Icon size={20} strokeWidth={2} />
+              {/* Minimal Card */}
+              <div className="ep-about-timeline-item__card">
+                <div className="ep-about-timeline-item__card-head">
+                  <div className="ep-about-timeline-item__card-icon">
+                    <Icon size={18} strokeWidth={2.2} />
                   </div>
                   <div>
-                    <span className="ep-about-pipeline__card-eyebrow">Etapa {step.number}</span>
-                    <h3 className="ep-about-pipeline__card-title">{step.title}</h3>
-                    <p className="ep-about-pipeline__card-subtitle">{step.subtitle}</p>
+                    <span className="ep-about-timeline-item__eyebrow">Etapa {step.number}</span>
+                    <h3 className="ep-about-timeline-item__title">{step.title}</h3>
+                    <p className="ep-about-timeline-item__subtitle">{step.subtitle}</p>
                   </div>
                 </div>
-
-                <p className="ep-about-pipeline__card-copy">{step.copy}</p>
+                <p className="ep-about-timeline-item__copy">{step.copy}</p>
               </div>
             </div>
           );
@@ -266,70 +294,48 @@ export default function AboutPage() {
 
       <main className="ep-about-main">
         {/* ==================================================================
-            1. HERO: Institucional, Autoritária e Humanizada
+            1. HERO: 100% Centralizada, Institucional e Sem Imagem Lateral
             ================================================================== */}
-        <ConversionHero
-          aside={
-            <aside className="ep-about-hero-showcase" aria-label="Liderança e Base Operacional Embarpet">
-              <div className="ep-about-hero-showcase__frame">
-                <img
-                  src="/embarpet-ceo-equipe-trim.webp"
-                  alt="Daiane Sarmento, Thamires Felix e a equipe da Embarpet reunida"
-                  className="ep-about-hero-showcase__image"
-                  fetchPriority="high"
-                />
-                <div className="ep-about-hero-showcase__badge">
-                  <div className="ep-about-hero-showcase__badge-icon">
-                    <MapPin size={18} aria-hidden="true" />
-                  </div>
-                  <div>
-                    <strong>Base Operacional em Guarulhos / SP (GRU)</strong>
-                    <small>R. Leonor Bresser Corrêa, 33 · Prontidão e suporte presencial no aeroporto</small>
-                  </div>
+        <section className="ep-about-centered-hero" aria-label="Apresentação institucional da Embarpet">
+          <div className="ep-container ep-about-centered-hero__container">
+            <div className="ep-about-centered-hero__top">
+              <span className="ep-eyebrow">
+                <Sparkles size={13} aria-hidden="true" /> Embarpet · Nossa História & Propósito
+              </span>
+
+              <div className="ep-about-centered-hero__proof" aria-label="Pioneirismo em transporte internacional de pets">
+                <div className="ep-about-hero-metric">
+                  <span className="ep-team-avatars" aria-hidden="true"><i /><i /><i /><i /></span>
+                  <strong>+2.000</strong>
+                  <small>embarques realizados</small>
+                </div>
+                <div className="ep-about-hero-metric">
+                  <img src="/logo-google.svg" alt="Google" />
+                  <strong>4,9</strong>
+                  <small>avaliação no Google</small>
                 </div>
               </div>
-            </aside>
-          }
-        >
-          {/* Institutional Eyebrow & Social Proof */}
-          <div className="ep-about-hero-top">
-            <span className="ep-eyebrow">
-              <Sparkles size={13} aria-hidden="true" /> Embarpet · Nossa História & Propósito
-            </span>
+            </div>
 
-            <div className="ep-hero-proof" aria-label="Pioneirismo em transporte internacional de pets">
-              <div className="ep-hero-proof__metric">
-                <span className="ep-team-avatars" aria-hidden="true"><i /><i /><i /><i /></span>
-                <strong>+2.000</strong>
-                <small>embarques<br />realizados</small>
-              </div>
-              <div className="ep-hero-proof__metric">
-                <img src="/logo-google.svg" alt="Google" />
-                <strong>4,9</strong>
-                <small>avaliação<br />no Google</small>
-              </div>
+            <h1 className="ep-title-xl ep-about-centered-hero__title">
+              Mais do que transportar animais.{" "}
+              <span className="ep-hero-highlight">Conectamos famílias em qualquer lugar do mundo.</span>
+            </h1>
+
+            <p className="ep-about-centered-hero__copy">
+              Fundada em 2018 por <strong>Daiane Sarmento e Thamires Felix</strong>, a Embarpet nasceu para transformar a burocracia internacional de viagens com pets em um caminho seguro, previsível e acolhedor.
+            </p>
+
+            <div className="ep-about-centered-hero__actions">
+              <button type="button" className="ep-button ep-button--primary" onClick={() => openAnalysis()}>
+                Iniciar análise da viagem <ArrowRight size={16} aria-hidden="true" />
+              </button>
+              <a href="#origem" className="ep-about-hero-link">
+                Conhecer nossa história ↓
+              </a>
             </div>
           </div>
-
-          <h1 className="ep-title-xl">
-            Mais do que transportar animais.{" "}
-            <span className="ep-hero-highlight">Conectamos famílias em qualquer lugar do mundo.</span>
-          </h1>
-
-          <p className="ep-hero-route-intro">
-            Fundada em 2018 por <strong>Daiane Sarmento e Thamires Felix</strong>, a Embarpet nasceu para transformar a burocracia de viagens internacionais com pets em um caminho seguro, previsível e acolhedor.
-          </p>
-
-          {/* Hero Actions */}
-          <div className="ep-about-hero-actions">
-            <button type="button" className="ep-button ep-button--primary" onClick={() => openAnalysis()}>
-              Iniciar análise da viagem <ArrowRight size={16} aria-hidden="true" />
-            </button>
-            <a href="#origem" className="ep-about-hero-link">
-              Conhecer nossa história ↓
-            </a>
-          </div>
-        </ConversionHero>
+        </section>
 
         {/* ==================================================================
             2. EMBARKATION MARQUEE: Galeria contínua de embarques reais
@@ -337,59 +343,144 @@ export default function AboutPage() {
         <EmbarkationMarquee />
 
         {/* ==================================================================
-            3. A ORIGEM (2018): E foi assim que a Embarpet começou.
+            3. A ORIGEM (2018): Bento Grid com Storytelling & Hierarquia Visual Forte
             ================================================================== */}
-        <section className="ep-section ep-container ep-about-origin-section" id="origem">
-          <div className="ep-home-split-heading">
-            <div>
-              <span className="ep-eyebrow">Fundação em 2018</span>
-              <h2 className="ep-title-lg" style={{ marginTop: "14px" }}>
-                E foi assim que a <em>Embarpet começou.</em>
-              </h2>
-            </div>
+        <section className="ep-section ep-container ep-about-bento-section" id="origem">
+          <div className="ep-about-bento-header">
+            <span className="ep-eyebrow">Fundação em 2018</span>
+            <h2 className="ep-title-lg" style={{ marginTop: "12px" }}>
+              Onde o amor aos animais encontrou a <em>coragem de transformar a aviação.</em>
+            </h2>
             <p className="ep-copy">
-              Não nasceu grande. Nasceu com <strong>R$ 4 mil de investimento, conhecimento, coragem e um propósito real para resolver.</strong>
+              A história de como um problema real de milhares de famílias se transformou na maior estrutura especializada em transporte internacional de pets do Brasil.
             </p>
           </div>
 
-          <div className="ep-about-origin-bento">
-            <div className="ep-about-origin-card ep-about-origin-card--featured">
-              <div className="ep-about-origin-card__content">
-                <span className="ep-about-origin-tag">A Centelha em Portugal</span>
+          <div className="ep-about-bento-grid">
+            {/* Bento Card 1: Featured Story with Founders Image */}
+            <div className="ep-about-bento-tile ep-about-bento-tile--featured">
+              <div className="ep-about-bento-tile__content">
+                <span className="ep-about-bento-tag">A Centelha em Portugal</span>
                 <h3>Transformar a distância entre o amor e a burocracia em um caminho seguro.</h3>
                 <p>
-                  Foi enxergando essa dificuldade de perto que <strong>Daiane Sarmento e Thamires Felix</strong> decidiram, em 2018, transformar um problema em uma solução definitiva. As duas perceberam que existia um abismo entre o desejo das famílias de viajar com seus pets e a complexidade de tornar essa viagem real.
+                  Foi vivenciando de perto a rotina de documentação sanitária que <strong>Daiane Sarmento e Thamires Felix</strong> perceberam o desespero das famílias: não existia clareza sobre como levar um pet em segurança para outro país. Decidiram unir conhecimento técnico, empatia e coragem para criar a solução definitiva.
                 </p>
+                <div className="ep-about-bento-tile__quote">
+                  <em>“Para quem ama um animal como parte da família, a responsabilidade de embarcar é absoluta.”</em>
+                </div>
               </div>
-              <div className="ep-about-origin-card__media">
-                <img src="/embarpet-thamires-felix.webp" alt="Thamires Felix, cofundadora da Embarpet" />
-                <div className="ep-about-origin-card__caption">
+
+              <div className="ep-about-bento-tile__media">
+                <img src="/embarpet-thamires-felix.webp" alt="Thamires Felix e Daiane Sarmento, fundadoras da Embarpet" />
+                <div className="ep-about-bento-tile__caption">
                   <strong>Thamires Felix & Daiane Sarmento</strong>
                   <span>Fundadoras da Embarpet</span>
                 </div>
               </div>
             </div>
 
-            <div className="ep-about-origin-card ep-about-origin-card--highlight">
-              <div className="ep-about-origin-badge">R$ 4.000</div>
-              <h4>Investimento inicial</h4>
+            {/* Bento Card 2: Initial Milestone */}
+            <div className="ep-about-bento-tile ep-about-bento-tile--metric">
+              <div className="ep-about-bento-badge">R$ 4.000</div>
+              <h4>O Ponto de Partida</h4>
               <p>
-                No início, o objetivo era descomplicar a documentação. Mas cada novo embarque mostrava que o tutor precisava de uma gestão completa de ponta a ponta.
+                Sem investidores gigantes, o negócio começou com quatro mil reais, conhecimento profundo e um foco inegociável: estar ao lado do tutor em cada decisão.
               </p>
             </div>
 
-            <div className="ep-about-origin-card ep-about-origin-card--evolution">
-              <span className="ep-about-origin-tag">A Evolução</span>
-              <h4>Da assessoria à operação logística aérea</h4>
+            {/* Bento Card 3: Operation Today */}
+            <div className="ep-about-bento-tile ep-about-bento-tile--team">
+              <div className="ep-about-bento-badge ep-about-bento-badge--cyan">+30 Especialistas</div>
+              <h4>Da Assessoria à Operação Aérea</h4>
               <p>
-                Hoje somos uma estrutura completa com mais de 30 especialistas, coordenando rotas, companhias aéreas, prazos e suporte presencial em Guarulhos.
+                Evoluímos para uma equipe multidisciplinar completa, cuidando de rotas, alinhamento veterinário, emissão oficial e equipe presencial no aeroporto.
+              </p>
+            </div>
+
+            {/* Bento Card 4: Purpose */}
+            <div className="ep-about-bento-tile ep-about-bento-tile--purpose">
+              <div className="ep-about-bento-purpose-icon">
+                <Heart size={24} />
+              </div>
+              <h4>Famílias Unidas</h4>
+              <p>
+                O destino pode mudar, mas o membro mais especial da sua casa continua exatamente onde deve estar: com você.
               </p>
             </div>
           </div>
         </section>
 
         {/* ==================================================================
-            4. METODOLOGIA: Centralizada, Minimalista e Assertiva
+            4. PILARES INSTITUCIONAIS: Propósito, Missão, Visão & Valores
+            ================================================================== */}
+        <section className="ep-about-pillars-section" id="pilares">
+          <div className="ep-container">
+            <div className="ep-about-pillars-header">
+              <span className="ep-eyebrow">Identidade & Princípios</span>
+              <h2 className="ep-title-lg" style={{ color: "#ffffff", marginTop: "12px" }}>
+                O que guia cada decisão na <em>Embarpet.</em>
+              </h2>
+              <p className="ep-copy" style={{ color: "rgba(255, 255, 255, 0.82)" }}>
+                Nossos valores não são apenas palavras em uma parede. São as diretrizes inegociáveis que garantem o bem-estar do seu pet do primeiro contato ao desembarque.
+              </p>
+            </div>
+
+            <div className="ep-about-pillars-grid">
+              {/* Propósito */}
+              <div className="ep-about-pillar-card ep-about-pillar-card--highlight">
+                <div className="ep-about-pillar-card__icon">
+                  <Heart size={24} />
+                </div>
+                <span className="ep-about-pillar-card__label">Propósito Inegociável</span>
+                <h3>Manter famílias unidas em qualquer lugar do mundo.</h3>
+                <p>
+                  Garantir que nenhuma mudança de país signifique deixar para trás quem você ama, conduzindo cada jornada com respeito, carinho e responsabilidade.
+                </p>
+              </div>
+
+              {/* Missão */}
+              <div className="ep-about-pillar-card">
+                <div className="ep-about-pillar-card__icon">
+                  <Target size={24} />
+                </div>
+                <span className="ep-about-pillar-card__label">Nossa Missão</span>
+                <h3>Transformar burocracia em um caminho seguro e previsível.</h3>
+                <p>
+                  Oferecer clareza, rigor técnico e acolhimento humano para que viajar com pets seja uma experiência tranquila para toda a família.
+                </p>
+              </div>
+
+              {/* Visão */}
+              <div className="ep-about-pillar-card">
+                <div className="ep-about-pillar-card__icon">
+                  <Eye size={24} />
+                </div>
+                <span className="ep-about-pillar-card__label">Nossa Visão</span>
+                <h3>Ser a maior autoridade global em acolhimento e logística pet.</h3>
+                <p>
+                  Elevar continuamente os padrões de segurança e conforto na aviação internacional para transporte de animais vivos.
+                </p>
+              </div>
+
+              {/* Valores */}
+              <div className="ep-about-pillar-card">
+                <div className="ep-about-pillar-card__icon">
+                  <Award size={24} />
+                </div>
+                <span className="ep-about-pillar-card__label">Nossos Valores</span>
+                <ul className="ep-about-pillar-values-list">
+                  <li><CheckCircle2 size={14} /> <strong>Bem-estar animal:</strong> Prioridade zero em qualquer decisão.</li>
+                  <li><CheckCircle2 size={14} /> <strong>Rigor técnico:</strong> Conformidade absoluta com órgãos oficiais.</li>
+                  <li><CheckCircle2 size={14} /> <strong>Empatia ativa:</strong> Cuidado genuíno com o tutor e sua família.</li>
+                  <li><CheckCircle2 size={14} /> <strong>Presença real:</strong> Acompanhamento presencial no aeroporto.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ==================================================================
+            5. METODOLOGIA: Centralizada, Números na Linha Central & Menos Técnico
             ================================================================== */}
         <section className="ep-about-methodology-section" id="metodologia">
           <div className="ep-container ep-about-methodology-container">
@@ -399,53 +490,17 @@ export default function AboutPage() {
                 Do diagnóstico inicial ao <em>abraço no destino.</em>
               </h2>
               <p className="ep-copy">
-                Nossa metodologia conecta inteligência de rota, controle de prazos e suporte presencial em 4 etapas integradas para uma viagem segura e sem imprevistos.
+                Conheça a jornada completa que conecta inteligência de rota, controle de prazos e acompanhamento presencial para uma viagem sem imprevistos.
               </p>
             </div>
 
-            {/* Continuous Vertical Animated Pipeline */}
-            <AboutMethodologyPipeline onOpenAnalysis={() => openAnalysis()} />
+            {/* Central Illuminated Stepper Timeline */}
+            <CenteredMethodologyTimeline onOpenAnalysis={() => openAnalysis()} />
 
             <div className="ep-about-methodology-footer">
               <button type="button" className="ep-button ep-button--primary" onClick={() => openAnalysis()}>
                 Planejar a viagem do meu pet <ArrowRight size={16} aria-hidden="true" />
               </button>
-            </div>
-          </div>
-        </section>
-
-        {/* ==================================================================
-            5. A MUDANÇA DE PERSPECTIVA (Deep Teal Editorial Card)
-            ================================================================== */}
-        <section className="ep-about-perspective-section" id="perspectiva">
-          <div className="ep-container ep-about-perspective-grid">
-            <div className="ep-about-perspective-content">
-              <span className="ep-eyebrow">Mudança de Perspectiva</span>
-              <h2 className="ep-title-lg" style={{ marginTop: "14px" }}>
-                A cada embarque, a <em>missão ficava mais clara.</em>
-              </h2>
-              <p className="ep-copy">
-                Acompanhamos famílias inteiras mudando de vida. Para nós, a responsabilidade de embarcar um animal é absoluta.
-              </p>
-              <div className="ep-about-perspective-contrast">
-                <div className="ep-about-perspective-contrast__box ep-about-perspective-contrast__box--old">
-                  <small>A pergunta comum do mercado:</small>
-                  <p>“Como colocar esse animal em um avião?”</p>
-                </div>
-                <div className="ep-about-perspective-contrast__arrow">➔</div>
-                <div className="ep-about-perspective-contrast__box ep-about-perspective-contrast__box--new">
-                  <small>A diretriz inegociável da Embarpet:</small>
-                  <strong>“Como fazer esse pet chegar ao destino com total segurança, conforto e a menor preocupação para a sua família?”</strong>
-                </div>
-              </div>
-            </div>
-
-            <div className="ep-about-perspective-media">
-              <img src="/embarpet-ceo-equipe-trim.webp" alt="Liderança da Embarpet" className="ep-about-perspective-portrait" />
-              <div className="ep-about-perspective-caption">
-                <strong>Equipe & Liderança Embarpet</strong>
-                <span>Mais de 30 especialistas dedicados a cada rota internacional</span>
-              </div>
             </div>
           </div>
         </section>
@@ -515,7 +570,7 @@ export default function AboutPage() {
         </section>
 
         {/* ==================================================================
-            7. BASE OPERACIONAL EM GUARULHOS & CREDENCIAIS
+            7. BASE OPERACIONAL EM GUARULHOS & ENDEREÇO OFICIAL
             ================================================================== */}
         <section className="ep-section ep-container ep-about-base-section" id="base">
           <div className="ep-about-base-card">
@@ -525,10 +580,10 @@ export default function AboutPage() {
                 Base de Apoio em Guarulhos / SP (GRU)
               </h2>
               <p className="ep-copy" style={{ color: "rgba(255,255,255,0.85)", marginTop: "14px" }}>
-                Nossa sede física e equipe de solo estão estrategicamente posicionadas em Guarulhos, a poucos minutos do Aeroporto Internacional de São Paulo (GRU), garantindo suporte presencial no MAPA, conexões e assistência direta aos pets.
+                Nossa sede física e equipe de solo estão estrategicamente posicionadas em Guarulhos, a poucos minutos do Aeroporto Internacional de São Paulo (GRU), garantindo suporte presencial no MAPA, conexão de voos e assistência direta aos pets.
               </p>
               <div className="ep-about-base-card__address">
-                <MapPin size={18} />
+                <MapPin size={20} />
                 <div>
                   <strong>R. Leonor Bresser Corrêa, 33 - Vila Miriam, Guarulhos - SP, CEP 07110-130</strong>
                   <small>CNPJ: 29.922.919/0001-14 · Grupo Embarcompany</small>
