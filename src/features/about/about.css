@@ -18,7 +18,34 @@
 }
 
 /* --------------------------------------------------------------------------
-   1. HERO: ConversionHero Customizations for /sobre
+   0. UNIFIED EYEBROW DESIGN SYSTEM TOKEN
+   -------------------------------------------------------------------------- */
+.ep-about-page-v2 .ep-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 4px 14px;
+  border: 1px solid rgba(0, 157, 172, 0.24);
+  border-radius: 999px;
+  background: rgba(232, 249, 247, 0.85);
+  color: var(--ep-teal);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+  width: max-content;
+  box-shadow: 0 2px 6px rgba(5, 67, 74, 0.03);
+}
+
+.ep-about-page-v2 .ep-eyebrow svg {
+  color: var(--ep-turq-deep);
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   1. HERO: Institutional, Authoritative & Humanized Hero
    -------------------------------------------------------------------------- */
 .ep-about-page-v2 .ep-conversion-hero {
   background: var(--ep-gradient-idv);
@@ -36,6 +63,50 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.ep-about-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.ep-about-hero-top .ep-hero-proof {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ep-about-hero-top .ep-hero-proof__metric {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 157, 172, 0.2);
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(5, 67, 74, 0.04);
+}
+
+.ep-about-hero-top .ep-hero-proof__metric strong {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--ep-teal);
+}
+
+.ep-about-hero-top .ep-hero-proof__metric small {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--ep-muted);
+  line-height: 1.15;
+}
+
+.ep-about-hero-top .ep-hero-proof__metric img {
+  height: 16px;
+  width: auto;
 }
 
 .ep-about-hero-showcase {
@@ -112,9 +183,7 @@
   line-height: 1.35;
 }
 
-/* --------------------------------------------------------------------------
-   Hero Doubts Chip Resolver
-   -------------------------------------------------------------------------- */
+/* Hero Doubts Chip Resolver */
 .ep-about-hero-doubts {
   margin-top: 24px;
   margin-bottom: 28px;
@@ -391,7 +460,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   3. METODOLOGIA: Do Documento à Operação Completa (8 Passos)
+   3. METODOLOGIA: Vertical Animated Connected Pipeline (8 Passos)
    -------------------------------------------------------------------------- */
 .ep-about-methodology-section {
   padding-block: clamp(68px, 8vw, 108px);
@@ -420,9 +489,36 @@
 }
 
 .ep-about-methodology-intro .ep-copy {
-  margin: 16px 0 28px;
+  margin: 16px 0 20px;
   font-size: 14px;
   line-height: 1.6;
+}
+
+.ep-about-methodology-guarantees {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0 28px;
+  width: 100%;
+}
+
+.ep-about-guarantee-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 157, 172, 0.18);
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 750;
+  color: var(--ep-teal);
+  box-shadow: 0 2px 8px rgba(5, 67, 74, 0.03);
+}
+
+.ep-about-guarantee-pill svg {
+  color: var(--ep-turq-deep);
+  flex-shrink: 0;
 }
 
 .ep-about-methodology-cta {
@@ -448,86 +544,186 @@
   box-shadow: 0 6px 18px rgba(5, 67, 74, 0.24);
 }
 
-.ep-about-methodology-framework ol {
-  display: grid;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+/* Vertical Connected Pipeline Component */
+.ep-about-pipeline {
+  position: relative;
+  padding-left: 56px;
+  width: 100%;
 }
 
-.ep-about-methodology-framework li a {
-  display: grid;
-  grid-template-columns: 36px 36px minmax(0, 1fr) 24px;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 18px;
-  border: 1px solid rgba(0, 73, 77, 0.12);
-  border-radius: 16px;
+.ep-about-pipeline__track {
+  position: absolute;
+  left: 20px;
+  top: 24px;
+  bottom: 24px;
+  width: 3px;
+  background: rgba(0, 157, 172, 0.16);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.ep-about-pipeline__bar {
+  width: 100%;
+  background: linear-gradient(180deg, var(--ep-turq) 0%, var(--ep-turq-deep) 50%, var(--ep-teal) 100%);
+  border-radius: 999px;
+  transition: height 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 0 10px rgba(0, 181, 194, 0.6);
+}
+
+.ep-about-pipeline__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ep-about-pipeline__step {
+  position: relative;
+  display: flex;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.ep-about-pipeline__marker {
+  position: absolute;
+  left: -56px;
+  top: 18px;
+  width: 44px;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+}
+
+.ep-about-pipeline__node {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   background: #ffffff;
-  color: var(--ep-teal);
-  text-decoration: none;
-  transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(5, 67, 74, 0.03);
-}
-
-.ep-about-methodology-framework li a:hover {
-  border-color: var(--ep-turq);
-  background: #ffffff;
-  transform: translateX(4px);
-  box-shadow: 0 6px 20px rgba(0, 157, 172, 0.12);
-}
-
-.ep-about-framework-number {
-  font-size: 12px;
+  border: 2px solid rgba(0, 157, 172, 0.28);
+  display: grid;
+  place-items: center;
+  font-size: 13px;
   font-weight: 900;
-  color: var(--ep-turq-deep);
   letter-spacing: -0.02em;
+  color: var(--ep-teal);
+  box-shadow: 0 4px 12px rgba(5, 67, 74, 0.08);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.ep-about-framework-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+.ep-about-pipeline__step.is-passed .ep-about-pipeline__node,
+.ep-about-pipeline__step.is-active .ep-about-pipeline__node {
+  background: var(--ep-teal);
+  color: var(--ep-lime);
+  border-color: var(--ep-turq);
+  transform: scale(1.08);
+  box-shadow: 0 0 0 4px rgba(0, 181, 194, 0.22), 0 6px 16px rgba(5, 67, 74, 0.2);
+}
+
+.ep-about-pipeline__card {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(0, 73, 77, 0.1);
+  border-radius: 20px;
+  padding: 22px 26px;
+  box-shadow: 0 4px 18px rgba(5, 67, 74, 0.04);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ep-about-pipeline__step:hover .ep-about-pipeline__card,
+.ep-about-pipeline__step.is-active .ep-about-pipeline__card {
+  border-color: var(--ep-turq);
+  transform: translateX(4px);
+  box-shadow: 0 10px 30px rgba(0, 157, 172, 0.12);
+  background: linear-gradient(145deg, #ffffff 0%, #f7fcfa 100%);
+}
+
+.ep-about-pipeline__card-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.ep-about-pipeline__card-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
   background: rgba(0, 157, 172, 0.1);
   color: var(--ep-turq-deep);
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: all 0.25s ease;
 }
 
-.ep-about-methodology-framework li a:hover .ep-about-framework-icon {
+.ep-about-pipeline__step:hover .ep-about-pipeline__card-icon,
+.ep-about-pipeline__step.is-active .ep-about-pipeline__card-icon {
   background: var(--ep-teal);
   color: var(--ep-lime);
+  transform: rotate(-3deg) scale(1.05);
 }
 
-.ep-about-framework-copy {
-  display: flex;
-  flex-direction: column;
-}
-
-.ep-about-framework-copy strong {
-  font-size: 13px;
-  font-weight: 750;
-  color: var(--ep-teal);
-}
-
-.ep-about-framework-copy small {
-  font-size: 11px;
-  color: var(--ep-muted);
-  line-height: 1.4;
-  margin-top: 2px;
-}
-
-.ep-about-framework-arrow {
-  color: rgba(0, 157, 172, 0.4);
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.ep-about-methodology-framework li a:hover .ep-about-framework-arrow {
+.ep-about-pipeline__card-eyebrow {
+  display: block;
+  font-size: 10px;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--ep-turq-deep);
-  transform: translateX(3px);
+  margin-bottom: 2px;
+}
+
+.ep-about-pipeline__card-title {
+  font-size: 17px;
+  font-weight: 850;
+  letter-spacing: -0.03em;
+  color: var(--ep-teal);
+  margin: 0 0 2px;
+  line-height: 1.25;
+}
+
+.ep-about-pipeline__card-subtitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ep-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.ep-about-pipeline__card-copy {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ep-ink);
+  margin: 0 0 16px;
+}
+
+.ep-about-pipeline__card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ep-about-pipeline__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ep-teal);
+  background: rgba(232, 249, 247, 0.75);
+  border: 1px solid rgba(0, 157, 172, 0.18);
+  padding: 4px 10px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.ep-about-pipeline__tag svg {
+  color: var(--ep-turq-deep);
+  flex-shrink: 0;
+}
+
+.ep-about-pipeline__step:hover .ep-about-pipeline__tag,
+.ep-about-pipeline__step.is-active .ep-about-pipeline__tag {
+  background: rgba(0, 157, 172, 0.12);
+  border-color: rgba(0, 157, 172, 0.3);
 }
 
 /* --------------------------------------------------------------------------
@@ -552,7 +748,9 @@
 }
 
 .ep-about-perspective-content .ep-eyebrow {
-  color: var(--ep-turq);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: var(--ep-lime);
 }
 
 .ep-about-perspective-content .ep-title-lg {
@@ -879,6 +1077,12 @@
   box-shadow: 0 16px 40px rgba(5, 67, 74, 0.14);
 }
 
+.ep-about-base-card .ep-eyebrow {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.24);
+  color: var(--ep-lime);
+}
+
 .ep-about-base-card__address {
   display: flex;
   align-items: flex-start;
@@ -996,7 +1200,7 @@
   }
   .ep-about-methodology-grid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 36px;
   }
   .ep-about-methodology-intro {
     position: static;
@@ -1013,6 +1217,31 @@
 }
 
 @media (max-width: 640px) {
+  .ep-about-pipeline {
+    padding-left: 44px;
+  }
+  .ep-about-pipeline__track {
+    left: 14px;
+  }
+  .ep-about-pipeline__marker {
+    left: -44px;
+    width: 32px;
+  }
+  .ep-about-pipeline__node {
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+  }
+  .ep-about-pipeline__card {
+    padding: 18px 20px;
+  }
+  .ep-about-pipeline__card-title {
+    font-size: 15px;
+  }
+  .ep-about-pipeline__card-icon {
+    width: 36px;
+    height: 36px;
+  }
   .ep-about-hero-showcase__badge {
     position: static;
     margin: 12px;

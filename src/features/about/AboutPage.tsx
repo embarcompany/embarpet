@@ -15,6 +15,8 @@ import {
   Route,
   ShieldAlert,
   ShieldCheck,
+  Sparkles,
+  Star,
   Stethoscope,
 } from "lucide-react";
 import { ConversionHero } from "../../design-system/patterns";
@@ -118,6 +120,174 @@ function EmbarkationMarquee() {
   );
 }
 
+const methodologyStepsData = [
+  {
+    number: "01",
+    icon: Compass,
+    title: "Legislação & Requisitos do Destino",
+    subtitle: "Interpretação das normas oficiais do país pretendido",
+    copy: "Análise minuciosa de cada exigência sanitária internacional (microchipagem ISO 11784/85, vacinação, prazos sorológicos e quarentenas aplicáveis).",
+    tags: ["Normas Internacionais", "Microchip ISO", "Exigência Sanitária"],
+  },
+  {
+    number: "02",
+    icon: Clock,
+    title: "Planejamento Cronológico & Prazos",
+    subtitle: "Cronograma biológico e janelas de emissão",
+    copy: "Construção de um cronograma retroativo rígido para que sorologias, vacinas, laudos e agendamentos oficiais ocorram na data exata exigida pelo destino.",
+    tags: ["Cronograma Retroativo", "Janela MAPA", "Sorologia Antirrábica"],
+  },
+  {
+    number: "03",
+    icon: Route,
+    title: "Rotas Aéreas & Conexões Seguras",
+    subtitle: "Minimização de tempo de solo e conexões climatizadas",
+    copy: "Mapeamento de itinerários otimizados com companhias aéreas internacionais, priorizando voos diretos e hubs com instalações aeroportuárias adequadas.",
+    tags: ["Menor Tempo de Solo", "Hubs Climatizados", "Rotas Otimizadas"],
+  },
+  {
+    number: "04",
+    icon: Plane,
+    title: "Companhias Aéreas & Reserva de Voo",
+    subtitle: "Intermediação técnica de espaço na aeronave",
+    copy: "Reserva formal do pet junto à companhia aérea na modalidade adequada (Cabine, Bagagem Acompanhada ou Carga Viva), validando limites de peso e raça.",
+    tags: ["Reserva Técnica", "Cabine / Bagagem / Carga", "Políticas por Raça"],
+  },
+  {
+    number: "05",
+    icon: Stethoscope,
+    title: "Coordenação com Médicos Veterinários",
+    subtitle: "Alinhamento clínico com atestados e exames",
+    copy: "Orientação detalhada para o veterinário de confiança do tutor, padronizando os atestados de saúde e exames clínicos nos moldes exigidos pelas autoridades.",
+    tags: ["Atestado Oficial", "Laboratórios Credenciados", "Controle Parasitário"],
+  },
+  {
+    number: "06",
+    icon: Luggage,
+    title: "Ambientação & Caixa de Transporte IATA",
+    subtitle: "Adequação biométrica e normas IATA LAR",
+    copy: "Dimensionamento correto da caixa de transporte conforme as medidas do pet e treino de dessensibilização para garantir conforto e tranquilidade durante o voo.",
+    tags: ["Padrão IATA LAR", "Dimensionamento Biométrico", "Bem-Estar Animal"],
+  },
+  {
+    number: "07",
+    icon: FileCheck2,
+    title: "Vigiagro / MAPA & Emissão do CVI",
+    subtitle: "Vistoria oficial e Certificado Veterinário Internacional",
+    copy: "Auditoria documental completa e acompanhamento presencial do processo de fiscalização junto ao Ministério da Agricultura para a emissão oficial do CVI.",
+    tags: ["Acompanhamento GRU", "Vigiagro / MAPA", "CVI Internacional"],
+  },
+  {
+    number: "08",
+    icon: ShieldCheck,
+    title: "Desembaraço Aduaneiro & Chegada",
+    subtitle: "Acolhimento no desembarque internacional",
+    copy: "Gestão alfandegária e suporte humano em tempo real no desembarque internacional até o momento em que a família se reencontra no novo país.",
+    tags: ["Alfândega Internacional", "Plantão WhatsApp", "Reencontro da Família"],
+  },
+];
+
+function AboutMethodologyPipeline({ onOpenAnalysis }: { onOpenAnalysis: () => void }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [progressHeight, setProgressHeight] = useState(0);
+  const [activeStep, setActiveStep] = useState(0);
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const rect = container.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const startOffset = windowHeight * 0.65;
+      const endOffset = windowHeight * 0.35;
+
+      const totalDistance = rect.height;
+      const currentScroll = startOffset - rect.top;
+
+      if (currentScroll <= 0) {
+        setProgressHeight(0);
+      } else if (currentScroll >= totalDistance) {
+        setProgressHeight(100);
+      } else {
+        const pct = (currentScroll / totalDistance) * 100;
+        setProgressHeight(Math.min(Math.max(pct, 0), 100));
+      }
+
+      // Check which step is active
+      stepRefs.current.forEach((el, idx) => {
+        if (!el) return;
+        const stepRect = el.getBoundingClientRect();
+        if (stepRect.top <= startOffset && stepRect.bottom >= endOffset) {
+          setActiveStep(idx);
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div className="ep-about-pipeline" ref={containerRef}>
+      {/* Connected Vertical Progress Line */}
+      <div className="ep-about-pipeline__track" aria-hidden="true">
+        <div
+          className="ep-about-pipeline__bar"
+          style={{ height: `${progressHeight}%` }}
+        />
+      </div>
+
+      <div className="ep-about-pipeline__steps">
+        {methodologyStepsData.map((step, idx) => {
+          const Icon = step.icon;
+          const isPassed = (progressHeight / 100) * methodologyStepsData.length >= idx + 0.3;
+          const isCurrent = activeStep === idx;
+
+          return (
+            <div
+              key={step.number}
+              ref={(el) => { stepRefs.current[idx] = el; }}
+              className={`ep-about-pipeline__step ${isPassed ? "is-passed" : ""} ${isCurrent ? "is-active" : ""}`}
+            >
+              <div className="ep-about-pipeline__marker">
+                <div className="ep-about-pipeline__node">
+                  <span>{step.number}</span>
+                </div>
+              </div>
+
+              <div className="ep-about-pipeline__card">
+                <div className="ep-about-pipeline__card-head">
+                  <div className="ep-about-pipeline__card-icon">
+                    <Icon size={20} strokeWidth={2} />
+                  </div>
+                  <div>
+                    <span className="ep-about-pipeline__card-eyebrow">Etapa {step.number}</span>
+                    <h3 className="ep-about-pipeline__card-title">{step.title}</h3>
+                    <p className="ep-about-pipeline__card-subtitle">{step.subtitle}</p>
+                  </div>
+                </div>
+
+                <p className="ep-about-pipeline__card-copy">{step.copy}</p>
+
+                <div className="ep-about-pipeline__card-tags">
+                  {step.tags.map((tag) => (
+                    <span key={tag} className="ep-about-pipeline__tag">
+                      <CheckCircle2 size={12} /> {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function AboutPage() {
   const [analysisOpen, setAnalysisOpen] = useState(false);
   const [analysisRoute, setAnalysisRoute] = useState<{ origin?: string; destination?: string }>({});
@@ -125,7 +295,7 @@ export default function AboutPage() {
 
   useEffect(() => {
     setPageMetadata({
-      title: "Nossa História | Sobre a Embarpet — Especialistas em Transporte Internacional de Pets",
+      title: "Nossa História & Propósito | Embarpet — Transporte Aéreo Internacional de Pets",
       description:
         "Conheça a história da Embarpet: fundada em 2018 por Daiane Sarmento e Thamires Felix para transformar a complexidade de viajar com pets em um plano seguro. O destino pode mudar. A família vai junto.",
       canonicalPath: "/sobre",
@@ -160,17 +330,6 @@ export default function AboutPage() {
     },
   ];
 
-  const methodologySteps = [
-    { number: "01", icon: Compass, title: "Legislação do Destino", copy: "Interpretação rigorosa das exigências sanitárias do país pretendido." },
-    { number: "02", icon: Clock, title: "Planejamento de Prazos", copy: "Cronograma de sorologia, vacinas e janelas oficiais de emissão." },
-    { number: "03", icon: Route, title: "Rotas & Conexões Seguras", copy: "Seleção de itinerários com menor tempo de solo e conexões viáveis." },
-    { number: "04", icon: Plane, title: "Companhias Aéreas", copy: "Comunicação técnica, reserva de espaço e confirmação de voo." },
-    { number: "05", icon: Stethoscope, title: "Coordenação Veterinária", copy: "Acompanhamento com clínicas e laboratórios credenciados." },
-    { number: "06", icon: Luggage, title: "Ambientação & Caixa IATA", copy: "Orientação para caixa de transporte adequada às normas IATA LAR." },
-    { number: "07", icon: FileCheck2, title: "Vigiagro / MAPA & CVI", copy: "Acompanhamento presencial da vistoria oficial e emissão do CVI." },
-    { number: "08", icon: ShieldCheck, title: "Desembaraço & Chegada", copy: "Gestão aduaneira e acolhimento seguro no desembarque internacional." },
-  ];
-
   return (
     <div className="ep-about-page-v2">
       <AnalysisModal
@@ -184,7 +343,7 @@ export default function AboutPage() {
 
       <main className="ep-about-main">
         {/* ==================================================================
-            1. HERO: ConversionHero (Bright IDV Gradient, Asymmetric, Polished)
+            1. HERO: Institucional, Autoritária e Humanizada
             ================================================================== */}
         <ConversionHero
           aside={
@@ -202,38 +361,47 @@ export default function AboutPage() {
                   </div>
                   <div>
                     <strong>Base Operacional em Guarulhos / SP (GRU)</strong>
-                    <small>R. Leonor Bresser Corrêa, 33 · Prontidão e suporte presencial no maior hub do Brasil</small>
+                    <small>R. Leonor Bresser Corrêa, 33 · Prontidão e suporte presencial no maior hub da América Latina</small>
                   </div>
                 </div>
               </div>
             </aside>
           }
         >
-          <div className="ep-hero-proof" aria-label="Pioneirismo em transporte internacional de pets">
-            <div className="ep-hero-proof__metric">
-              <span className="ep-team-avatars" aria-hidden="true"><i /><i /><i /><i /></span>
-              <strong>+2.000</strong>
-              <small>embarques<br />realizados</small>
-            </div>
-            <div className="ep-hero-proof__metric">
-              <img src="/logo-google.svg" alt="Google" />
-              <strong>4,9</strong>
-              <small>avaliação<br />no Google</small>
+          {/* Institutional Eyebrow & Social Proof */}
+          <div className="ep-about-hero-top">
+            <span className="ep-eyebrow">
+              <Sparkles size={13} aria-hidden="true" /> Embarpet · Nossa História & Propósito
+            </span>
+
+            <div className="ep-hero-proof" aria-label="Pioneirismo em transporte internacional de pets">
+              <div className="ep-hero-proof__metric">
+                <span className="ep-team-avatars" aria-hidden="true"><i /><i /><i /><i /></span>
+                <strong>+2.000</strong>
+                <small>embarques<br />realizados</small>
+              </div>
+              <div className="ep-hero-proof__metric">
+                <img src="/logo-google.svg" alt="Google" />
+                <strong>4,9</strong>
+                <small>avaliação<br />no Google</small>
+              </div>
             </div>
           </div>
 
           <h1 className="ep-title-xl">
-            Todo grande embarque começa <span className="ep-hero-highlight">muito antes do aeroporto.</span>
+            Mais do que transportar animais.{" "}
+            <span className="ep-hero-highlight">Conectamos famílias em qualquer lugar do mundo.</span>
           </h1>
 
           <p className="ep-hero-route-intro">
-            Antes da Embarpet existir, viajar para outro país com um pet significava enfrentar uma sequência de dúvidas.{" "}
-            <strong>Para quem ama um animal como família, é a responsabilidade de colocar alguém insubstituível em um avião e confiar que ele chegará bem.</strong>
+            Fundada em 2018 por <strong>Daiane Sarmento e Thamires Felix</strong>, a Embarpet nasceu para transformar a burocracia internacional de viagens com pets em um caminho seguro, previsível e humanizado.{" "}
+            <strong>Para quem ama um animal como parte da família, a responsabilidade de embarcar é absoluta.</strong>
           </p>
 
+          {/* Interactive Doubts Accordion */}
           <div className="ep-about-hero-doubts" aria-label="Dúvidas comuns antes do embarque">
             <span className="ep-about-hero-doubts__title">
-              <HelpCircle size={14} aria-hidden="true" /> As dúvidas que todo tutor já enfrentou:
+              <HelpCircle size={14} aria-hidden="true" /> As 5 certezas que todo tutor precisa antes de voar:
             </span>
             <div className="ep-about-hero-doubts__chips">
               {doubtQuestions.map((item, idx) => (
@@ -256,6 +424,7 @@ export default function AboutPage() {
             ) : null}
           </div>
 
+          {/* Hero Actions */}
           <div className="ep-about-hero-actions">
             <button type="button" className="ep-button ep-button--primary" onClick={() => openAnalysis()}>
               Iniciar análise da viagem <ArrowRight size={16} aria-hidden="true" />
@@ -267,7 +436,7 @@ export default function AboutPage() {
         </ConversionHero>
 
         {/* ==================================================================
-            2. EMBARKATION MARQUEE: Live stream of real traveling pets
+            2. EMBARKATION MARQUEE: Galeria contínua de embarques reais
             ================================================================== */}
         <EmbarkationMarquee />
 
@@ -277,8 +446,10 @@ export default function AboutPage() {
         <section className="ep-section ep-container ep-about-origin-section" id="origem">
           <div className="ep-home-split-heading">
             <div>
-              <p className="ep-eyebrow">Fundação em 2018</p>
-              <h2 className="ep-title-lg">E foi assim que a <em>Embarpet começou.</em></h2>
+              <span className="ep-eyebrow">Fundação em 2018</span>
+              <h2 className="ep-title-lg" style={{ marginTop: "14px" }}>
+                E foi assim que a <em>Embarpet começou.</em>
+              </h2>
             </div>
             <p className="ep-copy">
               Não nasceu grande. Não nasceu com uma estrutura gigantesca. Nasceu com <strong>R$ 4 mil de investimento, conhecimento, coragem e um problema real para resolver.</strong>
@@ -322,41 +493,39 @@ export default function AboutPage() {
         </section>
 
         {/* ==================================================================
-            4. METODOLOGIA: Do Documento à Operação Completa (8 Passos)
+            4. METODOLOGIA INTEGRADA: Pipeline Vertical Conectado & Animado
             ================================================================== */}
         <section className="ep-about-methodology-section" id="metodologia">
           <div className="ep-container ep-about-methodology-grid">
             <div className="ep-about-methodology-intro">
-              <p className="ep-eyebrow">Metodologia Integrada</p>
-              <h2 className="ep-title-lg">Do documento à <em>operação completa.</em></h2>
+              <span className="ep-eyebrow">Metodologia Integrada</span>
+              <h2 className="ep-title-lg" style={{ marginTop: "14px" }}>
+                Do documento à <em>operação completa.</em>
+              </h2>
               <p className="ep-copy">
-                Uma viagem internacional com animais vivos exige sincronia absoluta entre múltiplos órgãos oficiais, companhias aéreas e prazos biológicos rígidos.
+                Uma viagem internacional com animais vivos exige sincronia absoluta entre múltiplos órgãos oficiais, companhias aéreas e prazos biológicos rígidos. Conheça as 8 etapas conectadas que garantem a segurança do seu pet do início ao reencontro:
               </p>
+
+              <div className="ep-about-methodology-guarantees">
+                <div className="ep-about-guarantee-pill">
+                  <ShieldCheck size={16} /> <span>Auditoria prévia de 100% dos documentos</span>
+                </div>
+                <div className="ep-about-guarantee-pill">
+                  <MapPin size={16} /> <span>Presença física e equipe de solo em GRU</span>
+                </div>
+                <div className="ep-about-guarantee-pill">
+                  <CheckCircle2 size={16} /> <span>Padrão internacional IATA LAR e IPATA</span>
+                </div>
+              </div>
+
               <button type="button" className="ep-about-methodology-cta" onClick={() => openAnalysis()}>
-                <span>Planejar embarque do pet</span>
+                <span>Planejar embarque do meu pet</span>
                 <ArrowRight size={18} aria-hidden="true" />
               </button>
             </div>
 
-            <div className="ep-about-methodology-framework" aria-label="Os 8 passos da metodologia Embarpet">
-              <ol>
-                {methodologySteps.map(({ icon: Icon, title, copy, number }) => (
-                  <li key={title}>
-                    <a href="#analise" onClick={(e) => { e.preventDefault(); openAnalysis(); }}>
-                      <span className="ep-about-framework-number">{number}</span>
-                      <span className="ep-about-framework-icon">
-                        <Icon size={20} strokeWidth={1.8} />
-                      </span>
-                      <span className="ep-about-framework-copy">
-                        <strong>{title}</strong>
-                        <small>{copy}</small>
-                      </span>
-                      <ArrowRight className="ep-about-framework-arrow" size={18} aria-hidden="true" />
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </div>
+            {/* Continuous Vertical Animated Pipeline */}
+            <AboutMethodologyPipeline onOpenAnalysis={() => openAnalysis()} />
           </div>
         </section>
 
@@ -366,8 +535,10 @@ export default function AboutPage() {
         <section className="ep-about-perspective-section" id="perspectiva">
           <div className="ep-container ep-about-perspective-grid">
             <div className="ep-about-perspective-content">
-              <p className="ep-eyebrow">Mudança de Perspectiva</p>
-              <h2 className="ep-title-lg">A cada embarque, a <em>missão ficava mais clara.</em></h2>
+              <span className="ep-eyebrow">Mudança de Perspectiva</span>
+              <h2 className="ep-title-lg" style={{ marginTop: "14px" }}>
+                A cada embarque, a <em>missão ficava mais clara.</em>
+              </h2>
               <p className="ep-copy">
                 Acompanhamos famílias mudando de país, brasileiros começando uma nova vida no exterior, pessoas retornando para casa, tutores estudando fora, cães, gatos, aves, roedores e animais com exigências específicas.
               </p>
@@ -418,8 +589,10 @@ export default function AboutPage() {
             </div>
 
             <div className="ep-about-manifesto-content">
-              <p className="ep-eyebrow">Nosso Manifesto</p>
-              <h2 className="ep-title-lg">Porque nunca foi apenas sobre <em>transportar pets.</em></h2>
+              <span className="ep-eyebrow">Nosso Manifesto</span>
+              <h2 className="ep-title-lg" style={{ marginTop: "14px" }}>
+                Porque nunca foi apenas sobre <em>transportar pets.</em>
+              </h2>
               
               <div className="ep-about-manifesto-grid">
                 <div className="ep-about-manifesto-item">
@@ -466,8 +639,8 @@ export default function AboutPage() {
         <section className="ep-section ep-container ep-about-base-section" id="base">
           <div className="ep-about-base-card">
             <div className="ep-about-base-card__info">
-              <p className="ep-eyebrow" style={{ color: "var(--ep-turq)" }}>Presença Física Estratégica</p>
-              <h2 className="ep-title-lg" style={{ color: "#ffffff", marginTop: "10px" }}>
+              <span className="ep-eyebrow">Presença Física Estratégica</span>
+              <h2 className="ep-title-lg" style={{ color: "#ffffff", marginTop: "14px" }}>
                 Base de Apoio em Guarulhos / SP (GRU)
               </h2>
               <p className="ep-copy" style={{ color: "rgba(255,255,255,0.85)", marginTop: "14px" }}>
