@@ -439,7 +439,7 @@ export default function AboutPage() {
               <div className="ep-about-base__address-panel">
                 <h4>Base Operacional Embarpet</h4>
                 <p>
-                  <strong>Endereço:</strong> Rua Porto Martinho, 159, Cidade Soinco, Guarulhos/SP, CEP 07182-270.
+                  <strong>Endereço:</strong> R. Leonor Bresser Corrêa, 33 - Vila Miriam, Guarulhos - SP, CEP 07110-130.
                 </p>
                 <p>
                   <strong>Atendimento:</strong> Todo o território nacional com conexões internacionais.

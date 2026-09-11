@@ -6,7 +6,7 @@
 |---|---|---|
 | Marca | Embarpet — Embarque de Animais | Confirmado (`SRC-01`) |
 | Atividade declarada | Transporte aéreo internacional de animais; importação e exportação | Declarado pela empresa (`SRC-01`) |
-| Base física | Rua Porto Martinho, 159, Cidade Soinco, Guarulhos/SP, 07182-270 | Confirmado (`SRC-01`) |
+| Base física | R. Leonor Bresser Corrêa, 33 - Vila Miriam, Guarulhos/SP, 07110-130 | Confirmado (`SRC-01`) |
 | CNPJ divulgado | 29.922.919/0001-14 | Declarado pela empresa (`SRC-01`) |
 | Abrangência | Atendimento em todo o território nacional, focado em destinos internacionais | Declarado pela empresa (`SRC-01`) |
 | Grupo | Marca apresentada como empresa do Grupo Embarcompany | Declarado pela empresa (`SRC-03`) |
