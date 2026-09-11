@@ -475,109 +475,51 @@ export default function AboutPage() {
         </section>
 
         {/* ==================================================================
-            6. O MANIFESTO HUMANO: Compacto, Emocionante, Sem Poluição Visual e Sem Altura Excessiva
+            6. AUTORIDADE & GRUPO EMBARCOMPANY: Split Invertido (Conteúdo Esquerda x Foto 100% Direita)
             ================================================================== */}
-        <section className="ep-about-manifesto-section" id="manifesto">
-          <div className="ep-container ep-about-manifesto-container">
-            {/* Left Column: Compact High-End Photo Frame */}
-            <div className="ep-about-manifesto-visual">
-              <div className="ep-about-manifesto-photo-wrap">
+        <section className="ep-about-split-authority" id="autoridade">
+          <div className="ep-about-split-authority__grid">
+            {/* Left Column: Editorial Content with Turquoise Brand Background */}
+            <div className="ep-about-split-authority__content-wrap">
+              <div className="ep-about-split-authority__content">
+                <span className="ep-eyebrow ep-eyebrow--dark">
+                  <Sparkles size={13} aria-hidden="true" /> Grupo Embarcompany · Autoridade & Sede
+                </span>
+                
+                <h2 className="ep-title-lg ep-about-split-authority__title">
+                  Estrutura própria, base operacional e <em>liderança internacional.</em>
+                </h2>
+
+                <p className="ep-copy ep-about-split-authority__lead">
+                  A Embarpet é a empresa especializada em transporte aéreo de animais do <strong>Grupo Embarcompany</strong>, ecossistema líder em mobilidade internacional. Nossa sede e equipe de solo estão estrategicamente posicionadas em Guarulhos / SP, a minutos do Aeroporto Internacional (GRU), garantindo suporte presencial no MAPA e fiscalização em tempo real.
+                </p>
+
+                <div className="ep-about-split-authority__address">
+                  <MapPin size={20} />
+                  <div>
+                    <strong>R. Leonor Bresser Corrêa, 33 - Guarulhos / SP (GRU)</strong>
+                    <small>CNPJ: 29.922.919/0001-14 · Grupo Embarcompany</small>
+                  </div>
+                </div>
+
+                <div className="ep-about-split-authority__credentials">
+                  <div className="ep-about-cred-pill"><img src="/logo-ipata.svg" alt="IPATA" /><span>Membro IPATA</span></div>
+                  <div className="ep-about-cred-pill"><img src="/logo-iata.svg" alt="IATA" /><span>Normas IATA LAR</span></div>
+                  <div className="ep-about-cred-pill"><img src="/logo-reclame-aqui.webp" alt="Reclame Aqui" /><span>Selo RA1000</span></div>
+                  <div className="ep-about-cred-pill"><img src="/logo-globo.svg" alt="Globo PEGN" /><span>Destaque PEGN</span></div>
+                  <div className="ep-about-cred-pill"><img src="/logo-catraca-livre.png" alt="Catraca Livre" /><span>Catraca Livre</span></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Pure Full-Bleed Photo on Right */}
+            <div className="ep-about-split-authority__visual">
+              <div className="ep-about-split-authority__photo-frame">
                 <img
-                  src="/embarpet-mosaico-familia.jpg"
-                  alt="Família reunida com seu pet após o desembarque internacional"
-                  className="ep-about-manifesto-photo"
+                  src="/embarpet-carga-viva-operacao.jpeg"
+                  alt="Operação de transporte de animais vivos na pista do aeroporto internacional"
+                  className="ep-about-split-authority__photo"
                 />
-                <div className="ep-about-manifesto-badge-top">
-                  <Heart size={12} fill="currentColor" />
-                  <span>Reencontro Real</span>
-                </div>
-                <div className="ep-about-manifesto-badge-bottom">
-                  <strong>+2.000 famílias reunidas</strong>
-                  <small>O amor da sua vida nunca fica para trás</small>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: Inspiring & Poignant Manifesto Narrative */}
-            <div className="ep-about-manifesto-content">
-              <span className="ep-eyebrow">
-                <Sparkles size={13} aria-hidden="true" /> Manifesto Embarpet
-              </span>
-              
-              <h2 className="ep-title-lg ep-about-manifesto-title">
-                Nunca foi apenas sobre voar. <em>É sobre quem está a bordo.</em>
-              </h2>
-
-              <div className="ep-about-manifesto-verses">
-                <div className="ep-about-manifesto-verse">
-                  <span className="ep-about-manifesto-verse__tag">A aviação tradicional</span>
-                  <p>Enxerga uma caixa de transporte, peso no porão e um código de reserva.</p>
-                </div>
-                <div className="ep-about-manifesto-verse">
-                  <span className="ep-about-manifesto-verse__tag">A burocracia aduaneira</span>
-                  <p>Enxerga laudos, carimbos sanitários e regras que mudam constantemente.</p>
-                </div>
-                <div className="ep-about-manifesto-verse ep-about-manifesto-verse--highlight">
-                  <span className="ep-about-manifesto-verse__tag">A Embarpet</span>
-                  <p>Enxerga o amor mais puro da sua vida e a certeza de que a família vai junto.</p>
-                </div>
-              </div>
-
-              <p className="ep-copy ep-about-manifesto-lead">
-                Sabemos o que significa a angústia de noites em claro antes do voo. Por isso, cuidamos de cada detalhe técnico e humano — para que o seu único foco seja o abraço no desembarque.
-              </p>
-
-              <div className="ep-about-manifesto-ribbon">
-                <span className="ep-about-manifesto-ribbon__item">
-                  <Plane size={12} /> Voo assistido
-                </span>
-                <span className="ep-about-manifesto-ribbon__divider">→</span>
-                <span className="ep-about-manifesto-ribbon__item">
-                  <ShieldCheck size={12} /> Desembarque seguro
-                </span>
-                <span className="ep-about-manifesto-ribbon__divider">→</span>
-                <span className="ep-about-manifesto-ribbon__item">
-                  <PawPrint size={12} /> Caixinha aberta
-                </span>
-                <span className="ep-about-manifesto-ribbon__divider">→</span>
-                <span className="ep-about-manifesto-ribbon__item ep-about-manifesto-ribbon__item--accent">
-                  <Heart size={12} fill="currentColor" /> Primeiro abraço
-                </span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ==================================================================
-            7. BASE OPERACIONAL EM GUARULHOS & ENDEREÇO OFICIAL
-            ================================================================== */}
-        <section className="ep-section ep-container ep-about-base-section" id="base">
-          <div className="ep-about-base-card">
-            <div className="ep-about-base-card__info">
-              <span className="ep-eyebrow">Presença Física Estratégica</span>
-              <h2 className="ep-title-lg" style={{ color: "#ffffff", marginTop: "14px" }}>
-                Base de Apoio em Guarulhos / SP (GRU)
-              </h2>
-              <p className="ep-copy" style={{ color: "rgba(255,255,255,0.85)", marginTop: "14px" }}>
-                Nossa sede física e equipe de solo estão estrategicamente posicionadas em Guarulhos, a poucos minutos do Aeroporto Internacional de São Paulo (GRU), garantindo suporte presencial no MAPA, conexão de voos e assistência direta aos pets.
-              </p>
-              <div className="ep-about-base-card__address">
-                <MapPin size={20} />
-                <div>
-                  <strong>R. Leonor Bresser Corrêa, 33 - Vila Miriam, Guarulhos - SP, CEP 07110-130</strong>
-                  <small>CNPJ: 29.922.919/0001-14 · Grupo Embarcompany</small>
-                </div>
-              </div>
-            </div>
-
-            <div className="ep-about-base-card__credentials">
-              <span className="ep-about-base-card__cred-title">Reconhecimento & Credenciais Oficiais:</span>
-              <div className="ep-about-base-card__logos">
-                <div className="ep-about-cred-pill"><img src="/logo-ipata.svg" alt="IPATA" /><span>Membro IPATA</span></div>
-                <div className="ep-about-cred-pill"><img src="/logo-iata.svg" alt="IATA" /><span>Normas IATA LAR</span></div>
-                <div className="ep-about-cred-pill"><img src="/logo-reclame-aqui.webp" alt="Reclame Aqui" /><span>Selo RA1000</span></div>
-                <div className="ep-about-cred-pill"><img src="/logo-globo.svg" alt="Globo PEGN" /><span>Destaque PEGN</span></div>
-                <div className="ep-about-cred-pill"><img src="/logo-catraca-livre.png" alt="Catraca Livre" /><span>Catraca Livre</span></div>
               </div>
             </div>
           </div>
