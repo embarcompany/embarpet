@@ -500,73 +500,74 @@ export default function AboutPage() {
         </section>
 
         {/* ==================================================================
-            6. O MANIFESTO HUMANO: Compacto, Emocionante e Sem Poluição Visual
+            6. O MANIFESTO HUMANO: Compacto, Emocionante, Sem Poluição Visual e Sem Altura Excessiva
             ================================================================== */}
         <section className="ep-about-manifesto-section" id="manifesto">
           <div className="ep-container ep-about-manifesto-container">
-            {/* Left Column: Compact High-End Photo Showcase */}
-            <div className="ep-about-manifesto-showcase">
-              <div className="ep-about-manifesto-photo-main">
+            {/* Left Column: Compact High-End Photo Frame */}
+            <div className="ep-about-manifesto-visual">
+              <div className="ep-about-manifesto-photo-wrap">
                 <img
                   src="/embarpet-mosaico-familia.jpg"
                   alt="Família reunida com seu pet após o desembarque internacional"
-                  className="ep-about-manifesto-img"
+                  className="ep-about-manifesto-photo"
                 />
-                <div className="ep-about-manifesto-photo-caption">
-                  <span className="ep-about-manifesto-caption-tag"><Heart size={12} fill="currentColor" /> Reencontro Real</span>
-                  <strong>Família reunida no destino</strong>
+                <div className="ep-about-manifesto-badge-top">
+                  <Heart size={12} fill="currentColor" />
+                  <span>Reencontro Real</span>
                 </div>
-              </div>
-              <div className="ep-about-manifesto-photo-secondary">
-                <img
-                  src="/embarpet-mosaico-cuidado.jpg"
-                  alt="Cuidado e carinho com o pet no embarque"
-                />
+                <div className="ep-about-manifesto-badge-bottom">
+                  <strong>+2.000 famílias reunidas</strong>
+                  <small>O amor da sua vida nunca fica para trás</small>
+                </div>
               </div>
             </div>
 
-            {/* Right Column: Inspiring Manifesto Narrative */}
+            {/* Right Column: Inspiring & Poignant Manifesto Narrative */}
             <div className="ep-about-manifesto-content">
-              <span className="ep-eyebrow">Manifesto Humano</span>
+              <span className="ep-eyebrow">
+                <Sparkles size={13} aria-hidden="true" /> Manifesto Embarpet
+              </span>
               
-              <h2 className="ep-title-lg" style={{ marginTop: "12px" }}>
+              <h2 className="ep-title-lg ep-about-manifesto-title">
                 Nunca foi apenas sobre voar. <em>É sobre quem está a bordo.</em>
               </h2>
-              
-              <div className="ep-about-manifesto-grid">
-                <div className="ep-about-manifesto-item">
-                  <span>Um aeroporto</span>
-                  <b>Enxerga uma caixa de transporte.</b>
+
+              <div className="ep-about-manifesto-verses">
+                <div className="ep-about-manifesto-verse">
+                  <span className="ep-about-manifesto-verse__tag">A aviação tradicional</span>
+                  <p>Enxerga uma caixa de transporte, peso no porão e um código de reserva.</p>
                 </div>
-                <div className="ep-about-manifesto-item">
-                  <span>Uma companhia aérea</span>
-                  <b>Enxerga uma reserva de espaço.</b>
+                <div className="ep-about-manifesto-verse">
+                  <span className="ep-about-manifesto-verse__tag">A burocracia aduaneira</span>
+                  <p>Enxerga laudos, carimbos sanitários e regras que mudam constantemente.</p>
                 </div>
-                <div className="ep-about-manifesto-item">
-                  <span>A fiscalização sanitária</span>
-                  <b>Enxerga carimbos e laudos.</b>
-                </div>
-                <div className="ep-about-manifesto-item ep-about-manifesto-item--highlight">
-                  <span>Nós, na Embarpet</span>
-                  <b>Nós enxergamos o amor da sua vida.</b>
+                <div className="ep-about-manifesto-verse ep-about-manifesto-verse--highlight">
+                  <span className="ep-about-manifesto-verse__tag">A Embarpet</span>
+                  <p>Enxerga o amor mais puro da sua vida e a certeza de que a família vai junto.</p>
                 </div>
               </div>
 
-              <p className="ep-copy" style={{ marginTop: "18px", fontSize: "14.5px" }}>
-                Enxergamos quem passou noites em claro antes do voo, quem conferiu a caixinha três vezes antes de sair de casa e a família que só sente que a vida recomeçou quando vê o companheiro desembarcar com saúde e alegria.
+              <p className="ep-copy ep-about-manifesto-lead">
+                Sabemos o que significa a angústia de noites em claro antes do voo. Por isso, cuidamos de cada detalhe técnico e humano — para que o seu único foco seja o abraço no desembarque.
               </p>
 
-              <div className="ep-about-reunion-steps">
-                <span><PawPrint size={14} /> O desembarque</span>
-                <span><CheckCircle2 size={14} /> A porta abrindo</span>
-                <span><Heart size={14} /> O rabo abanando</span>
-                <span><HeartHandshake size={14} /> O primeiro colo</span>
-              </div>
-
-              <div className="ep-about-authority-proof" style={{ marginTop: "22px" }}>
-                <div><strong>+2.000</strong><span>famílias<br />reunidas</span></div>
-                <div><img src="/logo-ipata.png" alt="IPATA" /><span>Membro IPATA</span></div>
-                <div><img src="/logo-iata.png" alt="IATA" /><span>Normas IATA</span></div>
+              <div className="ep-about-manifesto-ribbon">
+                <span className="ep-about-manifesto-ribbon__item">
+                  <Plane size={12} /> Voo assistido
+                </span>
+                <span className="ep-about-manifesto-ribbon__divider">→</span>
+                <span className="ep-about-manifesto-ribbon__item">
+                  <ShieldCheck size={12} /> Desembarque seguro
+                </span>
+                <span className="ep-about-manifesto-ribbon__divider">→</span>
+                <span className="ep-about-manifesto-ribbon__item">
+                  <PawPrint size={12} /> Caixinha aberta
+                </span>
+                <span className="ep-about-manifesto-ribbon__divider">→</span>
+                <span className="ep-about-manifesto-ribbon__item ep-about-manifesto-ribbon__item--accent">
+                  <Heart size={12} fill="currentColor" /> Primeiro abraço
+                </span>
               </div>
             </div>
           </div>
