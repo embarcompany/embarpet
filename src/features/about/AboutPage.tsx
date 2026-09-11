@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
+  ArrowDown,
   ArrowRight,
   Award,
   CheckCircle2,
@@ -311,8 +312,8 @@ export default function AboutPage() {
               <button type="button" className="ep-button ep-button--primary" onClick={() => openAnalysis()}>
                 Iniciar análise da viagem <ArrowRight size={16} aria-hidden="true" />
               </button>
-              <a href="#origem" className="ep-about-hero-link">
-                Conhecer nossa história ↓
+              <a href="#origem" className="ep-button ep-button--outline">
+                Conhecer nossa história <ArrowDown size={15} aria-hidden="true" />
               </a>
             </div>
           </div>

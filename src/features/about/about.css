@@ -134,22 +134,45 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 
-.ep-about-hero-link {
-  font-size: 13px;
-  font-weight: 750;
+.ep-about-centered-hero__actions .ep-button--outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  border: 1.5px solid rgba(0, 157, 172, 0.4);
   color: var(--ep-teal);
   text-decoration: none;
-  transition: color 0.18s ease;
+  border-radius: 999px;
+  padding: 12px 24px;
+  font-size: 13.5px;
+  font-weight: 750;
+  transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: none;
 }
 
-.ep-about-hero-link:hover {
+.ep-about-centered-hero__actions .ep-button--outline:hover,
+.ep-about-centered-hero__actions .ep-button--outline:focus-visible {
+  background: rgba(0, 157, 172, 0.08);
+  border-color: var(--ep-teal);
+  color: var(--ep-teal);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(5, 67, 74, 0.08);
+}
+
+.ep-about-centered-hero__actions .ep-button--outline svg {
+  flex-shrink: 0;
   color: var(--ep-turq-deep);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  transition: transform 0.22s ease;
+}
+
+.ep-about-centered-hero__actions .ep-button--outline:hover svg {
+  transform: translateY(3px);
+  color: var(--ep-teal);
 }
 
 /* --------------------------------------------------------------------------
