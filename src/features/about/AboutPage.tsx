@@ -4,20 +4,12 @@ import {
   CheckCircle2,
   Clock,
   Compass,
-  FileCheck2,
   Heart,
   HeartHandshake,
-  HelpCircle,
-  Luggage,
   MapPin,
   PawPrint,
   Plane,
-  Route,
-  ShieldAlert,
-  ShieldCheck,
   Sparkles,
-  Star,
-  Stethoscope,
 } from "lucide-react";
 import { ConversionHero } from "../../design-system/patterns";
 import { ScrollFlyIn } from "../../components/ui/hero-section-3";
@@ -124,66 +116,30 @@ const methodologyStepsData = [
   {
     number: "01",
     icon: Compass,
-    title: "Legislação & Requisitos do Destino",
-    subtitle: "Interpretação das normas oficiais do país pretendido",
-    copy: "Análise minuciosa de cada exigência sanitária internacional (microchipagem ISO 11784/85, vacinação, prazos sorológicos e quarentenas aplicáveis).",
-    tags: ["Normas Internacionais", "Microchip ISO", "Exigência Sanitária"],
+    title: "Diagnóstico & Viabilidade da Rota",
+    subtitle: "Análise estratégica de perfil e destino",
+    copy: "Avaliamos cada detalhe da sua rota e do perfil do seu pet para definir o melhor itinerário e antecipar todas as exigências do país de destino.",
   },
   {
     number: "02",
     icon: Clock,
-    title: "Planejamento Cronológico & Prazos",
-    subtitle: "Cronograma biológico e janelas de emissão",
-    copy: "Construção de um cronograma retroativo rígido para que sorologias, vacinas, laudos e agendamentos oficiais ocorram na data exata exigida pelo destino.",
-    tags: ["Cronograma Retroativo", "Janela MAPA", "Sorologia Antirrábica"],
+    title: "Planejamento Cronológico Integrado",
+    subtitle: "Sincronia e previsibilidade em cada etapa",
+    copy: "Estruturamos um cronograma seguro para que todas as etapas veterinárias, documentais e operacionais aconteçam na janela exata do voo.",
   },
   {
     number: "03",
-    icon: Route,
-    title: "Rotas Aéreas & Conexões Seguras",
-    subtitle: "Minimização de tempo de solo e conexões climatizadas",
-    copy: "Mapeamento de itinerários otimizados com companhias aéreas internacionais, priorizando voos diretos e hubs com instalações aeroportuárias adequadas.",
-    tags: ["Menor Tempo de Solo", "Hubs Climatizados", "Rotas Otimizadas"],
+    icon: Plane,
+    title: "Coordenação Logística & Presença em Solo",
+    subtitle: "Acompanhamento dedicado no aeroporto",
+    copy: "Cuidamos das reservas junto às companhias aéreas e mantemos suporte presencial na nossa base operacional em Guarulhos (GRU).",
   },
   {
     number: "04",
-    icon: Plane,
-    title: "Companhias Aéreas & Reserva de Voo",
-    subtitle: "Intermediação técnica de espaço na aeronave",
-    copy: "Reserva formal do pet junto à companhia aérea na modalidade adequada (Cabine, Bagagem Acompanhada ou Carga Viva), validando limites de peso e raça.",
-    tags: ["Reserva Técnica", "Cabine / Bagagem / Carga", "Políticas por Raça"],
-  },
-  {
-    number: "05",
-    icon: Stethoscope,
-    title: "Coordenação com Médicos Veterinários",
-    subtitle: "Alinhamento clínico com atestados e exames",
-    copy: "Orientação detalhada para o veterinário de confiança do tutor, padronizando os atestados de saúde e exames clínicos nos moldes exigidos pelas autoridades.",
-    tags: ["Atestado Oficial", "Laboratórios Credenciados", "Controle Parasitário"],
-  },
-  {
-    number: "06",
-    icon: Luggage,
-    title: "Ambientação & Caixa de Transporte IATA",
-    subtitle: "Adequação biométrica e normas IATA LAR",
-    copy: "Dimensionamento correto da caixa de transporte conforme as medidas do pet e treino de dessensibilização para garantir conforto e tranquilidade durante o voo.",
-    tags: ["Padrão IATA LAR", "Dimensionamento Biométrico", "Bem-Estar Animal"],
-  },
-  {
-    number: "07",
-    icon: FileCheck2,
-    title: "Vigiagro / MAPA & Emissão do CVI",
-    subtitle: "Vistoria oficial e Certificado Veterinário Internacional",
-    copy: "Auditoria documental completa e acompanhamento presencial do processo de fiscalização junto ao Ministério da Agricultura para a emissão oficial do CVI.",
-    tags: ["Acompanhamento GRU", "Vigiagro / MAPA", "CVI Internacional"],
-  },
-  {
-    number: "08",
-    icon: ShieldCheck,
-    title: "Desembaraço Aduaneiro & Chegada",
-    subtitle: "Acolhimento no desembarque internacional",
-    copy: "Gestão alfandegária e suporte humano em tempo real no desembarque internacional até o momento em que a família se reencontra no novo país.",
-    tags: ["Alfândega Internacional", "Plantão WhatsApp", "Reencontro da Família"],
+    icon: HeartHandshake,
+    title: "Embarque Seguro & Reencontro da Família",
+    subtitle: "Tranquilidade até o abraço final",
+    copy: "Acompanhamento contínuo em tempo real durante todo o trajeto, para que você viva a chegada ao novo país com total paz de espírito.",
   },
 ];
 
@@ -215,7 +171,6 @@ function AboutMethodologyPipeline({ onOpenAnalysis }: { onOpenAnalysis: () => vo
         setProgressHeight(Math.min(Math.max(pct, 0), 100));
       }
 
-      // Check which step is active
       stepRefs.current.forEach((el, idx) => {
         if (!el) return;
         const stepRect = el.getBoundingClientRect();
@@ -271,14 +226,6 @@ function AboutMethodologyPipeline({ onOpenAnalysis }: { onOpenAnalysis: () => vo
                 </div>
 
                 <p className="ep-about-pipeline__card-copy">{step.copy}</p>
-
-                <div className="ep-about-pipeline__card-tags">
-                  {step.tags.map((tag) => (
-                    <span key={tag} className="ep-about-pipeline__tag">
-                      <CheckCircle2 size={12} /> {tag}
-                    </span>
-                  ))}
-                </div>
               </div>
             </div>
           );
@@ -291,7 +238,6 @@ function AboutMethodologyPipeline({ onOpenAnalysis }: { onOpenAnalysis: () => vo
 export default function AboutPage() {
   const [analysisOpen, setAnalysisOpen] = useState(false);
   const [analysisRoute, setAnalysisRoute] = useState<{ origin?: string; destination?: string }>({});
-  const [activeDoubt, setActiveDoubt] = useState<number | null>(0);
 
   useEffect(() => {
     setPageMetadata({
@@ -306,29 +252,6 @@ export default function AboutPage() {
     setAnalysisRoute(route);
     setAnalysisOpen(true);
   };
-
-  const doubtQuestions = [
-    {
-      q: "Qual documento é necessário?",
-      ans: "Cada país exige um conjunto sanitário próprio: microchipagem padrão ISO, vacina antirrábica, sorologia laboratorial e a emissão oficial do CVI (Certificado Veterinário Internacional) junto ao MAPA.",
-    },
-    {
-      q: "Qual companhia aceita meu pet?",
-      ans: "Mapeamos a malha de companhias aéreas internacionais compatíveis com o porte, raça e modalidade pretendida, negociando as reservas operacionais diretamente com as companhias.",
-    },
-    {
-      q: "Ele pode viajar comigo?",
-      ans: "Avaliamos se o pet atende aos critérios para viajar na Cabine, como Bagagem Acompanhada no mesmo voo ou em Carga Viva com itinerário monitorado.",
-    },
-    {
-      q: "Essa rota é segura?",
-      ans: "Priorizamos voos diretos e conexões com tempo adequado e instalações aeroportuárias climatizadas, reduzindo o estresse e o tempo total de viagem do animal.",
-    },
-    {
-      q: "E se alguma coisa der errado?",
-      ans: "Nossa equipe de solo e plantão em Guarulhos (GRU) acompanha vistorias oficiais, conexão e alfândega, com suporte humano em tempo real via WhatsApp.",
-    },
-  ];
 
   return (
     <div className="ep-about-page-v2">
@@ -361,7 +284,7 @@ export default function AboutPage() {
                   </div>
                   <div>
                     <strong>Base Operacional em Guarulhos / SP (GRU)</strong>
-                    <small>R. Leonor Bresser Corrêa, 33 · Prontidão e suporte presencial no maior hub da América Latina</small>
+                    <small>R. Leonor Bresser Corrêa, 33 · Prontidão e suporte presencial no aeroporto</small>
                   </div>
                 </div>
               </div>
@@ -394,35 +317,8 @@ export default function AboutPage() {
           </h1>
 
           <p className="ep-hero-route-intro">
-            Fundada em 2018 por <strong>Daiane Sarmento e Thamires Felix</strong>, a Embarpet nasceu para transformar a burocracia internacional de viagens com pets em um caminho seguro, previsível e humanizado.{" "}
-            <strong>Para quem ama um animal como parte da família, a responsabilidade de embarcar é absoluta.</strong>
+            Fundada em 2018 por <strong>Daiane Sarmento e Thamires Felix</strong>, a Embarpet nasceu para transformar a burocracia de viagens internacionais com pets em um caminho seguro, previsível e acolhedor.
           </p>
-
-          {/* Interactive Doubts Accordion */}
-          <div className="ep-about-hero-doubts" aria-label="Dúvidas comuns antes do embarque">
-            <span className="ep-about-hero-doubts__title">
-              <HelpCircle size={14} aria-hidden="true" /> As 5 certezas que todo tutor precisa antes de voar:
-            </span>
-            <div className="ep-about-hero-doubts__chips">
-              {doubtQuestions.map((item, idx) => (
-                <button
-                  key={item.q}
-                  type="button"
-                  className={`ep-about-doubt-chip ${activeDoubt === idx ? "is-active" : ""}`}
-                  onClick={() => setActiveDoubt(activeDoubt === idx ? null : idx)}
-                >
-                  <ShieldAlert size={12} aria-hidden="true" />
-                  <span>{item.q}</span>
-                </button>
-              ))}
-            </div>
-            {activeDoubt !== null && doubtQuestions[activeDoubt] ? (
-              <div className="ep-about-doubt-answer" role="region" aria-live="polite">
-                <strong>{doubtQuestions[activeDoubt].q}</strong>
-                <p>{doubtQuestions[activeDoubt].ans}</p>
-              </div>
-            ) : null}
-          </div>
 
           {/* Hero Actions */}
           <div className="ep-about-hero-actions">
@@ -452,7 +348,7 @@ export default function AboutPage() {
               </h2>
             </div>
             <p className="ep-copy">
-              Não nasceu grande. Não nasceu com uma estrutura gigantesca. Nasceu com <strong>R$ 4 mil de investimento, conhecimento, coragem e um problema real para resolver.</strong>
+              Não nasceu grande. Nasceu com <strong>R$ 4 mil de investimento, conhecimento, coragem e um propósito real para resolver.</strong>
             </p>
           </div>
 
@@ -462,7 +358,7 @@ export default function AboutPage() {
                 <span className="ep-about-origin-tag">A Centelha em Portugal</span>
                 <h3>Transformar a distância entre o amor e a burocracia em um caminho seguro.</h3>
                 <p>
-                  Foi enxergando essa dificuldade de perto que <strong>Daiane Sarmento e Thamires Felix</strong> decidiram, em 2018, transformar um problema em uma solução definitiva. Depois de uma experiência em Portugal e do contato de Thamires com a rotina de documentação sanitária, as duas perceberam que existia um abismo entre o desejo das pessoas de viajar com seus pets e a complexidade de tornar essa viagem possível.
+                  Foi enxergando essa dificuldade de perto que <strong>Daiane Sarmento e Thamires Felix</strong> decidiram, em 2018, transformar um problema em uma solução definitiva. As duas perceberam que existia um abismo entre o desejo das famílias de viajar com seus pets e a complexidade de tornar essa viagem real.
                 </p>
               </div>
               <div className="ep-about-origin-card__media">
@@ -478,7 +374,7 @@ export default function AboutPage() {
               <div className="ep-about-origin-badge">R$ 4.000</div>
               <h4>Investimento inicial</h4>
               <p>
-                No início, o objetivo era ajudar tutores a entender e organizar a documentação para outros países. Mas cada novo embarque mostrava uma coisa: <em>o tutor precisava de muito mais.</em>
+                No início, o objetivo era descomplicar a documentação. Mas cada novo embarque mostrava que o tutor precisava de uma gestão completa de ponta a ponta.
               </p>
             </div>
 
@@ -486,46 +382,35 @@ export default function AboutPage() {
               <span className="ep-about-origin-tag">A Evolução</span>
               <h4>Da assessoria à operação logística aérea</h4>
               <p>
-                Não bastava entregar uma lista de documentos. Era preciso entender a legislação do destino, planejar prazos, encontrar rotas viáveis, negociar com companhias aéreas, coordenar processos veterinários, preparar o animal e cuidar da liberação alfandegária.
+                Hoje somos uma estrutura completa com mais de 30 especialistas, coordenando rotas, companhias aéreas, prazos e suporte presencial em Guarulhos.
               </p>
             </div>
           </div>
         </section>
 
         {/* ==================================================================
-            4. METODOLOGIA INTEGRADA: Pipeline Vertical Conectado & Animado
+            4. METODOLOGIA: Centralizada, Minimalista e Assertiva
             ================================================================== */}
         <section className="ep-about-methodology-section" id="metodologia">
-          <div className="ep-container ep-about-methodology-grid">
-            <div className="ep-about-methodology-intro">
-              <span className="ep-eyebrow">Metodologia Integrada</span>
-              <h2 className="ep-title-lg" style={{ marginTop: "14px" }}>
-                Do documento à <em>operação completa.</em>
+          <div className="ep-container ep-about-methodology-container">
+            <div className="ep-about-methodology-header">
+              <span className="ep-eyebrow">Metodologia Embarpet</span>
+              <h2 className="ep-title-lg">
+                Do diagnóstico inicial ao <em>abraço no destino.</em>
               </h2>
               <p className="ep-copy">
-                Uma viagem internacional com animais vivos exige sincronia absoluta entre múltiplos órgãos oficiais, companhias aéreas e prazos biológicos rígidos. Conheça as 8 etapas conectadas que garantem a segurança do seu pet do início ao reencontro:
+                Nossa metodologia conecta inteligência de rota, controle de prazos e suporte presencial em 4 etapas integradas para uma viagem segura e sem imprevistos.
               </p>
-
-              <div className="ep-about-methodology-guarantees">
-                <div className="ep-about-guarantee-pill">
-                  <ShieldCheck size={16} /> <span>Auditoria prévia de 100% dos documentos</span>
-                </div>
-                <div className="ep-about-guarantee-pill">
-                  <MapPin size={16} /> <span>Presença física e equipe de solo em GRU</span>
-                </div>
-                <div className="ep-about-guarantee-pill">
-                  <CheckCircle2 size={16} /> <span>Padrão internacional IATA LAR e IPATA</span>
-                </div>
-              </div>
-
-              <button type="button" className="ep-about-methodology-cta" onClick={() => openAnalysis()}>
-                <span>Planejar embarque do meu pet</span>
-                <ArrowRight size={18} aria-hidden="true" />
-              </button>
             </div>
 
             {/* Continuous Vertical Animated Pipeline */}
             <AboutMethodologyPipeline onOpenAnalysis={() => openAnalysis()} />
+
+            <div className="ep-about-methodology-footer">
+              <button type="button" className="ep-button ep-button--primary" onClick={() => openAnalysis()}>
+                Planejar a viagem do meu pet <ArrowRight size={16} aria-hidden="true" />
+              </button>
+            </div>
           </div>
         </section>
 
@@ -540,7 +425,7 @@ export default function AboutPage() {
                 A cada embarque, a <em>missão ficava mais clara.</em>
               </h2>
               <p className="ep-copy">
-                Acompanhamos famílias mudando de país, brasileiros começando uma nova vida no exterior, pessoas retornando para casa, tutores estudando fora, cães, gatos, aves, roedores e animais com exigências específicas.
+                Acompanhamos famílias inteiras mudando de vida. Para nós, a responsabilidade de embarcar um animal é absoluta.
               </p>
               <div className="ep-about-perspective-contrast">
                 <div className="ep-about-perspective-contrast__box ep-about-perspective-contrast__box--old">
@@ -550,7 +435,7 @@ export default function AboutPage() {
                 <div className="ep-about-perspective-contrast__arrow">➔</div>
                 <div className="ep-about-perspective-contrast__box ep-about-perspective-contrast__box--new">
                   <small>A diretriz inegociável da Embarpet:</small>
-                  <strong>“Qual é a melhor forma de fazer esse pet chegar ao destino com segurança, dentro das exigências e com o menor nível possível de preocupação para sua família?”</strong>
+                  <strong>“Como fazer esse pet chegar ao destino com total segurança, conforto e a menor preocupação para a sua família?”</strong>
                 </div>
               </div>
             </div>
@@ -609,13 +494,9 @@ export default function AboutPage() {
                 </div>
                 <div className="ep-about-manifesto-item ep-about-manifesto-item--highlight">
                   <span>Nós, na Embarpet</span>
-                  <b>Nós enxergamos uma família.</b>
+                  <b>Nós enxergamos a sua família.</b>
                 </div>
               </div>
-
-              <p className="ep-copy" style={{ marginTop: "20px" }}>
-                Enxergamos o tutor que passa a noite anterior sem dormir, quem pergunta três vezes para ter certeza, a família que atravessou um oceano e só sente que a mudança terminou quando vê seu companheiro chegar.
-              </p>
 
               <div className="ep-about-reunion-steps">
                 <span><PawPrint size={14} /> O desembarque</span>
@@ -624,7 +505,7 @@ export default function AboutPage() {
                 <span><HeartHandshake size={14} /> O primeiro colo</span>
               </div>
 
-              <div className="ep-about-authority-proof" style={{ marginTop: "28px" }}>
+              <div className="ep-about-authority-proof" style={{ marginTop: "24px" }}>
                 <div><strong>+2.000</strong><span>embarques<br />realizados</span></div>
                 <div><img src="/logo-ipata.png" alt="IPATA" /><span>Membro IPATA</span></div>
                 <div><img src="/logo-iata.png" alt="IATA" /><span>Membro IATA</span></div>
@@ -644,7 +525,7 @@ export default function AboutPage() {
                 Base de Apoio em Guarulhos / SP (GRU)
               </h2>
               <p className="ep-copy" style={{ color: "rgba(255,255,255,0.85)", marginTop: "14px" }}>
-                Nossa sede física e equipe de solo estão estrategicamente posicionadas em Guarulhos, a poucos minutos do Aeroporto Internacional de São Paulo (GRU), garantindo suporte presencial no Vigiagro/MAPA, acolhimento de pets em conexões nacionais e assistência direta no momento mais importante da viagem.
+                Nossa sede física e equipe de solo estão estrategicamente posicionadas em Guarulhos, a poucos minutos do Aeroporto Internacional de São Paulo (GRU), garantindo suporte presencial no MAPA, conexões e assistência direta aos pets.
               </p>
               <div className="ep-about-base-card__address">
                 <MapPin size={18} />
