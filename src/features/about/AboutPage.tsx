@@ -351,30 +351,18 @@ export default function AboutPage() {
                   Onde o amor aos animais encontrou a <em>coragem de transformar a aviação.</em>
                 </h2>
 
-                <p className="ep-copy ep-about-split-origin__lead">
-                  Fundada por <strong>Daiane Sarmento e Thamires Felix</strong>, a Embarpet nasceu para eliminar o medo e a incerteza de viagens internacionais com pets, unindo rigor veterinário e acolhimento humano.
-                </p>
+                <div className="ep-about-split-origin__text-body">
+                  <p className="ep-copy ep-about-split-origin__lead">
+                    Fundada por <strong>Daiane Sarmento e Thamires Felix</strong>, a Embarpet nasceu com a missão de eliminar o medo e a incerteza das viagens internacionais com animais, unindo rigor veterinário e acolhimento humano em cada detalhe.
+                  </p>
 
-                <div className="ep-about-split-origin__milestones">
-                  <div className="ep-about-split-milestone">
-                    <span className="ep-about-split-milestone__badge">R$ 4.000</span>
-                    <div>
-                      <strong>Ponto de Partida</strong>
-                      <p>Fundação em 2018 com foco obsessivo em segurança.</p>
-                    </div>
-                  </div>
+                  <p className="ep-copy ep-about-split-origin__text">
+                    A jornada começou em 2018 com um ponto de partida simples e desafiador: um capital inicial de apenas R$ 4.000 e um foco obsessivo em segurança e bem-estar. Desde o primeiro dia, um princípio inegociável norteou cada etapa: <em>“A vida de um animal não aceita margem de erro.”</em>
+                  </p>
 
-                  <div className="ep-about-split-milestone">
-                    <span className="ep-about-split-milestone__badge ep-about-split-milestone__badge--lime">+30 Especialistas</span>
-                    <div>
-                      <strong>Liderança Nacional</strong>
-                      <p>Maior estrutura especializada em logística aérea pet.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="ep-about-split-origin__quote">
-                  <em>“A vida de um animal não aceita margem de erro.”</em>
+                  <p className="ep-copy ep-about-split-origin__text">
+                    Essa determinação transformou um propósito genuíno na maior estrutura especializada em logística aérea pet do país. Hoje, com uma equipe de mais de 30 especialistas, base operacional física e liderança nacional consolidada, a Embarpet oferece a tranquilidade necessária para que toda a família viaje unida.
+                  </p>
                 </div>
               </div>
             </div>
