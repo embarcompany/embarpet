@@ -6,11 +6,13 @@ import {
   CheckCircle2,
   Clock,
   Compass,
+  ExternalLink,
   Eye,
   Heart,
   HeartHandshake,
   Luggage,
   MapPin,
+  Navigation,
   PawPrint,
   Plane,
   ShieldCheck,
@@ -482,10 +484,6 @@ export default function AboutPage() {
             {/* Left Column: Editorial Content with Turquoise Brand Background */}
             <div className="ep-about-split-authority__content-wrap">
               <div className="ep-about-split-authority__content">
-                <span className="ep-eyebrow ep-eyebrow--dark">
-                  <Sparkles size={13} aria-hidden="true" /> Grupo Embarcompany · Autoridade & Sede
-                </span>
-                
                 <h2 className="ep-title-lg ep-about-split-authority__title">
                   Estrutura própria, base operacional e <em>liderança internacional.</em>
                 </h2>
@@ -494,20 +492,33 @@ export default function AboutPage() {
                   A Embarpet é a empresa especializada em transporte aéreo de animais do <strong>Grupo Embarcompany</strong>, ecossistema líder em mobilidade internacional. Nossa sede e equipe de solo estão estrategicamente posicionadas em Guarulhos / SP, a minutos do Aeroporto Internacional (GRU), garantindo suporte presencial no MAPA e fiscalização em tempo real.
                 </p>
 
-                <div className="ep-about-split-authority__address">
-                  <MapPin size={20} />
-                  <div>
-                    <strong>R. Leonor Bresser Corrêa, 33 - Guarulhos / SP (GRU)</strong>
-                    <small>CNPJ: 29.922.919/0001-14 · Grupo Embarcompany</small>
+                <div className="ep-about-split-authority__map-card">
+                  <div className="ep-about-split-authority__map-frame">
+                    <iframe
+                      title="Localização Embarpet - Base Guarulhos"
+                      src="https://maps.google.com/maps?q=R.+Leonor+Bresser+Corr%C3%AAa,+33+-+Vila+Galv%C3%A3o,+Guarulhos+-+SP&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                      width="100%"
+                      height="100%"
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
                   </div>
-                </div>
-
-                <div className="ep-about-split-authority__credentials">
-                  <div className="ep-about-cred-pill"><img src="/logo-ipata.svg" alt="IPATA" /><span>Membro IPATA</span></div>
-                  <div className="ep-about-cred-pill"><img src="/logo-iata.svg" alt="IATA" /><span>Normas IATA LAR</span></div>
-                  <div className="ep-about-cred-pill"><img src="/logo-reclame-aqui.webp" alt="Reclame Aqui" /><span>Selo RA1000</span></div>
-                  <div className="ep-about-cred-pill"><img src="/logo-globo.svg" alt="Globo PEGN" /><span>Destaque PEGN</span></div>
-                  <div className="ep-about-cred-pill"><img src="/logo-catraca-livre.png" alt="Catraca Livre" /><span>Catraca Livre</span></div>
+                  <div className="ep-about-split-authority__map-footer">
+                    <div className="ep-about-split-authority__map-text">
+                      <MapPin size={16} aria-hidden="true" />
+                      <span>R. Leonor Bresser Corrêa, 33 — Guarulhos / SP</span>
+                    </div>
+                    <a
+                      href="https://www.google.com/maps/dir/?api=1&destination=R.+Leonor+Bresser+Corr%C3%AAa%2C+33+-+Vila+Galv%C3%A3o%2C+Guarulhos+-+SP"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ep-about-split-authority__map-btn"
+                    >
+                      <Navigation size={14} aria-hidden="true" />
+                      <span>Traçar rota</span>
+                      <ExternalLink size={12} aria-hidden="true" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
