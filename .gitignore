@@ -8,7 +8,8 @@ dist/
 _brand_assets_*/
 _ipata_audit_*/
 brand-audit-preview-*.png
-data/
-outputs/
+/data/
+/outputs/
 skills-lock.json
+
 
