@@ -13,6 +13,7 @@
 - **Milestones:** 1 / 4 Concluídos (25%)
 - **Páginas de Destino Ativas:** 7 / 7 (100%)
 - **Páginas de Modalidades Ativas:** 4 / 4 (100%)
+- **Páginas Institucionais:** 1 / 1 (Quem Somos `/sobre`)
 - **Status do Build:** ✅ Passando (TypeScript + Vite + SSR + Prerender SSG)
 - **CI Quality Gate:** ✅ Ativo (`.github/workflows/ci.yml`)
 

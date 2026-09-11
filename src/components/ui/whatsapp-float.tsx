@@ -7,7 +7,16 @@ import { trackConversionEvent } from "../../lib/analytics";
 
 export type LeadContext = Omit<PublicLead, "consent">;
 
-export function WhatsAppFloat({ context, onStart }: { context: LeadContext; onStart?: (context: LeadContext) => void }) {
+const defaultLeadContext: LeadContext = {
+  source: "whatsapp_float",
+  page: "global",
+  origin: "Brasil",
+  destination: "Internacional",
+  species: "dog",
+  size: "medium",
+};
+
+export function WhatsAppFloat({ context = defaultLeadContext, onStart }: { context?: LeadContext; onStart?: (context: LeadContext) => void }) {
   const [open, setOpen] = useState(false);
   const [showNudge, setShowNudge] = useState(false);
   useEffect(() => {

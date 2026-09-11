@@ -6,7 +6,39 @@ export type FooterQuickLink = { label: string; description: string; href: string
 
 const footerGroupIcons = [Route, BookOpenText, Compass];
 
-export function SiteFooter({ logoSrc, groups, note = "Transporte internacional de pets com planejamento individual.", quickLinks = defaultQuickLinks, brandCta = { label: "Falar sobre a viagem", href: "#analise" }, showLanguageLink = true, minimal = false, onAnalysisClick }: { logoSrc: string; groups: FooterGroup[]; note?: string; quickLinks?: FooterQuickLink[]; brandCta?: { label: string; href: string }; showLanguageLink?: boolean; minimal?: boolean; onAnalysisClick?: () => void }) {
+export const defaultFooterGroups: FooterGroup[] = [
+  {
+    title: "Planeje a viagem",
+    links: [
+      { label: "Como funciona", href: "/#como-funciona" },
+      { label: "Modalidades de voo", href: "/#modalidades" },
+      { label: "Destinos internacionais", href: "/#destinos" },
+      { label: "Estados Unidos", href: "/destinos/estados-unidos" },
+      { label: "Portugal & Europa", href: "/destinos/portugal" },
+    ],
+  },
+  {
+    title: "Sobre & Institucional",
+    links: [
+      { label: "Quem Somos", href: "/sobre" },
+      { label: "Base em Guarulhos", href: "/sobre#historia" },
+      { label: "IPATA & Credenciais", href: "/sobre#historia" },
+      { label: "Casos reais", href: "/#historias" },
+      { label: "Perguntas frequentes", href: "/#faq" },
+    ],
+  },
+  {
+    title: "Atendimento & Legal",
+    links: [
+      { label: "Iniciar análise", href: "/analise" },
+      { label: "WhatsApp da equipe", href: "https://wa.me/5511978253579" },
+      { label: "Política de Privacidade", href: "/privacidade" },
+      { label: "Termos de Uso", href: "/termos" },
+    ],
+  },
+];
+
+export function SiteFooter({ logoSrc, groups = defaultFooterGroups, note = "Transporte internacional de pets com planejamento individual.", quickLinks = defaultQuickLinks, brandCta = { label: "Falar sobre a viagem", href: "#analise" }, showLanguageLink = true, minimal = false, onAnalysisClick }: { logoSrc: string; groups?: FooterGroup[]; note?: string; quickLinks?: FooterQuickLink[]; brandCta?: { label: string; href: string }; showLanguageLink?: boolean; minimal?: boolean; onAnalysisClick?: () => void }) {
   const openAnalysisLink = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
     if (!onAnalysisClick || href !== "#planejar") return;
     event.preventDefault();

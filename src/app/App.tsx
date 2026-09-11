@@ -2,6 +2,7 @@ import EmbarpetHome from "../features/home/HomePage";
 import AnalysisPage from "../features/analysis/AnalysisPage";
 import ThankYouPage from "../features/thank-you/ThankYouPage";
 import ButtonsPage from "../features/buttons/ButtonsPage";
+import AboutPage from "../features/about/AboutPage";
 import { ModalityPage } from "../features/modalities/ModalityPage";
 import { DestinationPage } from "../features/destinations/DestinationUnitedStatesPage";
 import { getDestinationLanding } from "../features/destinations/destination-content";
@@ -20,6 +21,10 @@ export function App({ initialLocale = "pt-BR", initialPath = "/" }: { initialLoc
   const page = modalitySlug && modalityContent[modalitySlug]
     ? <ModalityPage modality={modalityContent[modalitySlug]} />
     : destination ? <DestinationPage destination={destination} />
-    : route === "/viajar" ? <AnalysisPage /> : route === "/obrigado" ? <ThankYouPage /> : route === "/design-system/botoes" ? <ButtonsPage /> : <EmbarpetHome />;
+    : (route === "/sobre" || route === "/quem-somos") ? <AboutPage />
+    : route === "/viajar" ? <AnalysisPage />
+    : route === "/obrigado" ? <ThankYouPage />
+    : route === "/design-system/botoes" ? <ButtonsPage />
+    : <EmbarpetHome />;
   return <LocaleProvider locale={locale}>{page}</LocaleProvider>;
 }

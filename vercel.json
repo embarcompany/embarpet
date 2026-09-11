@@ -26,6 +26,8 @@
     }
   ],
   "rewrites": [
+    { "source": "/sobre", "destination": "/index.html" },
+    { "source": "/quem-somos", "destination": "/index.html" },
     { "source": "/design-system/botoes", "destination": "/index.html" },
     { "source": "/modalidades/(.*)", "destination": "/index.html" },
     { "source": "/destinos/(.*)", "destination": "/index.html" },

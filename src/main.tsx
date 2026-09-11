@@ -8,6 +8,7 @@ import "./features/analysis/analysis.css";
 import "./features/thank-you/thank-you.css";
 import "./features/modalities/modalities.css";
 import "./features/destinations/destinations.css";
+import "./features/about/about.css";
 import { App } from "./app/App";
 
 const root = document.getElementById("root")!;

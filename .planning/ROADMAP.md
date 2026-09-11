@@ -25,6 +25,10 @@ Milestone 4: LPs de Alta Intenção & Expansão Global     ──► [BACKLOG]
   - Promoção e merge na branch `main`.
   - Tag de release `v1.0.0-foundation-destinations`.
   - Criação do pipeline de CI com GitHub Actions (`.github/workflows/ci.yml`).
+- [x] **Fase 1.4: Página Institucional Quem Somos (`/sobre`)**
+  - Página completa sobre história, propósito, base operacional em Guarulhos (GRU) e liderança.
+  - 4 pilares operacionais, credenciais IPATA/IATA/RA1000 e casos reais com fotos e depoimentos.
+  - Prerender estático SSG, OpenGraph/SEO, integração de rotas e sitemap.xml.
 
 ---
 

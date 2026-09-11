@@ -24,6 +24,7 @@ const pages = {
   "destinos/argentina": { path: "/destinos/argentina", lang: "pt-BR", title: "Transporte Internacional de Pets para a Argentina | Embarpet", description: "Planeje a viagem do seu pet para a Argentina com regras Senasa / Mercosul, vacinação, atestado de saúde e CVI." },
   "destinos/uruguai": { path: "/destinos/uruguai", lang: "pt-BR", title: "Transporte Internacional de Pets para o Uruguai | Embarpet", description: "Planeje a viagem do seu pet para o Uruguai com análise de normas sanitárias MGAP, vacinas, CVI e logística de transporte." },
   "destinos/paraguai": { path: "/destinos/paraguai", lang: "pt-BR", title: "Transporte Internacional de Pets para o Paraguai | Embarpet", description: "Planeje o transporte internacional do seu pet para o Paraguai com suporte em documentação Mercosul, CVI e análise de rota." },
+  "sobre": { path: "/sobre", lang: "pt-BR", title: "Quem Somos | Sobre a Embarpet — Especialistas em Transporte Internacional de Pets", description: "Conheça a Embarpet: empresa do Grupo Embarcompany especializada em mobilidade aérea internacional de animais. Conheça nossa base em Guarulhos, equipe, valores e credenciais." },
 };
 
 const { render } = await import(pathToFileURL(resolve(serverOutput, "entry-server.js")).href);
@@ -47,7 +48,7 @@ function renderPage(locale, page) {
 }
 
 for (const [locale, page] of Object.entries(pages)) {
-  const renderLocale = page.path.startsWith("/modalidades/") || page.path.startsWith("/destinos/") ? "pt-BR" : locale;
+  const renderLocale = page.path.startsWith("/modalidades/") || page.path.startsWith("/destinos/") || page.path === "/sobre" ? "pt-BR" : locale;
   const isRoot = locale === "pt-BR";
   const destination = isRoot ? templatePath : resolve(dist, locale, "index.html");
   if (!isRoot) await mkdir(resolve(dist, locale), { recursive: true });
