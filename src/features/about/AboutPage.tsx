@@ -343,7 +343,7 @@ export default function AboutPage() {
         <EmbarkationMarquee />
 
         {/* ==================================================================
-            3. A FUNDAÇÃO (2018): Split Screen Divididona (Foto Total Esquerda x Conteúdo Direita)
+            3. A FUNDAÇÃO (2018): Split Screen Divididona (Foto Esquerda x Conteúdo Direita)
             ================================================================== */}
         <section className="ep-section ep-container ep-about-split-origin" id="origem">
           <div className="ep-about-split-origin__grid">
@@ -500,32 +500,37 @@ export default function AboutPage() {
         </section>
 
         {/* ==================================================================
-            6. O MANIFESTO HUMANO: Porque nunca foi apenas sobre transportar pets
+            6. O MANIFESTO HUMANO: Compacto, Emocionante e Sem Poluição Visual
             ================================================================== */}
         <section className="ep-about-manifesto-section" id="manifesto">
           <div className="ep-container ep-about-manifesto-container">
-            <div className="ep-about-authority-mosaic" aria-label="Momentos reais de reencontros e embarques">
-              <figure className="ep-about-mosaic-tile ep-about-mosaic-tile--main">
-                <img src="/embarpet-autoridade-destino-real.jpeg" alt="Pet em viagem internacional com documentos oficiais" />
-              </figure>
-              <figure className="ep-about-mosaic-tile ep-about-mosaic-tile--talles">
-                <img src="/embarpet-mosaico-cabine.jpeg" alt="Pet acomodado na cabine do avião" />
-              </figure>
-              <figure className="ep-about-mosaic-tile ep-about-mosaic-tile--leandro">
-                <img src="/embarpet-mosaico-cuidado.jpg" alt="Acolhimento e carinho com o pet antes do embarque" />
-              </figure>
-              <figure className="ep-about-mosaic-tile ep-about-mosaic-tile--renato">
-                <img src="/embarpet-mosaico-familia.jpg" alt="Família reunida no destino internacional" />
-              </figure>
-              <figure className="ep-about-mosaic-tile ep-about-mosaic-tile--luxury">
-                <img src="/embarpet-mosaico-encontro.jpg" alt="O reencontro no desembarque do aeroporto" />
-              </figure>
+            {/* Left Column: Compact High-End Photo Showcase */}
+            <div className="ep-about-manifesto-showcase">
+              <div className="ep-about-manifesto-photo-main">
+                <img
+                  src="/embarpet-mosaico-familia.jpg"
+                  alt="Família reunida com seu pet após o desembarque internacional"
+                  className="ep-about-manifesto-img"
+                />
+                <div className="ep-about-manifesto-photo-caption">
+                  <span className="ep-about-manifesto-caption-tag"><Heart size={12} fill="currentColor" /> Reencontro Real</span>
+                  <strong>Família reunida no destino</strong>
+                </div>
+              </div>
+              <div className="ep-about-manifesto-photo-secondary">
+                <img
+                  src="/embarpet-mosaico-cuidado.jpg"
+                  alt="Cuidado e carinho com o pet no embarque"
+                />
+              </div>
             </div>
 
+            {/* Right Column: Inspiring Manifesto Narrative */}
             <div className="ep-about-manifesto-content">
-              <span className="ep-eyebrow">Nosso Manifesto</span>
-              <h2 className="ep-title-lg" style={{ marginTop: "14px" }}>
-                Porque nunca foi apenas sobre <em>transportar pets.</em>
+              <span className="ep-eyebrow">Manifesto Humano</span>
+              
+              <h2 className="ep-title-lg" style={{ marginTop: "12px" }}>
+                Nunca foi apenas sobre voar. <em>É sobre quem está a bordo.</em>
               </h2>
               
               <div className="ep-about-manifesto-grid">
@@ -538,14 +543,18 @@ export default function AboutPage() {
                   <b>Enxerga uma reserva de espaço.</b>
                 </div>
                 <div className="ep-about-manifesto-item">
-                  <span>A autoridade sanitária</span>
-                  <b>Enxerga carimbos e documentos.</b>
+                  <span>A fiscalização sanitária</span>
+                  <b>Enxerga carimbos e laudos.</b>
                 </div>
                 <div className="ep-about-manifesto-item ep-about-manifesto-item--highlight">
                   <span>Nós, na Embarpet</span>
-                  <b>Nós enxergamos a sua família.</b>
+                  <b>Nós enxergamos o amor da sua vida.</b>
                 </div>
               </div>
+
+              <p className="ep-copy" style={{ marginTop: "18px", fontSize: "14.5px" }}>
+                Enxergamos quem passou noites em claro antes do voo, quem conferiu a caixinha três vezes antes de sair de casa e a família que só sente que a vida recomeçou quando vê o companheiro desembarcar com saúde e alegria.
+              </p>
 
               <div className="ep-about-reunion-steps">
                 <span><PawPrint size={14} /> O desembarque</span>
@@ -554,10 +563,10 @@ export default function AboutPage() {
                 <span><HeartHandshake size={14} /> O primeiro colo</span>
               </div>
 
-              <div className="ep-about-authority-proof" style={{ marginTop: "24px" }}>
-                <div><strong>+2.000</strong><span>embarques<br />realizados</span></div>
+              <div className="ep-about-authority-proof" style={{ marginTop: "22px" }}>
+                <div><strong>+2.000</strong><span>famílias<br />reunidas</span></div>
                 <div><img src="/logo-ipata.png" alt="IPATA" /><span>Membro IPATA</span></div>
-                <div><img src="/logo-iata.png" alt="IATA" /><span>Membro IATA</span></div>
+                <div><img src="/logo-iata.png" alt="IATA" /><span>Normas IATA</span></div>
               </div>
             </div>
           </div>

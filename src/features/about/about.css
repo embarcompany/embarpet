@@ -655,7 +655,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   5. O MANIFESTO HUMANO & MOSAICO DE AUTORIDADE
+   5. O MANIFESTO HUMANO & VISUAL COMPACTO
    -------------------------------------------------------------------------- */
 .ep-about-manifesto-section {
   padding-block: clamp(68px, 8vw, 104px);
@@ -665,81 +665,110 @@
 
 .ep-about-manifesto-container {
   display: grid;
-  grid-template-columns: minmax(320px, 0.95fr) minmax(0, 1.05fr);
-  gap: clamp(36px, 6vw, 76px);
+  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(36px, 6vw, 68px);
   align-items: center;
 }
 
-/* Mosaic Tiles */
-.ep-about-authority-mosaic {
-  display: grid;
-  grid-template-columns: 1.34fr 0.9fr 0.9fr;
-  grid-template-rows: 1fr 1fr 0.72fr;
-  min-height: 480px;
-  gap: 9px;
+/* Compact Editorial Photo Composition */
+.ep-about-manifesto-showcase {
+  position: relative;
   width: 100%;
+  height: clamp(340px, 34vw, 420px);
+  display: flex;
+  align-items: center;
 }
 
-.ep-about-mosaic-tile {
+.ep-about-manifesto-photo-main {
   position: relative;
-  min-height: 0;
-  margin: 0;
+  width: 86%;
+  height: 100%;
+  border-radius: 24px;
   overflow: hidden;
   border: 1px solid var(--ep-line);
-  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(5, 67, 74, 0.08);
   background: var(--ep-soft);
-  box-shadow: 0 4px 12px rgba(5, 67, 74, 0.04);
 }
 
-.ep-about-mosaic-tile img {
-  display: block;
+.ep-about-manifesto-photo-main img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  object-position: center 30%;
+  display: block;
+  transition: transform 0.5s ease;
 }
 
-.ep-about-mosaic-tile:hover img {
+.ep-about-manifesto-photo-main:hover img {
+  transform: scale(1.03);
+}
+
+.ep-about-manifesto-photo-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(5, 67, 74, 0.94) 0%, rgba(5, 67, 74, 0) 100%);
+  padding: 24px 16px 14px;
+  color: #ffffff;
+}
+
+.ep-about-manifesto-caption-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9.5px;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ep-lime);
+  margin-bottom: 3px;
+}
+
+.ep-about-manifesto-photo-caption strong {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 750;
+  color: #ffffff;
+}
+
+.ep-about-manifesto-photo-secondary {
+  position: absolute;
+  right: 0;
+  bottom: 24px;
+  width: 44%;
+  height: 56%;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 3px solid #ffffff;
+  box-shadow: 0 12px 32px rgba(5, 67, 74, 0.16);
+  z-index: 2;
+  background: var(--ep-soft);
+}
+
+.ep-about-manifesto-photo-secondary img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.ep-about-manifesto-photo-secondary:hover img {
   transform: scale(1.05);
-}
-
-.ep-about-mosaic-tile--main {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  border-radius: 22px;
-}
-
-.ep-about-mosaic-tile--talles {
-  grid-column: 2 / span 2;
-  grid-row: 1;
-}
-
-.ep-about-mosaic-tile--leandro {
-  grid-column: 2;
-  grid-row: 2;
-}
-
-.ep-about-mosaic-tile--renato {
-  grid-column: 3;
-  grid-row: 2;
-}
-
-.ep-about-mosaic-tile--luxury {
-  grid-column: 1 / span 3;
-  grid-row: 3;
 }
 
 .ep-about-manifesto-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 18px;
 }
 
 .ep-about-manifesto-item {
   background: #ffffff;
   border: 1px solid var(--ep-line);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 14px 16px;
   display: flex;
   flex-direction: column;
@@ -978,6 +1007,9 @@
   .ep-about-manifesto-container {
     grid-template-columns: 1fr;
   }
+  .ep-about-manifesto-showcase {
+    height: 320px;
+  }
   .ep-about-base-card {
     grid-template-columns: 1fr;
   }
@@ -1025,30 +1057,5 @@
   .ep-about-reunion-steps {
     flex-direction: column;
     align-items: stretch;
-  }
-  .ep-about-authority-mosaic {
-    grid-template-columns: 1.18fr 0.82fr;
-    grid-template-rows: 150px 150px 86px;
-    min-height: 400px;
-    gap: 7px;
-  }
-  .ep-about-mosaic-tile--main {
-    grid-column: 1;
-    grid-row: 1 / span 2;
-  }
-  .ep-about-mosaic-tile--talles {
-    grid-column: 2;
-    grid-row: 1;
-  }
-  .ep-about-mosaic-tile--leandro {
-    grid-column: 2;
-    grid-row: 2;
-  }
-  .ep-about-mosaic-tile--renato {
-    grid-column: 1 / span 2;
-    grid-row: 3;
-  }
-  .ep-about-mosaic-tile--luxury {
-    display: none;
   }
 }
