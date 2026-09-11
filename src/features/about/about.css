@@ -1,1067 +1,692 @@
 /* ==========================================================================
    Embarpet — Quem Somos / Nossa História (/sobre)
-   Design System Tokens & Editorial Hierarchy
+   Design System Tokens, Layout & Editorial Hierarchy
    ========================================================================== */
 
-.ep-about-page {
-  background-color: var(--ep-canvas);
+.ep-about-page-v2 {
+  background-color: var(--ep-page);
   color: var(--ep-ink);
   min-height: 100vh;
   overflow-x: hidden;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--ep-font);
 }
 
 /* --------------------------------------------------------------------------
-   Common Section Tags & Headings
+   1. HERO: ConversionHero Customizations for /sobre
    -------------------------------------------------------------------------- */
-.ep-about-section-tag {
+.ep-about-page-v2 .ep-conversion-hero {
+  background: var(--ep-gradient-idv);
+  color: var(--ep-teal);
+  position: relative;
+  overflow: hidden;
+}
+
+.ep-about-page-v2 .ep-conversion-hero__copy {
+  padding-top: clamp(100px, 12vw, 136px);
+  padding-bottom: clamp(48px, 6vw, 76px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ep-about-hero-showcase {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0;
+}
+
+.ep-about-hero-showcase__frame {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(0, 157, 172, 0.2);
+  box-shadow: 0 20px 48px rgba(5, 67, 74, 0.12);
+}
+
+.ep-about-hero-showcase__image {
+  width: 100%;
+  height: clamp(320px, 36vw, 440px);
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+.ep-about-hero-showcase__badge {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+  background: rgba(5, 67, 74, 0.94);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+}
+
+.ep-about-hero-showcase__badge-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--ep-lime);
+  color: var(--ep-teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ep-about-hero-showcase__badge strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #ffffff;
+}
+
+.ep-about-hero-showcase__badge small {
+  display: block;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.78);
+  margin-top: 2px;
+  line-height: 1.35;
+}
+
+/* --------------------------------------------------------------------------
+   Hero Doubts Chip Resolver
+   -------------------------------------------------------------------------- */
+.ep-about-hero-doubts {
+  margin-top: 24px;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ep-about-hero-doubts__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ep-turq-deep);
+}
+
+.ep-about-hero-doubts__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ep-about-doubt-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 157, 172, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--ep-teal);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.ep-about-doubt-chip:hover {
+  border-color: var(--ep-turq-deep);
+  background: #ffffff;
+  transform: translateY(-1px);
+}
+
+.ep-about-doubt-chip.is-active {
+  background: var(--ep-teal);
+  color: #ffffff;
+  border-color: var(--ep-teal);
+  box-shadow: 0 4px 12px rgba(5, 67, 74, 0.2);
+}
+
+.ep-about-doubt-chip.is-active svg {
+  color: var(--ep-lime);
+}
+
+.ep-about-doubt-answer {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 157, 172, 0.22);
+  border-left: 4px solid var(--ep-turq);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-top: 4px;
+  box-shadow: 0 8px 24px rgba(5, 67, 74, 0.06);
+  animation: ep-about-answer-in 0.24s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes ep-about-answer-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ep-about-doubt-answer strong {
+  display: block;
+  font-size: 13px;
+  color: var(--ep-teal);
+  margin-bottom: 4px;
+}
+
+.ep-about-doubt-answer p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--ep-muted);
+}
+
+.ep-about-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.ep-about-hero-link {
+  font-size: 12px;
+  font-weight: 750;
+  color: var(--ep-teal);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.ep-about-hero-link:hover {
+  color: var(--ep-turq-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   2. ORIGEM (2018): Bento Grid
+   -------------------------------------------------------------------------- */
+.ep-about-origin-section {
+  padding-block: clamp(64px, 7vw, 96px);
+}
+
+.ep-about-origin-bento {
+  display: grid;
+  grid-template-columns: 1.35fr 0.85fr;
+  grid-template-rows: auto auto;
+  gap: 18px;
+  margin-top: 40px;
+}
+
+.ep-about-origin-card {
+  border: 1px solid var(--ep-line);
+  border-radius: 20px;
+  background: var(--ep-paper);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 16px rgba(5, 67, 74, 0.03);
+}
+
+.ep-about-origin-card--featured {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  background: linear-gradient(145deg, #ffffff 0%, #f4faf8 100%);
+  border-color: rgba(0, 157, 172, 0.18);
+}
+
+.ep-about-origin-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ep-turq-deep);
+  background: rgba(0, 157, 172, 0.1);
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  width: max-content;
+}
+
+.ep-about-origin-card--featured h3 {
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  color: var(--ep-teal);
+  margin: 0 0 14px;
+}
+
+.ep-about-origin-card--featured p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ep-muted);
+  margin: 0;
+}
+
+.ep-about-origin-card--featured p strong {
+  color: var(--ep-teal);
+}
+
+.ep-about-origin-card__media {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--ep-line);
+}
+
+.ep-about-origin-card__media img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+}
+
+.ep-about-origin-card__caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(5, 67, 74, 0.9) 0%, rgba(5, 67, 74, 0) 100%);
+  padding: 24px 16px 12px;
+  color: #ffffff;
+}
+
+.ep-about-origin-card__caption strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.ep-about-origin-card__caption span {
+  display: block;
+  font-size: 11px;
+  color: var(--ep-turq);
+  margin-top: 1px;
+}
+
+.ep-about-origin-card--highlight {
+  grid-column: 2;
+  grid-row: 1;
+  background: var(--ep-teal);
+  color: #ffffff;
+  border-color: var(--ep-teal);
+  justify-content: center;
+}
+
+.ep-about-origin-badge {
+  font-size: clamp(34px, 3.8vw, 44px);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: var(--ep-lime);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.ep-about-origin-card--highlight h4 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 8px;
+}
+
+.ep-about-origin-card--highlight p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.ep-about-origin-card--evolution {
+  grid-column: 2;
+  grid-row: 2;
+  background: var(--ep-soft);
+  border-color: rgba(0, 157, 172, 0.15);
+}
+
+.ep-about-origin-card--evolution h4 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ep-teal);
+  margin: 0 0 8px;
+}
+
+.ep-about-origin-card--evolution p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ep-muted);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. MUDANÇA DE PERSPECTIVA (Deep Teal Editorial Card)
+   -------------------------------------------------------------------------- */
+.ep-about-perspective-card {
+  width: calc(100% - 20px);
+  margin: 10px auto;
+  border-radius: 28px;
+  background: var(--ep-teal);
+  color: var(--ep-paper);
+  overflow: hidden;
+  padding-block: clamp(60px, 7vw, 92px);
+}
+
+.ep-about-perspective-contrast {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.ep-about-perspective-contrast__box {
+  padding: 16px 20px;
+  border-radius: 12px;
+}
+
+.ep-about-perspective-contrast__box--old {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.ep-about-perspective-contrast__box--old small {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 4px;
+}
+
+.ep-about-perspective-contrast__box--old p {
+  margin: 0;
+  font-size: 14px;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ep-about-perspective-contrast__arrow {
+  color: var(--ep-lime);
+  font-size: 18px;
+  padding-left: 10px;
+}
+
+.ep-about-perspective-contrast__box--new {
+  background: rgba(0, 157, 172, 0.22);
+  border: 1px solid var(--ep-turq);
+}
+
+.ep-about-perspective-contrast__box--new small {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ep-lime);
+  margin-bottom: 4px;
+}
+
+.ep-about-perspective-contrast__box--new strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.45;
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   4. MANIFESTO GRID & REUNION MOMENTS
+   -------------------------------------------------------------------------- */
+.ep-about-manifesto-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.ep-about-manifesto-item {
+  background: var(--ep-soft);
+  border: 1px solid var(--ep-line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ep-about-manifesto-item span {
+  font-size: 10px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ep-muted);
+  margin-bottom: 4px;
+}
+
+.ep-about-manifesto-item b {
+  font-size: 13px;
+  font-weight: 750;
+  color: var(--ep-teal);
+  line-height: 1.35;
+}
+
+.ep-about-manifesto-item--highlight {
+  background: var(--ep-teal);
+  border-color: var(--ep-teal);
+  color: #ffffff;
+}
+
+.ep-about-manifesto-item--highlight span {
+  color: var(--ep-lime);
+}
+
+.ep-about-manifesto-item--highlight b {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.ep-about-reunion-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.ep-about-reunion-steps span {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   background: var(--ep-soft);
-  border: 1px solid var(--ep-line);
-  color: var(--ep-teal);
+  border: 1px solid rgba(0, 157, 172, 0.16);
+  border-radius: 8px;
+  padding: 6px 11px;
   font-size: 11px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 4px 12px;
-  border-radius: 999px;
-  margin-bottom: 16px;
+  color: var(--ep-teal);
 }
 
-.ep-about-section-tag--light {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.22);
-  color: var(--ep-turq);
-}
-
-.ep-about-section-tag--lime {
-  background: rgba(163, 230, 53, 0.12);
-  border-color: rgba(163, 230, 53, 0.3);
-  color: var(--ep-lime);
+.ep-about-reunion-steps svg {
+  color: var(--ep-turq-deep);
 }
 
 /* --------------------------------------------------------------------------
-   1. Hero Section
+   5. BASE OPERACIONAL EM GUARULHOS
    -------------------------------------------------------------------------- */
-.ep-about-hero {
-  background-color: var(--ep-teal);
+.ep-about-base-section {
+  padding-block: clamp(48px, 6vw, 76px);
+}
+
+.ep-about-base-card {
+  background: var(--ep-teal);
   color: #ffffff;
-  padding: 130px 0 80px;
-  position: relative;
-  border-bottom: 1px solid var(--ep-teal-dark);
-}
-
-.ep-about-hero__grid {
+  border-radius: 24px;
+  padding: clamp(36px, 5vw, 56px);
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 52px;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: clamp(32px, 5vw, 52px);
   align-items: center;
+  border: 1px solid var(--ep-teal-dark, #03373c);
+  box-shadow: 0 16px 40px rgba(5, 67, 74, 0.14);
 }
 
-.ep-about-hero__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+.ep-about-base-card__address {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 22px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.16);
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ep-turq);
-  margin-bottom: 24px;
-}
-
-.ep-about-hero__title {
-  font-size: clamp(32px, 4.4vw, 54px);
-  font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: -0.03em;
-  color: #ffffff;
-  margin-bottom: 20px;
-}
-
-.ep-about-hero__title span {
-  color: var(--ep-turq);
-}
-
-.ep-about-hero__lead {
-  font-size: 16px;
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 24px;
-}
-
-.ep-about-hero__doubts-card {
-  background: rgba(10, 36, 43, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 12px;
-  padding: 18px 20px;
-  margin-bottom: 32px;
-}
-
-.ep-about-hero__doubts-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ep-lime);
-  margin-bottom: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.ep-about-hero__doubts-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-.ep-about-hero__doubts-list li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.9);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 8px 12px;
-  border-radius: 6px;
-}
-
-.ep-about-hero__doubts-list li:last-child {
-  grid-column: span 2;
-}
-
-.ep-about-hero__doubts-list li svg {
-  color: var(--ep-turq);
-  flex-shrink: 0;
-}
-
-.ep-about-hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: center;
-}
-
-.ep-about-hero__scroll-btn {
-  background: transparent !important;
-  color: #ffffff !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-}
-
-.ep-about-hero__scroll-btn:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border-color: #ffffff !important;
-}
-
-.ep-about-hero__media {
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: var(--ep-teal-dark);
-}
-
-.ep-about-hero__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.ep-about-hero__badge {
-  position: absolute;
-  bottom: 18px;
-  left: 18px;
-  right: 18px;
-  background: rgba(10, 36, 43, 0.92);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 10px;
   padding: 14px 18px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
 }
 
-.ep-about-hero__badge-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 8px;
-  background: var(--ep-turq);
-  color: var(--ep-teal);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.ep-about-base-card__address svg {
+  color: var(--ep-lime);
   flex-shrink: 0;
-}
-
-.ep-about-hero__badge-text b {
-  display: block;
-  font-size: 14px;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.ep-about-hero__badge-text small {
-  display: block;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-/* --------------------------------------------------------------------------
-   2. Numbers & Trust Bar
-   -------------------------------------------------------------------------- */
-.ep-about-stats {
-  background: #ffffff;
-  border-bottom: 1px solid var(--ep-line);
-  padding: 32px 0;
-}
-
-.ep-about-stats__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
-
-.ep-about-stat-card {
-  padding: 12px 18px;
-  border-left: 3px solid var(--ep-turq);
-}
-
-.ep-about-stat-card__number {
-  font-size: 32px;
-  font-weight: 800;
-  color: var(--ep-teal);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-
-.ep-about-stat-card__label {
-  font-size: 13px;
-  color: var(--ep-muted);
-  font-weight: 600;
-  margin-top: 4px;
-}
-
-/* --------------------------------------------------------------------------
-   3. A Origem (Fundação & Propósito)
-   -------------------------------------------------------------------------- */
-.ep-about-origin {
-  padding: 96px 0;
-  background: #ffffff;
-  border-bottom: 1px solid var(--ep-line);
-}
-
-.ep-about-origin__grid {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 64px;
-  align-items: center;
-}
-
-.ep-about-origin__content h2 {
-  font-size: clamp(28px, 3.4vw, 42px);
-  font-weight: 800;
-  color: var(--ep-teal);
-  letter-spacing: -0.02em;
-  line-height: 1.18;
-  margin-bottom: 20px;
-}
-
-.ep-about-origin__lead-text {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--ep-teal);
-  line-height: 1.6;
-  margin-bottom: 18px;
-  background: var(--ep-soft);
-  padding: 16px 20px;
-  border-radius: 8px;
-  border-left: 4px solid var(--ep-turq);
-}
-
-.ep-about-origin__content p {
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--ep-ink);
-  margin-bottom: 16px;
-}
-
-.ep-about-origin__quote-card {
-  background: var(--ep-canvas);
-  border: 1px solid var(--ep-line);
-  border-radius: 12px;
-  padding: 24px;
-  margin-top: 28px;
-  display: flex;
-  gap: 16px;
-}
-
-.ep-about-origin__quote-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  background: var(--ep-teal);
-  color: var(--ep-turq);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.ep-about-origin__quote-card b {
-  display: block;
-  font-size: 15px;
-  color: var(--ep-teal);
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.ep-about-origin__quote-card p {
-  font-size: 14px;
-  color: var(--ep-muted);
-  line-height: 1.55;
-  margin: 0;
-}
-
-.ep-about-origin__card-photo {
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid var(--ep-line);
-  background: var(--ep-teal);
-}
-
-.ep-about-origin__card-photo img {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
-  display: block;
-}
-
-.ep-about-origin__photo-caption {
-  background: #ffffff;
-  padding: 18px 22px;
-  border-top: 1px solid var(--ep-line);
-}
-
-.ep-about-origin__photo-caption b {
-  display: block;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--ep-teal);
-}
-
-.ep-about-origin__photo-caption span {
-  display: block;
-  font-size: 13px;
-  color: var(--ep-muted);
   margin-top: 2px;
 }
 
-/* --------------------------------------------------------------------------
-   4. A Evolução (O tutor precisava de mais)
-   -------------------------------------------------------------------------- */
-.ep-about-evolution {
-  padding: 96px 0;
-  background: var(--ep-soft);
-  border-bottom: 1px solid var(--ep-line);
-}
-
-.ep-about-evolution__header {
-  text-align: center;
-  max-width: 760px;
-  margin: 0 auto 56px;
-}
-
-.ep-about-evolution__header h2 {
-  font-size: clamp(26px, 3.2vw, 38px);
-  font-weight: 800;
-  color: var(--ep-teal);
-  letter-spacing: -0.02em;
-  margin-bottom: 16px;
-  line-height: 1.2;
-}
-
-.ep-about-evolution__header p {
-  font-size: 16px;
-  color: var(--ep-muted);
-  line-height: 1.6;
-}
-
-.ep-about-evolution__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-
-.ep-evolution-card {
-  background: #ffffff;
-  border: 1px solid var(--ep-line);
-  border-radius: 12px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-.ep-evolution-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--ep-turq);
-}
-
-.ep-evolution-card__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 18px;
-}
-
-.ep-evolution-card__icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  background: var(--ep-soft);
-  color: var(--ep-teal);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ep-evolution-card__step {
+.ep-about-base-card__address strong {
+  display: block;
   font-size: 13px;
-  font-weight: 800;
-  color: var(--ep-turq);
-  font-family: monospace;
-}
-
-.ep-evolution-card__title {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--ep-teal);
-  margin-bottom: 8px;
-  line-height: 1.3;
-}
-
-.ep-evolution-card__desc {
-  font-size: 13px;
-  color: var(--ep-ink);
-  line-height: 1.55;
-  margin: 0;
-}
-
-/* --------------------------------------------------------------------------
-   5. A Mudança de Perspectiva (Comparação)
-   -------------------------------------------------------------------------- */
-.ep-about-perspective {
-  padding: 96px 0;
-  background: var(--ep-teal);
+  font-weight: 750;
   color: #ffffff;
-  border-bottom: 1px solid var(--ep-teal-dark);
 }
 
-.ep-about-perspective__box {
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 48px;
-  align-items: center;
-}
-
-.ep-about-perspective__title {
-  font-size: clamp(28px, 3.4vw, 42px);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin-bottom: 20px;
-  line-height: 1.2;
-}
-
-.ep-about-perspective__text {
-  font-size: 16px;
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.82);
-  margin-bottom: 16px;
-}
-
-.ep-perspective-comparison {
-  background: rgba(10, 36, 43, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 14px;
-  padding: 32px;
-}
-
-.ep-perspective-comparison__before {
-  opacity: 0.75;
-}
-
-.ep-perspective-comparison__tag {
-  display: inline-block;
+.ep-about-base-card__address small {
+  display: block;
   font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 3px;
 }
 
-.ep-perspective-comparison__tag--accent {
-  color: var(--ep-lime);
-}
-
-.ep-perspective-comparison__quote {
-  font-size: 17px;
-  font-style: italic;
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.5;
-  margin: 0;
-}
-
-.ep-perspective-comparison__divider {
-  margin: 24px 0;
-  position: relative;
-  text-align: center;
-}
-
-.ep-perspective-comparison__divider::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.ep-perspective-comparison__divider span {
-  position: relative;
-  background: #09272f;
-  padding: 0 16px;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--ep-turq);
-  letter-spacing: 0.08em;
-}
-
-.ep-perspective-comparison__after .ep-perspective-comparison__quote {
-  font-size: 20px;
-  font-weight: 700;
-  font-style: normal;
-  color: #ffffff;
-  line-height: 1.45;
-}
-
-/* --------------------------------------------------------------------------
-   6. O Manifesto — Porque nunca foi apenas sobre transportar pets
-   -------------------------------------------------------------------------- */
-.ep-about-manifesto {
-  padding: 96px 0;
-  background: #ffffff;
-  border-bottom: 1px solid var(--ep-line);
-}
-
-.ep-about-manifesto__header {
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto 48px;
-}
-
-.ep-about-manifesto__header h2 {
-  font-size: clamp(28px, 3.4vw, 42px);
-  font-weight: 800;
-  color: var(--ep-teal);
-  letter-spacing: -0.02em;
-}
-
-.ep-about-manifesto__contrast-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 48px;
-}
-
-.ep-contrast-item {
-  background: var(--ep-canvas);
-  border: 1px solid var(--ep-line);
-  border-radius: 12px;
-  padding: 24px 20px;
+.ep-about-base-card__credentials {
   display: flex;
   flex-direction: column;
+  gap: 12px;
 }
 
-.ep-contrast-item__icon {
-  color: var(--ep-muted);
-  margin-bottom: 12px;
-}
-
-.ep-contrast-item__subject {
-  font-size: 12px;
+.ep-about-base-card__cred-title {
+  font-size: 11px;
+  font-weight: 750;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--ep-muted);
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.ep-contrast-item b {
-  font-size: 15px;
-  color: var(--ep-ink);
-  line-height: 1.4;
-}
-
-.ep-contrast-item--highlight {
-  background: var(--ep-teal);
-  color: #ffffff;
-  border-color: var(--ep-teal);
-}
-
-.ep-contrast-item--highlight .ep-contrast-item__icon {
-  color: var(--ep-lime);
-}
-
-.ep-contrast-item--highlight .ep-contrast-item__subject {
   color: var(--ep-turq);
 }
 
-.ep-contrast-item--highlight b {
-  font-size: 17px;
-  color: #ffffff;
-  font-weight: 800;
-}
-
-.ep-about-manifesto__story-narrative {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 40px;
-  align-items: center;
-}
-
-.ep-about-manifesto__story-card {
-  background: var(--ep-soft);
-  border: 1px solid var(--ep-line);
-  border-radius: 14px;
-  padding: 36px;
-}
-
-.ep-about-manifesto__highlight-p {
-  font-size: 19px;
-  font-weight: 700;
-  color: var(--ep-teal);
-  line-height: 1.45;
-  margin-bottom: 16px;
-}
-
-.ep-about-manifesto__story-card p {
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--ep-ink);
-  margin-bottom: 24px;
-}
-
-.ep-about-manifesto__reunion-moments {
+.ep-about-base-card__logos {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: 24px;
+  gap: 10px;
 }
 
-.ep-reunion-step {
+.ep-about-cred-pill {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #ffffff;
-  border: 1px solid var(--ep-line);
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
   color: var(--ep-teal);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-.ep-reunion-step svg {
-  color: var(--ep-turq);
+.ep-about-cred-pill img {
+  height: 22px;
+  max-width: 60px;
+  object-fit: contain;
   flex-shrink: 0;
 }
 
-.ep-about-manifesto__meaning {
-  font-size: 15px !important;
-  font-weight: 700;
-  color: var(--ep-teal) !important;
-  border-top: 1px solid var(--ep-line);
-  padding-top: 18px;
-  margin-bottom: 0 !important;
-}
-
-.ep-about-manifesto__mosaic {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.ep-about-manifesto__mosaic img {
-  width: 100%;
-  height: 170px;
-  object-fit: cover;
-  border-radius: 10px;
-  border: 1px solid var(--ep-line);
-}
-
-.ep-about-manifesto__mosaic img:first-child {
-  grid-column: span 2;
-  height: 220px;
-}
-
-/* --------------------------------------------------------------------------
-   7. Base Operacional (Guarulhos)
-   -------------------------------------------------------------------------- */
-.ep-about-base {
-  padding: 88px 0;
-  background: var(--ep-canvas);
-  border-bottom: 1px solid var(--ep-line);
-}
-
-.ep-about-base__card {
-  background: var(--ep-teal);
-  color: #ffffff;
-  border-radius: 14px;
-  padding: 48px;
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 40px;
-  align-items: center;
-  border: 1px solid var(--ep-teal-dark);
-}
-
-.ep-about-base__title {
-  font-size: 28px;
-  font-weight: 800;
-  margin-bottom: 16px;
-  line-height: 1.25;
-}
-
-.ep-about-base__title span {
-  color: var(--ep-lime);
-}
-
-.ep-about-base__text {
-  font-size: 16px;
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.82);
-  margin-bottom: 20px;
-}
-
-.ep-about-base__features {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-top: 24px;
-}
-
-.ep-about-base__feature-item {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  padding: 14px;
-}
-
-.ep-about-base__feature-item b {
-  display: block;
-  font-size: 14px;
-  color: #ffffff;
-  margin-bottom: 4px;
-}
-
-.ep-about-base__feature-item p {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.4;
-  margin: 0;
-}
-
-.ep-about-base__address-panel {
-  background: rgba(10, 36, 43, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 10px;
-  padding: 24px;
-}
-
-.ep-about-base__address-panel h4 {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--ep-turq);
-  margin-bottom: 12px;
-}
-
-.ep-about-base__address-panel p {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.5;
-  margin-bottom: 8px;
-}
-
-/* --------------------------------------------------------------------------
-   8. Credentials & Press
-   -------------------------------------------------------------------------- */
-.ep-about-credentials {
-  padding: 80px 0;
-  background: var(--ep-soft);
-  border-bottom: 1px solid var(--ep-line);
-}
-
-.ep-about-credentials__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
-}
-
-.ep-about-credentials__logos {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 24px;
-}
-
-.ep-about-credentials__logo-box {
-  background: #ffffff;
-  border: 1px solid var(--ep-line);
-  border-radius: 10px;
-  padding: 16px 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 68px;
-}
-
-.ep-about-credentials__logo-box img {
-  max-height: 38px;
-  max-width: 120px;
-  object-fit: contain;
-}
-
-/* --------------------------------------------------------------------------
-   9. Cases Carousel / Real Families
-   -------------------------------------------------------------------------- */
-.ep-about-cases {
-  padding: 96px 0;
-  background: #ffffff;
-  border-bottom: 1px solid var(--ep-line);
-}
-
-.ep-about-cases__header {
-  margin-bottom: 48px;
-}
-
-.ep-about-cases__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-}
-
-.ep-about-case-card {
-  border: 1px solid var(--ep-line);
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--ep-canvas);
-}
-
-.ep-about-case-card__media {
-  height: 220px;
-  overflow: hidden;
-  background: var(--ep-teal);
-}
-
-.ep-about-case-card__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.ep-about-case-card__body {
-  padding: 24px;
-}
-
-.ep-about-case-card__tag {
-  display: inline-block;
+.ep-about-cred-pill span {
   font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--ep-teal);
-  background: var(--ep-turq-bg);
-  padding: 4px 10px;
-  border-radius: 6px;
-  margin-bottom: 12px;
-}
-
-.ep-about-case-card__title {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--ep-teal);
-  margin-bottom: 8px;
-}
-
-.ep-about-case-card__quote {
-  font-size: 14px;
-  color: var(--ep-muted);
-  line-height: 1.6;
+  font-weight: 750;
+  line-height: 1.2;
 }
 
 /* --------------------------------------------------------------------------
-   10. O Propósito & Fechamento — O destino pode mudar. A família vai junto.
+   6. FINAL MANIFESTO QUOTE & SCROLL FLY-IN
    -------------------------------------------------------------------------- */
-.ep-about-cta {
-  padding: 100px 0;
-  background: var(--ep-teal);
-  color: #ffffff;
-}
-
-.ep-about-cta__box {
-  max-width: 860px;
-  margin: 0 auto;
-}
-
-.ep-about-cta__quote-banner {
-  background: rgba(10, 36, 43, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 16px;
-  padding: 48px;
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.ep-about-cta__manifesto-lead {
-  font-size: clamp(18px, 2.4vw, 24px);
+.ep-about-final-manifesto-quote {
+  font-size: clamp(15px, 1.8vw, 18px);
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin: 18px auto 8px;
+  max-width: 640px;
   font-weight: 500;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.92);
-  margin-bottom: 24px;
 }
 
-.ep-about-cta__manifesto-lead strong {
+.ep-about-final-manifesto-quote strong {
   color: var(--ep-lime);
-}
-
-.ep-about-cta__manifesto-sub p {
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.6;
-  margin-bottom: 10px;
-}
-
-.ep-about-cta__highlight-values {
-  display: block;
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--ep-turq);
-  letter-spacing: 0.02em;
-  margin-bottom: 32px;
-}
-
-.ep-about-cta__slogan-block {
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  padding-top: 28px;
-}
-
-.ep-about-cta__brand-name {
-  font-size: 16px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 6px;
-}
-
-.ep-about-cta__slogan-phrase {
-  font-size: clamp(24px, 3.2vw, 36px);
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: -0.02em;
-  margin: 0;
-}
-
-.ep-about-cta__slogan-phrase span {
-  color: var(--ep-lime);
-}
-
-.ep-about-cta__action-card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 14px;
-  padding: 36px;
-  text-align: center;
-}
-
-.ep-about-cta__action-card h3 {
-  font-size: 22px;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 10px;
-}
-
-.ep-about-cta__action-card p {
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.8);
-  max-width: 580px;
-  margin: 0 auto 24px;
-  line-height: 1.6;
 }
 
 /* --------------------------------------------------------------------------
-   Responsive Breakpoints
+   7. RESPONSIVE BREAKPOINTS
    -------------------------------------------------------------------------- */
 @media (max-width: 991px) {
-  .ep-about-hero__grid,
-  .ep-about-origin__grid,
-  .ep-about-perspective__box,
-  .ep-about-manifesto__story-narrative,
-  .ep-about-base__card,
-  .ep-about-credentials__grid {
+  .ep-about-origin-bento {
     grid-template-columns: 1fr;
-    gap: 36px;
+    grid-template-rows: auto;
   }
-  .ep-about-stats__grid,
-  .ep-about-evolution__grid,
-  .ep-about-manifesto__contrast-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .ep-about-origin-card--featured {
+    grid-column: 1;
+    grid-row: auto;
   }
-  .ep-about-cases__grid {
+  .ep-about-origin-card--highlight {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .ep-about-origin-card--evolution {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .ep-about-base-card {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 640px) {
-  .ep-about-hero {
-    padding: 100px 0 50px;
+  .ep-about-hero-showcase__badge {
+    position: static;
+    margin: 12px;
+    border-radius: 12px;
   }
-  .ep-about-hero__doubts-list,
-  .ep-about-stats__grid,
-  .ep-about-evolution__grid,
-  .ep-about-manifesto__contrast-grid,
-  .ep-about-manifesto__reunion-moments,
-  .ep-about-base__features {
+  .ep-about-hero-doubts__chips {
+    gap: 6px;
+  }
+  .ep-about-doubt-chip {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+  .ep-about-manifesto-grid {
     grid-template-columns: 1fr;
   }
-  .ep-about-hero__doubts-list li:last-child {
-    grid-column: span 1;
+  .ep-about-base-card__logos {
+    grid-template-columns: 1fr;
   }
-  .ep-about-cta__quote-banner {
-    padding: 28px 18px;
-  }
-  .ep-about-base__card {
-    padding: 28px 20px;
+  .ep-about-reunion-steps {
+    flex-direction: column;
+    align-items: stretch;
   }
 }
