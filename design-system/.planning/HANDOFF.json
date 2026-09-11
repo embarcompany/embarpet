@@ -56,6 +56,6 @@
     }
   ],
   "uncommitted_files": [],
-  "next_action": "Ler .planning/PROJECT.md e os documentos em .planning/codebase/, depois iniciar $gsd-new-project ou criar o roadmap equivalente antes de alterar código.",
-  "context_notes": "Não há fase, plano ou pesquisa ativa. A LP EUA está implementada e serve de referência. Os seis destinos restantes no header ainda apontam para /#destinos. Não gerar imagens por IA nesta etapa e não tratar exigências regulatórias como permanentes."
+  "next_action": "Ler .planning/PROJECT-STATUS.md, .planning/PROJECT.md e os documentos em .planning/codebase/, depois iniciar $gsd-new-project ou criar o roadmap equivalente antes de alterar código.",
+  "context_notes": "Não há fase, plano ou pesquisa ativa. O status transversal do produto está em .planning/PROJECT-STATUS.md. A LP EUA está implementada e serve de referência. Os seis destinos restantes no header ainda apontam para /#destinos. O diagnóstico redireciona ao WhatsApp, mas ainda não persiste leads em API/banco. Não gerar imagens por IA nesta etapa e não tratar exigências regulatórias como permanentes."
 }
