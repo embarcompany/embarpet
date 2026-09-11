@@ -298,25 +298,6 @@ export default function AboutPage() {
             ================================================================== */}
         <section className="ep-about-centered-hero" aria-label="Apresentação institucional da Embarpet">
           <div className="ep-container ep-about-centered-hero__container">
-            <div className="ep-about-centered-hero__top">
-              <span className="ep-eyebrow">
-                <Sparkles size={13} aria-hidden="true" /> Embarpet · Nossa História & Propósito
-              </span>
-
-              <div className="ep-about-centered-hero__proof" aria-label="Pioneirismo em transporte internacional de pets">
-                <div className="ep-about-hero-metric">
-                  <span className="ep-team-avatars" aria-hidden="true"><i /><i /><i /><i /></span>
-                  <strong>+2.000</strong>
-                  <small>embarques realizados</small>
-                </div>
-                <div className="ep-about-hero-metric">
-                  <img src="/logo-google.svg" alt="Google" />
-                  <strong>4,9</strong>
-                  <small>avaliação no Google</small>
-                </div>
-              </div>
-            </div>
-
             <h1 className="ep-title-xl ep-about-centered-hero__title">
               Mais do que transportar animais.{" "}
               <span className="ep-hero-highlight">Conectamos famílias em qualquer lugar do mundo.</span>
