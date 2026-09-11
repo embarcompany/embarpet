@@ -343,69 +343,63 @@ export default function AboutPage() {
         <EmbarkationMarquee />
 
         {/* ==================================================================
-            3. A ORIGEM (2018): Bento Grid com Storytelling & Hierarquia Visual Forte
+            3. A FUNDAÇÃO (2018): Split Screen Divididona (Foto Total Esquerda x Conteúdo Direita)
             ================================================================== */}
-        <section className="ep-section ep-container ep-about-bento-section" id="origem">
-          <div className="ep-about-bento-header">
-            <span className="ep-eyebrow">Fundação em 2018</span>
-            <h2 className="ep-title-lg" style={{ marginTop: "12px" }}>
-              Onde o amor aos animais encontrou a <em>coragem de transformar a aviação.</em>
-            </h2>
-            <p className="ep-copy">
-              A história de como um problema real de milhares de famílias se transformou na maior estrutura especializada em transporte internacional de pets do Brasil.
-            </p>
-          </div>
-
-          <div className="ep-about-bento-grid">
-            {/* Bento Card 1: Featured Story with Founders Image */}
-            <div className="ep-about-bento-tile ep-about-bento-tile--featured">
-              <div className="ep-about-bento-tile__content">
-                <span className="ep-about-bento-tag">A Centelha em Portugal</span>
-                <h3>Transformar a distância entre o amor e a burocracia em um caminho seguro.</h3>
-                <p>
-                  Foi vivenciando de perto a rotina de documentação sanitária que <strong>Daiane Sarmento e Thamires Felix</strong> perceberam o desespero das famílias: não existia clareza sobre como levar um pet em segurança para outro país. Decidiram unir conhecimento técnico, empatia e coragem para criar a solução definitiva.
-                </p>
-                <div className="ep-about-bento-tile__quote">
-                  <em>“Para quem ama um animal como parte da família, a responsabilidade de embarcar é absoluta.”</em>
-                </div>
-              </div>
-
-              <div className="ep-about-bento-tile__media">
-                <img src="/embarpet-thamires-felix.webp" alt="Thamires Felix e Daiane Sarmento, fundadoras da Embarpet" />
-                <div className="ep-about-bento-tile__caption">
-                  <strong>Thamires Felix & Daiane Sarmento</strong>
-                  <span>Fundadoras da Embarpet</span>
+        <section className="ep-section ep-container ep-about-split-origin" id="origem">
+          <div className="ep-about-split-origin__grid">
+            {/* Left Column: Full-Height Immersive Photo */}
+            <div className="ep-about-split-origin__visual">
+              <div className="ep-about-split-origin__photo-frame">
+                <img
+                  src="/embarpet-thamires-felix.webp"
+                  alt="Thamires Felix e Daiane Sarmento, fundadoras da Embarpet"
+                  className="ep-about-split-origin__photo"
+                />
+                <div className="ep-about-split-origin__badge">
+                  <span className="ep-about-split-origin__badge-pill">Fundação 2018</span>
+                  <strong>Daiane Sarmento & Thamires Felix</strong>
+                  <small>Pioneirismo em transporte aéreo internacional humanizado</small>
                 </div>
               </div>
             </div>
 
-            {/* Bento Card 2: Initial Milestone */}
-            <div className="ep-about-bento-tile ep-about-bento-tile--metric">
-              <div className="ep-about-bento-badge">R$ 4.000</div>
-              <h4>O Ponto de Partida</h4>
-              <p>
-                Sem investidores gigantes, o negócio começou com quatro mil reais, conhecimento profundo e um foco inegociável: estar ao lado do tutor em cada decisão.
-              </p>
-            </div>
+            {/* Right Column: Editorial Storytelling Content */}
+            <div className="ep-about-split-origin__content">
+              <span className="ep-eyebrow">A Origem · 2018</span>
+              
+              <h2 className="ep-title-lg ep-about-split-origin__title">
+                Onde o amor aos animais encontrou a <em>coragem de transformar a aviação.</em>
+              </h2>
 
-            {/* Bento Card 3: Operation Today */}
-            <div className="ep-about-bento-tile ep-about-bento-tile--team">
-              <div className="ep-about-bento-badge ep-about-bento-badge--cyan">+30 Especialistas</div>
-              <h4>Da Assessoria à Operação Aérea</h4>
-              <p>
-                Evoluímos para uma equipe multidisciplinar completa, cuidando de rotas, alinhamento veterinário, emissão oficial e equipe presencial no aeroporto.
+              <p className="ep-copy ep-about-split-origin__lead">
+                Foi vivenciando de perto a complexidade da documentação sanitária internacional em Portugal que <strong>Daiane Sarmento e Thamires Felix</strong> perceberam o abismo enfrentado pelas famílias: regras confusas, companhias aéreas sem atendimento humanizado e o pavor constante de algo dar errado no embarque.
               </p>
-            </div>
 
-            {/* Bento Card 4: Purpose */}
-            <div className="ep-about-bento-tile ep-about-bento-tile--purpose">
-              <div className="ep-about-bento-purpose-icon">
-                <Heart size={24} />
+              <p className="ep-copy">
+                Decidiram transformar a burocracia em um plano de viagem previsível, unindo rigor veterinário, logística aérea e empatia inegociável.
+              </p>
+
+              <div className="ep-about-split-origin__milestones">
+                <div className="ep-about-split-milestone">
+                  <span className="ep-about-split-milestone__badge">R$ 4.000</span>
+                  <div>
+                    <strong>O Ponto de Partida</strong>
+                    <p>Começamos com pouco capital e a certeza de que a vida de um pet não aceita margem de erro.</p>
+                  </div>
+                </div>
+
+                <div className="ep-about-split-milestone">
+                  <span className="ep-about-split-milestone__badge ep-about-split-milestone__badge--teal">+30 Especialistas</span>
+                  <div>
+                    <strong>Liderança Nacional</strong>
+                    <p>Evoluímos para a maior estrutura especializada em logística aérea pet da América Latina.</p>
+                  </div>
+                </div>
               </div>
-              <h4>Famílias Unidas</h4>
-              <p>
-                O destino pode mudar, mas o membro mais especial da sua casa continua exatamente onde deve estar: com você.
-              </p>
+
+              <div className="ep-about-split-origin__quote">
+                <em>“Para quem ama um animal como parte da família, a responsabilidade de embarcar é absoluta.”</em>
+              </div>
             </div>
           </div>
         </section>

@@ -153,242 +153,181 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. ORIGEM (2018): Bento Grid com Storytelling & Hierarquia Visual Forte
+   2. A FUNDAÇÃO (2018): Split Screen Divididona (Foto Esquerda x Conteúdo Direita)
    -------------------------------------------------------------------------- */
-.ep-about-bento-section {
+.ep-about-split-origin {
   padding-block: clamp(72px, 8vw, 112px);
 }
 
-.ep-about-bento-header {
-  text-align: center;
-  max-width: 720px;
-  margin: 0 auto clamp(36px, 5vw, 56px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.ep-about-bento-header .ep-eyebrow {
-  margin-bottom: 12px;
-}
-
-.ep-about-bento-header .ep-title-lg {
-  margin: 0 0 14px;
-}
-
-.ep-about-bento-header .ep-copy {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-.ep-about-bento-grid {
+.ep-about-split-origin__grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 20px;
+  grid-template-columns: minmax(360px, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(36px, 6vw, 76px);
+  align-items: stretch;
 }
 
-.ep-about-bento-tile {
-  border: 1px solid var(--ep-line);
-  border-radius: 24px;
-  background: var(--ep-paper);
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 4px 20px rgba(5, 67, 74, 0.03);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+.ep-about-split-origin__visual {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: clamp(480px, 48vw, 620px);
 }
 
-.ep-about-bento-tile:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 32px rgba(5, 67, 74, 0.07);
+.ep-about-split-origin__photo-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 157, 172, 0.22);
+  box-shadow: 0 20px 48px rgba(5, 67, 74, 0.1);
+  background: var(--ep-soft);
 }
 
-.ep-about-bento-tag {
+.ep-about-split-origin__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ep-about-split-origin__photo-frame:hover .ep-about-split-origin__photo {
+  transform: scale(1.03);
+}
+
+.ep-about-split-origin__badge {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  right: 18px;
+  background: rgba(5, 67, 74, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  padding: 16px 20px;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+.ep-about-split-origin__badge-pill {
   display: inline-block;
   font-size: 10px;
   font-weight: 850;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--ep-turq-deep);
-  background: rgba(0, 157, 172, 0.1);
-  padding: 4px 12px;
-  border-radius: 6px;
-  margin-bottom: 14px;
-  width: max-content;
+  color: var(--ep-lime);
+  background: rgba(255, 255, 255, 0.12);
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 6px;
 }
 
-/* Card 1: Featured Story */
-.ep-about-bento-tile--featured {
-  grid-column: span 8;
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 28px;
-  background: linear-gradient(145deg, #ffffff 0%, #f4faf8 100%);
-  border-color: rgba(0, 157, 172, 0.22);
-}
-
-.ep-about-bento-tile--featured h3 {
-  font-size: clamp(22px, 2.2vw, 28px);
-  font-weight: 850;
-  letter-spacing: -0.04em;
-  line-height: 1.2;
-  color: var(--ep-teal);
-  margin: 0 0 14px;
-}
-
-.ep-about-bento-tile--featured p {
-  font-size: 14px;
-  line-height: 1.65;
-  color: var(--ep-muted);
-  margin: 0;
-}
-
-.ep-about-bento-tile--featured p strong {
-  color: var(--ep-teal);
-}
-
-.ep-about-bento-tile__quote {
-  margin-top: 18px;
-  padding: 12px 16px;
-  border-left: 3px solid var(--ep-turq);
-  background: rgba(0, 157, 172, 0.06);
-  border-radius: 0 10px 10px 0;
-}
-
-.ep-about-bento-tile__quote em {
-  font-size: 13px;
-  color: var(--ep-teal);
-  font-weight: 600;
-  font-style: normal;
-}
-
-.ep-about-bento-tile__media {
-  position: relative;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid var(--ep-line);
-  min-height: 240px;
-}
-
-.ep-about-bento-tile__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 30%;
+.ep-about-split-origin__badge strong {
   display: block;
-}
-
-.ep-about-bento-tile__caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(5, 67, 74, 0.94) 0%, rgba(5, 67, 74, 0) 100%);
-  padding: 24px 16px 14px;
+  font-size: 15px;
+  font-weight: 800;
   color: #ffffff;
+  line-height: 1.25;
 }
 
-.ep-about-bento-tile__caption strong {
+.ep-about-split-origin__badge small {
   display: block;
-  font-size: 13px;
-  font-weight: 750;
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 3px;
+  line-height: 1.35;
 }
 
-.ep-about-bento-tile__caption span {
-  display: block;
-  font-size: 11px;
-  color: var(--ep-turq);
-  margin-top: 1px;
-}
-
-/* Card 2: Initial Milestone */
-.ep-about-bento-tile--metric {
-  grid-column: span 4;
-  background: var(--ep-teal);
-  color: #ffffff;
-  border-color: var(--ep-teal);
+.ep-about-split-origin__content {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
-.ep-about-bento-badge {
-  font-size: clamp(34px, 3.6vw, 46px);
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  color: var(--ep-lime);
-  line-height: 1;
-  margin-bottom: 10px;
+.ep-about-split-origin__title {
+  margin: 14px 0 16px;
+  font-size: clamp(26px, 2.7vw, 36px);
+  line-height: 1.15;
 }
 
-.ep-about-bento-badge--cyan {
-  color: var(--ep-turq);
+.ep-about-split-origin__lead {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ep-ink);
+  margin-bottom: 12px;
 }
 
-.ep-about-bento-tile--metric h4 {
-  font-size: 17px;
-  font-weight: 800;
-  color: #ffffff;
-  margin: 0 0 10px;
-}
-
-.ep-about-bento-tile--metric p {
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.84);
-  margin: 0;
-}
-
-/* Card 3: Team Expansion */
-.ep-about-bento-tile--team {
-  grid-column: span 6;
-  background: linear-gradient(135deg, #f7fcfa 0%, #eef8f6 100%);
-  border-color: rgba(0, 157, 172, 0.2);
-}
-
-.ep-about-bento-tile--team h4 {
-  font-size: 18px;
-  font-weight: 800;
+.ep-about-split-origin__lead strong {
   color: var(--ep-teal);
-  margin: 0 0 8px;
 }
 
-.ep-about-bento-tile--team p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--ep-muted);
-  margin: 0;
-}
-
-/* Card 4: Reassuring Purpose */
-.ep-about-bento-tile--purpose {
-  grid-column: span 6;
-  background: #ffffff;
-  border-color: rgba(0, 73, 77, 0.12);
-}
-
-.ep-about-bento-purpose-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: rgba(0, 157, 172, 0.1);
-  color: var(--ep-turq-deep);
+.ep-about-split-origin__milestones {
   display: grid;
-  place-items: center;
-  margin-bottom: 14px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 24px 0 20px;
 }
 
-.ep-about-bento-tile--purpose h4 {
-  font-size: 18px;
+.ep-about-split-milestone {
+  background: #ffffff;
+  border: 1px solid var(--ep-line);
+  border-radius: 18px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 14px rgba(5, 67, 74, 0.03);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.ep-about-split-milestone:hover {
+  transform: translateY(-2px);
+  border-color: var(--ep-turq);
+}
+
+.ep-about-split-milestone__badge {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--ep-teal);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.ep-about-split-milestone__badge--teal {
+  color: var(--ep-turq-deep);
+}
+
+.ep-about-split-milestone strong {
+  font-size: 13.5px;
   font-weight: 800;
   color: var(--ep-teal);
-  margin: 0 0 8px;
+  display: block;
+  margin-bottom: 4px;
 }
 
-.ep-about-bento-tile--purpose p {
-  font-size: 14px;
-  line-height: 1.6;
+.ep-about-split-milestone p {
+  font-size: 12px;
+  line-height: 1.5;
   color: var(--ep-muted);
   margin: 0;
+}
+
+.ep-about-split-origin__quote {
+  padding: 14px 18px;
+  border-left: 3px solid var(--ep-turq);
+  background: rgba(0, 157, 172, 0.06);
+  border-radius: 0 12px 12px 0;
+  margin-top: 6px;
+}
+
+.ep-about-split-origin__quote em {
+  font-size: 13.5px;
+  font-weight: 650;
+  color: var(--ep-teal);
+  font-style: normal;
 }
 
 /* --------------------------------------------------------------------------
@@ -1026,21 +965,12 @@
    8. RESPONSIVE BREAKPOINTS
    -------------------------------------------------------------------------- */
 @media (max-width: 991px) {
-  .ep-about-bento-grid {
+  .ep-about-split-origin__grid {
     grid-template-columns: 1fr;
+    gap: 36px;
   }
-  .ep-about-bento-tile--featured {
-    grid-column: span 1;
-    grid-template-columns: 1fr;
-  }
-  .ep-about-bento-tile--metric {
-    grid-column: span 1;
-  }
-  .ep-about-bento-tile--team {
-    grid-column: span 1;
-  }
-  .ep-about-bento-tile--purpose {
-    grid-column: span 1;
+  .ep-about-split-origin__visual {
+    min-height: 380px;
   }
   .ep-about-pillars-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1082,6 +1012,9 @@
   .ep-about-hero-metric {
     font-size: 11px;
     padding: 4px 10px;
+  }
+  .ep-about-split-origin__milestones {
+    grid-template-columns: 1fr;
   }
   .ep-about-manifesto-grid {
     grid-template-columns: 1fr;
