@@ -469,44 +469,45 @@ export default function AboutPage() {
             ================================================================== */}
         <section className="ep-about-split-authority" id="autoridade">
           <div className="ep-about-split-authority__grid">
-            {/* Left Column: Editorial Content with Turquoise Brand Background */}
-            <div className="ep-about-split-authority__content-wrap">
-              <div className="ep-about-split-authority__content">
-                <h2 className="ep-title-lg ep-about-split-authority__title">
-                  Estrutura própria, base operacional e <em>liderança internacional.</em>
-                </h2>
+            {/* Left Column: Top 50% Editorial Content + Bottom 50% Full-Width Google Maps */}
+            <div className="ep-about-split-authority__col-left">
+              <div className="ep-about-split-authority__text-half">
+                <div className="ep-about-split-authority__text-inner">
+                  <h2 className="ep-title-lg ep-about-split-authority__title">
+                    Estrutura própria, base operacional e <em>liderança internacional.</em>
+                  </h2>
 
-                <p className="ep-copy ep-about-split-authority__lead">
-                  A Embarpet é a empresa especializada em transporte aéreo de animais do <strong>Grupo Embarcompany</strong>, ecossistema líder em mobilidade internacional. Nossa sede e equipe de solo estão estrategicamente posicionadas em Guarulhos / SP, a minutos do Aeroporto Internacional (GRU), garantindo suporte presencial no MAPA e fiscalização em tempo real.
-                </p>
+                  <p className="ep-copy ep-about-split-authority__lead">
+                    A Embarpet é a empresa especializada em transporte aéreo de animais do <strong>Grupo Embarcompany</strong>, ecossistema líder em mobilidade internacional. Nossa sede e equipe de solo estão estrategicamente posicionadas em Guarulhos / SP, a minutos do Aeroporto Internacional (GRU), garantindo suporte presencial no MAPA e fiscalização em tempo real.
+                  </p>
+                </div>
+              </div>
 
-                <div className="ep-about-split-authority__map-card">
-                  <div className="ep-about-split-authority__map-frame">
-                    <iframe
-                      title="Localização Embarpet - Base Guarulhos"
-                      src="https://maps.google.com/maps?q=R.+Leonor+Bresser+Corr%C3%AAa,+33+-+Vila+Galv%C3%A3o,+Guarulhos+-+SP&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                      width="100%"
-                      height="100%"
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    />
+              <div className="ep-about-split-authority__map-half">
+                <iframe
+                  title="Localização Embarpet - Base Guarulhos"
+                  src="https://maps.google.com/maps?q=R.+Leonor+Bresser+Corr%C3%AAa,+33+-+Vila+Galv%C3%A3o,+Guarulhos+-+SP&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="ep-about-split-authority__map-iframe"
+                />
+                <div className="ep-about-split-authority__map-bar">
+                  <div className="ep-about-split-authority__map-bar-info">
+                    <MapPin size={15} aria-hidden="true" />
+                    <span>R. Leonor Bresser Corrêa, 33 — Guarulhos / SP (Base GRU)</span>
                   </div>
-                  <div className="ep-about-split-authority__map-footer">
-                    <div className="ep-about-split-authority__map-text">
-                      <MapPin size={16} aria-hidden="true" />
-                      <span>R. Leonor Bresser Corrêa, 33 — Guarulhos / SP</span>
-                    </div>
-                    <a
-                      href="https://www.google.com/maps/dir/?api=1&destination=R.+Leonor+Bresser+Corr%C3%AAa%2C+33+-+Vila+Galv%C3%A3o%2C+Guarulhos+-+SP"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="ep-about-split-authority__map-btn"
-                    >
-                      <Navigation size={14} aria-hidden="true" />
-                      <span>Traçar rota</span>
-                      <ExternalLink size={12} aria-hidden="true" />
-                    </a>
-                  </div>
+                  <a
+                    href="https://www.google.com/maps/dir/?api=1&destination=R.+Leonor+Bresser+Corr%C3%AAa%2C+33+-+Vila+Galv%C3%A3o%2C+Guarulhos+-+SP"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ep-about-split-authority__map-bar-btn"
+                  >
+                    <Navigation size={13} aria-hidden="true" />
+                    <span>Traçar rota no Google Maps</span>
+                    <ExternalLink size={12} aria-hidden="true" />
+                  </a>
                 </div>
               </div>
             </div>
