@@ -1,0 +1,61 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-09-11T13:44:41.674Z",
+  "phase": null,
+  "phase_name": "project-initialization",
+  "phase_dir": null,
+  "plan": null,
+  "task": null,
+  "total_tasks": 4,
+  "status": "paused",
+  "completed_tasks": [
+    {
+      "id": 1,
+      "name": "Mapear a base de código",
+      "status": "done",
+      "commit": "161f241"
+    },
+    {
+      "id": 2,
+      "name": "Definir o escopo dos destinos prioritários",
+      "status": "done",
+      "commit": null
+    },
+    {
+      "id": 3,
+      "name": "Registrar contexto de projeto e handoff",
+      "status": "done",
+      "commit": "pending"
+    }
+  ],
+  "remaining_tasks": [
+    {
+      "id": 4,
+      "name": "Planejar e executar a expansão para Portugal, Espanha, Itália, Argentina, Uruguai e Paraguai",
+      "status": "not_started"
+    }
+  ],
+  "blockers": [],
+  "async_jobs": [],
+  "human_actions_pending": [],
+  "decisions": [
+    {
+      "decision": "Criar LPs para todos os sete destinos apresentados no header",
+      "rationale": "Cada item do menu deve levar a uma experiência de conversão contextual, não a um bloco genérico.",
+      "phase": "project-initialization"
+    },
+    {
+      "decision": "Usar EUA como referência e preservar uma única DestinationPage",
+      "rationale": "O comportamento de CTA, modal e layout já está validado; novos países devem ser configuração, não cópia de TSX.",
+      "phase": "project-initialization"
+    },
+    {
+      "decision": "Executar primeiro Europa e depois Mercosul",
+      "rationale": "Agrupa revisão editorial e contexto de rota sem comprometer a cobertura completa do header.",
+      "phase": "project-initialization"
+    }
+  ],
+  "uncommitted_files": [],
+  "next_action": "Ler .planning/PROJECT.md e os documentos em .planning/codebase/, depois iniciar $gsd-new-project ou criar o roadmap equivalente antes de alterar código.",
+  "context_notes": "Não há fase, plano ou pesquisa ativa. A LP EUA está implementada e serve de referência. Os seis destinos restantes no header ainda apontam para /#destinos. Não gerar imagens por IA nesta etapa e não tratar exigências regulatórias como permanentes."
+}
