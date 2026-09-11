@@ -1,5 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm ci",
+  "cleanUrls": true,
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -12,10 +17,17 @@
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
+    },
+    {
+      "source": "/(sitemap.xml|robots.txt)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=3600" }
+      ]
     }
   ],
   "rewrites": [
     { "source": "/design-system/botoes", "destination": "/index.html" },
+    { "source": "/modalidades/(.*)", "destination": "/index.html" },
     { "source": "/destinos/(.*)", "destination": "/index.html" },
     { "source": "/analise", "destination": "/index.html" },
     { "source": "/viajar", "destination": "/index.html" },
@@ -23,6 +35,9 @@
     { "source": "/en", "destination": "/en/index.html" },
     { "source": "/es", "destination": "/es/index.html" },
     { "source": "/ja", "destination": "/ja/index.html" },
+    { "source": "/en/modalidades/(.*)", "destination": "/en/index.html" },
+    { "source": "/es/modalidades/(.*)", "destination": "/es/index.html" },
+    { "source": "/ja/modalidades/(.*)", "destination": "/ja/index.html" },
     { "source": "/en/destinos/(.*)", "destination": "/en/index.html" },
     { "source": "/es/destinos/(.*)", "destination": "/es/index.html" },
     { "source": "/ja/destinos/(.*)", "destination": "/ja/index.html" },
