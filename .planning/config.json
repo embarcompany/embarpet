@@ -1,0 +1,16 @@
+{
+  "project_name": "Embarpet",
+  "version": "1.0.0",
+  "workflow": {
+    "auto_verify": true,
+    "atomic_commits": true,
+    "code_review_gates": true,
+    "ci_integration": true
+  },
+  "branching": {
+    "production_branch": "main",
+    "feature_prefix": "feat/",
+    "fix_prefix": "fix/",
+    "refactor_prefix": "refactor/"
+  }
+}
