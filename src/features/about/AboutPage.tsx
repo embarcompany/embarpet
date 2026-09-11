@@ -1,29 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
-  Award,
-  Building2,
-  Check,
   CheckCircle2,
   Clock,
   Compass,
   FileCheck2,
-  Globe2,
   Heart,
   HeartHandshake,
   HelpCircle,
   Luggage,
   MapPin,
-  MessageCircle,
-  Navigation,
   PawPrint,
   Plane,
   Route,
   ShieldAlert,
   ShieldCheck,
-  Sparkles,
   Stethoscope,
-  Users,
 } from "lucide-react";
 import { ConversionHero } from "../../design-system/patterns";
 import { ScrollFlyIn } from "../../components/ui/hero-section-3";
@@ -31,7 +23,6 @@ import { CaseDragCards } from "../../components/ui/case-drag-cards";
 import { SiteHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisModal } from "../../components/ui/analysis-modal";
-import { InternalLink } from "../../components/ui/buttons";
 import { setPageMetadata } from "../../lib/seo";
 import { WhatsAppFloat } from "../../components/ui/whatsapp-float";
 
@@ -191,7 +182,7 @@ export default function AboutPage() {
 
       <SiteHeader overlay logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" activeLabel="Sobre" />
 
-      <main>
+      <main className="ep-about-main">
         {/* ==================================================================
             1. HERO: ConversionHero (Bright IDV Gradient, Asymmetric, Polished)
             ================================================================== */}
@@ -333,34 +324,34 @@ export default function AboutPage() {
         {/* ==================================================================
             4. METODOLOGIA: Do Documento à Operação Completa (8 Passos)
             ================================================================== */}
-        <section className="ep-home-process-section" id="metodologia">
-          <div className="ep-container ep-home-process ep-home-process--framework">
-            <div className="ep-home-process__intro">
+        <section className="ep-about-methodology-section" id="metodologia">
+          <div className="ep-container ep-about-methodology-grid">
+            <div className="ep-about-methodology-intro">
               <p className="ep-eyebrow">Metodologia Integrada</p>
               <h2 className="ep-title-lg">Do documento à <em>operação completa.</em></h2>
               <p className="ep-copy">
                 Uma viagem internacional com animais vivos exige sincronia absoluta entre múltiplos órgãos oficiais, companhias aéreas e prazos biológicos rígidos.
               </p>
-              <button type="button" className="ep-home-process__cta" onClick={() => openAnalysis()}>
+              <button type="button" className="ep-about-methodology-cta" onClick={() => openAnalysis()}>
                 <span>Planejar embarque do pet</span>
                 <ArrowRight size={18} aria-hidden="true" />
               </button>
             </div>
 
-            <div className="ep-home-process__framework" aria-label="Os 8 passos da metodologia Embarpet">
+            <div className="ep-about-methodology-framework" aria-label="Os 8 passos da metodologia Embarpet">
               <ol>
                 {methodologySteps.map(({ icon: Icon, title, copy, number }) => (
                   <li key={title}>
                     <a href="#analise" onClick={(e) => { e.preventDefault(); openAnalysis(); }}>
-                      <span className="ep-home-process__framework-number">{number}</span>
-                      <span className="ep-home-process__framework-icon">
+                      <span className="ep-about-framework-number">{number}</span>
+                      <span className="ep-about-framework-icon">
                         <Icon size={20} strokeWidth={1.8} />
                       </span>
-                      <span className="ep-home-process__framework-copy">
+                      <span className="ep-about-framework-copy">
                         <strong>{title}</strong>
                         <small>{copy}</small>
                       </span>
-                      <ArrowRight className="ep-home-process__framework-arrow" size={18} aria-hidden="true" />
+                      <ArrowRight className="ep-about-framework-arrow" size={18} aria-hidden="true" />
                     </a>
                   </li>
                 ))}
@@ -372,9 +363,9 @@ export default function AboutPage() {
         {/* ==================================================================
             5. A MUDANÇA DE PERSPECTIVA (Deep Teal Editorial Card)
             ================================================================== */}
-        <section className="ep-home-service ep-about-perspective-card" id="perspectiva">
-          <div className="ep-container ep-home-service__grid">
-            <div className="ep-home-service__content">
+        <section className="ep-about-perspective-section" id="perspectiva">
+          <div className="ep-container ep-about-perspective-grid">
+            <div className="ep-about-perspective-content">
               <p className="ep-eyebrow">Mudança de Perspectiva</p>
               <h2 className="ep-title-lg">A cada embarque, a <em>missão ficava mais clara.</em></h2>
               <p className="ep-copy">
@@ -393,42 +384,40 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <figure className="ep-home-ceo" aria-label="Equipe e liderança Embarpet">
-              <div className="ep-home-ceo__glow" aria-hidden="true" />
-              <img className="ep-home-ceo__portrait" src="/embarpet-ceo-equipe-trim.webp" alt="Liderança da Embarpet" />
-              <span className="ep-home-ceo__fade" aria-hidden="true" />
-              <figcaption className="ep-home-service__identity">
+            <div className="ep-about-perspective-media">
+              <img src="/embarpet-ceo-equipe-trim.webp" alt="Liderança da Embarpet" className="ep-about-perspective-portrait" />
+              <div className="ep-about-perspective-caption">
                 <strong>Equipe & Liderança Embarpet</strong>
                 <span>Mais de 30 especialistas dedicados a cada rota internacional</span>
-              </figcaption>
-            </figure>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* ==================================================================
             6. O MANIFESTO HUMANO: Porque nunca foi apenas sobre transportar pets
             ================================================================== */}
-        <section className="ep-home-authority" id="manifesto">
-          <div className="ep-container ep-home-authority__grid">
-            <div className="ep-home-authority__mosaic" aria-label="Momentos reais de reencontros e embarques">
-              <figure className="ep-home-authority__tile ep-home-authority__tile--main">
+        <section className="ep-about-manifesto-section" id="manifesto">
+          <div className="ep-container ep-about-manifesto-container">
+            <div className="ep-about-authority-mosaic" aria-label="Momentos reais de reencontros e embarques">
+              <figure className="ep-about-mosaic-tile ep-about-mosaic-tile--main">
                 <img src="/embarpet-autoridade-destino-real.jpeg" alt="Pet em viagem internacional com documentos oficiais" />
               </figure>
-              <figure className="ep-home-authority__tile ep-home-authority__tile--talles">
+              <figure className="ep-about-mosaic-tile ep-about-mosaic-tile--talles">
                 <img src="/embarpet-mosaico-cabine.jpeg" alt="Pet acomodado na cabine do avião" />
               </figure>
-              <figure className="ep-home-authority__tile ep-home-authority__tile--leandro">
+              <figure className="ep-about-mosaic-tile ep-about-mosaic-tile--leandro">
                 <img src="/embarpet-mosaico-cuidado.jpg" alt="Acolhimento e carinho com o pet antes do embarque" />
               </figure>
-              <figure className="ep-home-authority__tile ep-home-authority__tile--renato">
+              <figure className="ep-about-mosaic-tile ep-about-mosaic-tile--renato">
                 <img src="/embarpet-mosaico-familia.jpg" alt="Família reunida no destino internacional" />
               </figure>
-              <figure className="ep-home-authority__tile ep-home-authority__tile--luxury">
+              <figure className="ep-about-mosaic-tile ep-about-mosaic-tile--luxury">
                 <img src="/embarpet-mosaico-encontro.jpg" alt="O reencontro no desembarque do aeroporto" />
               </figure>
             </div>
 
-            <div className="ep-home-authority__content">
+            <div className="ep-about-manifesto-content">
               <p className="ep-eyebrow">Nosso Manifesto</p>
               <h2 className="ep-title-lg">Porque nunca foi apenas sobre <em>transportar pets.</em></h2>
               
@@ -462,7 +451,7 @@ export default function AboutPage() {
                 <span><HeartHandshake size={14} /> O primeiro colo</span>
               </div>
 
-              <div className="ep-home-authority__proof" style={{ marginTop: "28px" }}>
+              <div className="ep-about-authority-proof" style={{ marginTop: "28px" }}>
                 <div><strong>+2.000</strong><span>embarques<br />realizados</span></div>
                 <div><img src="/logo-ipata.png" alt="IPATA" /><span>Membro IPATA</span></div>
                 <div><img src="/logo-iata.png" alt="IATA" /><span>Membro IATA</span></div>
@@ -509,7 +498,7 @@ export default function AboutPage() {
         {/* ==================================================================
             8. CASOS REAIS: CaseDragCards
             ================================================================== */}
-        <section className="ep-home-cases" id="historias">
+        <section className="ep-about-cases-section" id="historias">
           <CaseDragCards
             cases={[
               { id: "leandro-hassum", title: "Leandro Hassum", subtitle: "Brasil → Estados Unidos", instagramHandle: "@leandrohassum", instagramUrl: "https://www.instagram.com/leandrohassum/", imageSrc: "/case-leandro-hassum.jpeg", imageAlt: "Leandro Hassum e equipe Embarpet no aeroporto" },

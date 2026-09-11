@@ -1,6 +1,6 @@
 /* ==========================================================================
    Embarpet — Quem Somos / Nossa História (/sobre)
-   Design System Tokens, Layout & Editorial Hierarchy
+   Design System Tokens, Layout & Senior Editorial Hierarchy
    ========================================================================== */
 
 .ep-about-page-v2 {
@@ -11,14 +11,23 @@
   font-family: var(--ep-font);
 }
 
+.ep-about-main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 /* --------------------------------------------------------------------------
    1. HERO: ConversionHero Customizations for /sobre
    -------------------------------------------------------------------------- */
 .ep-about-page-v2 .ep-conversion-hero {
   background: var(--ep-gradient-idv);
+  background-size: 135% 135%;
+  animation: ep-hero-gradient-drift 26s ease-in-out infinite alternate;
   color: var(--ep-teal);
   position: relative;
   overflow: hidden;
+  min-height: auto;
 }
 
 .ep-about-page-v2 .ep-conversion-hero__copy {
@@ -42,7 +51,7 @@
 .ep-about-hero-showcase__frame {
   position: relative;
   width: 100%;
-  max-width: 540px;
+  max-width: 520px;
   border-radius: 24px;
   overflow: hidden;
   background: #ffffff;
@@ -65,6 +74,7 @@
   right: 14px;
   background: rgba(5, 67, 74, 0.94);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 14px;
   padding: 12px 16px;
@@ -381,16 +391,183 @@
 }
 
 /* --------------------------------------------------------------------------
-   3. MUDANÇA DE PERSPECTIVA (Deep Teal Editorial Card)
+   3. METODOLOGIA: Do Documento à Operação Completa (8 Passos)
    -------------------------------------------------------------------------- */
-.ep-about-perspective-card {
-  width: calc(100% - 20px);
-  margin: 10px auto;
-  border-radius: 28px;
+.ep-about-methodology-section {
+  padding-block: clamp(68px, 8vw, 108px);
+  background: #f7fbfb;
+  border-top: 1px solid var(--ep-line);
+  border-bottom: 1px solid var(--ep-line);
+}
+
+.ep-about-methodology-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(36px, 6vw, 84px);
+  align-items: start;
+}
+
+.ep-about-methodology-intro {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ep-about-methodology-intro .ep-title-lg {
+  margin: 12px 0 0;
+}
+
+.ep-about-methodology-intro .ep-copy {
+  margin: 16px 0 28px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.ep-about-methodology-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border: 1px solid var(--ep-teal);
+  border-radius: 999px;
   background: var(--ep-teal);
-  color: var(--ep-paper);
-  overflow: hidden;
-  padding-block: clamp(60px, 7vw, 92px);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 14px rgba(5, 67, 74, 0.16);
+}
+
+.ep-about-methodology-cta:hover {
+  background: var(--ep-turq-deep);
+  border-color: var(--ep-turq-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(5, 67, 74, 0.24);
+}
+
+.ep-about-methodology-framework ol {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ep-about-methodology-framework li a {
+  display: grid;
+  grid-template-columns: 36px 36px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1px solid rgba(0, 73, 77, 0.12);
+  border-radius: 16px;
+  background: #ffffff;
+  color: var(--ep-teal);
+  text-decoration: none;
+  transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(5, 67, 74, 0.03);
+}
+
+.ep-about-methodology-framework li a:hover {
+  border-color: var(--ep-turq);
+  background: #ffffff;
+  transform: translateX(4px);
+  box-shadow: 0 6px 20px rgba(0, 157, 172, 0.12);
+}
+
+.ep-about-framework-number {
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--ep-turq-deep);
+  letter-spacing: -0.02em;
+}
+
+.ep-about-framework-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(0, 157, 172, 0.1);
+  color: var(--ep-turq-deep);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.ep-about-methodology-framework li a:hover .ep-about-framework-icon {
+  background: var(--ep-teal);
+  color: var(--ep-lime);
+}
+
+.ep-about-framework-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.ep-about-framework-copy strong {
+  font-size: 13px;
+  font-weight: 750;
+  color: var(--ep-teal);
+}
+
+.ep-about-framework-copy small {
+  font-size: 11px;
+  color: var(--ep-muted);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.ep-about-framework-arrow {
+  color: rgba(0, 157, 172, 0.4);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.ep-about-methodology-framework li a:hover .ep-about-framework-arrow {
+  color: var(--ep-turq-deep);
+  transform: translateX(3px);
+}
+
+/* --------------------------------------------------------------------------
+   4. MUDANÇA DE PERSPECTIVA (Deep Teal Editorial Card)
+   -------------------------------------------------------------------------- */
+.ep-about-perspective-section {
+  padding-block: clamp(68px, 8vw, 104px);
+  background: var(--ep-page);
+}
+
+.ep-about-perspective-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: clamp(36px, 6vw, 76px);
+  align-items: center;
+  background: linear-gradient(135deg, #05434a 0%, #033238 100%);
+  border-radius: 28px;
+  padding: clamp(36px, 5vw, 68px);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(5, 67, 74, 0.16);
+}
+
+.ep-about-perspective-content .ep-eyebrow {
+  color: var(--ep-turq);
+}
+
+.ep-about-perspective-content .ep-title-lg {
+  color: #ffffff;
+  margin-top: 10px;
+}
+
+.ep-about-perspective-content .ep-title-lg em {
+  color: var(--ep-lime);
+  font-style: normal;
+}
+
+.ep-about-perspective-content .ep-copy {
+  color: rgba(255, 255, 255, 0.82);
+  margin-top: 14px;
 }
 
 .ep-about-perspective-contrast {
@@ -402,12 +579,12 @@
 
 .ep-about-perspective-contrast__box {
   padding: 16px 20px;
-  border-radius: 12px;
+  border-radius: 14px;
 }
 
 .ep-about-perspective-contrast__box--old {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .ep-about-perspective-contrast__box--old small {
@@ -422,14 +599,14 @@
 
 .ep-about-perspective-contrast__box--old p {
   margin: 0;
-  font-size: 14px;
+  font-size: 13px;
   font-style: italic;
   color: rgba(255, 255, 255, 0.85);
 }
 
 .ep-about-perspective-contrast__arrow {
   color: var(--ep-lime);
-  font-size: 18px;
+  font-size: 16px;
   padding-left: 10px;
 }
 
@@ -450,15 +627,127 @@
 
 .ep-about-perspective-contrast__box--new strong {
   display: block;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 750;
   line-height: 1.45;
   color: #ffffff;
 }
 
+.ep-about-perspective-media {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.2);
+}
+
+.ep-about-perspective-portrait {
+  width: 100%;
+  height: clamp(340px, 38vw, 440px);
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+.ep-about-perspective-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(3, 50, 56, 0.95) 0%, rgba(3, 50, 56, 0) 100%);
+  padding: 24px 18px 14px;
+  color: #ffffff;
+}
+
+.ep-about-perspective-caption strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.ep-about-perspective-caption span {
+  display: block;
+  font-size: 11px;
+  color: var(--ep-turq);
+  margin-top: 2px;
+}
+
 /* --------------------------------------------------------------------------
-   4. MANIFESTO GRID & REUNION MOMENTS
+   5. O MANIFESTO HUMANO & MOSAICO DE AUTORIDADE
    -------------------------------------------------------------------------- */
+.ep-about-manifesto-section {
+  padding-block: clamp(68px, 8vw, 104px);
+  background: #f7fbfb;
+  border-top: 1px solid var(--ep-line);
+}
+
+.ep-about-manifesto-container {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(36px, 6vw, 76px);
+  align-items: center;
+}
+
+/* Mosaic Tiles */
+.ep-about-authority-mosaic {
+  display: grid;
+  grid-template-columns: 1.34fr 0.9fr 0.9fr;
+  grid-template-rows: 1fr 1fr 0.72fr;
+  min-height: 480px;
+  gap: 9px;
+  width: 100%;
+}
+
+.ep-about-mosaic-tile {
+  position: relative;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--ep-line);
+  border-radius: 16px;
+  background: var(--ep-soft);
+  box-shadow: 0 4px 12px rgba(5, 67, 74, 0.04);
+}
+
+.ep-about-mosaic-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ep-about-mosaic-tile:hover img {
+  transform: scale(1.05);
+}
+
+.ep-about-mosaic-tile--main {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  border-radius: 22px;
+}
+
+.ep-about-mosaic-tile--talles {
+  grid-column: 2 / span 2;
+  grid-row: 1;
+}
+
+.ep-about-mosaic-tile--leandro {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.ep-about-mosaic-tile--renato {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.ep-about-mosaic-tile--luxury {
+  grid-column: 1 / span 3;
+  grid-row: 3;
+}
+
 .ep-about-manifesto-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -467,7 +756,7 @@
 }
 
 .ep-about-manifesto-item {
-  background: var(--ep-soft);
+  background: #ffffff;
   border: 1px solid var(--ep-line);
   border-radius: 12px;
   padding: 14px 16px;
@@ -517,21 +806,61 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--ep-soft);
-  border: 1px solid rgba(0, 157, 172, 0.16);
+  background: #ffffff;
+  border: 1px solid rgba(0, 157, 172, 0.18);
   border-radius: 8px;
-  padding: 6px 11px;
+  padding: 6px 12px;
   font-size: 11px;
   font-weight: 700;
   color: var(--ep-teal);
+  box-shadow: 0 2px 6px rgba(5, 67, 74, 0.02);
 }
 
 .ep-about-reunion-steps svg {
   color: var(--ep-turq-deep);
 }
 
+.ep-about-authority-proof {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ep-about-authority-proof > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1px solid var(--ep-line);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(5, 67, 74, 0.03);
+}
+
+.ep-about-authority-proof strong {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--ep-teal);
+  line-height: 1;
+}
+
+.ep-about-authority-proof span {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ep-muted);
+  line-height: 1.25;
+}
+
+.ep-about-authority-proof img {
+  height: 24px;
+  max-width: 60px;
+  object-fit: contain;
+}
+
 /* --------------------------------------------------------------------------
-   5. BASE OPERACIONAL EM GUARULHOS
+   6. BASE OPERACIONAL EM GUARULHOS
    -------------------------------------------------------------------------- */
 .ep-about-base-section {
   padding-block: clamp(48px, 6vw, 76px);
@@ -626,8 +955,12 @@
 }
 
 /* --------------------------------------------------------------------------
-   6. FINAL MANIFESTO QUOTE & SCROLL FLY-IN
+   7. CASOS REAIS & FINAL MANIFESTO QUOTE
    -------------------------------------------------------------------------- */
+.ep-about-cases-section {
+  padding-block: clamp(40px, 5vw, 64px);
+}
+
 .ep-about-final-manifesto-quote {
   font-size: clamp(15px, 1.8vw, 18px);
   color: rgba(255, 255, 255, 0.9);
@@ -642,7 +975,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   7. RESPONSIVE BREAKPOINTS
+   8. RESPONSIVE BREAKPOINTS
    -------------------------------------------------------------------------- */
 @media (max-width: 991px) {
   .ep-about-origin-bento {
@@ -660,6 +993,19 @@
   .ep-about-origin-card--evolution {
     grid-column: 1;
     grid-row: auto;
+  }
+  .ep-about-methodology-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .ep-about-methodology-intro {
+    position: static;
+  }
+  .ep-about-perspective-grid {
+    grid-template-columns: 1fr;
+  }
+  .ep-about-manifesto-container {
+    grid-template-columns: 1fr;
   }
   .ep-about-base-card {
     grid-template-columns: 1fr;
@@ -688,5 +1034,30 @@
   .ep-about-reunion-steps {
     flex-direction: column;
     align-items: stretch;
+  }
+  .ep-about-authority-mosaic {
+    grid-template-columns: 1.18fr 0.82fr;
+    grid-template-rows: 150px 150px 86px;
+    min-height: 400px;
+    gap: 7px;
+  }
+  .ep-about-mosaic-tile--main {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  .ep-about-mosaic-tile--talles {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .ep-about-mosaic-tile--leandro {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .ep-about-mosaic-tile--renato {
+    grid-column: 1 / span 2;
+    grid-row: 3;
+  }
+  .ep-about-mosaic-tile--luxury {
+    display: none;
   }
 }

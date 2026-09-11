@@ -1367,22 +1367,22 @@
 }
 
 /* Ordem de conversão da home: decisão → possibilidade → método → prova → confiança → ação. */
-main { display:flex; flex-direction:column; }
-main > .ep-conversion-hero { order:1; }
+main.ep-home-main { display:flex; flex-direction:column; }
+main.ep-home-main > .ep-conversion-hero { order:1; }
 /* A faixa visual é continuação imediata da primeira dobra, não conteúdo prioritário do main. */
-main > .ep-embarkation-marquee { order:2; }
-main > .ep-home-notice { order:2; }
-main > .ep-authority-band { order:3; }
-main > .ep-home-authority { order:3; }
-main > .ep-home-modalities { order:4; }
-main > .ep-home-service { order:5; }
-main > .ep-home-process-section { order:6; }
-main > .ep-home-press { order:7; }
-main > .ep-home-cases { order:8; }
-main > .ep-home-luxury { order:9; }
-main > .ep-home-destinations { order:10; }
-main > .ep-home-faq { order:11; }
-main > .ep-final-fly-in { order:12; }
+main.ep-home-main > .ep-embarkation-marquee { order:2; }
+main.ep-home-main > .ep-home-notice { order:2; }
+main.ep-home-main > .ep-authority-band { order:3; }
+main.ep-home-main > .ep-home-modalities { order:4; }
+main.ep-home-main > .ep-home-service { order:5; }
+main.ep-home-main > .ep-home-process-section { order:6; }
+main.ep-home-main > .ep-home-press { order:7; }
+main.ep-home-main > .ep-home-cases { order:8; }
+main.ep-home-main > .ep-home-luxury { order:9; }
+main.ep-home-main > .ep-home-destinations { order:10; }
+main.ep-home-main > .ep-home-authority { order:11; }
+main.ep-home-main > .ep-home-faq { order:12; }
+main.ep-home-main > .ep-final-fly-in { order:13; }
 
 /* Pílula PetLuxo: miniatura de pet + assinatura, sem duplicação de texto. */
 .ep-home-luxury .ep-eyebrow { display:inline-flex!important; min-height:34px; align-items:center; gap:7px!important; padding:4px 11px 4px 5px!important; font-size:0!important; }
