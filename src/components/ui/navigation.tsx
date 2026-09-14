@@ -19,6 +19,7 @@ import {
   Route,
   Search,
   ShieldCheck,
+  Sparkles,
   Users,
   X,
   type LucideIcon,
@@ -40,6 +41,13 @@ export type NavigationLink = {
 export type NavigationItem = NavigationLink & {
   children?: NavigationLink[];
   featuredChildren?: NavigationLink[];
+  promoAction?: {
+    badge?: string;
+    title: string;
+    description: string;
+    buttonLabel: string;
+    href?: string;
+  };
 };
 
 export function LanguageSelector({ compact = false }: { compact?: boolean }) {
@@ -185,6 +193,12 @@ export function SiteHeader({
           { label: "Paraguai", href: path("/destinos/paraguai"), description: "Requisitos de entrada", flagSrc: countryFlagSvg("PY") },
           { label: "Outros 80+ Destinos", href: path("/#destinos"), description: "Consulte sua rota sob medida", icon: Globe2 },
         ],
+        promoAction: {
+          badge: "Planejamento Sob Medida",
+          title: "Vai para outro país?",
+          description: "Planejamos rotas personalizadas com sincronia de laudos, vacinas e microchip para mais de 80 destinos internacionais.",
+          buttonLabel: "Consultar Rota",
+        },
       },
       {
         label: text.navModalities,
@@ -219,6 +233,12 @@ export function SiteHeader({
             icon: HeartHandshake,
           },
         ],
+        promoAction: {
+          badge: "Diagnóstico Veterinário",
+          title: "Dúvida sobre a modalidade?",
+          description: "Nossa equipe avalia raça, medidas anatômicas e peso para indicar a modalidade 100% segura para seu pet.",
+          buttonLabel: "Avaliar Modalidade",
+        },
       },
       {
         label: text.navHow,
@@ -387,6 +407,35 @@ export function SiteHeader({
                                 })}
                               </div>
                             </div>
+
+                            {/* Promotional / Conversion Column */}
+                            {item.promoAction ? (
+                              <div className="ep-mega-menu__promo-col">
+                                <div className="ep-mega-menu__promo-card">
+                                  <div className="ep-mega-menu__promo-top">
+                                    {item.promoAction.badge ? (
+                                      <span className="ep-mega-menu__promo-badge">
+                                        <Sparkles size={12} />
+                                        {item.promoAction.badge}
+                                      </span>
+                                    ) : null}
+                                    <b>{item.promoAction.title}</b>
+                                    <p>{item.promoAction.description}</p>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    className="ep-mega-menu__promo-btn"
+                                    onClick={() => {
+                                      setOpen(null);
+                                      openPrimaryCta();
+                                    }}
+                                  >
+                                    <span>{item.promoAction.buttonLabel}</span>
+                                    <ArrowRight size={14} />
+                                  </button>
+                                </div>
+                              </div>
+                            ) : null}
                           </div>
                         </div>
                       </div>
