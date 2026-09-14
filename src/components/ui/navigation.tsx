@@ -46,6 +46,7 @@ export type NavigationItem = NavigationLink & {
     title: string;
     description: string;
     buttonLabel: string;
+    imageSrc?: string;
     href?: string;
   };
 };
@@ -197,7 +198,8 @@ export function SiteHeader({
           badge: "Planejamento Sob Medida",
           title: "Vai para outro país?",
           description: "Planejamos rotas personalizadas com sincronia de laudos, vacinas e microchip para mais de 80 destinos internacionais.",
-          buttonLabel: "Consultar Rota",
+          buttonLabel: "Consultar Especialista",
+          imageSrc: "/embarpet-autoridade-destino-real.jpeg",
         },
       },
       {
@@ -238,6 +240,7 @@ export function SiteHeader({
           title: "Dúvida sobre a modalidade?",
           description: "Nossa equipe avalia raça, medidas anatômicas e peso para indicar a modalidade 100% segura para seu pet.",
           buttonLabel: "Avaliar Modalidade",
+          imageSrc: "/embarpet-bagagem-acompanhada.webp",
         },
       },
       {
@@ -413,9 +416,13 @@ export function SiteHeader({
                               <div className="ep-mega-menu__promo-col">
                                 <div className="ep-mega-menu__promo-card">
                                   <div className="ep-mega-menu__promo-top">
+                                    {item.promoAction.imageSrc ? (
+                                      <div className="ep-mega-menu__promo-media">
+                                        <img src={item.promoAction.imageSrc} alt="" />
+                                      </div>
+                                    ) : null}
                                     {item.promoAction.badge ? (
                                       <span className="ep-mega-menu__promo-badge">
-                                        <Sparkles size={12} />
                                         {item.promoAction.badge}
                                       </span>
                                     ) : null}
@@ -430,8 +437,7 @@ export function SiteHeader({
                                       openPrimaryCta();
                                     }}
                                   >
-                                    <span>{item.promoAction.buttonLabel}</span>
-                                    <ArrowRight size={14} />
+                                    {item.promoAction.buttonLabel}
                                   </button>
                                 </div>
                               </div>
