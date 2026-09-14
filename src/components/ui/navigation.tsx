@@ -335,90 +335,96 @@ export function SiteHeader({
 
                     {isOpen ? (
                       <div className={cn("ep-mega-menu", item.label === text.navDestinations ? "ep-mega-menu--destinations" : "ep-mega-menu--modalities")}>
-                        {/* If Destinations: Show Featured Routes Column + Standard Grid */}
-                        {item.featuredChildren?.length ? (
-                          <div className="ep-mega-menu__featured-col">
-                            <span className="ep-mega-menu__section-label">Rotas Principais</span>
-                            <div className="ep-mega-menu__featured-list">
-                              {item.featuredChildren.map((featured) => (
-                                <a
-                                  key={featured.label}
-                                  href={featured.href}
-                                  className="ep-mega-menu__featured-card"
-                                  onClick={() => setOpen(null)}
-                                >
-                                  <span className="ep-mega-menu__flag">
-                                    {featured.flagSrc ? <img src={featured.flagSrc} alt="" aria-hidden="true" /> : <MapPin size={18} />}
-                                  </span>
-                                  <div>
-                                    <div className="ep-mega-menu__featured-head">
-                                      <b>{featured.label}</b>
-                                      {featured.badge ? <span className="ep-mega-menu__badge">{featured.badge}</span> : null}
-                                    </div>
-                                    {featured.description ? <small>{featured.description}</small> : null}
-                                  </div>
-                                </a>
-                              ))}
-                            </div>
-                          </div>
-                        ) : null}
+                        <div className="ep-mega-menu__container ep-container">
+                          <div className="ep-mega-menu__columns">
+                            {/* If Destinations: Show Featured Routes Column */}
+                            {item.featuredChildren?.length ? (
+                              <div className="ep-mega-menu__featured-col">
+                                <span className="ep-mega-menu__section-label">Rotas Principais</span>
+                                <div className="ep-mega-menu__featured-list">
+                                  {item.featuredChildren.map((featured) => (
+                                    <a
+                                      key={featured.label}
+                                      href={featured.href}
+                                      className="ep-mega-menu__featured-card"
+                                      onClick={() => setOpen(null)}
+                                    >
+                                      <span className="ep-mega-menu__flag">
+                                        {featured.flagSrc ? <img src={featured.flagSrc} alt="" aria-hidden="true" /> : <MapPin size={18} />}
+                                      </span>
+                                      <div className="ep-mega-menu__featured-body">
+                                        <div className="ep-mega-menu__featured-head">
+                                          <b>{featured.label}</b>
+                                          {featured.badge ? <span className="ep-mega-menu__badge">{featured.badge}</span> : null}
+                                        </div>
+                                        {featured.description ? <small>{featured.description}</small> : null}
+                                      </div>
+                                    </a>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : null}
 
-                        {/* Standard Children Grid */}
-                        <div className="ep-mega-menu__main-col">
-                          <span className="ep-mega-menu__section-label">
-                            {item.label === text.navDestinations ? "Outros Destinos Atendidos" : "Modalidades de Voo"}
-                          </span>
-                          <div className="ep-mega-menu__grid">
-                            {item.children?.map((child) => {
-                              const ChildIcon = child.icon ?? ArrowRight;
-                              return (
-                                <a
-                                  key={child.label}
-                                  href={child.href}
-                                  className="ep-mega-menu__item"
-                                  onClick={() => setOpen(null)}
-                                >
-                                  <span className="ep-mega-menu__icon">
-                                    {child.flagSrc ? (
-                                      <img src={child.flagSrc} alt="" aria-hidden="true" />
-                                    ) : (
-                                      <ChildIcon size={16} />
-                                    )}
-                                  </span>
-                                  <div className="ep-mega-menu__item-info">
-                                    <div className="ep-mega-menu__item-head">
-                                      <b>{child.label}</b>
-                                      {child.badge ? <span className="ep-mega-menu__badge--subtle">{child.badge}</span> : null}
-                                    </div>
-                                    {child.description ? <small>{child.description}</small> : null}
-                                  </div>
-                                </a>
-                              );
-                            })}
+                            {/* Standard Children Grid */}
+                            <div className="ep-mega-menu__main-col">
+                              <span className="ep-mega-menu__section-label">
+                                {item.label === text.navDestinations ? "Outros Destinos Atendidos" : "Modalidades de Voo"}
+                              </span>
+                              <div className="ep-mega-menu__grid">
+                                {item.children?.map((child) => {
+                                  const ChildIcon = child.icon ?? ArrowRight;
+                                  return (
+                                    <a
+                                      key={child.label}
+                                      href={child.href}
+                                      className="ep-mega-menu__item"
+                                      onClick={() => setOpen(null)}
+                                    >
+                                      <span className="ep-mega-menu__icon">
+                                        {child.flagSrc ? (
+                                          <img src={child.flagSrc} alt="" aria-hidden="true" />
+                                        ) : (
+                                          <ChildIcon size={18} />
+                                        )}
+                                      </span>
+                                      <div className="ep-mega-menu__item-info">
+                                        <div className="ep-mega-menu__item-head">
+                                          <b>{child.label}</b>
+                                          {child.badge ? <span className="ep-mega-menu__badge--subtle">{child.badge}</span> : null}
+                                        </div>
+                                        {child.description ? <small>{child.description}</small> : null}
+                                      </div>
+                                    </a>
+                                  );
+                                })}
+                              </div>
+                            </div>
                           </div>
                         </div>
 
-                        {/* Footer Action Card (CRO Micro-Conversion) */}
+                        {/* Footer Action Card across full width */}
                         {item.footerAction ? (
-                          <div className="ep-mega-menu__footer">
-                            <div className="ep-mega-menu__footer-info">
-                              <Sparkles size={16} className="ep-mega-menu__footer-icon" />
-                              <div>
-                                <b>{item.footerAction.label}</b>
-                                <small>{item.footerAction.description}</small>
+                          <div className="ep-mega-menu__footer-wrapper">
+                            <div className="ep-container ep-mega-menu__footer">
+                              <div className="ep-mega-menu__footer-info">
+                                <Sparkles size={16} className="ep-mega-menu__footer-icon" />
+                                <div>
+                                  <b>{item.footerAction.label}</b>
+                                  <small>{item.footerAction.description}</small>
+                                </div>
                               </div>
+                              <button
+                                type="button"
+                                className="ep-mega-menu__footer-btn"
+                                onClick={() => {
+                                  setOpen(null);
+                                  openPrimaryCta();
+                                }}
+                              >
+                                <span>Consultar Rota Sob Medida</span>
+                                <ArrowRight size={13} />
+                              </button>
                             </div>
-                            <button
-                              type="button"
-                              className="ep-mega-menu__footer-btn"
-                              onClick={() => {
-                                setOpen(null);
-                                openPrimaryCta();
-                              }}
-                            >
-                              <span>Consultar Rota</span>
-                              <ArrowRight size={13} />
-                            </button>
                           </div>
                         ) : null}
                       </div>
