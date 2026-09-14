@@ -6,13 +6,10 @@ import {
   CheckCircle2,
   Clock,
   Compass,
-  ExternalLink,
   Eye,
   Heart,
   HeartHandshake,
   Luggage,
-  MapPin,
-  Navigation,
   PawPrint,
   Plane,
   ShieldCheck,
@@ -335,8 +332,8 @@ export default function AboutPage() {
             <div className="ep-about-split-origin__visual">
               <div className="ep-about-split-origin__photo-frame">
                 <img
-                  src="/embarpet-thamires-felix.webp"
-                  alt="Thamires Felix e Daiane Sarmento, fundadoras da Embarpet"
+                  src="/embarpet-fundacao-2018.jpg"
+                  alt="Thamires Felix, Daiane Sarmento e cão no estúdio de TV na fundação da Embarpet"
                   className="ep-about-split-origin__photo"
                 />
               </div>
@@ -473,6 +470,8 @@ export default function AboutPage() {
             <div className="ep-about-split-authority__col-left">
               <div className="ep-about-split-authority__text-half">
                 <div className="ep-about-split-authority__text-inner">
+                  <span className="ep-eyebrow ep-eyebrow--dark">Base Operacional & Liderança</span>
+
                   <h2 className="ep-title-lg ep-about-split-authority__title">
                     Estrutura própria, base operacional e <em>liderança internacional.</em>
                   </h2>
@@ -486,29 +485,13 @@ export default function AboutPage() {
               <div className="ep-about-split-authority__map-half">
                 <iframe
                   title="Localização Embarpet - Base Guarulhos"
-                  src="https://maps.google.com/maps?q=R.+Leonor+Bresser+Corr%C3%AAa,+33+-+Vila+Galv%C3%A3o,+Guarulhos+-+SP&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  src="https://maps.google.com/maps?q=Rua+Leonor+Bresser+Corr%C3%AAa,+33+-+Vila+Galv%C3%A3o,+Guarulhos+-+SP&t=&z=15&ie=UTF8&iwloc=&output=embed"
                   width="100%"
                   height="100%"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   className="ep-about-split-authority__map-iframe"
                 />
-                <div className="ep-about-split-authority__map-bar">
-                  <div className="ep-about-split-authority__map-bar-info">
-                    <MapPin size={15} aria-hidden="true" />
-                    <span>R. Leonor Bresser Corrêa, 33 — Guarulhos / SP (Base GRU)</span>
-                  </div>
-                  <a
-                    href="https://www.google.com/maps/dir/?api=1&destination=R.+Leonor+Bresser+Corr%C3%AAa%2C+33+-+Vila+Galv%C3%A3o%2C+Guarulhos+-+SP"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="ep-about-split-authority__map-bar-btn"
-                  >
-                    <Navigation size={13} aria-hidden="true" />
-                    <span>Traçar rota no Google Maps</span>
-                    <ExternalLink size={12} aria-hidden="true" />
-                  </a>
-                </div>
               </div>
             </div>
 
@@ -516,8 +499,8 @@ export default function AboutPage() {
             <div className="ep-about-split-authority__visual">
               <div className="ep-about-split-authority__photo-frame">
                 <img
-                  src="/embarpet-carga-viva-operacao.jpeg"
-                  alt="Operação de transporte de animais vivos na pista do aeroporto internacional"
+                  src="/embarpet-embarcompany-lideranca.jpg"
+                  alt="Daiane Sarmento e Thamires Felix na sede do Grupo Embarcompany"
                   className="ep-about-split-authority__photo"
                 />
               </div>
