@@ -8,6 +8,7 @@ import {
   ChevronDown,
   ChevronRight,
   ClipboardCheck,
+  Crown,
   Globe2,
   HeartHandshake,
   HelpCircle,
@@ -246,6 +247,13 @@ export function SiteHeader({
             description: "Orientação e conformidade técnica para animais de assistência em viagens internacionais.",
             icon: HeartHandshake,
           },
+          {
+            label: "PetLuxo",
+            href: path("/#pet-luxo"),
+            badges: ["Exclusivo", "Acompanhamento VIP"],
+            description: "Consultor dedicado acompanhando cada marco da jornada até a entrega com a família.",
+            icon: Crown,
+          },
         ],
         promoAction: {
           badge: "Diagnóstico Veterinário",
@@ -363,10 +371,7 @@ export function SiteHeader({
                             {/* If Destinations: Show Featured Routes Column */}
                             {item.featuredChildren?.length ? (
                               <div className="ep-mega-menu__featured-col">
-                                <div className="ep-mega-menu__col-header">
-                                  <Sparkles size={13} aria-hidden="true" />
-                                  <span>Rotas Principais</span>
-                                </div>
+                                <span className="ep-mega-menu__section-label">Rotas Principais</span>
                                 <div className="ep-mega-menu__featured-list">
                                   {item.featuredChildren.map((featured) => (
                                     <a
@@ -402,19 +407,9 @@ export function SiteHeader({
 
                             {/* Standard Children Grid */}
                             <div className="ep-mega-menu__main-col">
-                              <div className="ep-mega-menu__col-header">
-                                {item.label === text.navDestinations ? (
-                                  <>
-                                    <Globe2 size={13} aria-hidden="true" />
-                                    <span>Outros Destinos Atendidos</span>
-                                  </>
-                                ) : (
-                                  <>
-                                    <Plane size={13} aria-hidden="true" />
-                                    <span>Modalidades de Transporte Aéreo</span>
-                                  </>
-                                )}
-                              </div>
+                              <span className="ep-mega-menu__section-label">
+                                {item.label === text.navDestinations ? "Outros Destinos Atendidos" : "Modalidades de Voo"}
+                              </span>
                               <div className="ep-mega-menu__grid">
                                 {item.children?.map((child) => {
                                   const ChildIcon = child.icon ?? ArrowRight;
@@ -457,19 +452,9 @@ export function SiteHeader({
                             {/* Promotional / Conversion Column */}
                             {item.promoAction ? (
                               <div className="ep-mega-menu__promo-col">
-                                <div className="ep-mega-menu__col-header">
-                                  {item.label === text.navDestinations ? (
-                                    <>
-                                      <ShieldCheck size={13} aria-hidden="true" />
-                                      <span>Assessoria Global</span>
-                                    </>
-                                  ) : (
-                                    <>
-                                      <Award size={13} aria-hidden="true" />
-                                      <span>Suporte Especializado</span>
-                                    </>
-                                  )}
-                                </div>
+                                <span className="ep-mega-menu__section-label">
+                                  {item.label === text.navDestinations ? "Assessoria Personalizada" : "Diagnóstico Seguro"}
+                                </span>
                                 <div className="ep-mega-menu__promo-card">
                                   <div className="ep-mega-menu__promo-top">
                                     {item.promoAction.imageSrc ? (
