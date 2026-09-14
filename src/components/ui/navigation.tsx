@@ -19,7 +19,6 @@ import {
   Route,
   Search,
   ShieldCheck,
-  Sparkles,
   Users,
   X,
   type LucideIcon,
@@ -41,7 +40,6 @@ export type NavigationLink = {
 export type NavigationItem = NavigationLink & {
   children?: NavigationLink[];
   featuredChildren?: NavigationLink[];
-  footerAction?: { label: string; href?: string; description?: string; actionType?: "analysis" | "link" };
 };
 
 export function LanguageSelector({ compact = false }: { compact?: boolean }) {
@@ -187,11 +185,6 @@ export function SiteHeader({
           { label: "Paraguai", href: path("/destinos/paraguai"), description: "Requisitos de entrada", flagSrc: countryFlagSvg("PY") },
           { label: "Outros 80+ Destinos", href: path("/#destinos"), description: "Consulte sua rota sob medida", icon: Globe2 },
         ],
-        footerAction: {
-          label: "Vai para outro país?",
-          description: "Planejamos rotas personalizadas para mais de 80 destinos internacionais.",
-          actionType: "analysis",
-        },
       },
       {
         label: text.navModalities,
@@ -226,11 +219,6 @@ export function SiteHeader({
             icon: HeartHandshake,
           },
         ],
-        footerAction: {
-          label: "Dúvida sobre a modalidade ideal?",
-          description: "Nossa equipe avalia a raça, medidas e peso do seu pet no diagnóstico.",
-          actionType: "analysis",
-        },
       },
       {
         label: text.navHow,
@@ -401,32 +389,6 @@ export function SiteHeader({
                             </div>
                           </div>
                         </div>
-
-                        {/* Footer Action Card across full width */}
-                        {item.footerAction ? (
-                          <div className="ep-mega-menu__footer-wrapper">
-                            <div className="ep-container ep-mega-menu__footer">
-                              <div className="ep-mega-menu__footer-info">
-                                <Sparkles size={16} className="ep-mega-menu__footer-icon" />
-                                <div>
-                                  <b>{item.footerAction.label}</b>
-                                  <small>{item.footerAction.description}</small>
-                                </div>
-                              </div>
-                              <button
-                                type="button"
-                                className="ep-mega-menu__footer-btn"
-                                onClick={() => {
-                                  setOpen(null);
-                                  openPrimaryCta();
-                                }}
-                              >
-                                <span>Consultar Rota Sob Medida</span>
-                                <ArrowRight size={13} />
-                              </button>
-                            </div>
-                          </div>
-                        ) : null}
                       </div>
                     ) : null}
                   </div>
