@@ -35,6 +35,7 @@ export type NavigationLink = {
   icon?: LucideIcon;
   flagSrc?: string;
   badge?: string;
+  badges?: string[];
   highlight?: boolean;
 };
 
@@ -43,6 +44,7 @@ export type NavigationItem = NavigationLink & {
   featuredChildren?: NavigationLink[];
   promoAction?: {
     badge?: string;
+    badges?: string[];
     title: string;
     description: string;
     buttonLabel: string;
@@ -50,6 +52,16 @@ export type NavigationItem = NavigationLink & {
     href?: string;
   };
 };
+
+export function extractBadges(item?: { badge?: string; badges?: string[] } | null): string[] {
+  if (!item) return [];
+  if (item.badges && item.badges.length > 0) return item.badges;
+  if (!item.badge) return [];
+  if (item.badge.includes("·")) {
+    return item.badge.split("·").map((s) => s.trim()).filter(Boolean);
+  }
+  return [item.badge];
+}
 
 export function LanguageSelector({ compact = false }: { compact?: boolean }) {
   const { locale, text } = useLocale();
@@ -172,7 +184,7 @@ export function SiteHeader({
           {
             label: "Estados Unidos",
             href: path("/destinos/estados-unidos"),
-            badge: "Rota #1 · Regras CDC",
+            badges: ["Rota #1", "Regras CDC"],
             description: "Assessoria completa para entrada nos EUA com novas normas sanitárias.",
             flagSrc: countryFlagSvg("US"),
             highlight: true,
@@ -180,7 +192,7 @@ export function SiteHeader({
           {
             label: "Portugal & Europa",
             href: path("/destinos/portugal"),
-            badge: "Entrada UE · MAPA",
+            badges: ["Entrada UE", "MAPA Oficial"],
             description: "Porta de entrada no continente europeu com sincronia de laudos e microchip.",
             flagSrc: countryFlagSvg("PT"),
             highlight: true,
@@ -250,7 +262,7 @@ export function SiteHeader({
       {
         label: "Sobre Nós",
         href: path("/sobre"),
-        badge: "Fundação & GRU",
+        badges: ["Aeroporto GRU", "Desde 2018"],
       },
       {
         label: "Histórias & FAQ",
@@ -351,7 +363,10 @@ export function SiteHeader({
                             {/* If Destinations: Show Featured Routes Column */}
                             {item.featuredChildren?.length ? (
                               <div className="ep-mega-menu__featured-col">
-                                <span className="ep-mega-menu__section-label">Rotas Principais</span>
+                                <div className="ep-mega-menu__col-header">
+                                  <Sparkles size={13} aria-hidden="true" />
+                                  <span>Rotas Principais</span>
+                                </div>
                                 <div className="ep-mega-menu__featured-list">
                                   {item.featuredChildren.map((featured) => (
                                     <a
@@ -366,7 +381,16 @@ export function SiteHeader({
                                       <div className="ep-mega-menu__featured-body">
                                         <div className="ep-mega-menu__featured-head">
                                           <b>{featured.label}</b>
-                                          {featured.badge ? <span className="ep-mega-menu__badge">{featured.badge}</span> : null}
+                                          <div className="ep-mega-menu__badges-wrap">
+                                            {extractBadges(featured).map((b, i) => (
+                                              <span
+                                                key={i}
+                                                className={cn("ep-mega-menu__badge", i > 0 && "ep-mega-menu__badge--secondary")}
+                                              >
+                                                {b}
+                                              </span>
+                                            ))}
+                                          </div>
                                         </div>
                                         {featured.description ? <small>{featured.description}</small> : null}
                                       </div>
@@ -378,9 +402,19 @@ export function SiteHeader({
 
                             {/* Standard Children Grid */}
                             <div className="ep-mega-menu__main-col">
-                              <span className="ep-mega-menu__section-label">
-                                {item.label === text.navDestinations ? "Outros Destinos Atendidos" : "Modalidades de Voo"}
-                              </span>
+                              <div className="ep-mega-menu__col-header">
+                                {item.label === text.navDestinations ? (
+                                  <>
+                                    <Globe2 size={13} aria-hidden="true" />
+                                    <span>Outros Destinos Atendidos</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Plane size={13} aria-hidden="true" />
+                                    <span>Modalidades de Transporte Aéreo</span>
+                                  </>
+                                )}
+                              </div>
                               <div className="ep-mega-menu__grid">
                                 {item.children?.map((child) => {
                                   const ChildIcon = child.icon ?? ArrowRight;
@@ -401,7 +435,16 @@ export function SiteHeader({
                                       <div className="ep-mega-menu__item-info">
                                         <div className="ep-mega-menu__item-head">
                                           <b>{child.label}</b>
-                                          {child.badge ? <span className="ep-mega-menu__badge--subtle">{child.badge}</span> : null}
+                                          <div className="ep-mega-menu__badges-wrap">
+                                            {extractBadges(child).map((b, i) => (
+                                              <span
+                                                key={i}
+                                                className={cn("ep-mega-menu__badge--subtle", i > 0 && "ep-mega-menu__badge--secondary")}
+                                              >
+                                                {b}
+                                              </span>
+                                            ))}
+                                          </div>
                                         </div>
                                         {child.description ? <small>{child.description}</small> : null}
                                       </div>
@@ -414,6 +457,19 @@ export function SiteHeader({
                             {/* Promotional / Conversion Column */}
                             {item.promoAction ? (
                               <div className="ep-mega-menu__promo-col">
+                                <div className="ep-mega-menu__col-header">
+                                  {item.label === text.navDestinations ? (
+                                    <>
+                                      <ShieldCheck size={13} aria-hidden="true" />
+                                      <span>Assessoria Global</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <Award size={13} aria-hidden="true" />
+                                      <span>Suporte Especializado</span>
+                                    </>
+                                  )}
+                                </div>
                                 <div className="ep-mega-menu__promo-card">
                                   <div className="ep-mega-menu__promo-top">
                                     {item.promoAction.imageSrc ? (
@@ -421,11 +477,14 @@ export function SiteHeader({
                                         <img src={item.promoAction.imageSrc} alt="" />
                                       </div>
                                     ) : null}
-                                    {item.promoAction.badge ? (
-                                      <span className="ep-mega-menu__promo-badge">
-                                        {item.promoAction.badge}
-                                      </span>
-                                    ) : null}
+                                    <div className="ep-mega-menu__badges-wrap">
+                                      {extractBadges(item.promoAction).map((b, i) => (
+                                        <span key={i} className="ep-mega-menu__promo-badge">
+                                          <Sparkles size={11} aria-hidden="true" />
+                                          {b}
+                                        </span>
+                                      ))}
+                                    </div>
                                     <b>{item.promoAction.title}</b>
                                     <p>{item.promoAction.description}</p>
                                   </div>
@@ -555,7 +614,11 @@ export function SiteHeader({
                         onClick={() => setMobileOpen(false)}
                       >
                         <span>{item.label}</span>
-                        {item.badge ? <span className="ep-mobile-menu__badge">{item.badge}</span> : null}
+                        <div className="ep-mega-menu__badges-wrap">
+                          {extractBadges(item).map((b, i) => (
+                            <span key={i} className="ep-mobile-menu__badge">{b}</span>
+                          ))}
+                        </div>
                         <ChevronRight size={16} />
                       </a>
                     );
@@ -596,7 +659,11 @@ export function SiteHeader({
                               <div>
                                 <div className="ep-mobile-menu__child-title">
                                   <b>{child.label}</b>
-                                  {child.badge ? <span className="ep-mobile-menu__badge">{child.badge}</span> : null}
+                                  <div className="ep-mega-menu__badges-wrap">
+                                    {extractBadges(child).map((b, i) => (
+                                      <span key={i} className="ep-mobile-menu__badge">{b}</span>
+                                    ))}
+                                  </div>
                                 </div>
                                 {child.description ? <small>{child.description}</small> : null}
                               </div>
