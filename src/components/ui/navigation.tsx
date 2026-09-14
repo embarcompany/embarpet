@@ -438,18 +438,6 @@ export function SiteHeader({
           {/* Right: WhatsApp + Language + Primary Action */}
           <div className="ep-site-nav__right">
             <div className="ep-nav-utilities">
-              {/* WhatsApp Specialist Link */}
-              <a
-                href="https://wa.me/5511978253579?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20viagem%20internacional%20com%20meu%20pet."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ep-nav-whatsapp"
-                title="Falar no WhatsApp com especialista da Embarpet"
-              >
-                <MessageCircle size={15} />
-                <span>WhatsApp</span>
-              </a>
-
               {showLanguage ? <LanguageSelector /> : null}
 
               {utilityItems.map((item) => {
