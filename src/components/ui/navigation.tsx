@@ -175,31 +175,49 @@ export function SiteHeader({
   const [open, setOpen] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMenuEnter = (label: string) => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setOpen(label);
+  };
+
+  const handleMenuLeave = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+    closeTimeoutRef.current = setTimeout(() => {
+      setOpen(null);
+    }, 220);
+  };
+
+  const closeMenuImmediately = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setOpen(null);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const standardItems = useMemo<NavigationItem[]>(
     () => [
       {
         label: text.navDestinations,
         href: path("/#destinos"),
-        featuredChildren: [
-          {
-            label: "Estados Unidos",
-            href: path("/destinos/estados-unidos"),
-            badges: ["Rota #1", "Regras CDC"],
-            description: "Assessoria completa para entrada nos EUA com novas normas sanitárias.",
-            flagSrc: countryFlagSvg("US"),
-            highlight: true,
-          },
-          {
-            label: "Portugal & Europa",
-            href: path("/destinos/portugal"),
-            badges: ["Entrada UE", "MAPA Oficial"],
-            description: "Porta de entrada no continente europeu com sincronia de laudos e microchip.",
-            flagSrc: countryFlagSvg("PT"),
-            highlight: true,
-          },
-        ],
         children: [
+          { label: "Estados Unidos", href: path("/destinos/estados-unidos"), description: "Conformidade CDC e entrada ágil", flagSrc: countryFlagSvg("US") },
+          { label: "Portugal & Europa", href: path("/destinos/portugal"), description: "Porta de entrada na UE com microchip", flagSrc: countryFlagSvg("PT") },
           { label: "Espanha", href: path("/destinos/espanha"), description: "Planejamento e CVI oficial", flagSrc: countryFlagSvg("ES") },
           { label: "Itália", href: path("/destinos/italia"), description: "Rotas e trânsito comunitário", flagSrc: countryFlagSvg("IT") },
           { label: "Argentina", href: path("/destinos/argentina"), description: "Conexões e MERCOSUL", flagSrc: countryFlagSvg("AR") },
@@ -221,35 +239,35 @@ export function SiteHeader({
         children: [
           {
             label: "Viagem na Cabine",
-            href: path("/modalidades/viagem-na-cabine"),
+            href: path("/#modalidades"),
             badge: "Até 8–10kg",
             description: "Com o tutor dentro da cabine de passageiros, quando rota e porte permitem.",
             icon: Plane,
           },
           {
             label: "Bagagem Acompanhada",
-            href: path("/modalidades/bagagem-acompanhada"),
+            href: path("/#modalidades"),
             badge: "Mesmo Voo",
             description: "No mesmo voo do tutor, em compartimento apropriado, pressurizado e climatizado.",
             icon: Package,
           },
           {
             label: "Compartimento de Cargas",
-            href: path("/modalidades/compartimento-de-cargas"),
+            href: path("/#modalidades"),
             badge: "Carga Viva",
             description: "Operação dedicada para portes médios/grandes ou quando o tutor viaja em outra data.",
             icon: Route,
           },
           {
             label: "Suporte Emocional & Cão Guia",
-            href: path("/modalidades/suporte-emocional"),
+            href: path("/#modalidades"),
             badge: "Casos Especiais",
             description: "Orientação e conformidade técnica para animais de assistência em viagens internacionais.",
             icon: HeartHandshake,
           },
           {
             label: "PetLuxo",
-            href: path("/#pet-luxo"),
+            href: path("/#modalidades"),
             badges: ["Exclusivo", "Acompanhamento VIP"],
             description: "Consultor dedicado acompanhando cada marco da jornada até a entrega com a família.",
             icon: Crown,
@@ -273,7 +291,7 @@ export function SiteHeader({
         badges: ["Aeroporto GRU", "Desde 2018"],
       },
       {
-        label: "Histórias & FAQ",
+        label: "Histórias",
         href: path("/#historias"),
       },
     ],
@@ -347,80 +365,48 @@ export function SiteHeader({
                   <div
                     key={item.label}
                     className="ep-nav-dropdown"
-                    onMouseEnter={() => setOpen(item.label)}
-                    onMouseLeave={() => setOpen(null)}
-                    onFocus={() => setOpen(item.label)}
+                    onMouseEnter={() => handleMenuEnter(item.label)}
+                    onMouseLeave={handleMenuLeave}
+                    onFocus={() => handleMenuEnter(item.label)}
                     onBlur={(event) => {
-                      if (!event.currentTarget.contains(event.relatedTarget)) setOpen(null);
+                      if (!event.currentTarget.contains(event.relatedTarget)) handleMenuLeave();
                     }}
                   >
                     <button
                       type="button"
                       className={cn("ep-nav-link", activeLabel === item.label && "is-active", isOpen && "is-open")}
                       aria-expanded={isOpen}
-                      onClick={() => setOpen((current) => (current === item.label ? null : item.label))}
+                      onClick={() => (isOpen ? closeMenuImmediately() : handleMenuEnter(item.label))}
                     >
                       {item.label}
                       <ChevronDown size={14} className="ep-nav-chevron" />
                     </button>
 
                     {isOpen ? (
-                      <div className={cn("ep-mega-menu", item.label === text.navDestinations ? "ep-mega-menu--destinations" : "ep-mega-menu--modalities")}>
-                        <div className="ep-mega-menu__container ep-container">
+                      <div
+                        className={cn("ep-mega-menu", item.label === text.navDestinations ? "ep-mega-menu--destinations" : "ep-mega-menu--modalities")}
+                        onMouseEnter={() => handleMenuEnter(item.label)}
+                        onMouseLeave={handleMenuLeave}
+                      >
+                        <div className="ep-mega-menu__container">
                           <div className="ep-mega-menu__columns">
-                            {/* If Destinations: Show Featured Routes Column */}
-                            {item.featuredChildren?.length ? (
-                              <div className="ep-mega-menu__featured-col">
-                                <span className="ep-mega-menu__section-label">Rotas Principais</span>
-                                <div className="ep-mega-menu__featured-list">
-                                  {item.featuredChildren.map((featured) => (
-                                    <a
-                                      key={featured.label}
-                                      href={featured.href}
-                                      className="ep-mega-menu__featured-card"
-                                      onClick={() => setOpen(null)}
-                                    >
-                                      <span className="ep-mega-menu__flag">
-                                        {featured.flagSrc ? <img src={featured.flagSrc} alt="" aria-hidden="true" /> : <MapPin size={18} />}
-                                      </span>
-                                      <div className="ep-mega-menu__featured-body">
-                                        <div className="ep-mega-menu__featured-head">
-                                          <b>{featured.label}</b>
-                                          <div className="ep-mega-menu__badges-wrap">
-                                            {extractBadges(featured).map((b, i) => (
-                                              <span
-                                                key={i}
-                                                className={cn("ep-mega-menu__badge", i > 0 && "ep-mega-menu__badge--secondary")}
-                                              >
-                                                {b}
-                                              </span>
-                                            ))}
-                                          </div>
-                                        </div>
-                                        {featured.description ? <small>{featured.description}</small> : null}
-                                      </div>
-                                    </a>
-                                  ))}
-                                </div>
-                              </div>
-                            ) : null}
-
-                            {/* Standard Children Grid */}
+                            {/* Main Options Grid */}
                             <div className="ep-mega-menu__main-col">
                               <span className="ep-mega-menu__section-label">
-                                {item.label === text.navDestinations ? "Outros Destinos Atendidos" : "Modalidades de Voo"}
+                                {item.label === text.navDestinations ? "Destinos Internacionais" : "Modalidades de Voo"}
                               </span>
                               <div className="ep-mega-menu__grid">
                                 {item.children?.map((child) => {
                                   const ChildIcon = child.icon ?? ArrowRight;
+                                  const isLuxury = child.highlight || child.label === "PetLuxo";
                                   return (
                                     <a
                                       key={child.label}
                                       href={child.href}
-                                      className="ep-mega-menu__item"
-                                      onClick={() => setOpen(null)}
+                                      className={cn("ep-mega-menu__item", isLuxury && "ep-mega-menu__item--luxury")}
+                                      onClick={closeMenuImmediately}
                                     >
-                                      <span className="ep-mega-menu__icon">
+                                      <span className={cn("ep-mega-menu__icon", isLuxury && "ep-mega-menu__icon--luxury")}>
                                         {child.flagSrc ? (
                                           <img src={child.flagSrc} alt="" aria-hidden="true" />
                                         ) : (
@@ -434,8 +420,13 @@ export function SiteHeader({
                                             {extractBadges(child).map((b, i) => (
                                               <span
                                                 key={i}
-                                                className={cn("ep-mega-menu__badge--subtle", i > 0 && "ep-mega-menu__badge--secondary")}
+                                                className={cn(
+                                                  isLuxury
+                                                    ? (i === 0 ? "ep-mega-menu__badge--luxury" : "ep-mega-menu__badge--luxury-subtle")
+                                                    : (i === 0 ? "ep-mega-menu__badge--subtle" : "ep-mega-menu__badge--secondary")
+                                                )}
                                               >
+                                                {isLuxury && i === 0 ? <Sparkles size={9} aria-hidden="true" /> : null}
                                                 {b}
                                               </span>
                                             ))}
@@ -477,7 +468,7 @@ export function SiteHeader({
                                     type="button"
                                     className="ep-mega-menu__promo-btn"
                                     onClick={() => {
-                                      setOpen(null);
+                                      closeMenuImmediately();
                                       openPrimaryCta();
                                     }}
                                   >
@@ -627,33 +618,46 @@ export function SiteHeader({
 
                       {isAccordionOpen ? (
                         <div className="ep-mobile-menu__accordion-content">
-                          {allChildren.map((child) => (
-                            <a
-                              key={child.label}
-                              href={child.href}
-                              className="ep-mobile-menu__child-link"
-                              onClick={() => setMobileOpen(false)}
-                            >
-                              <span className="ep-mobile-menu__child-icon">
-                                {child.flagSrc ? (
-                                  <img src={child.flagSrc} alt="" aria-hidden="true" />
-                                ) : (
-                                  <Route size={14} />
-                                )}
-                              </span>
-                              <div>
-                                <div className="ep-mobile-menu__child-title">
-                                  <b>{child.label}</b>
-                                  <div className="ep-mega-menu__badges-wrap">
-                                    {extractBadges(child).map((b, i) => (
-                                      <span key={i} className="ep-mobile-menu__badge">{b}</span>
-                                    ))}
+                          {allChildren.map((child) => {
+                            const isLuxury = child.highlight || child.label === "PetLuxo";
+                            const ChildIcon = child.icon ?? Route;
+                            return (
+                              <a
+                                key={child.label}
+                                href={child.href}
+                                className={cn("ep-mobile-menu__child-link", isLuxury && "ep-mobile-menu__child-link--luxury")}
+                                onClick={() => setMobileOpen(false)}
+                              >
+                                <span className={cn("ep-mobile-menu__child-icon", isLuxury && "ep-mobile-menu__child-icon--luxury")}>
+                                  {child.flagSrc ? (
+                                    <img src={child.flagSrc} alt="" aria-hidden="true" />
+                                  ) : (
+                                    <ChildIcon size={14} />
+                                  )}
+                                </span>
+                                <div>
+                                  <div className="ep-mobile-menu__child-title">
+                                    <b>{child.label}</b>
+                                    <div className="ep-mega-menu__badges-wrap">
+                                      {extractBadges(child).map((b, i) => (
+                                        <span
+                                          key={i}
+                                          className={cn(
+                                            "ep-mobile-menu__badge",
+                                            isLuxury && (i === 0 ? "ep-mobile-menu__badge--luxury" : "ep-mobile-menu__badge--luxury-subtle")
+                                          )}
+                                        >
+                                          {isLuxury && i === 0 ? <Sparkles size={8} aria-hidden="true" /> : null}
+                                          {b}
+                                        </span>
+                                      ))}
+                                    </div>
                                   </div>
+                                  {child.description ? <small>{child.description}</small> : null}
                                 </div>
-                                {child.description ? <small>{child.description}</small> : null}
-                              </div>
-                            </a>
-                          ))}
+                              </a>
+                            );
+                          })}
                         </div>
                       ) : null}
                     </div>

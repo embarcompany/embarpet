@@ -55,7 +55,7 @@ export function DestinationPage({ destination }: { destination: DestinationLandi
   const pageNavigation = [
     { label: "Por que a Embarpet", href: "#autoridade" },
     { label: "Como ajudamos", href: "#plano" },
-    { label: "Dúvidas", href: "#faq" },
+    { label: "Histórias", href: "#historias" },
   ];
 
   return <>
