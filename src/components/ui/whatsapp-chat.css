@@ -1,5 +1,6 @@
 /* ==========================================================================
    WhatsApp Conversational Chat Modal - Embarpet (Thamires Felix)
+   Minimalist, AI-Enhanced & Refined UI/UX
    ========================================================================== */
 
 .ep-wa-modal {
@@ -10,10 +11,10 @@
   align-items: center;
   justify-content: center;
   padding: 16px;
-  background: rgba(0, 20, 24, 0.72);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  animation: ep-wa-fade-in 0.25s ease-out both;
+  background: rgba(0, 18, 22, 0.76);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: ep-wa-fade-in 0.22s ease-out both;
 }
 
 .ep-wa-modal__backdrop {
@@ -31,12 +32,12 @@
   flex-direction: column;
   width: 100%;
   max-width: 480px;
-  height: min(720px, 92vh);
+  height: min(730px, 92vh);
   background: #efeae2;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 24px 60px -10px rgba(0, 32, 38, 0.45), 0 0 1px rgba(0, 0, 0, 0.2);
-  animation: ep-wa-slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  box-shadow: 0 28px 65px -10px rgba(0, 32, 38, 0.5), 0 0 1px rgba(0, 0, 0, 0.25);
+  animation: ep-wa-slide-up 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @media (max-width: 520px) {
@@ -55,10 +56,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 13px 18px;
   background: #005c4b;
   color: #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.14);
   flex-shrink: 0;
   z-index: 2;
 }
@@ -82,16 +83,16 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
   background: #ffffff;
 }
 
 .ep-wa-header__online-dot {
   position: absolute;
-  bottom: 0px;
-  right: 0px;
-  width: 12px;
-  height: 12px;
+  bottom: 1px;
+  right: 1px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   background: #25d366;
   border: 2px solid #005c4b;
@@ -102,39 +103,29 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
+  gap: 1px;
 }
 
 .ep-wa-header__name-row {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
 }
 
 .ep-wa-header__name {
-  font-size: 15px;
+  font-size: 15.5px;
   font-weight: 700;
   color: #ffffff;
+  letter-spacing: -0.01em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.ep-wa-header__badge {
-  display: inline-flex;
-  color: #25d366;
-  background: #ffffff;
-  border-radius: 50%;
-  width: 14px;
-  height: 14px;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: 900;
-}
-
 .ep-wa-header__status {
-  font-size: 11.5px;
-  color: #d1f4ec;
+  font-size: 12px;
+  color: #bbf7e6;
+  font-weight: 500;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -178,27 +169,11 @@
   scroll-behavior: smooth;
 }
 
-/* System Notice / Encryption Pill */
-.ep-wa-notice-pill {
-  align-self: center;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
-  border-radius: 8px;
-  background: rgba(254, 237, 192, 0.88);
-  border: 1px solid rgba(224, 185, 95, 0.4);
-  color: #54656f;
-  font-size: 10.5px;
-  text-align: center;
-  max-width: 90%;
-  margin-bottom: 4px;
-}
-
+/* Date Pill */
 .ep-wa-date-pill {
   align-self: center;
-  padding: 4px 12px;
-  border-radius: 7px;
+  padding: 3.5px 12px;
+  border-radius: 6px;
   background: #ffffff;
   box-shadow: 0 1px 1px rgba(11, 20, 26, 0.12);
   color: #54656f;
@@ -206,17 +181,45 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
+}
+
+/* AI Thought / Reasoning State Pill */
+.ep-wa-thought-pill {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 13px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(232, 248, 245, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%);
+  border: 1px solid rgba(0, 168, 132, 0.28);
+  box-shadow: 0 2px 8px rgba(0, 92, 75, 0.08);
+  color: #005c4b;
+  font-size: 12px;
+  font-weight: 600;
+  animation: ep-wa-pop 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+  margin: 2px 0 4px;
+}
+
+.ep-wa-thought-pill__icon {
+  display: inline-flex;
+  color: #00a884;
+  animation: ep-wa-spin-slow 4s linear infinite;
+}
+
+.ep-wa-thought-pill__text {
+  line-height: 1.35;
 }
 
 /* Message Bubbles */
 .ep-wa-bubble {
   position: relative;
   max-width: 88%;
-  padding: 9px 12px 7px;
+  padding: 9px 13px 7px;
   border-radius: 10px;
   font-size: 13.5px;
-  line-height: 1.44;
+  line-height: 1.46;
   color: #111b21;
   box-shadow: 0 1px 1px rgba(11, 20, 26, 0.13);
   animation: ep-wa-pop 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -239,12 +242,31 @@
   word-break: break-word;
 }
 
+.ep-wa-bubble__text b,
+.ep-wa-bubble__text strong {
+  color: #005c4b;
+  font-weight: 750;
+}
+
+.ep-wa-bubble__highlight-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(0, 168, 132, 0.12);
+  color: #005c4b;
+  font-weight: 700;
+  font-size: 11.5px;
+  margin: 4px 0 2px;
+}
+
 .ep-wa-bubble__meta {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 3px;
-  margin-top: 3px;
+  margin-top: 4px;
   font-size: 10px;
   color: #667781;
 }
@@ -252,58 +274,6 @@
 .ep-wa-bubble__ticks {
   color: #53bdeb;
   display: inline-flex;
-}
-
-/* Audio Simulation Bubble */
-.ep-wa-audio {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 4px 2px;
-}
-
-.ep-wa-audio__play-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: none;
-  background: #00a884;
-  color: #ffffff;
-  cursor: pointer;
-  flex: 0 0 36px;
-}
-
-.ep-wa-audio__track {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.ep-wa-audio__waveform {
-  height: 16px;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.ep-wa-audio__bar {
-  width: 3px;
-  background: #00a884;
-  border-radius: 2px;
-  opacity: 0.7;
-}
-
-.ep-wa-audio__time {
-  font-size: 10px;
-  color: #667781;
-}
-
-.ep-wa-audio__mic {
-  color: #00a884;
 }
 
 /* Typing indicator */
@@ -356,13 +326,13 @@
   gap: 6px;
   padding: 8px 13px;
   border-radius: 999px;
-  border: 1px solid rgba(0, 92, 75, 0.35);
+  border: 1px solid rgba(0, 92, 75, 0.3);
   background: #ffffff;
   color: #005c4b;
   font-size: 12.5px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.05);
   transition: all 0.16s ease;
 }
 
@@ -374,27 +344,20 @@
   box-shadow: 0 4px 10px rgba(0, 92, 75, 0.25);
 }
 
-.ep-wa-chip--primary {
-  background: #00a884;
-  color: #ffffff;
-  border-color: #00a884;
-}
-
-.ep-wa-chip--primary:hover {
-  background: #008f6f;
-  border-color: #008f6f;
+.ep-wa-chip:active {
+  transform: translateY(0);
 }
 
 /* Inline Interactive Card */
 .ep-wa-card {
   margin-top: 6px;
-  padding: 12px;
+  padding: 14px;
   border-radius: 12px;
   background: #f7f8fa;
   border: 1px solid rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 10px;
 }
 
 .ep-wa-card__row {
@@ -406,7 +369,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
 }
 
 .ep-wa-card__label {
@@ -414,20 +377,20 @@
   font-weight: 750;
   color: #54656f;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
 }
 
 .ep-wa-card__input {
   width: 100%;
-  height: 36px;
-  padding: 0 10px;
+  height: 38px;
+  padding: 0 11px;
   border-radius: 8px;
   border: 1px solid #d1d7db;
   background: #ffffff;
   font-size: 13px;
   color: #111b21;
   outline: none;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .ep-wa-card__input:focus {
@@ -437,7 +400,7 @@
 
 .ep-wa-card__select {
   width: 100%;
-  height: 36px;
+  height: 38px;
   padding: 0 8px;
   border-radius: 8px;
   border: 1px solid #d1d7db;
@@ -453,14 +416,15 @@
   justify-content: center;
   gap: 6px;
   width: 100%;
-  height: 38px;
+  height: 40px;
   border-radius: 8px;
   border: none;
   background: #00a884;
   color: #ffffff;
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 750;
   cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 168, 132, 0.25);
   transition: background 0.15s ease, transform 0.15s ease;
 }
 
@@ -480,18 +444,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 9px;
   width: 100%;
-  padding: 13px 18px;
+  padding: 14px 20px;
   border-radius: 12px;
   border: none;
   background: #25d366;
-  color: #075e54;
+  color: #05463e;
   font-size: 14px;
   font-weight: 850;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.38);
   transition: background 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
   margin-top: 6px;
 }
@@ -499,61 +463,33 @@
 .ep-wa-final-cta:hover {
   background: #20ba5a;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.48);
 }
 
-/* Footer / Input Bar Mock */
+/* Minimalist Footer */
 .ep-wa-footer {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+  justify-content: space-between;
+  padding: 10px 16px;
   background: #f0f2f5;
   border-top: 1px solid #e9edef;
   flex-shrink: 0;
 }
 
-.ep-wa-footer__input-wrap {
-  flex: 1;
+.ep-wa-footer__hint {
+  font-size: 11.5px;
+  color: #667781;
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: #ffffff;
-  border-radius: 999px;
-  padding: 6px 14px;
-  border: 1px solid #e9edef;
+  gap: 6px;
 }
 
-.ep-wa-footer__input {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-size: 13px;
-  color: #111b21;
-  background: transparent;
-}
-
-.ep-wa-footer__input::placeholder {
-  color: #8696a0;
-}
-
-.ep-wa-footer__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
+.ep-wa-footer__hint-dot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  border: none;
-  background: #00a884;
-  color: #ffffff;
-  cursor: pointer;
-  flex: 0 0 36px;
-  transition: transform 0.15s ease;
-}
-
-.ep-wa-footer__btn:hover {
-  transform: scale(1.05);
+  background: #25d366;
 }
 
 /* Animations */
@@ -593,4 +529,9 @@
 @keyframes ep-wa-dot-bounce {
   0%, 80%, 100% { transform: scale(0); }
   40% { transform: scale(1); }
+}
+
+@keyframes ep-wa-spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
