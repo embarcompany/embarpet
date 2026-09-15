@@ -68,13 +68,32 @@ const weightPresets = [
   { label: "+30 kg (Grande Porte)", value: "35", hint: "Carga Viva IATA" },
 ];
 
-const popularBreeds = [
+const dogBreeds = [
   "SRD (Vira-lata)",
   "Spitz / Lulu",
-  "Golden / Lab",
+  "Golden / Labrador",
   "Bulldog / Pug (Braqui)",
   "Shih Tzu / Lhasa",
-  "Gato Persa / Siamês",
+  "Yorkshire / Maltês",
+  "Pastor / Border Collie",
+];
+
+const catBreeds = [
+  "SRD (Gato Comum)",
+  "Siamês",
+  "Persa (Braquicefálico)",
+  "Maine Coon",
+  "Bengal",
+  "Ragdoll",
+  "Gato Doméstico",
+];
+
+const exoticPets = [
+  "Aves / Pássaros",
+  "Coelho / Roedor",
+  "Furão / Ferret",
+  "Réptil",
+  "Outra Espécie",
 ];
 
 const travelPeriods = [
@@ -169,6 +188,8 @@ export function WhatsAppChatFlow({
   const [petBreed, setPetBreed] = useState("");
   const [petWeight, setPetWeight] = useState("7");
   const [customBreedMode, setCustomBreedMode] = useState(false);
+
+  const availableBreeds = petSpecies === "Gato" ? catBreeds : petSpecies === "Exótico" ? exoticPets : dogBreeds;
 
   const [routeOrigin, setRouteOrigin] = useState(initialRoute.origin || "Brasil");
   const [routeDestination, setRouteDestination] = useState(initialRoute.destination || "");
@@ -270,6 +291,10 @@ export function WhatsAppChatFlow({
   const handleSelectSpecies = (species: string) => {
     trackStart();
     setPetSpecies(species);
+    setPetBreed("");
+    if (species === "Gato") {
+      setPetWeight("7");
+    }
     const time = getNowTime();
 
     const userMsg: ChatMessage = {
@@ -304,7 +329,8 @@ export function WhatsAppChatFlow({
   // Step 2: Submit Pet Details (1-Tap Presets or Fast Submit)
   const handleConfirmPetDetails = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    const resolvedBreed = petBreed.trim() || (petSpecies === "Gato" ? "Gato Doméstico" : "SRD (Vira-lata)");
+    const defaultBreedFallback = petSpecies === "Gato" ? "Gato Doméstico" : petSpecies === "Exótico" ? "Ave / Exótico" : "SRD (Vira-lata)";
+    const resolvedBreed = petBreed.trim() || defaultBreedFallback;
     const resolvedWeight = petWeight.trim() || "7";
 
     const time = getNowTime();
@@ -467,15 +493,15 @@ export function WhatsAppChatFlow({
       period: travelPeriod,
       species: petSpecies,
       size: `${petBreed ? petBreed + " " : ""}${petWeight ? "(~" + petWeight + "kg)" : ""}`.trim() || undefined,
-      name: tutorName,
+      name: tutorName.trim(),
       phone: fullPhone,
       consent: true,
     };
 
     const userMsg: ChatMessage = {
-      id: `user-contact-${Date.now()}`,
+      id: `user-lead-${Date.now()}`,
       sender: "user",
-      text: `Tutor(a): ${tutorName} (${fullPhone})`,
+      text: `Nome: ${tutorName.trim()}\nWhatsApp: ${fullPhone}`,
       time,
     };
 
@@ -528,9 +554,9 @@ export function WhatsAppChatFlow({
   const stepMeta = {
     greeting: { step: 1, total: 4, percent: 25, label: "Passo 1 de 4", title: "Perfil do Pet", isFinal: false },
     pet_details: { step: 2, total: 4, percent: 50, label: "Passo 2 de 4", title: "Porte & Acomodação", isFinal: false },
-    route: { step: 3, total: 4, percent: 75, label: "Passo 3 de 4", title: "Rota (Origem & Destino)", isFinal: false },
+    route: { step: 3, total: 4, percent: 75, label: "Passo 3 de 4", title: "Rota Internacional", isFinal: false },
     period: { step: 4, total: 4, percent: 90, label: "Passo 4 de 4", title: "Previsão de Embarque", isFinal: false },
-    contact: { step: 4, total: 4, percent: 95, label: "Quase pronto!", title: "Último passo (30 seg) • 95% concluído", isFinal: true },
+    contact: { step: 4, total: 4, percent: 95, label: "Quase pronto!", title: "Último passo • Quase pronto!", isFinal: true },
     complete: { step: 4, total: 4, percent: 100, label: "Concluído", title: "100% Concluído", isFinal: true },
   }[currentStep];
 
@@ -589,14 +615,14 @@ export function WhatsAppChatFlow({
         <div ref={messagesEndRef} />
       </div>
 
-      {/* 2. Interactive Bottom Dock (Zero Horizontal Scroll • 48px Pill Inputs • Solid Colors) */}
+      {/* 2. Interactive Bottom Dock (Zero Horizontal Scroll • 52px+ Pill Inputs • Solid Colors) */}
       <div className="ep-wa-dock">
         {/* Navigation & Progressive Goal Gradient Bar */}
         {currentStep !== "complete" && (
           <div className="ep-wa-dock__progress-wrap">
             <div className="ep-wa-dock__progress-info">
               <div className="ep-wa-dock__step-row">
-                {stepHistory.length > 0 && (
+                {stepHistory.length > 0 ? (
                   <button
                     type="button"
                     className="ep-wa-dock__back-btn"
@@ -606,6 +632,8 @@ export function WhatsAppChatFlow({
                     <ArrowLeft size={13} />
                     <span>Voltar</span>
                   </button>
+                ) : (
+                  <span className="ep-wa-dock__step-indicator">Início</span>
                 )}
                 <span className={`ep-wa-dock__progress-label ${stepMeta.isFinal ? "ep-wa-dock__progress-label--urgent" : ""}`}>
                   {stepMeta.title}
@@ -651,7 +679,7 @@ export function WhatsAppChatFlow({
           </div>
         )}
 
-        {/* Step 2: Pet Details (2x2 Weight Grid & Wrapped Breed Chips • 52px Pill Inputs) */}
+        {/* Step 2: Pet Details (2x2 Weight Grid & Reactive Breed Chips • 52px Pill Inputs) */}
         {currentStep === "pet_details" && !isTyping && !thinkingText && (
           <form onSubmit={handleConfirmPetDetails} className="ep-wa-dock__step">
             {/* Weight Presets in 2x2 Grid (No horizontal scroll!) */}
@@ -693,7 +721,7 @@ export function WhatsAppChatFlow({
 
               {!customBreedMode ? (
                 <div className="ep-wa-dock__chips-wrap">
-                  {popularBreeds.map((b) => {
+                  {availableBreeds.map((b) => {
                     const isSelected = petBreed === b;
                     return (
                       <button
@@ -736,47 +764,59 @@ export function WhatsAppChatFlow({
         {/* Step 3: Route Selection (Origem + Destino) */}
         {currentStep === "route" && !isTyping && !thinkingText && (
           <div className="ep-wa-dock__step">
-            {/* Origin Pill Switcher */}
-            <div className="ep-wa-dock__field-group">
-              <div className="ep-wa-dock__label-row">
-                <span className="ep-wa-dock__label">
-                  <PlaneTakeoff size={14} style={{ display: "inline", verticalAlign: "-2px", marginRight: 5, color: "#00a884" }} />
-                  País de Origem:
-                </span>
+            {/* Bilateral Flight Route Header */}
+            <div className="ep-wa-dock__route-card">
+              <div className="ep-wa-dock__route-endpoint">
+                <div className="ep-wa-dock__route-icon-badge">
+                  <PlaneTakeoff size={16} />
+                </div>
+                <div className="ep-wa-dock__route-details">
+                  <span className="ep-wa-dock__route-sublabel">Origem</span>
+                  <div className="ep-wa-dock__route-country">
+                    <img
+                      src={countryFlagSvg(routeOrigin === "Brasil" ? "BR" : routeOrigin === "Estados Unidos" ? "US" : routeOrigin === "Portugal" ? "PT" : routeOrigin === "Argentina" ? "AR" : "BR")}
+                      alt=""
+                      className="ep-wa-dock__dest-flag"
+                    />
+                    <strong>{routeOrigin}</strong>
+                  </div>
+                </div>
                 <button
                   type="button"
-                  className="ep-wa-dock__link-toggle"
+                  className="ep-wa-dock__route-change-btn"
                   onClick={() => setIsSelectingOrigin(!isSelectingOrigin)}
                 >
-                  {isSelectingOrigin ? "Fechar seleção" : "Alterar origem"}
+                  {isSelectingOrigin ? "Fechar" : "Trocar"}
                 </button>
               </div>
 
-              {isSelectingOrigin ? (
-                <div className="ep-wa-dock__chips-wrap">
-                  {popularOrigins.map((orig) => (
-                    <button
-                      key={orig.code}
-                      type="button"
-                      className={`ep-wa-dock__chip ${routeOrigin === orig.label ? "ep-wa-dock__chip--active" : ""}`}
-                      onClick={() => {
-                        if (orig.code === "OTHER") {
-                          setIsCustomOrigin(true);
-                        } else {
-                          setRouteOrigin(orig.label);
-                          setIsSelectingOrigin(false);
-                          setIsCustomOrigin(false);
-                        }
-                      }}
-                    >
-                      {orig.code !== "OTHER" && (
-                        <img src={countryFlagSvg(orig.code)} alt="" style={{ width: 16, height: "auto", marginRight: 5, borderRadius: 2 }} />
-                      )}
-                      <span>{orig.label}</span>
-                    </button>
-                  ))}
+              {isSelectingOrigin && (
+                <div className="ep-wa-dock__origin-selector">
+                  <div className="ep-wa-dock__chips-wrap">
+                    {popularOrigins.map((orig) => (
+                      <button
+                        key={orig.code}
+                        type="button"
+                        className={`ep-wa-dock__chip ${routeOrigin === orig.label ? "ep-wa-dock__chip--active" : ""}`}
+                        onClick={() => {
+                          if (orig.code === "OTHER") {
+                            setIsCustomOrigin(true);
+                          } else {
+                            setRouteOrigin(orig.label);
+                            setIsSelectingOrigin(false);
+                            setIsCustomOrigin(false);
+                          }
+                        }}
+                      >
+                        {orig.code !== "OTHER" && (
+                          <img src={countryFlagSvg(orig.code)} alt="" style={{ width: 16, height: "auto", marginRight: 5, borderRadius: 2 }} />
+                        )}
+                        <span>{orig.label}</span>
+                      </button>
+                    ))}
+                  </div>
                   {isCustomOrigin && (
-                    <div className="ep-wa-dock__input-row" style={{ marginTop: 6, width: "100%" }}>
+                    <div className="ep-wa-dock__input-row" style={{ marginTop: 8 }}>
                       <input
                         className="ep-wa-dock__input"
                         type="text"
@@ -799,18 +839,6 @@ export function WhatsAppChatFlow({
                       </button>
                     </div>
                   )}
-                </div>
-              ) : (
-                <div className="ep-wa-dock__route-preview-pill">
-                  <span className="ep-wa-dock__route-preview-badge">Origem confirmada:</span>
-                  <div className="ep-wa-dock__route-preview-content">
-                    <img
-                      src={countryFlagSvg(routeOrigin === "Brasil" ? "BR" : routeOrigin === "Estados Unidos" ? "US" : routeOrigin === "Portugal" ? "PT" : routeOrigin === "Argentina" ? "AR" : "BR")}
-                      alt=""
-                      className="ep-wa-dock__dest-flag"
-                    />
-                    <strong className="ep-wa-dock__route-preview-name">{routeOrigin}</strong>
-                  </div>
                 </div>
               )}
             </div>
@@ -906,7 +934,7 @@ export function WhatsAppChatFlow({
           </div>
         )}
 
-        {/* Step 5: Contact Lead Form (52px Pill Inputs + Illustrative Icons + Goal Gradient Trigger) */}
+        {/* Step 5: Contact Lead Form (52px Pill Inputs + Unified Phone Group) */}
         {currentStep === "contact" && !isTyping && !thinkingText && (
           <form onSubmit={handleContactSubmit} className="ep-wa-dock__step">
             <div className="ep-wa-dock__input-wrap">
@@ -921,9 +949,9 @@ export function WhatsAppChatFlow({
               />
             </div>
 
-            <div className="ep-wa-dock__phone-row">
+            <div className="ep-wa-dock__phone-group">
               <select
-                className="ep-wa-dock__select"
+                className="ep-wa-dock__select ep-wa-dock__phone-select"
                 value={phoneCountry.code}
                 onChange={(e) => {
                   const selected = phoneCountries.find((c) => c.code === e.target.value) ?? phoneCountries[0];
@@ -936,10 +964,10 @@ export function WhatsAppChatFlow({
                   </option>
                 ))}
               </select>
-              <div className="ep-wa-dock__input-wrap" style={{ flex: 1 }}>
+              <div className="ep-wa-dock__input-wrap ep-wa-dock__phone-input-wrap">
                 <Phone size={17} className="ep-wa-dock__input-icon" />
                 <input
-                  className="ep-wa-dock__input ep-wa-dock__input--with-icon"
+                  className="ep-wa-dock__input ep-wa-dock__input--with-icon ep-wa-dock__phone-input"
                   type="tel"
                   required
                   placeholder="DDD + WhatsApp"
@@ -989,5 +1017,3 @@ export function WhatsAppChatFlow({
     </div>
   );
 }
-
-
