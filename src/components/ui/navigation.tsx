@@ -8,6 +8,7 @@ import {
   ChevronDown,
   ChevronRight,
   ClipboardCheck,
+  Compass,
   Crown,
   Globe2,
   HeartHandshake,
@@ -21,6 +22,7 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
+  Stethoscope,
   Users,
   X,
   type LucideIcon,
@@ -38,6 +40,7 @@ export type NavigationLink = {
   badge?: string;
   badges?: string[];
   highlight?: boolean;
+  colSpan?: number;
 };
 
 export type NavigationItem = NavigationLink & {
@@ -46,6 +49,7 @@ export type NavigationItem = NavigationLink & {
   promoAction?: {
     badge?: string;
     badges?: string[];
+    icon?: LucideIcon;
     title: string;
     description: string;
     buttonLabel: string;
@@ -223,10 +227,18 @@ export function SiteHeader({
           { label: "Argentina", href: path("/destinos/argentina"), description: "Conexões e MERCOSUL", flagSrc: countryFlagSvg("AR") },
           { label: "Uruguai", href: path("/destinos/uruguai"), description: "Documentação fronteiriça", flagSrc: countryFlagSvg("UY") },
           { label: "Paraguai", href: path("/destinos/paraguai"), description: "Requisitos de entrada", flagSrc: countryFlagSvg("PY") },
-          { label: "Outros 80+ Destinos", href: path("/#destinos"), description: "Consulte sua rota sob medida", icon: Globe2 },
+          {
+            label: "Outros 80+ Destinos",
+            href: path("/#destinos"),
+            description: "Consulte sua rota sob medida para mais de 80 países atendidos",
+            badge: "Rotas Globais",
+            icon: Globe2,
+            colSpan: 2,
+          },
         ],
         promoAction: {
           badge: "Planejamento Sob Medida",
+          icon: Compass,
           title: "Vai para outro país?",
           description: "Planejamos rotas personalizadas com sincronia de laudos, vacinas e microchip para mais de 80 destinos internacionais.",
           buttonLabel: "Consultar Especialista",
@@ -275,6 +287,7 @@ export function SiteHeader({
         ],
         promoAction: {
           badge: "Diagnóstico Veterinário",
+          icon: Stethoscope,
           title: "Dúvida sobre a modalidade?",
           description: "Nossa equipe avalia raça, medidas anatômicas e peso para indicar a modalidade 100% segura para seu pet.",
           buttonLabel: "Avaliar Modalidade",
@@ -399,11 +412,18 @@ export function SiteHeader({
                                 {item.children?.map((child) => {
                                   const ChildIcon = child.icon ?? ArrowRight;
                                   const isLuxury = child.highlight || child.label === "PetLuxo";
+                                  const isColSpan2 = child.colSpan === 2;
+                                  const isFullWidth = child.colSpan === 3 || child.colSpan === -1;
                                   return (
                                     <a
                                       key={child.label}
                                       href={child.href}
-                                      className={cn("ep-mega-menu__item", isLuxury && "ep-mega-menu__item--luxury")}
+                                      className={cn(
+                                        "ep-mega-menu__item",
+                                        isLuxury && "ep-mega-menu__item--luxury",
+                                        isColSpan2 && "ep-mega-menu__item--span-2",
+                                        isFullWidth && "ep-mega-menu__item--span-all"
+                                      )}
                                       onClick={closeMenuImmediately}
                                     >
                                       <span className={cn("ep-mega-menu__icon", isLuxury && "ep-mega-menu__icon--luxury")}>
@@ -454,12 +474,15 @@ export function SiteHeader({
                                       </div>
                                     ) : null}
                                     <div className="ep-mega-menu__badges-wrap">
-                                      {extractBadges(item.promoAction).map((b, i) => (
-                                        <span key={i} className="ep-mega-menu__promo-badge">
-                                          <Sparkles size={11} aria-hidden="true" />
-                                          {b}
-                                        </span>
-                                      ))}
+                                      {extractBadges(item.promoAction).map((b, i) => {
+                                        const PromoBadgeIcon = item.promoAction?.icon ?? (item.label === text.navDestinations ? Compass : Stethoscope);
+                                        return (
+                                          <span key={i} className="ep-mega-menu__promo-badge">
+                                            <PromoBadgeIcon size={12} aria-hidden="true" />
+                                            {b}
+                                          </span>
+                                        );
+                                      })}
                                     </div>
                                     <b>{item.promoAction.title}</b>
                                     <p>{item.promoAction.description}</p>
