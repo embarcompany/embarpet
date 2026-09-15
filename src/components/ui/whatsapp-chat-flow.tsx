@@ -15,6 +15,13 @@ import {
   PawPrint,
   PlaneTakeoff,
   PlaneLanding,
+  Dog,
+  Cat,
+  Zap,
+  Plane,
+  Calendar,
+  Clock,
+  ShieldCheck,
 } from "lucide-react";
 import { submitLead, type PublicLead } from "../../lead-contract";
 import { trackConversionEvent } from "../../lib/analytics";
@@ -29,6 +36,13 @@ type ChatMessage = {
   time: string;
   card?: ReactNode;
 };
+
+const speciesOptions = [
+  { label: "Cachorro", value: "Cachorro", sub: "Cão / Canino", icon: Dog },
+  { label: "Gato", value: "Gato", sub: "Felino Doméstico", icon: Cat },
+  { label: "Mais de 1 Pet", value: "Múltiplos Pets", sub: "Cães e/ou Gatos", icon: PawPrint },
+  { label: "Outro Pet", value: "Exótico", sub: "Aves / Exóticos", icon: Sparkles },
+];
 
 const popularOrigins = [
   { label: "Brasil", code: "BR" },
@@ -45,7 +59,6 @@ const popularDestinations = [
   { label: "Itália", code: "IT" },
   { label: "Argentina", code: "AR" },
   { label: "Uruguai", code: "UY" },
-  { label: "Paraguai", code: "PY" },
 ];
 
 const weightPresets = [
@@ -65,10 +78,10 @@ const popularBreeds = [
 ];
 
 const travelPeriods = [
-  { label: "⚡ Em até 30 dias (Urgente)", value: "Em até 30 dias (Urgente)" },
-  { label: "✈️ Dentro de 1 a 3 meses", value: "Dentro de 1 a 3 meses" },
-  { label: "📅 De 3 a 6 meses", value: "De 3 a 6 meses" },
-  { label: "🔍 Apenas planejando", value: "Apenas planejando" },
+  { label: "Em até 30 dias (Urgente)", value: "Em até 30 dias (Urgente)", icon: Zap, tag: "Prioritário" },
+  { label: "Dentro de 1 a 3 meses", value: "Dentro de 1 a 3 meses", icon: Plane, tag: "Ideal" },
+  { label: "De 3 a 6 meses", value: "De 3 a 6 meses", icon: Calendar, tag: "Planejado" },
+  { label: "Apenas planejando", value: "Apenas planejando", icon: Clock, tag: "Pesquisa" },
 ];
 
 const phoneCountries = [
@@ -503,7 +516,7 @@ export function WhatsAppChatFlow({
       const botMsg: ChatMessage = {
         id: `bot-complete-${Date.now()}`,
         sender: "thamires",
-        text: `Prontinho, ${firstName}! 🎉 Pré-diagnóstico gerado com sucesso para a rota **${routeOrigin} ➔ ${routeDestination || "o exterior"}**. Toque no botão verde abaixo para abrir nossa conversa no WhatsApp!`,
+        text: `Prontinho, ${firstName}! Pré-diagnóstico gerado com sucesso para a rota **${routeOrigin} ➔ ${routeDestination || "o exterior"}**. Toque no botão verde abaixo para abrir nossa conversa no WhatsApp!`,
         time: getNowTime(),
       };
 
@@ -517,8 +530,8 @@ export function WhatsAppChatFlow({
     pet_details: { step: 2, total: 4, percent: 50, label: "Passo 2 de 4", title: "Porte & Acomodação", isFinal: false },
     route: { step: 3, total: 4, percent: 75, label: "Passo 3 de 4", title: "Rota (Origem & Destino)", isFinal: false },
     period: { step: 4, total: 4, percent: 90, label: "Passo 4 de 4", title: "Previsão de Embarque", isFinal: false },
-    contact: { step: 4, total: 4, percent: 95, label: "🎉 Quase pronto!", title: "Último passo (30 seg) • 95% concluído", isFinal: true },
-    complete: { step: 4, total: 4, percent: 100, label: "✅ Concluído", title: "100% Concluído", isFinal: true },
+    contact: { step: 4, total: 4, percent: 95, label: "Quase pronto!", title: "Último passo (30 seg) • 95% concluído", isFinal: true },
+    complete: { step: 4, total: 4, percent: 100, label: "Concluído", title: "100% Concluído", isFinal: true },
   }[currentStep];
 
   return (
@@ -611,47 +624,34 @@ export function WhatsAppChatFlow({
           </div>
         )}
 
-        {/* Step 1: Species Selection (1-Tap Grid) */}
+        {/* Step 1: Species Selection (56px Touch Cards with Lucide Icons) */}
         {currentStep === "greeting" && !isTyping && (
           <div className="ep-wa-dock__step">
-            <div className="ep-wa-dock__grid">
-              <button
-                type="button"
-                className="ep-wa-dock__btn-option"
-                onClick={() => handleSelectSpecies("Cachorro")}
-              >
-                <span className="ep-wa-dock__btn-emoji">🐶</span>
-                <span className="ep-wa-dock__btn-title">Cachorro</span>
-              </button>
-              <button
-                type="button"
-                className="ep-wa-dock__btn-option"
-                onClick={() => handleSelectSpecies("Gato")}
-              >
-                <span className="ep-wa-dock__btn-emoji">🐱</span>
-                <span className="ep-wa-dock__btn-title">Gato</span>
-              </button>
-              <button
-                type="button"
-                className="ep-wa-dock__btn-option"
-                onClick={() => handleSelectSpecies("Múltiplos Pets")}
-              >
-                <span className="ep-wa-dock__btn-emoji">🐾</span>
-                <span className="ep-wa-dock__btn-title">Mais de 1 Pet</span>
-              </button>
-              <button
-                type="button"
-                className="ep-wa-dock__btn-option"
-                onClick={() => handleSelectSpecies("Exótico")}
-              >
-                <span className="ep-wa-dock__btn-emoji">🦜</span>
-                <span className="ep-wa-dock__btn-title">Outro Pet</span>
-              </button>
+            <div className="ep-wa-dock__grid ep-wa-dock__grid--species">
+              {speciesOptions.map((opt) => {
+                const IconComponent = opt.icon;
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    className="ep-wa-dock__btn-species"
+                    onClick={() => handleSelectSpecies(opt.value)}
+                  >
+                    <div className="ep-wa-dock__species-icon-wrap">
+                      <IconComponent size={21} className="ep-wa-dock__species-icon" />
+                    </div>
+                    <div className="ep-wa-dock__species-info">
+                      <span className="ep-wa-dock__species-title">{opt.label}</span>
+                      <span className="ep-wa-dock__species-sub">{opt.sub}</span>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}
 
-        {/* Step 2: Pet Details (2x2 Weight Grid & Wrapped Breed Chips • 48px Pill Inputs) */}
+        {/* Step 2: Pet Details (2x2 Weight Grid & Wrapped Breed Chips • 52px Pill Inputs) */}
         {currentStep === "pet_details" && !isTyping && !thinkingText && (
           <form onSubmit={handleConfirmPetDetails} className="ep-wa-dock__step">
             {/* Weight Presets in 2x2 Grid (No horizontal scroll!) */}
@@ -669,7 +669,7 @@ export function WhatsAppChatFlow({
                     >
                       <div className="ep-wa-dock__chip-header">
                         <span className="ep-wa-dock__chip-title">{preset.label}</span>
-                        {isSelected && <Check size={13} className="ep-wa-dock__chip-check" />}
+                        {isSelected && <Check size={14} className="ep-wa-dock__chip-check" />}
                       </div>
                       <span className="ep-wa-dock__chip-sub">{preset.hint}</span>
                     </button>
@@ -709,7 +709,7 @@ export function WhatsAppChatFlow({
                 </div>
               ) : (
                 <div className="ep-wa-dock__input-wrap">
-                  <PawPrint size={17} className="ep-wa-dock__input-icon" />
+                  <PawPrint size={18} className="ep-wa-dock__input-icon" />
                   <input
                     className="ep-wa-dock__input ep-wa-dock__input--with-icon"
                     type="text"
@@ -728,7 +728,7 @@ export function WhatsAppChatFlow({
               className="ep-wa-dock__cta-btn ep-wa-dock__cta-btn--bold"
             >
               <span>CONFIRMAR PERFIL DO PET</span>
-              <ArrowRight size={16} strokeWidth={2.5} />
+              <ArrowRight size={17} strokeWidth={2.5} />
             </button>
           </form>
         )}
@@ -740,7 +740,7 @@ export function WhatsAppChatFlow({
             <div className="ep-wa-dock__field-group">
               <div className="ep-wa-dock__label-row">
                 <span className="ep-wa-dock__label">
-                  <PlaneTakeoff size={13} style={{ display: "inline", verticalAlign: "-2px", marginRight: 4, color: "#00a884" }} />
+                  <PlaneTakeoff size={14} style={{ display: "inline", verticalAlign: "-2px", marginRight: 5, color: "#00a884" }} />
                   País de Origem:
                 </span>
                 <button
@@ -770,13 +770,13 @@ export function WhatsAppChatFlow({
                       }}
                     >
                       {orig.code !== "OTHER" && (
-                        <img src={countryFlagSvg(orig.code)} alt="" style={{ width: 14, height: "auto", marginRight: 4, borderRadius: 2 }} />
+                        <img src={countryFlagSvg(orig.code)} alt="" style={{ width: 16, height: "auto", marginRight: 5, borderRadius: 2 }} />
                       )}
                       <span>{orig.label}</span>
                     </button>
                   ))}
                   {isCustomOrigin && (
-                    <div className="ep-wa-dock__input-row" style={{ marginTop: 4, width: "100%" }}>
+                    <div className="ep-wa-dock__input-row" style={{ marginTop: 6, width: "100%" }}>
                       <input
                         className="ep-wa-dock__input"
                         type="text"
@@ -802,16 +802,23 @@ export function WhatsAppChatFlow({
                 </div>
               ) : (
                 <div className="ep-wa-dock__route-preview-pill">
-                  <span className="ep-wa-dock__route-preview-badge">Saindo de:</span>
-                  <strong className="ep-wa-dock__route-preview-name">🇧🇷 {routeOrigin}</strong>
+                  <span className="ep-wa-dock__route-preview-badge">Origem confirmada:</span>
+                  <div className="ep-wa-dock__route-preview-content">
+                    <img
+                      src={countryFlagSvg(routeOrigin === "Brasil" ? "BR" : routeOrigin === "Estados Unidos" ? "US" : routeOrigin === "Portugal" ? "PT" : routeOrigin === "Argentina" ? "AR" : "BR")}
+                      alt=""
+                      className="ep-wa-dock__dest-flag"
+                    />
+                    <strong className="ep-wa-dock__route-preview-name">{routeOrigin}</strong>
+                  </div>
                 </div>
               )}
             </div>
 
-            {/* Destination Selection Grid */}
+            {/* Destination Selection Grid (Zero internal vertical scroll) */}
             <div className="ep-wa-dock__field-group">
               <span className="ep-wa-dock__label">
-                <PlaneLanding size={13} style={{ display: "inline", verticalAlign: "-2px", marginRight: 4, color: "#00a884" }} />
+                <PlaneLanding size={14} style={{ display: "inline", verticalAlign: "-2px", marginRight: 5, color: "#00a884" }} />
                 Selecione o País de Destino:
               </span>
 
@@ -837,14 +844,14 @@ export function WhatsAppChatFlow({
                     className="ep-wa-dock__btn-dest ep-wa-dock__btn-dest--more"
                     onClick={() => setIsCustomDestination(true)}
                   >
-                    <Plus size={15} />
+                    <Plus size={16} />
                     <span>Outro país</span>
                   </button>
                 </div>
               ) : (
                 <div className="ep-wa-dock__input-row">
                   <div className="ep-wa-dock__input-wrap">
-                    <PlaneLanding size={17} className="ep-wa-dock__input-icon" />
+                    <PlaneLanding size={18} className="ep-wa-dock__input-icon" />
                     <input
                       className="ep-wa-dock__input ep-wa-dock__input--with-icon"
                       type="text"
@@ -861,7 +868,7 @@ export function WhatsAppChatFlow({
                     onClick={() => handleSelectDestination(customDestinationInput.trim())}
                   >
                     <span>OK</span>
-                    <ChevronRight size={16} />
+                    <ChevronRight size={17} />
                   </button>
                 </div>
               )}
@@ -869,30 +876,41 @@ export function WhatsAppChatFlow({
           </div>
         )}
 
-        {/* Step 4: Period Selection (1-Tap Vertical List) */}
+        {/* Step 4: Period Selection (52px Touch Targets with Lucide Icons) */}
         {currentStep === "period" && !isTyping && !thinkingText && (
           <div className="ep-wa-dock__step">
             <div className="ep-wa-dock__period-list">
-              {travelPeriods.map((period) => (
-                <button
-                  key={period.value}
-                  type="button"
-                  className="ep-wa-dock__period-btn"
-                  onClick={() => handleSelectPeriod(period.value)}
-                >
-                  <span>{period.label}</span>
-                  <ChevronRight size={15} className="ep-wa-dock__period-arrow" />
-                </button>
-              ))}
+              {travelPeriods.map((period) => {
+                const PeriodIcon = period.icon;
+                return (
+                  <button
+                    key={period.value}
+                    type="button"
+                    className="ep-wa-dock__period-btn"
+                    onClick={() => handleSelectPeriod(period.value)}
+                  >
+                    <div className="ep-wa-dock__period-btn-left">
+                      <div className="ep-wa-dock__period-icon-wrap">
+                        <PeriodIcon size={17} className="ep-wa-dock__period-icon" />
+                      </div>
+                      <span className="ep-wa-dock__period-text">{period.label}</span>
+                    </div>
+                    <div className="ep-wa-dock__period-btn-right">
+                      <span className="ep-wa-dock__period-tag">{period.tag}</span>
+                      <ChevronRight size={16} className="ep-wa-dock__period-arrow" />
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}
 
-        {/* Step 5: Contact Lead Form (48px Pill Inputs + Illustrative Icons + Goal Gradient Trigger) */}
+        {/* Step 5: Contact Lead Form (52px Pill Inputs + Illustrative Icons + Goal Gradient Trigger) */}
         {currentStep === "contact" && !isTyping && !thinkingText && (
           <form onSubmit={handleContactSubmit} className="ep-wa-dock__step">
             <div className="ep-wa-dock__input-wrap">
-              <User size={17} className="ep-wa-dock__input-icon" />
+              <User size={18} className="ep-wa-dock__input-icon" />
               <input
                 className="ep-wa-dock__input ep-wa-dock__input--with-icon"
                 type="text"
@@ -919,7 +937,7 @@ export function WhatsAppChatFlow({
                 ))}
               </select>
               <div className="ep-wa-dock__input-wrap" style={{ flex: 1 }}>
-                <Phone size={16} className="ep-wa-dock__input-icon" />
+                <Phone size={17} className="ep-wa-dock__input-icon" />
                 <input
                   className="ep-wa-dock__input ep-wa-dock__input--with-icon"
                   type="tel"
@@ -932,8 +950,8 @@ export function WhatsAppChatFlow({
             </div>
 
             <div className="ep-wa-dock__reassurance">
-              <Lock size={12} className="ep-wa-dock__lock-icon" />
-              <span>Análise confidencial e gratuita. Envio imediato no WhatsApp.</span>
+              <ShieldCheck size={15} className="ep-wa-dock__shield-icon" />
+              <span>Análise 100% gratuita, oficial e segura. Envio direto no WhatsApp.</span>
             </div>
 
             <button
@@ -946,7 +964,7 @@ export function WhatsAppChatFlow({
               ) : (
                 <>
                   <span>GERAR PRÉ-DIAGNÓSTICO OFICIAL</span>
-                  <ArrowRight size={17} strokeWidth={2.5} />
+                  <ArrowRight size={18} strokeWidth={2.5} />
                 </>
               )}
             </button>
@@ -962,7 +980,7 @@ export function WhatsAppChatFlow({
               rel="noopener noreferrer"
               className="ep-wa-final-cta ep-wa-final-cta--bold"
             >
-              <Phone size={18} />
+              <Phone size={19} />
               <span>ABRIR CONVERSA COM THAMIRES FELIX ➔</span>
             </a>
           </div>

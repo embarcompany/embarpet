@@ -228,10 +228,10 @@
 .ep-wa-bubble {
   position: relative;
   max-width: 88%;
-  padding: 9px 13px 7px;
-  border-radius: 10px;
-  font-size: 13.5px;
-  line-height: 1.46;
+  padding: 11px 15px 8px;
+  border-radius: 12px;
+  font-size: 14.5px;
+  line-height: 1.5;
   color: #111b21;
   box-shadow: 0 1px 1px rgba(11, 20, 26, 0.13);
   animation: ep-wa-pop 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -269,9 +269,9 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 3px;
-  margin-top: 4px;
-  font-size: 10px;
+  gap: 4px;
+  margin-top: 5px;
+  font-size: 11px;
   color: #667781;
 }
 
@@ -285,8 +285,8 @@
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 8px 14px;
+  gap: 5px;
+  padding: 10px 16px;
   border-radius: 12px;
   border-top-left-radius: 2px;
   background: #ffffff;
@@ -294,8 +294,8 @@
 }
 
 .ep-wa-typing__dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #8696a0;
   animation: ep-wa-dot-bounce 1.3s infinite ease-in-out;
@@ -309,33 +309,33 @@
 }
 
 .ep-wa-typing__label {
-  font-size: 11px;
+  font-size: 12px;
   color: #667781;
   font-style: italic;
-  margin-left: 4px;
+  margin-left: 5px;
 }
 
 /* ==========================================================================
-   Interactive Bottom Dock (Zero Horizontal Scroll • 48px Pill Inputs • Solid Colors)
+   Interactive Bottom Dock (Zero Vertical & Horizontal Scroll • 52px+ Touch Ergonomics)
    ========================================================================== */
 .ep-wa-dock {
   background: #ffffff;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
-  padding: 10px 14px 14px;
+  box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.06);
+  padding: 12px 16px 16px;
   flex-shrink: 0;
   z-index: 5;
   animation: ep-wa-slide-dock 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 /* Progressive Goal Gradient Progress Bar */
 .ep-wa-dock__progress-wrap {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-bottom: 9px;
-  padding-bottom: 7px;
+  gap: 5px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
   border-bottom: 1px solid #f1f5f9;
 }
 
@@ -348,21 +348,21 @@
 .ep-wa-dock__step-row {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
 }
 
 /* Step-Back Button */
 .ep-wa-dock__back-btn {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  padding: 2px 7px;
-  border-radius: 6px;
+  gap: 4px;
+  padding: 3.5px 9px;
+  border-radius: 8px;
   border: 1px solid #cbd5e1;
   background: #f8fafc;
-  color: #475569;
-  font-size: 10.5px;
-  font-weight: 700;
+  color: #334155;
+  font-size: 11.5px;
+  font-weight: 750;
   cursor: pointer;
   transition: all 0.14s ease;
 }
@@ -373,9 +373,9 @@
 }
 
 .ep-wa-dock__progress-label {
-  font-size: 11px;
-  font-weight: 750;
-  color: #475569;
+  font-size: 12px;
+  font-weight: 800;
+  color: #334155;
   letter-spacing: 0.01em;
 }
 
@@ -385,17 +385,17 @@
 }
 
 .ep-wa-dock__progress-badge {
-  font-size: 10.5px;
-  font-weight: 800;
+  font-size: 11px;
+  font-weight: 850;
   color: #00a884;
   background: #e6f7f2;
-  padding: 1.5px 6px;
-  border-radius: 4px;
+  padding: 2px 7px;
+  border-radius: 6px;
 }
 
 .ep-wa-dock__progress-track {
   width: 100%;
-  height: 4.5px;
+  height: 5px;
   border-radius: 999px;
   background: #e2e8f0;
   overflow: hidden;
@@ -415,37 +415,96 @@
 .ep-wa-dock__step {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  overflow: hidden;
 }
 
-/* 1-Tap Option Grid (Species etc) */
-.ep-wa-dock__grid {
+/* Species Selection Cards (Min-height 56px, Clean Lucide Icons) */
+.ep-wa-dock__grid--species {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
-.ep-wa-dock__grid--destinations {
-  grid-template-columns: repeat(2, 1fr);
-  max-height: 175px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-right: 2px;
+.ep-wa-dock__btn-species {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  color: #0f172a;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  text-align: left;
 }
 
-/* 2x2 Weight Box Grid (Zero horizontal scroll!) */
+.ep-wa-dock__btn-species:hover {
+  background: #e6f7f2;
+  border-color: #00a884;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 168, 132, 0.15);
+}
+
+.ep-wa-dock__species-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #e6f7f2;
+  color: #00a884;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.ep-wa-dock__btn-species:hover .ep-wa-dock__species-icon-wrap {
+  background: #00a884;
+  color: #ffffff;
+}
+
+.ep-wa-dock__species-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.ep-wa-dock__species-title {
+  font-size: 14.5px;
+  font-weight: 750;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.ep-wa-dock__species-sub {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 550;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 2x2 Weight Box Grid */
 .ep-wa-dock__grid--weights {
+  display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 6px;
+  gap: 8px;
+  overflow: hidden;
 }
 
 .ep-wa-dock__chip-box {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 8px 10px;
-  border-radius: 10px;
+  min-height: 52px;
+  padding: 9px 12px;
+  border-radius: 12px;
   border: 1.5px solid #e2e8f0;
   background: #f8fafc;
   cursor: pointer;
@@ -462,7 +521,7 @@
 .ep-wa-dock__chip-box--active {
   background: #e6f7f2;
   border-color: #00a884;
-  box-shadow: 0 2px 6px rgba(0, 168, 132, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 168, 132, 0.2);
 }
 
 .ep-wa-dock__chip-header {
@@ -472,7 +531,7 @@
 }
 
 .ep-wa-dock__chip-title {
-  font-size: 12.5px;
+  font-size: 13.5px;
   font-weight: 750;
   color: #0f172a;
 }
@@ -483,77 +542,56 @@
 }
 
 .ep-wa-dock__chip-sub {
-  font-size: 10.5px;
+  font-size: 11px;
   color: #64748b;
-  font-weight: 500;
-}
-
-.ep-wa-dock__btn-option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: 1.5px solid #e2e8f0;
-  background: #f8fafc;
-  color: #0f172a;
-  cursor: pointer;
-  transition: all 0.16s ease;
-  text-align: left;
-}
-
-.ep-wa-dock__btn-option:hover {
-  background: #e6f7f2;
-  border-color: #00a884;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(0, 168, 132, 0.15);
-}
-
-.ep-wa-dock__btn-option:active {
-  transform: translateY(0);
-}
-
-.ep-wa-dock__btn-emoji {
-  font-size: 20px;
-  flex-shrink: 0;
-}
-
-.ep-wa-dock__btn-title {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: #1e293b;
+  font-weight: 550;
 }
 
 /* Route Origin Preview Pill */
 .ep-wa-dock__route-preview-pill {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  border-radius: 10px;
+  justify-content: space-between;
+  min-height: 48px;
+  padding: 9px 14px;
+  border-radius: 12px;
   background: #f1f5f9;
   border: 1px solid #e2e8f0;
 }
 
 .ep-wa-dock__route-preview-badge {
-  font-size: 11px;
+  font-size: 12px;
   color: #64748b;
-  font-weight: 600;
+  font-weight: 650;
+}
+
+.ep-wa-dock__route-preview-content {
+  display: flex;
+  align-items: center;
+  gap: 7px;
 }
 
 .ep-wa-dock__route-preview-name {
-  font-size: 12.5px;
+  font-size: 13.5px;
   color: #005c4b;
-  font-weight: 750;
+  font-weight: 800;
 }
 
-/* Destination Buttons */
+/* Destination Buttons Grid (Zero vertical scroll, natural fit) */
+.ep-wa-dock__grid--destinations {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 7px;
+  overflow: hidden;
+}
+
 .ep-wa-dock__btn-dest {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 11px;
-  border-radius: 10px;
+  min-height: 46px;
+  padding: 9px 12px;
+  border-radius: 12px;
   border: 1px solid #e2e8f0;
   background: #f8fafc;
   cursor: pointer;
@@ -571,47 +609,46 @@
   border-style: dashed;
   border-color: #00a884;
   color: #005c4b;
-  font-weight: 700;
+  font-weight: 750;
   justify-content: center;
 }
 
 .ep-wa-dock__dest-flag {
-  width: 18px;
+  width: 20px;
   height: auto;
   border-radius: 2px;
   flex-shrink: 0;
 }
 
 .ep-wa-dock__dest-name {
-  font-size: 12.5px;
-  font-weight: 650;
+  font-size: 13px;
+  font-weight: 700;
   color: #1e293b;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* Period List (1-Tap list items) */
+/* Period List (52px Touch Targets with Lucide Icons) */
 .ep-wa-dock__period-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
+  overflow: hidden;
 }
 
 .ep-wa-dock__period-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 52px;
   padding: 10px 14px;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
   background: #f8fafc;
   color: #1e293b;
-  font-size: 13px;
-  font-weight: 700;
   cursor: pointer;
   transition: all 0.16s ease;
-  text-align: left;
 }
 
 .ep-wa-dock__period-btn:hover {
@@ -619,6 +656,50 @@
   border-color: #00a884;
   color: #005c4b;
   transform: translateX(2px);
+}
+
+.ep-wa-dock__period-btn-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ep-wa-dock__period-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #e6f7f2;
+  color: #00a884;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ep-wa-dock__period-btn:hover .ep-wa-dock__period-icon-wrap {
+  background: #00a884;
+  color: #ffffff;
+}
+
+.ep-wa-dock__period-text {
+  font-size: 14px;
+  font-weight: 750;
+  color: #1e293b;
+}
+
+.ep-wa-dock__period-btn-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ep-wa-dock__period-tag {
+  font-size: 11px;
+  font-weight: 750;
+  color: #00a884;
+  background: #e6f7f2;
+  padding: 2.5px 7px;
+  border-radius: 6px;
 }
 
 .ep-wa-dock__period-arrow {
@@ -630,7 +711,7 @@
 .ep-wa-dock__field-group {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
 
 .ep-wa-dock__label-row {
@@ -640,9 +721,9 @@
 }
 
 .ep-wa-dock__label {
-  font-size: 11px;
-  font-weight: 750;
-  color: #475569;
+  font-size: 12px;
+  font-weight: 800;
+  color: #334155;
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
@@ -652,8 +733,8 @@
   border: none;
   padding: 0;
   color: #00a884;
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 750;
   cursor: pointer;
   text-decoration: underline;
 }
@@ -662,17 +743,17 @@
 .ep-wa-dock__chips-wrap {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
-  overflow-x: hidden;
+  gap: 6px;
+  overflow: hidden;
 }
 
 .ep-wa-dock__chip {
-  padding: 5px 10px;
+  padding: 6px 12px;
   border-radius: 999px;
   border: 1px solid #d1d5db;
   background: #f9fafb;
   color: #374151;
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 650;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -693,7 +774,7 @@
 }
 
 /* ==========================================================================
-   48px PILL INPUTS WITH CONTEXTUAL ICONS
+   52px ERGONOMIC PILL INPUTS WITH CONTEXTUAL ICONS
    ========================================================================== */
 .ep-wa-dock__input-wrap {
   position: relative;
@@ -704,7 +785,7 @@
 
 .ep-wa-dock__input-icon {
   position: absolute;
-  left: 14px;
+  left: 16px;
   color: #00a884;
   pointer-events: none;
   flex-shrink: 0;
@@ -712,31 +793,31 @@
 
 .ep-wa-dock__input-row {
   display: flex;
-  gap: 7px;
+  gap: 8px;
 }
 
 .ep-wa-dock__phone-row {
   display: flex;
-  gap: 7px;
+  gap: 8px;
   align-items: center;
 }
 
 .ep-wa-dock__input {
   width: 100%;
-  min-height: 48px;
-  height: 48px;
-  padding: 0 16px;
-  border-radius: 24px;
+  min-height: 52px;
+  height: 52px;
+  padding: 0 18px;
+  border-radius: 26px;
   border: 1.5px solid #cbd5e1;
   background: #ffffff;
-  font-size: 14px;
+  font-size: 15px;
   color: #0f172a;
   outline: none;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .ep-wa-dock__input--with-icon {
-  padding-left: 42px;
+  padding-left: 48px;
 }
 
 .ep-wa-dock__input:focus {
@@ -745,16 +826,16 @@
 }
 
 .ep-wa-dock__select {
-  min-height: 48px;
-  height: 48px;
-  width: 110px;
-  flex: 0 0 110px;
-  padding: 0 10px;
-  border-radius: 24px;
+  min-height: 52px;
+  height: 52px;
+  width: 118px;
+  flex: 0 0 118px;
+  padding: 0 12px;
+  border-radius: 26px;
   border: 1.5px solid #cbd5e1;
   background: #ffffff;
-  font-size: 13px;
-  font-weight: 650;
+  font-size: 14px;
+  font-weight: 700;
   color: #0f172a;
   outline: none;
 }
@@ -767,13 +848,13 @@
 .ep-wa-dock__reassurance {
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-size: 11px;
-  color: #64748b;
-  margin-top: -2px;
+  gap: 6px;
+  font-size: 12px;
+  color: #475569;
+  margin-top: -1px;
 }
 
-.ep-wa-dock__lock-icon {
+.ep-wa-dock__shield-icon {
   color: #00a884;
   flex-shrink: 0;
 }
@@ -787,13 +868,13 @@
   justify-content: center;
   gap: 8px;
   width: 100%;
-  min-height: 48px;
-  height: 48px;
-  border-radius: 24px;
+  min-height: 52px;
+  height: 52px;
+  border-radius: 26px;
   border: none;
   background: #00a884;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 15px;
   cursor: pointer;
   box-shadow: 0 3px 10px rgba(0, 168, 132, 0.28);
   transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
@@ -807,7 +888,7 @@
 
 .ep-wa-dock__cta-btn--compact {
   width: auto;
-  padding: 0 18px;
+  padding: 0 20px;
   flex-shrink: 0;
 }
 
@@ -834,13 +915,14 @@
   justify-content: center;
   gap: 10px;
   width: 100%;
-  min-height: 52px;
+  min-height: 54px;
+  height: 54px;
   padding: 14px 22px;
-  border-radius: 26px;
+  border-radius: 27px;
   border: none;
   background: #25d366;
   color: #03361a;
-  font-size: 14.5px;
+  font-size: 15px;
   text-decoration: none;
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
