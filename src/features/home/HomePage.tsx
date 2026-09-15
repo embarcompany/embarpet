@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ConversionHero } from "../../design-system/patterns";
 import { ModalityRail, type RouteData } from "../../design-system/components";
-import { Button, Notice, SectionHeading } from "../../design-system/primitives";
+import { Button, SectionHeading } from "../../design-system/primitives";
 import { InternationalTransfer, type Region } from "../../components/ui/country-accordion";
 import { ScrollFlyIn } from "../../components/ui/hero-section-3";
 import { FAQItem } from "../../components/ui/system";
@@ -185,7 +185,6 @@ export default function EmbarpetHome() {
     return { origin: query.get("origin") ?? "", destination: query.get("destination") ?? "", period: query.get("period") ?? "" };
   };
   const [route, setRoute] = useState<RouteData>({ origin:"", destination:"", period:"" });
-  const [message, setMessage] = useState("");
   const [heroVideoFullLoaded, setHeroVideoFullLoaded] = useState(false);
   const [heroVideoPaused, setHeroVideoPaused] = useState(false);
   const [podcastPlaying, setPodcastPlaying] = useState(false);
@@ -237,7 +236,6 @@ export default function EmbarpetHome() {
       <button type="button" className="ep-hero-mobile-analysis" onClick={() => openAnalysis()}><span>Iniciar análise</span><ArrowRight size={18} aria-hidden="true" /></button>
       <div className="ep-conversion-hero__form"><HeroRouteStarter /></div>
     </ConversionHero>
-    {message ? <div className="ep-container ep-home-notice"><Notice kind="success">{message}</Notice></div> : null}
     <EmbarkationMarquee />
 
     <section className="ep-home-modalities" id="modalidades"><div className="ep-container"><div className="ep-home-modalities__intro"><div><p className="ep-eyebrow">Modalidades de embarque</p><h2 className="ep-title-lg">Entenda como seu pet pode <em>viajar de avião.</em></h2></div><p className="ep-copy">Cabine, bagagem acompanhada, compartimento de cargas e suporte emocional funcionam de maneiras diferentes. Conheça cada modalidade antes de avaliarmos qual pode fazer sentido para o seu pet, a sua rota e a sua família.</p></div>
@@ -286,5 +284,5 @@ export default function EmbarpetHome() {
     { title:"Planeje a viagem", links:[{ label:"Como funciona", href:"#como-funciona" },{ label:"Modalidades", href:"#modalidades" },{ label:"Destinos", href:"#destinos" }] },
     { title:"Conteúdo", links:[{ label:"Guias para viagem", href:"#guias" },{ label:"Histórias reais", href:"#historias" },{ label:"Perguntas frequentes", href:"#faq" }] },
     { title:"Embarpet", links:[{ label:"Sobre nós", href:"/sobre" },{ label:"Fale com a equipe", href:"#analise" },{ label:"Privacidade", href:"/privacidade" }] },
-  ]} /><WhatsAppFloat context={leadContext} onStart={(context) => setMessage("Entrada WhatsApp preparada para " + (context.destination || "sua rota") + ".")} /></>;
+  ]} /><WhatsAppFloat context={leadContext} /></>;
 }
