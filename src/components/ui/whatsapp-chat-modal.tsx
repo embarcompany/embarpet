@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { X, ShieldCheck } from "lucide-react";
+import { X } from "lucide-react";
 import { useLocale } from "../../i18n/locale";
 import { WhatsAppChatFlow } from "./whatsapp-chat-flow";
 import "./whatsapp-chat.css";
@@ -121,24 +121,13 @@ export function WhatsAppChatModal({
           </div>
         </header>
 
-        {/* Conversational Step Flow with AI Reasoning */}
+        {/* Conversational Step Flow with AI Reasoning & Interactive Dock */}
         <WhatsAppChatFlow
           initialRoute={initialRoute}
           analyticsSource={analyticsSource}
         />
-
-        {/* Minimalist Footer Status */}
-        <footer className="ep-wa-footer">
-          <span className="ep-wa-footer__hint">
-            <span className="ep-wa-footer__hint-dot" />
-            Atendimento em tempo real com especialista
-          </span>
-          <span className="ep-wa-footer__hint" style={{ fontSize: "11px" }}>
-            <ShieldCheck size={13} style={{ color: "#00a884" }} />
-            Seguro & Oficial
-          </span>
-        </footer>
       </section>
     </div>
   );
 }
+

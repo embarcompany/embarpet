@@ -1,6 +1,6 @@
 /* ==========================================================================
    WhatsApp Conversational Chat Modal - Embarpet (Thamires Felix)
-   Minimalist, AI-Enhanced, Thumb-Friendly Bottom Dock & Bold CTAs
+   Senior CRO, Progressive Goal-Gradient, Zero Horizontal Scroll & Bold CTAs
    ========================================================================== */
 
 .ep-wa-modal {
@@ -32,7 +32,7 @@
   flex-direction: column;
   width: 100%;
   max-width: 480px;
-  height: min(740px, 92vh);
+  height: min(740px, 94vh);
   background: #efeae2;
   border-radius: 24px;
   overflow: hidden;
@@ -165,12 +165,14 @@
   background-color: #efeae2;
   background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 0);
   background-size: 16px 16px;
+  overflow-x: hidden;
 }
 
 /* Chat Stream Body */
 .ep-wa-body {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 16px 14px 12px;
   display: flex;
   flex-direction: column;
@@ -308,30 +310,79 @@
 }
 
 /* ==========================================================================
-   Interactive Bottom Dock (The Dynamic Keyboard Replacement)
+   Interactive Bottom Dock (Dynamic Keyboard Replacement • Zero Horizontal Scroll)
    ========================================================================== */
 .ep-wa-dock {
   background: #ffffff;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
-  padding: 12px 14px 14px;
+  padding: 10px 14px 14px;
   flex-shrink: 0;
   z-index: 5;
   animation: ep-wa-slide-dock 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+  overflow-x: hidden;
+}
+
+/* Progressive Goal Gradient Progress Bar */
+.ep-wa-dock__progress-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 9px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.ep-wa-dock__progress-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ep-wa-dock__progress-label {
+  font-size: 11px;
+  font-weight: 750;
+  color: #475569;
+  letter-spacing: 0.01em;
+}
+
+.ep-wa-dock__progress-label--urgent {
+  color: #059669;
+  font-weight: 850;
+}
+
+.ep-wa-dock__progress-badge {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #00a884;
+  background: #e6f7f2;
+  padding: 1.5px 6px;
+  border-radius: 4px;
+}
+
+.ep-wa-dock__progress-track {
+  width: 100%;
+  height: 4.5px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  overflow: hidden;
+}
+
+.ep-wa-dock__progress-fill {
+  height: 100%;
+  background: #00a884;
+  border-radius: 999px;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ep-wa-dock__progress-fill--final {
+  background: linear-gradient(90deg, #00a884 0%, #25d366 100%);
 }
 
 .ep-wa-dock__step {
   display: flex;
   flex-direction: column;
-  gap: 9px;
-}
-
-.ep-wa-dock__hint {
-  font-size: 11px;
-  font-weight: 700;
-  color: #54656f;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+  gap: 8px;
 }
 
 /* 1-Tap Option Grid (Species etc) */
@@ -339,13 +390,69 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
+  overflow-x: hidden;
 }
 
 .ep-wa-dock__grid--destinations {
   grid-template-columns: repeat(2, 1fr);
-  max-height: 180px;
+  max-height: 175px;
   overflow-y: auto;
+  overflow-x: hidden;
   padding-right: 2px;
+}
+
+/* 2x2 Weight Box Grid (Zero horizontal scroll!) */
+.ep-wa-dock__grid--weights {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.ep-wa-dock__chip-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.ep-wa-dock__chip-box:hover {
+  background: #e6f7f2;
+  border-color: #00a884;
+  transform: translateY(-1px);
+}
+
+.ep-wa-dock__chip-box--active {
+  background: #e6f7f2;
+  border-color: #00a884;
+  box-shadow: 0 2px 6px rgba(0, 168, 132, 0.2);
+}
+
+.ep-wa-dock__chip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ep-wa-dock__chip-title {
+  font-size: 12.5px;
+  font-weight: 750;
+  color: #0f172a;
+}
+
+.ep-wa-dock__chip-check {
+  color: #00a884;
+  stroke-width: 3;
+}
+
+.ep-wa-dock__chip-sub {
+  font-size: 10.5px;
+  color: #64748b;
+  font-weight: 500;
 }
 
 .ep-wa-dock__btn-option {
@@ -389,7 +496,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
+  padding: 8px 11px;
   border-radius: 10px;
   border: 1px solid #e2e8f0;
   background: #f8fafc;
@@ -467,7 +574,7 @@
 .ep-wa-dock__field-group {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
 }
 
 .ep-wa-dock__label-row {
@@ -484,15 +591,6 @@
   letter-spacing: 0.03em;
 }
 
-.ep-wa-dock__badge-micro {
-  font-size: 10px;
-  font-weight: 750;
-  color: #00a884;
-  background: #e6f7f2;
-  padding: 1.5px 6px;
-  border-radius: 4px;
-}
-
 .ep-wa-dock__link-toggle {
   background: none;
   border: none;
@@ -504,27 +602,24 @@
   text-decoration: underline;
 }
 
-/* Horizontal Chip Scroller for Low Limbic Friction */
-.ep-wa-dock__chips-scroll {
+/* Flex-Wrap Chip Container (Zero Horizontal Scroll!) */
+.ep-wa-dock__chips-wrap {
   display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  padding-bottom: 3px;
-  scrollbar-width: thin;
+  flex-wrap: wrap;
+  gap: 5px;
+  overflow-x: hidden;
 }
 
 .ep-wa-dock__chip {
-  white-space: nowrap;
-  padding: 6px 11px;
+  padding: 5px 10px;
   border-radius: 999px;
   border: 1px solid #d1d5db;
   background: #f9fafb;
   color: #374151;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 650;
   cursor: pointer;
   transition: all 0.15s ease;
-  flex-shrink: 0;
 }
 
 .ep-wa-dock__chip:hover {
@@ -679,33 +774,6 @@
 
 .ep-wa-final-cta:active {
   transform: translateY(0);
-}
-
-/* Minimalist Footer */
-.ep-wa-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 16px;
-  background: #f0f2f5;
-  border-top: 1px solid #e9edef;
-  flex-shrink: 0;
-}
-
-.ep-wa-footer__hint {
-  font-size: 11px;
-  color: #667781;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-weight: 500;
-}
-
-.ep-wa-footer__hint-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #25d366;
 }
 
 /* Animations */
