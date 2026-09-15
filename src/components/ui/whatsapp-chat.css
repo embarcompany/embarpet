@@ -1,0 +1,596 @@
+/* ==========================================================================
+   WhatsApp Conversational Chat Modal - Embarpet (Thamires Felix)
+   ========================================================================== */
+
+.ep-wa-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 20, 24, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: ep-wa-fade-in 0.25s ease-out both;
+}
+
+.ep-wa-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.ep-wa-modal__panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  height: min(720px, 92vh);
+  background: #efeae2;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px -10px rgba(0, 32, 38, 0.45), 0 0 1px rgba(0, 0, 0, 0.2);
+  animation: ep-wa-slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (max-width: 520px) {
+  .ep-wa-modal {
+    padding: 0;
+  }
+  .ep-wa-modal__panel {
+    max-width: 100%;
+    height: 100vh;
+    border-radius: 0;
+  }
+}
+
+/* Header */
+.ep-wa-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #005c4b;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.ep-wa-header__profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.ep-wa-header__avatar-wrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+}
+
+.ep-wa-header__avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  background: #ffffff;
+}
+
+.ep-wa-header__online-dot {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #25d366;
+  border: 2px solid #005c4b;
+  animation: ep-wa-pulse 2s infinite;
+}
+
+.ep-wa-header__info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ep-wa-header__name-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ep-wa-header__name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ep-wa-header__badge {
+  display: inline-flex;
+  color: #25d366;
+  background: #ffffff;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.ep-wa-header__status {
+  font-size: 11.5px;
+  color: #d1f4ec;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ep-wa-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ep-wa-header__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.ep-wa-header__btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Chat Body */
+.ep-wa-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #efeae2;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 0);
+  background-size: 16px 16px;
+  scroll-behavior: smooth;
+}
+
+/* System Notice / Encryption Pill */
+.ep-wa-notice-pill {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(254, 237, 192, 0.88);
+  border: 1px solid rgba(224, 185, 95, 0.4);
+  color: #54656f;
+  font-size: 10.5px;
+  text-align: center;
+  max-width: 90%;
+  margin-bottom: 4px;
+}
+
+.ep-wa-date-pill {
+  align-self: center;
+  padding: 4px 12px;
+  border-radius: 7px;
+  background: #ffffff;
+  box-shadow: 0 1px 1px rgba(11, 20, 26, 0.12);
+  color: #54656f;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+/* Message Bubbles */
+.ep-wa-bubble {
+  position: relative;
+  max-width: 88%;
+  padding: 9px 12px 7px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  line-height: 1.44;
+  color: #111b21;
+  box-shadow: 0 1px 1px rgba(11, 20, 26, 0.13);
+  animation: ep-wa-pop 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ep-wa-bubble--incoming {
+  align-self: flex-start;
+  background: #ffffff;
+  border-top-left-radius: 2px;
+}
+
+.ep-wa-bubble--outgoing {
+  align-self: flex-end;
+  background: #d9fdd3;
+  border-top-right-radius: 2px;
+}
+
+.ep-wa-bubble__text {
+  margin: 0;
+  word-break: break-word;
+}
+
+.ep-wa-bubble__meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 3px;
+  margin-top: 3px;
+  font-size: 10px;
+  color: #667781;
+}
+
+.ep-wa-bubble__ticks {
+  color: #53bdeb;
+  display: inline-flex;
+}
+
+/* Audio Simulation Bubble */
+.ep-wa-audio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 2px;
+}
+
+.ep-wa-audio__play-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #00a884;
+  color: #ffffff;
+  cursor: pointer;
+  flex: 0 0 36px;
+}
+
+.ep-wa-audio__track {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ep-wa-audio__waveform {
+  height: 16px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.ep-wa-audio__bar {
+  width: 3px;
+  background: #00a884;
+  border-radius: 2px;
+  opacity: 0.7;
+}
+
+.ep-wa-audio__time {
+  font-size: 10px;
+  color: #667781;
+}
+
+.ep-wa-audio__mic {
+  color: #00a884;
+}
+
+/* Typing indicator */
+.ep-wa-typing {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  border-top-left-radius: 2px;
+  background: #ffffff;
+  box-shadow: 0 1px 1px rgba(11, 20, 26, 0.13);
+}
+
+.ep-wa-typing__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8696a0;
+  animation: ep-wa-dot-bounce 1.3s infinite ease-in-out;
+}
+
+.ep-wa-typing__dot:nth-child(2) {
+  animation-delay: 0.18s;
+}
+.ep-wa-typing__dot:nth-child(3) {
+  animation-delay: 0.36s;
+}
+
+.ep-wa-typing__label {
+  font-size: 11px;
+  color: #667781;
+  font-style: italic;
+  margin-left: 4px;
+}
+
+/* Quick Replies / Action Chips */
+.ep-wa-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 6px;
+  animation: ep-wa-fade-in 0.25s ease-out;
+}
+
+.ep-wa-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 92, 75, 0.35);
+  background: #ffffff;
+  color: #005c4b;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.16s ease;
+}
+
+.ep-wa-chip:hover {
+  background: #005c4b;
+  color: #ffffff;
+  border-color: #005c4b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 92, 75, 0.25);
+}
+
+.ep-wa-chip--primary {
+  background: #00a884;
+  color: #ffffff;
+  border-color: #00a884;
+}
+
+.ep-wa-chip--primary:hover {
+  background: #008f6f;
+  border-color: #008f6f;
+}
+
+/* Inline Interactive Card */
+.ep-wa-card {
+  margin-top: 6px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #f7f8fa;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.ep-wa-card__row {
+  display: flex;
+  gap: 8px;
+}
+
+.ep-wa-card__field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ep-wa-card__label {
+  font-size: 10.5px;
+  font-weight: 750;
+  color: #54656f;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.ep-wa-card__input {
+  width: 100%;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d7db;
+  background: #ffffff;
+  font-size: 13px;
+  color: #111b21;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.ep-wa-card__input:focus {
+  border-color: #00a884;
+  box-shadow: 0 0 0 2px rgba(0, 168, 132, 0.2);
+}
+
+.ep-wa-card__select {
+  width: 100%;
+  height: 36px;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid #d1d7db;
+  background: #ffffff;
+  font-size: 12.5px;
+  color: #111b21;
+  outline: none;
+}
+
+.ep-wa-card__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 38px;
+  border-radius: 8px;
+  border: none;
+  background: #00a884;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.ep-wa-card__btn:hover {
+  background: #008f6f;
+  transform: translateY(-1px);
+}
+
+.ep-wa-card__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Big Action CTA */
+.ep-wa-final-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 13px 18px;
+  border-radius: 12px;
+  border: none;
+  background: #25d366;
+  color: #075e54;
+  font-size: 14px;
+  font-weight: 850;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+  transition: background 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+  margin-top: 6px;
+}
+
+.ep-wa-final-cta:hover {
+  background: #20ba5a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+}
+
+/* Footer / Input Bar Mock */
+.ep-wa-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #f0f2f5;
+  border-top: 1px solid #e9edef;
+  flex-shrink: 0;
+}
+
+.ep-wa-footer__input-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 6px 14px;
+  border: 1px solid #e9edef;
+}
+
+.ep-wa-footer__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  color: #111b21;
+  background: transparent;
+}
+
+.ep-wa-footer__input::placeholder {
+  color: #8696a0;
+}
+
+.ep-wa-footer__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #00a884;
+  color: #ffffff;
+  cursor: pointer;
+  flex: 0 0 36px;
+  transition: transform 0.15s ease;
+}
+
+.ep-wa-footer__btn:hover {
+  transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes ep-wa-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ep-wa-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes ep-wa-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes ep-wa-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+  70% { box-shadow: 0 0 0 6px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+@keyframes ep-wa-dot-bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}

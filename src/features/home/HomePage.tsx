@@ -12,6 +12,7 @@ import { WhatsAppFloat, type LeadContext } from "../../components/ui/whatsapp-fl
 import { HeroRouteStarter } from "../../components/ui/hero-route-starter";
 import { CaseDragCards } from "../../components/ui/case-drag-cards";
 import { AnalysisModal } from "../../components/ui/analysis-modal";
+import { WhatsAppChatModal } from "../../components/ui/whatsapp-chat-modal";
 import { InternalLink } from "../../components/ui/buttons";
 import { PetLuxoSection } from "../../components/ui/pet-luxo-section";
 import { useLocale } from "../../i18n/locale";
@@ -190,7 +191,9 @@ export default function EmbarpetHome() {
   const [podcastPlaying, setPodcastPlaying] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const [analysisOpen, setAnalysisOpen] = useState(false);
+  const [whatsappModalOpen, setWhatsappModalOpen] = useState(false);
   const [analysisRoute, setAnalysisRoute] = useState<Partial<RouteData>>({});
+
   const openAnalysis = (initialRoute: Partial<RouteData> = {}) => {
     const nextRoute = { origin: initialRoute.origin ?? "", destination: initialRoute.destination ?? "", period: initialRoute.period ?? "" };
     const query = new URLSearchParams();
@@ -199,9 +202,18 @@ export default function EmbarpetHome() {
     if (nextRoute.period) query.set("period", nextRoute.period);
     setAnalysisRoute(nextRoute);
     setAnalysisOpen(true);
+    setWhatsappModalOpen(false);
     const analysisPath = path("/analise");
     if (window.location.pathname !== analysisPath) window.history.pushState({ embarpetAnalysis: true }, "", `${analysisPath}${query.size ? `?${query.toString()}` : ""}`);
   };
+
+  const openWhatsappChat = (initialRoute: Partial<RouteData> = {}) => {
+    const nextRoute = { origin: initialRoute.origin ?? "", destination: initialRoute.destination ?? "", period: initialRoute.period ?? "" };
+    setAnalysisRoute(nextRoute);
+    setWhatsappModalOpen(true);
+    setAnalysisOpen(false);
+  };
+
   const closeAnalysis = () => {
     if (window.location.pathname !== path("/analise")) { setAnalysisOpen(false); return; }
     if (window.history.state?.embarpetAnalysis) window.history.back();
@@ -210,12 +222,27 @@ export default function EmbarpetHome() {
       setAnalysisOpen(false);
     }
   };
+
+  const closeWhatsappModal = () => {
+    setWhatsappModalOpen(false);
+  };
+
   useEffect(() => {
-    const handleOpen = (event: Event) => openAnalysis((event as CustomEvent<Partial<RouteData>>).detail ?? {});
+    const handleOpen = (event: Event) => {
+      const customEvent = event as CustomEvent<Partial<RouteData> & { mode?: "standard" | "whatsapp" }>;
+      const detail = customEvent.detail ?? {};
+      if (detail.mode === "whatsapp") {
+        openWhatsappChat(detail);
+      } else {
+        openAnalysis(detail);
+      }
+    };
     const handlePopState = () => {
-      const shouldOpen = window.location.pathname === path("/analise");
-      setAnalysisOpen(shouldOpen);
-      if (shouldOpen) setAnalysisRoute(routeFromUrl());
+      const isWhatsapp = window.location.pathname === path("/whatsapp") || (window.location.pathname === path("/analise") && window.location.search.includes("mode=whatsapp"));
+      const isStandard = window.location.pathname === path("/analise") && !window.location.search.includes("mode=whatsapp");
+      setAnalysisOpen(isStandard);
+      setWhatsappModalOpen(isWhatsapp);
+      if (isStandard || isWhatsapp) setAnalysisRoute(routeFromUrl());
     };
     handlePopState();
     window.addEventListener("embarp:open-analysis", handleOpen);
@@ -228,7 +255,10 @@ export default function EmbarpetHome() {
   };
   const leadContext: LeadContext = { source:"home", page:"/", origin:route.origin, destination:route.destination, period:route.period };
 
-  return <><AnalysisModal open={analysisOpen} onClose={closeAnalysis} initialRoute={analysisRoute} analyticsSource="index_modal" /><SiteHeader overlay logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" /><main className="ep-home-main">
+  return <>
+    <AnalysisModal open={analysisOpen} onClose={closeAnalysis} initialRoute={analysisRoute} analyticsSource="index_modal" />
+    <WhatsAppChatModal open={whatsappModalOpen} onClose={closeWhatsappModal} initialRoute={analysisRoute} analyticsSource="home_whatsapp_modal" />
+    <SiteHeader overlay logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" /><main className="ep-home-main">
     <ConversionHero aside={<aside className="ep-hero-showcase" aria-label="Embarpet em operação"><img className="ep-hero-showcase__pet" src="/embarpet-hero-pets-air-travel.webp" alt="Cachorro, gato, coelho, hamster e ave em uma composição sobre viagem internacional de pets" /><section className="ep-hero-showcase__vsl"><div className="ep-hero-showcase__video">{heroVideoFullLoaded ? <><video ref={heroVideoRef} src="/embarpet-hero-vsl.mp4" poster="/embarpet-hero-vsl-poster.jpg" aria-label="Acompanhamento Embarpet em contexto de viagem" autoPlay playsInline preload="auto" onPause={() => setHeroVideoPaused(true)} onPlay={() => setHeroVideoPaused(false)} /><button type="button" aria-label={heroVideoPaused ? "Reproduzir vídeo" : "Pausar vídeo"} className="ep-hero-video__sound is-playing" onClick={() => { if (heroVideoRef.current?.paused) void heroVideoRef.current.play(); else heroVideoRef.current?.pause(); }}>{heroVideoPaused ? <Play size={14} /> : <Pause size={14} />}</button></> : <button type="button" className="ep-hero-showcase__poster" aria-label="Reproduzir vídeo sobre a Embarpet" onClick={() => { setHeroVideoFullLoaded(true); setHeroVideoPaused(false); }}><img src="/embarpet-hero-vsl-poster.jpg" alt="Thamires Félix apresentando a operação da Embarpet" fetchPriority="high" decoding="async" /><span><Play size={18} fill="currentColor" /></span></button>}</div></section></aside>}>
       <div className="ep-hero-proof" aria-label="Mais de dois mil embarques realizados e avaliação 4,9 no Google"><div className="ep-hero-proof__metric"><span className="ep-team-avatars" aria-hidden="true"><i /><i /><i /><i /></span><strong>+2.000</strong><small>embarques<br />realizados</small></div><div className="ep-hero-proof__metric"><img src="/logo-google.svg" alt="Google" /><strong>4,9</strong><small>avaliação<br />no Google</small></div></div>
       <h1 className="ep-title-xl">{text.heroTitleBefore}<span className="ep-hero-highlight">{text.heroTitleHighlight}</span><span className="ep-hero-flags" aria-hidden="true">{["BR", "US", "PT", "ES", "IT"].map((code) => <img key={code} src={countryFlagSvg(code)} alt="" />)}</span></h1>
