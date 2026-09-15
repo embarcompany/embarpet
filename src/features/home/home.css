@@ -1623,7 +1623,7 @@ main.ep-home-main > .ep-final-fly-in { order:13; }
     min-height: 0;
     align-self: stretch;
     overflow: visible !important;
-    border-radius: 24px 0 0 24px;
+    border-radius: 24px;
     position: relative;
     display: flex;
     align-items: flex-end;
@@ -1666,7 +1666,7 @@ main.ep-home-main > .ep-final-fly-in { order:13; }
     bottom: 0;
     left: 0;
     height: 52%;
-    border-radius: 0 0 0 24px;
+    border-radius: 0 0 24px 24px;
     background: linear-gradient(to top, #008d99 0%, rgba(0, 152, 163, 0.94) 22%, rgba(0, 177, 187, 0.62) 56%, rgba(0, 177, 187, 0) 100%);
     pointer-events: none;
   }
