@@ -242,7 +242,7 @@ export function SiteHeader({
           title: "Vai para outro país?",
           description: "Planejamos rotas personalizadas com sincronia de laudos, vacinas e microchip para mais de 80 destinos internacionais.",
           buttonLabel: "Consultar Especialista",
-          imageSrc: "/embarpet-autoridade-destino-real.jpeg",
+          imageSrc: "/embarpet-megamenu-destinos.jpg",
         },
       },
       {
@@ -291,7 +291,7 @@ export function SiteHeader({
           title: "Dúvida sobre a modalidade?",
           description: "Nossa equipe avalia raça, medidas anatômicas e peso para indicar a modalidade 100% segura para seu pet.",
           buttonLabel: "Avaliar Modalidade",
-          imageSrc: "/embarpet-bagagem-acompanhada.webp",
+          imageSrc: "/embarpet-megamenu-modalidades.jpg",
         },
       },
       {
