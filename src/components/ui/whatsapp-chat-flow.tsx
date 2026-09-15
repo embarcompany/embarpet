@@ -8,11 +8,12 @@ import {
   ShieldCheck,
   Plus,
   Sparkles,
+  Lock,
+  ChevronRight,
 } from "lucide-react";
 import { submitLead, type PublicLead } from "../../lead-contract";
 import { trackConversionEvent } from "../../lib/analytics";
 import { countryFlagSvg } from "../../lib/country-flag";
-import { useLocale } from "../../i18n/locale";
 
 type ChatStep = "greeting" | "pet_details" | "route" | "period" | "contact" | "complete";
 
@@ -20,13 +21,7 @@ type ChatMessage = {
   id: string;
   sender: "thamires" | "user" | "system";
   text?: string;
-  highlightTag?: string;
   time: string;
-  quickReplies?: Array<{
-    label: string;
-    icon?: string | ReactNode;
-    onClick: () => void;
-  }>;
   card?: ReactNode;
 };
 
@@ -52,11 +47,27 @@ const popularDestinations = [
   { label: "Paraguai", code: "PY" },
 ];
 
+const weightPresets = [
+  { label: "Até 8 kg (Cabine)", value: "7" },
+  { label: "8 a 15 kg", value: "12" },
+  { label: "15 a 30 kg", value: "22" },
+  { label: "+30 kg (Grande Porte)", value: "35" },
+];
+
+const popularBreeds = [
+  "SRD (Vira-lata)",
+  "Spitz Alemão / Lulu",
+  "Golden / Labrador",
+  "Bulldog / Pug (Focinho Curto)",
+  "Shih Tzu / Lhasa",
+  "Gato Persa / Siamês",
+];
+
 const travelPeriods = [
-  "Dentro de 1 a 3 meses",
-  "De 3 a 6 meses",
-  "De 6 a 12 meses",
-  "Sem data definida",
+  { label: "⚡ Em até 30 dias (Urgente)", value: "Em até 30 dias (Urgente)" },
+  { label: "✈️ Dentro de 1 a 3 meses", value: "Dentro de 1 a 3 meses" },
+  { label: "📅 De 3 a 6 meses", value: "De 3 a 6 meses" },
+  { label: "🔍 Apenas planejando", value: "Apenas planejando" },
 ];
 
 const phoneMasks: Record<string, { max: number; format: (digits: string) => string }> = {
@@ -105,18 +116,19 @@ export function WhatsAppChatFlow({
   analyticsSource?: string;
   onComplete?: (lead: PublicLead) => void;
 }) {
-  const { locale } = useLocale();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [thinkingText, setThinkingText] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState<ChatStep>("greeting");
 
-  // Form Data
+  // Form State
   const [petSpecies, setPetSpecies] = useState("Cachorro");
   const [petName, setPetName] = useState("");
   const [petBreed, setPetBreed] = useState("");
   const [petWeight, setPetWeight] = useState("");
-  const [routeOrigin, setRouteOrigin] = useState(initialRoute.origin || "Brasil");
+  const [customBreedMode, setCustomBreedMode] = useState(false);
+
+  const [routeOrigin] = useState(initialRoute.origin || "Brasil");
   const [routeDestination, setRouteDestination] = useState(initialRoute.destination || "");
   const [travelPeriod, setTravelPeriod] = useState(initialRoute.period || "");
   const [tutorName, setTutorName] = useState("");
@@ -125,6 +137,7 @@ export function WhatsAppChatFlow({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [customDestinationInput, setCustomDestinationInput] = useState("");
   const [isCustomDestination, setIsCustomDestination] = useState(false);
+  const [completedWhatsAppUrl, setCompletedWhatsAppUrl] = useState<string | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const hasTrackedStart = useRef(false);
@@ -135,7 +148,7 @@ export function WhatsAppChatFlow({
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isTyping, thinkingText]);
+  }, [messages, isTyping, thinkingText, currentStep]);
 
   const trackStart = () => {
     if (hasTrackedStart.current) return;
@@ -150,8 +163,8 @@ export function WhatsAppChatFlow({
   const triggerAiResponse = (
     thoughtLabel: string,
     action: () => void,
-    thoughtDuration = 700,
-    typingDuration = 550
+    thoughtDuration = 650,
+    typingDuration = 500
   ) => {
     setThinkingText(thoughtLabel);
     setIsTyping(false);
@@ -186,27 +199,19 @@ export function WhatsAppChatFlow({
           sender: "thamires",
           text: "Para começarmos a traçar a rota ideal, qual pet vai viajar com você?",
           time,
-          quickReplies: [
-            { label: "Cachorro", icon: "🐶", onClick: () => handleSelectSpecies("Cachorro") },
-            { label: "Gato", icon: "🐱", onClick: () => handleSelectSpecies("Gato") },
-            { label: "Hamster", icon: "🐹", onClick: () => handleSelectSpecies("Hamster") },
-            { label: "Ave / Exótico", icon: "🦜", onClick: () => handleSelectSpecies("Exótico") },
-            { label: "Mais de um pet", icon: "🐾", onClick: () => handleSelectSpecies("Múltiplos Pets") },
-          ],
         },
       ]);
-    }, 600);
+    }, 500);
 
     return () => clearTimeout(timer1);
   }, []);
 
-  // Step 1: Handle Species Selection
+  // Step 1: Handle Species Selection (1-Tap)
   const handleSelectSpecies = (species: string) => {
     trackStart();
     setPetSpecies(species);
     const time = getNowTime();
 
-    // User message
     const userMsg: ChatMessage = {
       id: `user-species-${Date.now()}`,
       sender: "user",
@@ -224,9 +229,9 @@ export function WhatsAppChatFlow({
       : "Verificando exigências para animais silvestres e exóticos...";
 
     triggerAiResponse(thoughtText, () => {
-      let followUp = "Perfeito! Para calcularmos o compartimento ideal (Cabine, Bagagem Acompanhada ou Cargas Vivas) e o tamanho da caixa, me informe a raça e o peso aproximado:";
+      let followUp = "Perfeito! Para calcularmos o compartimento ideal (Cabine, Bagagem Acompanhada ou Cargas Vivas) e o tamanho da caixa, selecione o perfil do seu pet abaixo:";
       if (species === "Gato") {
-        followUp = "Excelente! Para felinos, precisamos conferir as medidas e peso para indicar a melhor acomodação de voo. Me informe a raça e o peso aproximado:";
+        followUp = "Excelente! Para felinos, precisamos conferir peso e perfil para indicar a melhor acomodação de voo. Selecione o perfil abaixo:";
       }
 
       const botMsg: ChatMessage = {
@@ -239,29 +244,29 @@ export function WhatsAppChatFlow({
     });
   };
 
-  // Step 2: Submit Pet Details with Deep Conditional Intelligence
-  const handleConfirmPetDetails = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!petBreed.trim() && !petWeight.trim()) return;
+  // Step 2: Submit Pet Details (1-Tap Presets or Fast Submit)
+  const handleConfirmPetDetails = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const resolvedBreed = petBreed.trim() || (petSpecies === "Gato" ? "Gato Doméstico" : "SRD (Vira-lata)");
+    const resolvedWeight = petWeight.trim() || "8";
 
     const time = getNowTime();
     const displayName = petName.trim() || (petSpecies === "Gato" ? "seu gatinho" : "seu pet");
-    const weightNum = parseFloat(petWeight.replace(",", ".")) || 0;
+    const weightNum = parseFloat(resolvedWeight.replace(",", ".")) || 8;
 
-    // Intelligent Brachycephalic Check
-    const isBrachy = /buld|bulldog|pug|shih|boxer|pekin|lhasa|persa|boston|cavalier|shar\s*pei|malt[eê]s/i.test(petBreed);
+    const isBrachy = /buld|bulldog|pug|shih|boxer|pekin|lhasa|persa|boston|cavalier|shar\s*pei|malt[eê]s/i.test(resolvedBreed);
     const isSmall = weightNum > 0 && weightNum <= 8;
 
     const detailsSummary = [
-      petName ? `Nome: ${petName}` : null,
-      petBreed ? `Raça: ${petBreed}` : null,
-      petWeight ? `Peso: ${petWeight} kg` : null,
+      petName.trim() ? `Nome: ${petName.trim()}` : null,
+      `Raça: ${resolvedBreed}`,
+      `Peso: ~${resolvedWeight} kg`,
     ].filter(Boolean).join(" • ");
 
     const userMsg: ChatMessage = {
       id: `user-pet-details-${Date.now()}`,
       sender: "user",
-      text: detailsSummary || `${petSpecies} (informações enviadas)`,
+      text: detailsSummary,
       time,
     };
 
@@ -269,7 +274,7 @@ export function WhatsAppChatFlow({
     setCurrentStep("route");
 
     const thoughtText = isBrachy
-      ? "Identificando perfil braquicefálico e selecionando companhias aéreas com aclimatação reforçada..."
+      ? "Identificando perfil braquicefálico e selecionando companhias com aclimatação reforçada..."
       : isSmall
       ? "Calculando elegibilidade para Viagem na Cabine de Passageiros..."
       : "Dimensionando compartimento climatizado (Bagagem Acompanhada / Carga Viva)...";
@@ -277,24 +282,24 @@ export function WhatsAppChatFlow({
     triggerAiResponse(thoughtText, () => {
       let dynamicInsight = "";
       if (isBrachy) {
-        dynamicInsight = `Identifiquei que o(a) ${displayName} é de perfil braquicefálico (focinho curto). As cias aéreas possuem cuidados especiais com caixas de ventilação 360° e limites térmicos. Já incluí essas salvaguardas no planejamento!`;
+        dynamicInsight = `Identifiquei que o(a) ${displayName} possui perfil braquicefálico (focinho curto). Mapeamos companhias que autorizam a rota com caixas de ventilação 360° e limites térmicos controlados.`;
       } else if (isSmall) {
-        dynamicInsight = `Com aproximadamente ${petWeight} kg, o(a) ${displayName} tem excelentes chances de ser aprovado(a) na **Cabine de Passageiros** com você!`;
+        dynamicInsight = `Com aproximadamente ${resolvedWeight} kg, o(a) ${displayName} tem elegibilidade alta para **Cabine de Passageiros** com você!`;
       } else {
-        dynamicInsight = `Para o porte do(a) ${displayName} (${petWeight} kg), a viagem opera com **Bagagem Acompanhada no porão pressurizado e climatizado** ou **Carga Viva Dedicada**, garantindo espaço amplo para ele(a) ficar em pé e dar uma volta completa.`;
+        dynamicInsight = `Para o porte do(a) ${displayName} (~${resolvedWeight} kg), a rota opera com **Bagagem Acompanhada no porão pressurizado e climatizado** ou **Carga Viva Dedicada**, com amplo espaço e segurança.`;
       }
 
       const botMsg: ChatMessage = {
         id: `bot-route-${Date.now()}`,
         sender: "thamires",
-        text: `${dynamicInsight}\n\nAgora me conte: de qual país para qual país vocês pretendem viajar?`,
+        text: `${dynamicInsight}\n\nAgora selecione o país de destino da viagem:`,
         time: getNowTime(),
       };
       setMessages((prev) => [...prev, botMsg]);
     });
   };
 
-  // Step 3: Handle Route Selection with Deep Country Conditional Intelligence
+  // Step 3: Handle Destination Selection (1-Tap)
   const handleSelectDestination = (dest: string) => {
     setRouteDestination(dest);
     const time = getNowTime();
@@ -324,31 +329,27 @@ export function WhatsAppChatFlow({
     triggerAiResponse(thoughtText, () => {
       let destinationInsight = "";
       if (isUS) {
-        destinationInsight = `Excelente! Para os **Estados Unidos**, alinhamos o novo formulário do CDC (CDC Dog Import Form), microchip ISO e comprovação de vacinação antirrábica oficial para garantir entrada ágil sem surpresas.`;
+        destinationInsight = `Excelente! Para os **Estados Unidos**, alinhamos o novo formulário do CDC (CDC Dog Import Form), microchip ISO e comprovação de vacinação antirrábica oficial para entrada ágil sem retenções.`;
       } else if (isEU) {
-        destinationInsight = `Destino maravilhoso! Para a **União Europeia (${dest})**, o protocolo exige Microchip ISO padrão 11784 aplicado antes da vacina da raiva, eventual laudo de sorologia e emissão do CVI oficial pelo Ministério da Agricultura (MAPA).`;
+        destinationInsight = `Destino maravilhoso! Para a **União Europeia (${dest})**, o protocolo exige Microchip ISO padrão 11784 antes da vacina da raiva, eventual sorologia e emissão do CVI oficial pelo Ministério da Agricultura (MAPA).`;
       } else if (isMercosul) {
-        destinationInsight = `Perfeito! Para a **${dest} (Mercosul)**, o processo é mais ágil, exigindo CVI com laudo de desparasitação interna e externa recente e atestado de saúde veterinário.`;
+        destinationInsight = `Perfeito! Para a **${dest} (Mercosul)**, o processo é mais ágil, exigindo CVI com laudo de desparasitação recente e atestado veterinário.`;
       } else {
-        destinationInsight = `Ótima rota! Mapeamos as diretrizes da autoridade sanitária local de **${dest}** para garantir um desembarque 100% em conformidade.`;
+        destinationInsight = `Ótima rota! Mapeamos as diretrizes da autoridade sanitária local de **${dest}** para garantir um desembarque 100% regularizado.`;
       }
 
       const botMsg: ChatMessage = {
         id: `bot-period-${Date.now()}`,
         sender: "thamires",
-        text: `${destinationInsight}\n\nE para quando você planeja essa viagem?`,
+        text: `${destinationInsight}\n\nPara quando você planeja essa viagem?`,
         time: getNowTime(),
-        quickReplies: travelPeriods.map((period) => ({
-          label: period,
-          onClick: () => handleSelectPeriod(period, dest),
-        })),
       };
       setMessages((prev) => [...prev, botMsg]);
     });
   };
 
-  // Step 4: Handle Period Selection
-  const handleSelectPeriod = (period: string, dest: string) => {
+  // Step 4: Handle Period Selection (1-Tap)
+  const handleSelectPeriod = (period: string) => {
     setTravelPeriod(period);
     const time = getNowTime();
 
@@ -366,23 +367,23 @@ export function WhatsAppChatFlow({
       source: analyticsSource,
       format: "whatsapp_chat",
       species: petSpecies,
-      destination: dest,
+      destination: routeDestination,
     });
 
-    const isUrgent = /1 a 3 meses/i.test(period);
+    const isUrgent = /30 dias|urgente/i.test(period);
     const thoughtText = isUrgent
-      ? "Calculando janela prioritária de agendamento Vigiagro e reserva aérea..."
+      ? "Calculando janela prioritária de agendamento Vigiagro e reserva aérea expressa..."
       : "Estruturando cronograma sanitário preventivo e janelas de vacinação...";
 
     triggerAiResponse(thoughtText, () => {
       const timingAdvice = isUrgent
-        ? "Prazo ideal para iniciarmos os laudos agora e garantirmos a reserva de espaço na aeronave sem correria!"
-        : "Excelente antecedência! Teremos tempo hábil perfeito para cumprir todas as etapas com tranquilidade.";
+        ? "Prazo prioritário! É importante iniciarmos a documentação imediatamente para assegurar vaga na aeronave."
+        : "Excelente antecedência! Teremos tempo hábil para cumprir todas as etapas com total tranquilidade.";
 
       const botMsg: ChatMessage = {
         id: `bot-contact-${Date.now()}`,
         sender: "thamires",
-        text: `${timingAdvice}\n\nPara eu compilar o pré-diagnóstico completo da sua rota e continuarmos a conversa no WhatsApp, qual o seu nome e número?`,
+        text: `${timingAdvice}\n\nPara eu compilar o pré-diagnóstico completo da sua rota e te enviar no WhatsApp, informe seu nome e número abaixo:`,
         time: getNowTime(),
       };
       setMessages((prev) => [...prev, botMsg]);
@@ -405,7 +406,7 @@ export function WhatsAppChatFlow({
       destination: routeDestination,
       period: travelPeriod,
       species: petSpecies,
-      size: `${petBreed ? petBreed + " " : ""}${petWeight ? "(" + petWeight + "kg)" : ""}`.trim() || undefined,
+      size: `${petBreed ? petBreed + " " : ""}${petWeight ? "(~" + petWeight + "kg)" : ""}`.trim() || undefined,
       name: tutorName,
       phone: fullPhone,
       consent: true,
@@ -420,7 +421,6 @@ export function WhatsAppChatFlow({
 
     setMessages((prev) => [...prev, userMsg]);
     setCurrentStep("complete");
-
     setThinkingText("Gerando laudo de pré-diagnóstico e conectando ao WhatsApp oficial...");
 
     try {
@@ -433,7 +433,7 @@ export function WhatsAppChatFlow({
       });
       onComplete?.(lead);
     } catch {
-      // Continue so the tutor can always reach WhatsApp even if network glitch occurs
+      // Allow user to proceed even if network glitched
     }
 
     const waText = encodeURIComponent(
@@ -445,6 +445,7 @@ export function WhatsAppChatFlow({
     );
 
     const whatsappUrl = `https://wa.me/5511978253579?text=${waText}`;
+    setCompletedWhatsAppUrl(whatsappUrl);
 
     setTimeout(() => {
       setThinkingText(null);
@@ -455,211 +456,282 @@ export function WhatsAppChatFlow({
       const botMsg: ChatMessage = {
         id: `bot-complete-${Date.now()}`,
         sender: "thamires",
-        text: `Prontinho, ${firstName}! 🎉 Mapeei a sua rota para ${routeDestination || "o exterior"} e as diretrizes do seu pet. Toque no botão abaixo para abrir a nossa conversa oficial no WhatsApp e darmos o próximo passo!`,
+        text: `Prontinho, ${firstName}! 🎉 Pré-diagnóstico gerado com sucesso para a rota ${routeDestination || "internacional"}. Toque no botão verde abaixo para abrir a conversa comigo no WhatsApp!`,
         time: getNowTime(),
-        card: (
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ep-wa-final-cta"
-          >
-            <Phone size={17} />
-            <span>Abrir WhatsApp com Thamires Felix ➔</span>
-          </a>
-        ),
       };
 
       setMessages((prev) => [...prev, botMsg]);
-    }, 800);
+    }, 700);
   };
 
   return (
-    <div className="ep-wa-body" role="log" aria-live="polite">
-      <div className="ep-wa-date-pill">Hoje</div>
+    <div className="ep-wa-container">
+      {/* 1. Scrollable Message Stream */}
+      <div className="ep-wa-body" role="log" aria-live="polite">
+        <div className="ep-wa-date-pill">Hoje</div>
 
-      {/* Messages List */}
-      {messages.map((msg) => (
-        <div
-          key={msg.id}
-          className={`ep-wa-bubble ${
-            msg.sender === "user" ? "ep-wa-bubble--outgoing" : "ep-wa-bubble--incoming"
-          }`}
-        >
-          {msg.text && (
-            <p className="ep-wa-bubble__text" style={{ whiteSpace: "pre-line" }}>
-              {msg.text}
-            </p>
-          )}
+        {messages.map((msg) => (
+          <div
+            key={msg.id}
+            className={`ep-wa-bubble ${
+              msg.sender === "user" ? "ep-wa-bubble--outgoing" : "ep-wa-bubble--incoming"
+            }`}
+          >
+            {msg.text && (
+              <p className="ep-wa-bubble__text" style={{ whiteSpace: "pre-line" }}>
+                {msg.text}
+              </p>
+            )}
 
-          {/* Quick Replies */}
-          {msg.quickReplies && currentStep === "greeting" && (
-            <div className="ep-wa-chips">
-              {msg.quickReplies.map((reply, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  className="ep-wa-chip"
-                  onClick={reply.onClick}
-                >
-                  {reply.icon && <span>{reply.icon}</span>}
-                  <span>{reply.label}</span>
-                </button>
-              ))}
+            {msg.card && msg.card}
+
+            <div className="ep-wa-bubble__meta">
+              <span>{msg.time}</span>
+              {msg.sender === "user" && (
+                <span className="ep-wa-bubble__ticks">
+                  <CheckCheck size={14} />
+                </span>
+              )}
             </div>
-          )}
+          </div>
+        ))}
 
-          {msg.quickReplies && currentStep === "period" && (
-            <div className="ep-wa-chips">
-              {msg.quickReplies.map((reply, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  className="ep-wa-chip"
-                  onClick={reply.onClick}
-                >
-                  <span>{reply.label}</span>
-                </button>
-              ))}
+        {/* AI Thought / Reasoning State */}
+        {thinkingText && (
+          <div className="ep-wa-thought-pill">
+            <span className="ep-wa-thought-pill__icon">
+              <Sparkles size={13} />
+            </span>
+            <span className="ep-wa-thought-pill__text">{thinkingText}</span>
+          </div>
+        )}
+
+        {/* Typing Indicator */}
+        {isTyping && !thinkingText && (
+          <div className="ep-wa-typing">
+            <div className="ep-wa-typing__dot" />
+            <div className="ep-wa-typing__dot" />
+            <div className="ep-wa-typing__dot" />
+            <span className="ep-wa-typing__label">Thamires digitando...</span>
+          </div>
+        )}
+
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* 2. Interactive Bottom Dock (Replaces Keyboard / Static Input Area) */}
+      <div className="ep-wa-dock">
+        {/* Step 1: Species Selection (1-Tap) */}
+        {currentStep === "greeting" && !isTyping && (
+          <div className="ep-wa-dock__step">
+            <span className="ep-wa-dock__hint">Escolha uma opção para continuar:</span>
+            <div className="ep-wa-dock__grid">
+              <button
+                type="button"
+                className="ep-wa-dock__btn-option"
+                onClick={() => handleSelectSpecies("Cachorro")}
+              >
+                <span className="ep-wa-dock__btn-emoji">🐶</span>
+                <span className="ep-wa-dock__btn-title">Cachorro</span>
+              </button>
+              <button
+                type="button"
+                className="ep-wa-dock__btn-option"
+                onClick={() => handleSelectSpecies("Gato")}
+              >
+                <span className="ep-wa-dock__btn-emoji">🐱</span>
+                <span className="ep-wa-dock__btn-title">Gato</span>
+              </button>
+              <button
+                type="button"
+                className="ep-wa-dock__btn-option"
+                onClick={() => handleSelectSpecies("Múltiplos Pets")}
+              >
+                <span className="ep-wa-dock__btn-emoji">🐾</span>
+                <span className="ep-wa-dock__btn-title">Mais de 1 Pet</span>
+              </button>
+              <button
+                type="button"
+                className="ep-wa-dock__btn-option"
+                onClick={() => handleSelectSpecies("Exótico")}
+              >
+                <span className="ep-wa-dock__btn-emoji">🦜</span>
+                <span className="ep-wa-dock__btn-title">Outro Pet</span>
+              </button>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Custom Card (CTA etc) */}
-          {msg.card && msg.card}
+        {/* Step 2: Pet Details (1-Tap Weight & Breed Presets + Bold CTA) */}
+        {currentStep === "pet_details" && !isTyping && !thinkingText && (
+          <form onSubmit={handleConfirmPetDetails} className="ep-wa-dock__step">
+            {/* Weight Presets */}
+            <div className="ep-wa-dock__field-group">
+              <div className="ep-wa-dock__label-row">
+                <span className="ep-wa-dock__label">Faixa de Peso do Pet:</span>
+                <span className="ep-wa-dock__badge-micro">1 toque</span>
+              </div>
+              <div className="ep-wa-dock__chips-scroll">
+                {weightPresets.map((preset) => {
+                  const isSelected = petWeight === preset.value;
+                  return (
+                    <button
+                      key={preset.value}
+                      type="button"
+                      className={`ep-wa-dock__chip ${isSelected ? "ep-wa-dock__chip--active" : ""}`}
+                      onClick={() => setPetWeight(preset.value)}
+                    >
+                      {preset.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
-          <div className="ep-wa-bubble__meta">
-            <span>{msg.time}</span>
-            {msg.sender === "user" && (
-              <span className="ep-wa-bubble__ticks">
-                <CheckCheck size={14} />
-              </span>
+            {/* Breed Quick Select or Custom Input */}
+            <div className="ep-wa-dock__field-group">
+              <div className="ep-wa-dock__label-row">
+                <span className="ep-wa-dock__label">Raça / Porte:</span>
+                <button
+                  type="button"
+                  className="ep-wa-dock__link-toggle"
+                  onClick={() => setCustomBreedMode(!customBreedMode)}
+                >
+                  {customBreedMode ? "Ver sugestões rápidas" : "Digitar outra raça"}
+                </button>
+              </div>
+
+              {!customBreedMode ? (
+                <div className="ep-wa-dock__chips-scroll">
+                  {popularBreeds.map((b) => {
+                    const isSelected = petBreed === b;
+                    return (
+                      <button
+                        key={b}
+                        type="button"
+                        className={`ep-wa-dock__chip ${isSelected ? "ep-wa-dock__chip--active" : ""}`}
+                        onClick={() => setPetBreed(b)}
+                      >
+                        {b}
+                      </button>
+                    );
+                  })}
+                </div>
+              ) : (
+                <input
+                  className="ep-wa-dock__input"
+                  type="text"
+                  placeholder="Ex: Maltês, Pastor Alemão, SRD..."
+                  value={petBreed}
+                  onChange={(e) => setPetBreed(e.target.value)}
+                  autoFocus
+                />
+              )}
+            </div>
+
+            {/* Bold Primary CTA */}
+            <button
+              type="submit"
+              className="ep-wa-dock__cta-btn ep-wa-dock__cta-btn--bold"
+            >
+              <span>CONFIRMAR PERFIL DO PET</span>
+              <ArrowRight size={16} strokeWidth={2.5} />
+            </button>
+          </form>
+        )}
+
+        {/* Step 3: Route Selection (1-Tap Flags & Country Chips) */}
+        {currentStep === "route" && !isTyping && !thinkingText && (
+          <div className="ep-wa-dock__step">
+            <span className="ep-wa-dock__hint">Selecione o país de destino:</span>
+
+            {!isCustomDestination ? (
+              <div className="ep-wa-dock__grid ep-wa-dock__grid--destinations">
+                {popularDestinations.map((dest) => (
+                  <button
+                    key={dest.code}
+                    type="button"
+                    className="ep-wa-dock__btn-dest"
+                    onClick={() => handleSelectDestination(dest.label)}
+                  >
+                    <img
+                      src={countryFlagSvg(dest.code)}
+                      alt=""
+                      className="ep-wa-dock__dest-flag"
+                    />
+                    <span className="ep-wa-dock__dest-name">{dest.label}</span>
+                  </button>
+                ))}
+                <button
+                  type="button"
+                  className="ep-wa-dock__btn-dest ep-wa-dock__btn-dest--more"
+                  onClick={() => setIsCustomDestination(true)}
+                >
+                  <Plus size={15} />
+                  <span>Outro país...</span>
+                </button>
+              </div>
+            ) : (
+              <div className="ep-wa-dock__input-row">
+                <input
+                  className="ep-wa-dock__input"
+                  type="text"
+                  placeholder="Digite o país de destino..."
+                  value={customDestinationInput}
+                  onChange={(e) => setCustomDestinationInput(e.target.value)}
+                  autoFocus
+                />
+                <button
+                  type="button"
+                  className="ep-wa-dock__cta-btn ep-wa-dock__cta-btn--compact ep-wa-dock__cta-btn--bold"
+                  disabled={!customDestinationInput.trim()}
+                  onClick={() => handleSelectDestination(customDestinationInput.trim())}
+                >
+                  <span>OK</span>
+                  <ChevronRight size={16} />
+                </button>
+              </div>
             )}
           </div>
-        </div>
-      ))}
+        )}
 
-      {/* Interactive Form for Step 2: Pet Details */}
-      {currentStep === "pet_details" && !isTyping && !thinkingText && (
-        <form onSubmit={handleConfirmPetDetails} className="ep-wa-card">
-          <div className="ep-wa-card__row">
-            <div className="ep-wa-card__field">
-              <label className="ep-wa-card__label">Nome do Pet (opcional)</label>
-              <input
-                className="ep-wa-card__input"
-                type="text"
-                placeholder="Ex: Luna, Thor..."
-                value={petName}
-                onChange={(e) => setPetName(e.target.value)}
-              />
+        {/* Step 4: Period Selection (1-Tap Presets) */}
+        {currentStep === "period" && !isTyping && !thinkingText && (
+          <div className="ep-wa-dock__step">
+            <span className="ep-wa-dock__hint">Quando vocês pretendem viajar?</span>
+            <div className="ep-wa-dock__period-list">
+              {travelPeriods.map((period) => (
+                <button
+                  key={period.value}
+                  type="button"
+                  className="ep-wa-dock__period-btn"
+                  onClick={() => handleSelectPeriod(period.value)}
+                >
+                  <span>{period.label}</span>
+                  <ChevronRight size={15} className="ep-wa-dock__period-arrow" />
+                </button>
+              ))}
             </div>
           </div>
-          <div className="ep-wa-card__row">
-            <div className="ep-wa-card__field">
-              <label className="ep-wa-card__label">Raça / Porte</label>
+        )}
+
+        {/* Step 5: Contact Lead Form + Bold CTA */}
+        {currentStep === "contact" && !isTyping && !thinkingText && (
+          <form onSubmit={handleContactSubmit} className="ep-wa-dock__step">
+            <div className="ep-wa-dock__input-row">
               <input
-                className="ep-wa-card__input"
-                type="text"
-                required
-                placeholder="Ex: Golden, Bulldog, SRD..."
-                value={petBreed}
-                onChange={(e) => setPetBreed(e.target.value)}
-              />
-            </div>
-            <div className="ep-wa-card__field" style={{ maxWidth: "110px" }}>
-              <label className="ep-wa-card__label">Peso (kg)</label>
-              <input
-                className="ep-wa-card__input"
+                className="ep-wa-dock__input"
                 type="text"
                 required
-                placeholder="Ex: 12"
-                value={petWeight}
-                onChange={(e) => setPetWeight(e.target.value)}
+                placeholder="Seu Nome Completo"
+                value={tutorName}
+                onChange={(e) => setTutorName(e.target.value)}
               />
             </div>
-          </div>
-          <button type="submit" className="ep-wa-card__btn">
-            <span>Confirmar Perfil do Pet</span>
-            <ArrowRight size={14} />
-          </button>
-        </form>
-      )}
 
-      {/* Interactive Form for Step 3: Route */}
-      {currentStep === "route" && !isTyping && !thinkingText && (
-        <div className="ep-wa-card">
-          <span className="ep-wa-card__label">Selecione o Destino Principal:</span>
-          <div className="ep-wa-chips" style={{ marginTop: 0 }}>
-            {popularDestinations.map((dest) => (
-              <button
-                key={dest.code}
-                type="button"
-                className="ep-wa-chip"
-                onClick={() => handleSelectDestination(dest.label)}
-              >
-                <img
-                  src={countryFlagSvg(dest.code)}
-                  alt=""
-                  style={{ width: 16, height: "auto", borderRadius: 2 }}
-                />
-                <span>{dest.label}</span>
-              </button>
-            ))}
-          </div>
-
-          {!isCustomDestination ? (
-            <button
-              type="button"
-              className="ep-wa-chip"
-              style={{ alignSelf: "flex-start", marginTop: 4 }}
-              onClick={() => setIsCustomDestination(true)}
-            >
-              <Plus size={14} />
-              <span>Outro País / Destino</span>
-            </button>
-          ) : (
-            <div className="ep-wa-card__row" style={{ marginTop: 4 }}>
-              <input
-                className="ep-wa-card__input"
-                type="text"
-                placeholder="Digite o país de destino..."
-                value={customDestinationInput}
-                onChange={(e) => setCustomDestinationInput(e.target.value)}
-              />
-              <button
-                type="button"
-                className="ep-wa-card__btn"
-                style={{ width: "auto", padding: "0 14px" }}
-                disabled={!customDestinationInput.trim()}
-                onClick={() => handleSelectDestination(customDestinationInput.trim())}
-              >
-                OK
-              </button>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Interactive Form for Step 5: Contact Details */}
-      {currentStep === "contact" && !isTyping && !thinkingText && (
-        <form onSubmit={handleContactSubmit} className="ep-wa-card">
-          <div className="ep-wa-card__field">
-            <label className="ep-wa-card__label">Seu Nome Completo</label>
-            <input
-              className="ep-wa-card__input"
-              type="text"
-              required
-              placeholder="Ex: Camila Silva"
-              value={tutorName}
-              onChange={(e) => setTutorName(e.target.value)}
-            />
-          </div>
-
-          <div className="ep-wa-card__field">
-            <label className="ep-wa-card__label">WhatsApp para contato</label>
-            <div className="ep-wa-card__row">
+            <div className="ep-wa-dock__phone-row">
               <select
-                className="ep-wa-card__select"
-                style={{ width: "110px", flex: "0 0 110px" }}
+                className="ep-wa-dock__select"
                 value={phoneCountry.code}
                 onChange={(e) => {
                   const selected = phoneCountries.find((c) => c.code === e.target.value) ?? phoneCountries[0];
@@ -673,54 +745,53 @@ export function WhatsAppChatFlow({
                 ))}
               </select>
               <input
-                className="ep-wa-card__input"
+                className="ep-wa-dock__input ep-wa-dock__input--phone"
                 type="tel"
                 required
-                placeholder="DDD + Número"
+                placeholder="DDD + WhatsApp"
                 value={tutorPhone}
                 onChange={(e) => setTutorPhone(formatPhoneNumber(e.target.value, phoneCountry.code))}
               />
             </div>
+
+            <div className="ep-wa-dock__reassurance">
+              <Lock size={12} className="ep-wa-dock__lock-icon" />
+              <span>Análise gratuita e confidencial. Sem ligações indesejadas.</span>
+            </div>
+
+            <button
+              type="submit"
+              className="ep-wa-dock__cta-btn ep-wa-dock__cta-btn--bold"
+              disabled={isSubmitting || !tutorName.trim() || !tutorPhone.trim()}
+            >
+              {isSubmitting ? (
+                <span>GERANDO PRÉ-DIAGNÓSTICO...</span>
+              ) : (
+                <>
+                  <span>GERAR PRÉ-DIAGNÓSTICO OFICIAL</span>
+                  <ArrowRight size={17} strokeWidth={2.5} />
+                </>
+              )}
+            </button>
+          </form>
+        )}
+
+        {/* Step 6: Direct WhatsApp Handoff (Extra Bold CTA) */}
+        {currentStep === "complete" && completedWhatsAppUrl && (
+          <div className="ep-wa-dock__step">
+            <a
+              href={completedWhatsAppUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ep-wa-final-cta ep-wa-final-cta--bold"
+            >
+              <Phone size={18} />
+              <span>ABRIR CONVERSA COM THAMIRES FELIX ➔</span>
+            </a>
           </div>
-
-          <button
-            type="submit"
-            className="ep-wa-card__btn"
-            disabled={isSubmitting || !tutorName.trim() || !tutorPhone.trim()}
-          >
-            {isSubmitting ? (
-              <span>Gerando pré-diagnóstico...</span>
-            ) : (
-              <>
-                <span>Gerar Pré-Diagnóstico Oficial</span>
-                <ArrowRight size={15} />
-              </>
-            )}
-          </button>
-        </form>
-      )}
-
-      {/* AI Thought / Reasoning State */}
-      {thinkingText && (
-        <div className="ep-wa-thought-pill">
-          <span className="ep-wa-thought-pill__icon">
-            <Sparkles size={13} />
-          </span>
-          <span className="ep-wa-thought-pill__text">{thinkingText}</span>
-        </div>
-      )}
-
-      {/* Typing Indicator */}
-      {isTyping && !thinkingText && (
-        <div className="ep-wa-typing">
-          <div className="ep-wa-typing__dot" />
-          <div className="ep-wa-typing__dot" />
-          <div className="ep-wa-typing__dot" />
-          <span className="ep-wa-typing__label">Thamires digitando...</span>
-        </div>
-      )}
-
-      <div ref={messagesEndRef} />
+        )}
+      </div>
     </div>
   );
 }
+

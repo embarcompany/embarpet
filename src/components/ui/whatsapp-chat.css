@@ -1,6 +1,6 @@
 /* ==========================================================================
    WhatsApp Conversational Chat Modal - Embarpet (Thamires Felix)
-   Minimalist, AI-Enhanced & Refined UI/UX
+   Minimalist, AI-Enhanced, Thumb-Friendly Bottom Dock & Bold CTAs
    ========================================================================== */
 
 .ep-wa-modal {
@@ -32,7 +32,7 @@
   flex-direction: column;
   width: 100%;
   max-width: 480px;
-  height: min(730px, 92vh);
+  height: min(740px, 92vh);
   background: #efeae2;
   border-radius: 24px;
   overflow: hidden;
@@ -155,17 +155,26 @@
   background: rgba(255, 255, 255, 0.22);
 }
 
-/* Chat Body */
-.ep-wa-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px 14px 20px;
+/* Chat Layout Container */
+.ep-wa-container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  flex: 1;
+  min-height: 0;
+  position: relative;
   background-color: #efeae2;
   background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 0);
   background-size: 16px 16px;
+}
+
+/* Chat Stream Body */
+.ep-wa-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   scroll-behavior: smooth;
 }
 
@@ -199,7 +208,7 @@
   font-size: 12px;
   font-weight: 600;
   animation: ep-wa-pop 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
-  margin: 2px 0 4px;
+  margin: 2px 0 2px;
 }
 
 .ep-wa-thought-pill__icon {
@@ -248,19 +257,6 @@
   font-weight: 750;
 }
 
-.ep-wa-bubble__highlight-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 2px 8px;
-  border-radius: 6px;
-  background: rgba(0, 168, 132, 0.12);
-  color: #005c4b;
-  font-weight: 700;
-  font-size: 11.5px;
-  margin: 4px 0 2px;
-}
-
 .ep-wa-bubble__meta {
   display: flex;
   align-items: center;
@@ -276,7 +272,7 @@
   display: inline-flex;
 }
 
-/* Typing indicator */
+/* Typing Indicator */
 .ep-wa-typing {
   align-self: flex-start;
   display: inline-flex;
@@ -311,159 +307,378 @@
   margin-left: 4px;
 }
 
-/* Quick Replies / Action Chips */
-.ep-wa-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin-top: 6px;
-  animation: ep-wa-fade-in 0.25s ease-out;
-}
-
-.ep-wa-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 13px;
-  border-radius: 999px;
-  border: 1px solid rgba(0, 92, 75, 0.3);
+/* ==========================================================================
+   Interactive Bottom Dock (The Dynamic Keyboard Replacement)
+   ========================================================================== */
+.ep-wa-dock {
   background: #ffffff;
-  color: #005c4b;
-  font-size: 12.5px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+  padding: 12px 14px 14px;
+  flex-shrink: 0;
+  z-index: 5;
+  animation: ep-wa-slide-dock 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ep-wa-dock__step {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.ep-wa-dock__hint {
+  font-size: 11px;
   font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.05);
-  transition: all 0.16s ease;
-}
-
-.ep-wa-chip:hover {
-  background: #005c4b;
-  color: #ffffff;
-  border-color: #005c4b;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(0, 92, 75, 0.25);
-}
-
-.ep-wa-chip:active {
-  transform: translateY(0);
-}
-
-/* Inline Interactive Card */
-.ep-wa-card {
-  margin-top: 6px;
-  padding: 14px;
-  border-radius: 12px;
-  background: #f7f8fa;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.ep-wa-card__row {
-  display: flex;
-  gap: 8px;
-}
-
-.ep-wa-card__field {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.ep-wa-card__label {
-  font-size: 10.5px;
-  font-weight: 750;
   color: #54656f;
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
 
-.ep-wa-card__input {
-  width: 100%;
-  height: 38px;
-  padding: 0 11px;
-  border-radius: 8px;
-  border: 1px solid #d1d7db;
+/* 1-Tap Option Grid (Species etc) */
+.ep-wa-dock__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.ep-wa-dock__grid--destinations {
+  grid-template-columns: repeat(2, 1fr);
+  max-height: 180px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.ep-wa-dock__btn-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  color: #0f172a;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  text-align: left;
+}
+
+.ep-wa-dock__btn-option:hover {
+  background: #e6f7f2;
+  border-color: #00a884;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 168, 132, 0.15);
+}
+
+.ep-wa-dock__btn-option:active {
+  transform: translateY(0);
+}
+
+.ep-wa-dock__btn-emoji {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.ep-wa-dock__btn-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* Destination Buttons */
+.ep-wa-dock__btn-dest {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ep-wa-dock__btn-dest:hover {
+  background: #e6f7f2;
+  border-color: #00a884;
+  transform: translateY(-1px);
+}
+
+.ep-wa-dock__btn-dest--more {
   background: #ffffff;
+  border-style: dashed;
+  border-color: #00a884;
+  color: #005c4b;
+  font-weight: 700;
+  justify-content: center;
+}
+
+.ep-wa-dock__dest-flag {
+  width: 18px;
+  height: auto;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.ep-wa-dock__dest-name {
+  font-size: 12.5px;
+  font-weight: 650;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Period List (1-Tap list items) */
+.ep-wa-dock__period-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ep-wa-dock__period-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #1e293b;
   font-size: 13px;
-  color: #111b21;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  text-align: left;
+}
+
+.ep-wa-dock__period-btn:hover {
+  background: #e6f7f2;
+  border-color: #00a884;
+  color: #005c4b;
+  transform: translateX(2px);
+}
+
+.ep-wa-dock__period-arrow {
+  color: #00a884;
+  flex-shrink: 0;
+}
+
+/* Fields & Groups */
+.ep-wa-dock__field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ep-wa-dock__label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ep-wa-dock__label {
+  font-size: 11px;
+  font-weight: 750;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ep-wa-dock__badge-micro {
+  font-size: 10px;
+  font-weight: 750;
+  color: #00a884;
+  background: #e6f7f2;
+  padding: 1.5px 6px;
+  border-radius: 4px;
+}
+
+.ep-wa-dock__link-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #00a884;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Horizontal Chip Scroller for Low Limbic Friction */
+.ep-wa-dock__chips-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 3px;
+  scrollbar-width: thin;
+}
+
+.ep-wa-dock__chip {
+  white-space: nowrap;
+  padding: 6px 11px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.ep-wa-dock__chip:hover {
+  background: #e6f7f2;
+  border-color: #00a884;
+  color: #005c4b;
+}
+
+.ep-wa-dock__chip--active {
+  background: #005c4b;
+  border-color: #005c4b;
+  color: #ffffff;
+  font-weight: 750;
+  box-shadow: 0 2px 6px rgba(0, 92, 75, 0.25);
+}
+
+/* Inputs inside Dock */
+.ep-wa-dock__input-row {
+  display: flex;
+  gap: 7px;
+}
+
+.ep-wa-dock__phone-row {
+  display: flex;
+  gap: 7px;
+}
+
+.ep-wa-dock__input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 9px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  font-size: 13.5px;
+  color: #0f172a;
   outline: none;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.ep-wa-card__input:focus {
+.ep-wa-dock__input:focus {
   border-color: #00a884;
-  box-shadow: 0 0 0 2px rgba(0, 168, 132, 0.2);
+  box-shadow: 0 0 0 2.5px rgba(0, 168, 132, 0.22);
 }
 
-.ep-wa-card__select {
-  width: 100%;
-  height: 38px;
+.ep-wa-dock__select {
+  height: 40px;
+  width: 110px;
+  flex: 0 0 110px;
   padding: 0 8px;
-  border-radius: 8px;
-  border: 1px solid #d1d7db;
+  border-radius: 9px;
+  border: 1px solid #cbd5e1;
   background: #ffffff;
-  font-size: 12.5px;
-  color: #111b21;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
   outline: none;
 }
 
-.ep-wa-card__btn {
+.ep-wa-dock__reassurance {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #64748b;
+  margin-top: -2px;
+}
+
+.ep-wa-dock__lock-icon {
+  color: #00a884;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   PRIMARY CTAs - EXTRA BOLD, VIBRANT & HIGH CONVERSION
+   ========================================================================== */
+.ep-wa-dock__cta-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   width: 100%;
-  height: 40px;
-  border-radius: 8px;
+  height: 44px;
+  border-radius: 10px;
   border: none;
-  background: #00a884;
+  background: linear-gradient(135deg, #00a884 0%, #008f6f 100%);
   color: #ffffff;
   font-size: 13.5px;
-  font-weight: 750;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 168, 132, 0.25);
-  transition: background 0.15s ease, transform 0.15s ease;
+  box-shadow: 0 3px 10px rgba(0, 168, 132, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
-.ep-wa-card__btn:hover {
-  background: #008f6f;
+.ep-wa-dock__cta-btn--bold {
+  font-weight: 900 !important;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.ep-wa-dock__cta-btn--compact {
+  width: auto;
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+
+.ep-wa-dock__cta-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #00b891 0%, #007c60 100%);
   transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(0, 168, 132, 0.45);
 }
 
-.ep-wa-card__btn:disabled {
-  opacity: 0.5;
+.ep-wa-dock__cta-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.ep-wa-dock__cta-btn:disabled {
+  opacity: 0.55;
   cursor: not-allowed;
-  transform: none;
+  box-shadow: none;
 }
 
-/* Big Action CTA */
+/* Final WhatsApp Handoff CTA (Giant, Bold & High Limbic Urgency) */
 .ep-wa-final-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
+  gap: 10px;
   width: 100%;
-  padding: 14px 20px;
-  border-radius: 12px;
+  padding: 15px 22px;
+  border-radius: 14px;
   border: none;
-  background: #25d366;
-  color: #05463e;
-  font-size: 14px;
-  font-weight: 850;
+  background: linear-gradient(135deg, #25d366 0%, #1ebd5a 100%);
+  color: #03361a;
+  font-size: 14.5px;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.38);
+  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.42);
   transition: background 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
-  margin-top: 6px;
+}
+
+.ep-wa-final-cta--bold {
+  font-weight: 900 !important;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
 }
 
 .ep-wa-final-cta:hover {
-  background: #20ba5a;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.48);
+  background: linear-gradient(135deg, #2ee471 0%, #19ab50 100%);
+  transform: translateY(-1.5px);
+  box-shadow: 0 10px 28px rgba(37, 211, 102, 0.52);
+}
+
+.ep-wa-final-cta:active {
+  transform: translateY(0);
 }
 
 /* Minimalist Footer */
@@ -471,18 +686,19 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
+  padding: 8px 16px;
   background: #f0f2f5;
   border-top: 1px solid #e9edef;
   flex-shrink: 0;
 }
 
 .ep-wa-footer__hint {
-  font-size: 11.5px;
+  font-size: 11px;
   color: #667781;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
+  font-weight: 500;
 }
 
 .ep-wa-footer__hint-dot {
@@ -506,6 +722,17 @@
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes ep-wa-slide-dock {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
