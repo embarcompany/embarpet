@@ -160,6 +160,7 @@ export function WhatsAppChatFlow({
   initialRoute = {},
   analyticsSource = "whatsapp_modal",
   onComplete,
+  onStatusChange,
 }: {
   initialRoute?: {
     origin?: string;
@@ -168,6 +169,7 @@ export function WhatsAppChatFlow({
   };
   analyticsSource?: string;
   onComplete?: (lead: PublicLead) => void;
+  onStatusChange?: (status: "online" | "digitando..." | "anotando...") => void;
 }) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isTyping, setIsTyping] = useState(false);
@@ -259,22 +261,25 @@ export function WhatsAppChatFlow({
     });
   };
 
-  // Helper for AI Thought transition with Realistic Thought Duration (1.75s)
+  // Helper for AI Thought transition with Realistic Thought Duration (1.5s) and Typing Duration (1.35s)
   const triggerAiResponse = (
     thoughtLabel: string,
     action: () => void,
-    thoughtDuration = 1750,
-    typingDuration = 450
+    thoughtDuration = 1500,
+    typingDuration = 1350
   ) => {
     setThinkingText(thoughtLabel);
     setIsTyping(false);
+    onStatusChange?.("anotando...");
 
     setTimeout(() => {
       setThinkingText(null);
       setIsTyping(true);
+      onStatusChange?.("digitando...");
 
       setTimeout(() => {
         setIsTyping(false);
+        onStatusChange?.("online");
         action();
       }, typingDuration);
     }, thoughtDuration);
@@ -306,28 +311,30 @@ export function WhatsAppChatFlow({
     setCurrentStep(nextStep);
   };
 
-  // Initial Greeting from Thamires Felix
+  // Initial Greeting from Thamires Felix (with natural typing duration)
   useEffect(() => {
     const time = getNowTime();
     setIsTyping(true);
+    onStatusChange?.("digitando...");
 
     const timer1 = setTimeout(() => {
       setIsTyping(false);
+      onStatusChange?.("online");
       setMessages([
         {
           id: "intro-text",
           sender: "thamires",
-          text: "Olá! Sou a Thamires Felix da Embarpet. Vou te ajudar a traçar a rota internacional mais segura para o seu pet.",
+          text: "Olá! Sou a **Thamires Felix** da **Embarpet**. Vou te ajudar a traçar a **rota internacional mais segura** para o seu pet.",
           time,
         },
         {
           id: "q-species",
           sender: "thamires",
-          text: "Qual pet vai viajar com você?",
+          text: "Para iniciarmos seu diagnóstico oficial, **qual pet vai viajar com você?**",
           time,
         },
       ]);
-    }, 400);
+    }, 1200);
 
     return () => clearTimeout(timer1);
   }, []);
@@ -352,13 +359,13 @@ export function WhatsAppChatFlow({
     pushStep("pet_details", messages.length);
 
     const thoughtText = species === "Gato"
-      ? "Consultando diretrizes IATA para felinos e caixas homologadas..."
+      ? "Thamires está anotando os detalhes e consultando diretrizes IATA para felinos..."
       : species === "Cachorro"
-      ? "Consultando regras de transporte internacional para caninos..."
-      : "Verificando exigências para animais especiais...";
+      ? "Thamires está anotando os detalhes e consultando regras IATA para caninos..."
+      : "Thamires está anotando os detalhes e verificando exigências para pets especiais...";
 
     triggerAiResponse(thoughtText, () => {
-      const followUp = `Perfeito! Qual a raça ou tipo do seu **${species === "Gato" ? "gatinho" : species === "Cachorro" ? "cãozinho" : "pet"}**?`;
+      const followUp = `Perfeito! Qual a **raça ou perfil** do seu **${species === "Gato" ? "gatinho" : species === "Cachorro" ? "cãozinho" : "pet"}**?`;
       const botMsg: ChatMessage = {
         id: `bot-pet-details-${Date.now()}`,
         sender: "thamires",
@@ -391,10 +398,10 @@ export function WhatsAppChatFlow({
     setMessages(nextMessages);
     pushStep("pet_details", messages.length);
 
-    const thoughtText = `Calculando compartimentos e caixas de transporte homologadas para ${totalMultiPets} pets...`;
+    const thoughtText = `Thamires está anotando os detalhes e calculando caixas de transporte homologadas para ${totalMultiPets} pets...`;
 
     triggerAiResponse(thoughtText, () => {
-      const followUp = `Perfeito! Planejando a logística para **${summary}**.\n\nQuais as raças ou portes dos pets?`;
+      const followUp = `Perfeito! Já registrei o planejamento para **${summary}**.\n\nQuais as **raças ou portes** dos pets?`;
       const botMsg: ChatMessage = {
         id: `bot-pet-details-${Date.now()}`,
         sender: "thamires",
@@ -432,21 +439,21 @@ export function WhatsAppChatFlow({
     pushStep("origin", messages.length);
 
     const thoughtText = isBrachy
-      ? "Identificando perfil braquicefálico e selecionando cias com aclimatação reforçada..."
-      : "Analisando protocolos sanitários e aclimatação da rota...";
+      ? "Thamires está anotando o perfil braquicefálico e selecionando companhias aéreas com aclimatação reforçada..."
+      : "Thamires está anotando as características e mapeando protocolos sanitários da rota...";
 
     triggerAiResponse(thoughtText, () => {
       let dynamicInsight = "";
       if (isBrachy) {
-        dynamicInsight = `Identifiquei o **perfil braquicefálico (focinho curto)**. Já selecionei companhias aéreas com controle de temperatura e caixas IATA com ventilação 360°.`;
+        dynamicInsight = `Identifiquei o **perfil braquicefálico (focinho curto)**. Já selecionei companhias aéreas com **controle de temperatura ativo** e **caixas IATA com ventilação 360°**.`;
       } else {
-        dynamicInsight = `Excelente! Perfil **${resolvedBreed}** mapeado para planejamento sanitário homologado.`;
+        dynamicInsight = `Excelente! Perfil **${resolvedBreed}** registrado para **planejamento sanitário homologado**.`;
       }
 
       const botMsg: ChatMessage = {
         id: `bot-origin-${Date.now()}`,
         sender: "thamires",
-        text: `${dynamicInsight}\n\nDe onde o pet vai sair?`,
+        text: `${dynamicInsight}\n\nDe qual **país ou cidade** o pet vai sair? (Origem)`,
         time: getNowTime(),
       };
       setMessages((prev) => [...prev, botMsg]);
@@ -470,13 +477,13 @@ export function WhatsAppChatFlow({
     setMessages(nextMessages);
     pushStep("destination", messages.length);
 
-    const thoughtText = `Mapeando aeroportos e procedimentos de saída em ${origin}...`;
+    const thoughtText = `Thamires está mapeando procedimentos de saída e emissão sanitária em ${origin}...`;
 
     triggerAiResponse(thoughtText, () => {
       const botMsg: ChatMessage = {
         id: `bot-dest-${Date.now()}`,
         sender: "thamires",
-        text: `Origem confirmada em **${origin}**.\n\nPara onde o pet vai viajar?`,
+        text: `Origem confirmada em **${origin}**.\n\nPara qual **país de destino** o pet vai viajar?`,
         time: getNowTime(),
       };
       setMessages((prev) => [...prev, botMsg]);
@@ -505,36 +512,36 @@ export function WhatsAppChatFlow({
     const isMercosul = /argentina|uruguai|paraguai|chile/i.test(dest);
 
     const thoughtText = isUS
-      ? "Consultando diretrizes CDC (CDC Dog Import Form) e protocolos USDA/MAPA..."
+      ? "Thamires está consultando diretrizes CDC (CDC Dog Import Form) e protocolos USDA/MAPA..."
       : isEU
-      ? "Verificando Regulamento UE 576/2013, microchip ISO 11784 e emissão de CVI..."
+      ? "Thamires está verificando Regulamento UE 576/2013, microchip ISO 11784 e emissão de CVI..."
       : isMercosul
-      ? "Consultando normas sanitárias Mercosul e desparasitação oficial..."
-      : `Consultando exigências sanitárias bilaterais para rota ${routeOrigin} ➔ ${dest}...`;
+      ? "Thamires está consultando normas sanitárias Mercosul e desparasitação oficial..."
+      : `Thamires está consultando acordos bilaterais e exigências de entrada para ${dest}...`;
 
     triggerAiResponse(thoughtText, () => {
       let destinationInsight = "";
       if (isUS) {
-        destinationInsight = `Excelente! Para os **Estados Unidos**, aplicamos o **formulário oficial do CDC (CDC Dog Import)**, **microchip ISO** e vacinação em dia para entrada imediata sem retenção.`;
+        destinationInsight = `Excelente! Para os **Estados Unidos**, cuidamos do **formulário oficial do CDC (CDC Dog Import)**, **microchip padrão ISO** e vacinação para **desembarque imediato sem retenção**.`;
       } else if (isEU) {
-        destinationInsight = `Perfeito! Para a **Europa (${dest})**, cuidamos do **Microchip ISO**, emissão do **CVI oficial pelo MAPA** e laudos exigidos.`;
+        destinationInsight = `Perfeito! Para a **Europa (${dest})**, cuidamos do **Microchip ISO**, emissão do **CVI oficial pelo MAPA/Vigiagro** e todos os laudos necessários.`;
       } else if (isMercosul) {
-        destinationInsight = `Ótima rota! Para **${dest}**, o processo é ágil, com **CVI oficial**, desparasitação recente e atestado veterinário.`;
+        destinationInsight = `Ótima rota! Para **${dest}**, o processo é ágil, com **CVI oficial emitido pelo MAPA**, **desparasitação oficial** e atestado veterinário credenciado.`;
       } else {
-        destinationInsight = `Mapeamos os requisitos da autoridade sanitária de **${dest}** para um desembarque 100% regularizado.`;
+        destinationInsight = `Mapeamos todas as exigências sanitárias de **${dest}** para um **desembarque 100% seguro e regularizado**.`;
       }
 
       const botMsg: ChatMessage = {
         id: `bot-period-${Date.now()}`,
         sender: "thamires",
-        text: `${destinationInsight}\n\nPara quando é a previsão dessa viagem?`,
+        text: `${destinationInsight}\n\nPara quando é a **previsão de embarque** dessa viagem?`,
         time: getNowTime(),
       };
       setMessages((prev) => [...prev, botMsg]);
     });
   };
 
-  // Step 5: Handle Period Selection (1-Tap)
+  // Step 5: Handle Period Selection (1-Tap) -> Positive Viability Gate
   const handleSelectPeriod = (period: string) => {
     setTravelPeriod(period);
     const time = getNowTime();
@@ -559,18 +566,14 @@ export function WhatsAppChatFlow({
 
     const isUrgent = /30 dias|urgente/i.test(period);
     const thoughtText = isUrgent
-      ? "Priorizando janela de agendamento Vigiagro e reserva de espaço prioritário no voo..."
-      : "Estruturando cronograma sanitário preventivo e laudos veterinários...";
+      ? `Thamires está calculando viabilidade técnica prioritária e janelas de emissão para ${routeOrigin} ➔ ${routeDestination || "o exterior"}...`
+      : `Thamires está calculando cronograma sanitário preventivo para ${routeOrigin} ➔ ${routeDestination || "o exterior"}...`;
 
     triggerAiResponse(thoughtText, () => {
-      const timingAdvice = isUrgent
-        ? "Prazo prioritário! Recomendo iniciarmos os laudos imediatamente para assegurar vaga no voo."
-        : "Excelente antecedência! Teremos tempo hábil para cumprir cada etapa com total tranquilidade.";
-
       const botMsg: ChatMessage = {
         id: `bot-contact-${Date.now()}`,
         sender: "thamires",
-        text: `${timingAdvice}\n\n**Último passo!** Onde posso te enviar o pré-diagnóstico completo no WhatsApp?`,
+        text: `Boas notícias! Analisei os requisitos para a rota **${routeOrigin} ➔ ${routeDestination || "o exterior"}** com previsão **${period}**:\n\n✅ **SIM! É 100% viável e seguro realizar a viagem no prazo informado.**\n\nCaso você queira falar com nossa equipe de especialistas e **iniciar o planejamento oficial da viagem agora**, basta preencher seu WhatsApp abaixo para receber o cronograma completo:`,
         time: getNowTime(),
       };
       setMessages((prev) => [...prev, botMsg]);
@@ -608,7 +611,8 @@ export function WhatsAppChatFlow({
 
     setMessages((prev) => [...prev, userMsg]);
     setCurrentStep("complete");
-    setThinkingText("Gerando laudo de pré-diagnóstico e conectando ao WhatsApp oficial...");
+    setThinkingText("Thamires está consolidando o laudo de pré-diagnóstico e conectando ao WhatsApp oficial...");
+    onStatusChange?.("anotando...");
 
     try {
       await submitLead(lead);
@@ -638,17 +642,18 @@ export function WhatsAppChatFlow({
       setThinkingText(null);
       setIsTyping(false);
       setIsSubmitting(false);
+      onStatusChange?.("online");
 
       const firstName = tutorName.split(" ")[0] || "Tutor(a)";
       const botMsg: ChatMessage = {
         id: `bot-complete-${Date.now()}`,
         sender: "thamires",
-        text: `Prontinho, ${firstName}! Pré-diagnóstico gerado com sucesso para a rota **${routeOrigin} ➔ ${routeDestination || "o exterior"}**. Toque no botão verde abaixo para abrir nossa conversa no WhatsApp!`,
+        text: `Prontinho, **${firstName}**! Pré-diagnóstico gerado com sucesso para a rota **${routeOrigin} ➔ ${routeDestination || "o exterior"}**.\n\nToque no botão verde abaixo para **iniciar seu atendimento prioritário no WhatsApp** com a especialista **Thamires Felix**!`,
         time: getNowTime(),
       };
 
       setMessages((prev) => [...prev, botMsg]);
-    }, 600);
+    }, 700);
   };
 
   // Step Progress Metadata (Goal Gradient Effect)
@@ -1251,9 +1256,14 @@ export function WhatsAppChatFlow({
                 </div>
               )}
 
-              {/* Step 6: Contact Lead Form */}
+              {/* Step 6: WhatsApp Native Contact Card */}
               {currentStep === "contact" && (
-                <form onSubmit={handleContactSubmit} className="ep-wa-stream-card">
+                <form onSubmit={handleContactSubmit} className="ep-wa-stream-card ep-wa-contact-form">
+                  <div className="ep-wa-contact-card__badge">
+                    <User size={14} className="ep-wa-contact-card__badge-icon" />
+                    <span>Cartão de Contato Oficial</span>
+                  </div>
+
                   <div className="ep-wa-dock__input-wrap">
                     <User size={18} className="ep-wa-dock__input-icon" />
                     <input
@@ -1307,7 +1317,7 @@ export function WhatsAppChatFlow({
 
                   <div className="ep-wa-dock__reassurance">
                     <ShieldCheck size={15} className="ep-wa-dock__shield-icon" />
-                    <span>Análise 100% gratuita, oficial e segura. Envio direto no WhatsApp.</span>
+                    <span>Análise 100% gratuita, oficial e segura. Envio direto no seu WhatsApp.</span>
                   </div>
 
                   <button
@@ -1319,7 +1329,7 @@ export function WhatsAppChatFlow({
                       <span>GERANDO PRÉ-DIAGNÓSTICO...</span>
                     ) : (
                       <>
-                        <span>GERAR PRÉ-DIAGNÓSTICO OFICIAL</span>
+                        <span>RECEBER CRONOGRAMA OFICIAL</span>
                         <ArrowRight size={18} strokeWidth={2.5} />
                       </>
                     )}

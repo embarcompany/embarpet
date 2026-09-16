@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { useLocale } from "../../i18n/locale";
 import { WhatsAppChatFlow } from "./whatsapp-chat-flow";
@@ -54,6 +54,7 @@ export function WhatsAppChatModal({
   analyticsSource = "whatsapp_modal",
 }: WhatsAppChatModalProps) {
   const { text } = useLocale();
+  const [headerStatus, setHeaderStatus] = useState<"Online" | "digitando..." | "anotando...">("Online");
 
   useEffect(() => {
     if (!open) return;
@@ -105,7 +106,9 @@ export function WhatsAppChatModal({
                 <span className="ep-wa-header__name">Thamires Felix</span>
                 <WhatsAppVerifiedBadge size={16} />
               </div>
-              <span className="ep-wa-header__status">Online</span>
+              <span className={`ep-wa-header__status ${headerStatus !== "Online" ? "ep-wa-header__status--active" : ""}`}>
+                {headerStatus}
+              </span>
             </div>
           </div>
 
@@ -125,6 +128,11 @@ export function WhatsAppChatModal({
         <WhatsAppChatFlow
           initialRoute={initialRoute}
           analyticsSource={analyticsSource}
+          onStatusChange={(status) => {
+            if (status === "digitando...") setHeaderStatus("digitando...");
+            else if (status === "anotando...") setHeaderStatus("anotando...");
+            else setHeaderStatus("Online");
+          }}
         />
       </section>
     </div>

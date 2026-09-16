@@ -215,32 +215,33 @@
   margin-bottom: 2px;
 }
 
-/* AI Thought / Reasoning State Pill (Solid Background & Border) */
+/* AI Note-Taking / Thought Stream (Clean Minimal Text Stream) */
 .ep-wa-thought-pill {
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 14px;
+  gap: 7px;
+  padding: 6px 13px;
   border-radius: 12px;
-  background: #e8f8f5;
-  border: 1.5px solid #00a884;
-  box-shadow: 0 2px 6px rgba(0, 92, 75, 0.08);
-  color: #005c4b;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  box-shadow: 0 1px 3px rgba(0, 92, 75, 0.06);
+  color: #065f46;
   font-size: 12px;
-  font-weight: 650;
-  animation: ep-wa-pop 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
-  margin: 2px 0 2px;
+  font-weight: 700;
+  animation: ep-wa-pop 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+  margin: 2px 0;
 }
 
 .ep-wa-thought-pill__icon {
   display: inline-flex;
-  color: #00a884;
+  color: #059669;
   flex-shrink: 0;
 }
 
 .ep-wa-thought-pill__text {
   line-height: 1.35;
+  letter-spacing: -0.01em;
 }
 
 /* Message Bubbles */
@@ -299,39 +300,59 @@
   display: inline-flex;
 }
 
-/* Typing Indicator */
+/* WhatsApp Authentic Incoming Typing Bubble (Bouncing Dots) */
 .ep-wa-typing {
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 10px 16px;
-  border-radius: 12px;
-  border-top-left-radius: 2px;
+  padding: 12px 18px;
+  border-radius: 14px 14px 14px 3px;
   background: #ffffff;
-  box-shadow: 0 1px 1px rgba(11, 20, 26, 0.13);
+  box-shadow: 0 1px 2px rgba(11, 20, 26, 0.13);
+  animation: ep-wa-pop 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .ep-wa-typing__dot {
-  width: 7px;
-  height: 7px;
+  width: 7.5px;
+  height: 7.5px;
   border-radius: 50%;
   background: #8696a0;
-  animation: ep-wa-dot-bounce 1.3s infinite ease-in-out;
+  animation: ep-wa-dot-bounce 1.35s infinite ease-in-out both;
+}
+
+.ep-wa-typing__dot:nth-child(1) {
+  animation-delay: -0.32s;
 }
 
 .ep-wa-typing__dot:nth-child(2) {
-  animation-delay: 0.18s;
-}
-.ep-wa-typing__dot:nth-child(3) {
-  animation-delay: 0.36s;
+  animation-delay: -0.16s;
 }
 
-.ep-wa-typing__label {
-  font-size: 12px;
-  color: #667781;
-  font-style: italic;
-  margin-left: 5px;
+.ep-wa-typing__dot:nth-child(3) {
+  animation-delay: 0s;
+}
+
+.ep-wa-header__status--active {
+  color: #4ade80 !important;
+  font-weight: 700;
+}
+
+.ep-wa-contact-card__badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 850;
+  color: #005c4b;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding-bottom: 2px;
+}
+
+.ep-wa-contact-card__badge-icon {
+  color: #00a884;
+  flex-shrink: 0;
 }
 
 /* ==========================================================================
