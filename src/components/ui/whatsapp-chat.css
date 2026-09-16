@@ -477,6 +477,7 @@
 .ep-wa-msg-composer__input-wrap {
   flex: 1;
   min-width: 0;
+  position: relative;
 }
 
 .ep-wa-msg-composer__input {
@@ -575,18 +576,23 @@
   color: #ffffff !important;
 }
 
-/* Minimalist AI Suggestions Dropdown */
+/* Minimalist AI Suggestions Dropdown (Floating Overlay - Zero Layout Shift) */
 .ep-wa-dropdown-list {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: 190px;
+  overflow-y: auto;
+  z-index: 50;
   display: flex;
   flex-direction: column;
   gap: 2px;
   background: #ffffff;
   border-radius: 12px;
   border: 1px solid #bbf7d0;
-  box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.16), 0 2px 6px rgba(0, 0, 0, 0.08);
   padding: 4px;
-  max-height: 190px;
-  overflow-y: auto;
   scrollbar-width: thin;
   animation: ep-wa-pop 0.16s cubic-bezier(0.16, 1, 0.3, 1) both;
   width: 100%;

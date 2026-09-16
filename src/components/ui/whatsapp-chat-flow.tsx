@@ -263,7 +263,7 @@ export function WhatsAppChatFlow({
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isTyping, thinkingText, currentStep, isMultiPetMode, isCustomOrigin, isCustomDestination, petBreed]);
+  }, [messages, isTyping, thinkingText, currentStep, isMultiPetMode, isCustomOrigin, isCustomDestination]);
 
   const trackStart = () => {
     if (hasTrackedStart.current) return;
@@ -854,6 +854,40 @@ export function WhatsAppChatFlow({
                       disabled={isSrd}
                       autoFocus={!isSrd}
                     />
+
+                    {/* Minimalist AI Suggestions Dropdown (Floating Overlay) */}
+                    {!isSrd && !isBreedSelected && petBreed.trim().length > 0 && (
+                      <div className="ep-wa-dropdown-list" role="listbox">
+                        {dynamicBreedSuggestions.length > 0 ? (
+                          dynamicBreedSuggestions.map((item) => (
+                            <button
+                              key={item.name}
+                              type="button"
+                              className="ep-wa-dropdown-item"
+                              onClick={() => {
+                                setIsSrd(false);
+                                setPetBreed(item.name);
+                                setIsBreedSelected(true);
+                              }}
+                            >
+                              <div className="ep-wa-dropdown-item__left">
+                                {renderPetCategoryIcon(item.category)}
+                                <span>{item.name}</span>
+                              </div>
+                              {item.isBrachy && (
+                                <span className="ep-wa-dropdown-item__tag">
+                                  Braquicefálico
+                                </span>
+                              )}
+                            </button>
+                          ))
+                        ) : (
+                          <div className="ep-wa-dropdown-empty">
+                            <span>Pressione enviar para usar &quot;{petBreed}&quot;</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
 
                   <button
@@ -866,40 +900,6 @@ export function WhatsAppChatFlow({
                     <Send size={15} />
                   </button>
                 </div>
-
-                {/* Minimalist AI Suggestions Dropdown */}
-                {!isSrd && !isBreedSelected && petBreed.trim().length > 0 && (
-                  <div className="ep-wa-dropdown-list" role="listbox">
-                    {dynamicBreedSuggestions.length > 0 ? (
-                      dynamicBreedSuggestions.map((item) => (
-                        <button
-                          key={item.name}
-                          type="button"
-                          className="ep-wa-dropdown-item"
-                          onClick={() => {
-                            setIsSrd(false);
-                            setPetBreed(item.name);
-                            setIsBreedSelected(true);
-                          }}
-                        >
-                          <div className="ep-wa-dropdown-item__left">
-                            {renderPetCategoryIcon(item.category)}
-                            <span>{item.name}</span>
-                          </div>
-                          {item.isBrachy && (
-                            <span className="ep-wa-dropdown-item__tag">
-                              Braquicefálico
-                            </span>
-                          )}
-                        </button>
-                      ))
-                    ) : (
-                      <div className="ep-wa-dropdown-empty">
-                        <span>Pressione enviar para usar &quot;{petBreed}&quot;</span>
-                      </div>
-                    )}
-                  </div>
-                )}
 
                 {/* Quick SRD Button */}
                 <div className="ep-wa-msg-composer__footer">
@@ -968,7 +968,30 @@ export function WhatsAppChatFlow({
                           }}
                           autoFocus
                         />
+
+                        {originSuggestions.length > 0 && (
+                          <div className="ep-wa-dropdown-list" role="listbox">
+                            {originSuggestions.map((s) => (
+                              <button
+                                key={s.code}
+                                type="button"
+                                className="ep-wa-dropdown-item"
+                                onClick={() => {
+                                  setCustomOriginInput(s.name);
+                                  handleSelectOrigin(s.name);
+                                }}
+                              >
+                                <div className="ep-wa-dropdown-item__left">
+                                  <img src={countryFlagSvg(s.code)} alt="" className="ep-wa-flag-icon" />
+                                  <span>{s.name}</span>
+                                </div>
+                                <span className="ep-wa-code-pill">{s.code}</span>
+                              </button>
+                            ))}
+                          </div>
+                        )}
                       </div>
+
                       <button
                         type="button"
                         className="ep-wa-msg-composer__send-btn"
@@ -979,28 +1002,6 @@ export function WhatsAppChatFlow({
                         <Send size={15} />
                       </button>
                     </div>
-
-                    {originSuggestions.length > 0 && (
-                      <div className="ep-wa-dropdown-list" role="listbox">
-                        {originSuggestions.map((s) => (
-                          <button
-                            key={s.code}
-                            type="button"
-                            className="ep-wa-dropdown-item"
-                            onClick={() => {
-                              setCustomOriginInput(s.name);
-                              handleSelectOrigin(s.name);
-                            }}
-                          >
-                            <div className="ep-wa-dropdown-item__left">
-                              <img src={countryFlagSvg(s.code)} alt="" className="ep-wa-flag-icon" />
-                              <span>{s.name}</span>
-                            </div>
-                            <span className="ep-wa-code-pill">{s.code}</span>
-                          </button>
-                        ))}
-                      </div>
-                    )}
 
                     <button
                       type="button"
@@ -1062,7 +1063,30 @@ export function WhatsAppChatFlow({
                           }}
                           autoFocus
                         />
+
+                        {destinationSuggestions.length > 0 && (
+                          <div className="ep-wa-dropdown-list" role="listbox">
+                            {destinationSuggestions.map((s) => (
+                              <button
+                                key={s.code}
+                                type="button"
+                                className="ep-wa-dropdown-item"
+                                onClick={() => {
+                                  setCustomDestinationInput(s.name);
+                                  handleSelectDestination(s.name);
+                                }}
+                              >
+                                <div className="ep-wa-dropdown-item__left">
+                                  <img src={countryFlagSvg(s.code)} alt="" className="ep-wa-flag-icon" />
+                                  <span>{s.name}</span>
+                                </div>
+                                <span className="ep-wa-code-pill">{s.code}</span>
+                              </button>
+                            ))}
+                          </div>
+                        )}
                       </div>
+
                       <button
                         type="button"
                         className="ep-wa-msg-composer__send-btn"
@@ -1073,28 +1097,6 @@ export function WhatsAppChatFlow({
                         <Send size={15} />
                       </button>
                     </div>
-
-                    {destinationSuggestions.length > 0 && (
-                      <div className="ep-wa-dropdown-list" role="listbox">
-                        {destinationSuggestions.map((s) => (
-                          <button
-                            key={s.code}
-                            type="button"
-                            className="ep-wa-dropdown-item"
-                            onClick={() => {
-                              setCustomDestinationInput(s.name);
-                              handleSelectDestination(s.name);
-                            }}
-                          >
-                            <div className="ep-wa-dropdown-item__left">
-                              <img src={countryFlagSvg(s.code)} alt="" className="ep-wa-flag-icon" />
-                              <span>{s.name}</span>
-                            </div>
-                            <span className="ep-wa-code-pill">{s.code}</span>
-                          </button>
-                        ))}
-                      </div>
-                    )}
 
                     <button
                       type="button"
