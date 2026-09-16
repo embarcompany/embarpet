@@ -15,6 +15,7 @@ import {
   Bird,
   Search,
   Send,
+  AlertTriangle,
 } from "lucide-react";
 import { submitLead, type PublicLead } from "../../lead-contract";
 import { trackConversionEvent } from "../../lib/analytics";
@@ -77,6 +78,14 @@ const multiSpeciesItems = [
   { label: "Roedores", key: "rodents" as const, icon: Rabbit, isFull: false },
   { label: "Aves", key: "birds" as const, icon: Bird, isFull: false },
   { label: "Outros pets", key: "others" as const, icon: Sparkles, isFull: true },
+];
+
+const multiPetProfileOptions = [
+  { label: "Pequeno / Médio porte", value: "Pequeno / Médio porte", isFull: false },
+  { label: "Sem raça definida (SRD)", value: "Sem raça definida (SRD)", isFull: false },
+  { label: "Possui Grande porte", value: "Possui pet de Grande porte", isFull: false },
+  { label: "Focinho curto (Braquicefálico)", value: "Focinho curto (Braquicefálico)", isFull: false },
+  { label: "✍️ Digitar raças personalizadas...", value: "CUSTOM", isFull: true },
 ];
 
 const popularOrigins = [
@@ -197,6 +206,8 @@ export function WhatsAppChatFlow({
 
   // Multi-Pet Selector State
   const [isMultiPetMode, setIsMultiPetMode] = useState(false);
+  const [isMultiPetFlow, setIsMultiPetFlow] = useState(false);
+  const [isCustomMultiBreed, setIsCustomMultiBreed] = useState(false);
   const [multiCounts, setMultiCounts] = useState({
     dogs: 1,
     cats: 1,
@@ -304,6 +315,10 @@ export function WhatsAppChatFlow({
       setIsMultiPetMode(false);
       return;
     }
+    if (isCustomMultiBreed) {
+      setIsCustomMultiBreed(false);
+      return;
+    }
     if (isCustomOrigin) {
       setIsCustomOrigin(false);
       return;
@@ -358,6 +373,8 @@ export function WhatsAppChatFlow({
     setPetSpecies(species);
     setPetBreed("");
     setIsSrd(false);
+    setIsMultiPetFlow(false);
+    setIsCustomMultiBreed(false);
     const time = getNowTime();
 
     const userMsg: ChatMessage = {
@@ -398,6 +415,8 @@ export function WhatsAppChatFlow({
     setPetBreed("");
     setIsSrd(false);
     setIsMultiPetMode(false);
+    setIsMultiPetFlow(true);
+    setIsCustomMultiBreed(false);
     const time = getNowTime();
 
     const userMsg: ChatMessage = {
@@ -414,7 +433,7 @@ export function WhatsAppChatFlow({
     const thoughtText = `Calculando caixas de transporte homologadas para ${totalMultiPets} pets...`;
 
     triggerAiResponse(thoughtText, () => {
-      const followUp = `Perfeito! Já registrei o planejamento para **${summary}**.\n\nQuais as **raças ou portes** dos pets?`;
+      const followUp = `Perfeito! Já registrei o planejamento para **${summary}**.\n\nQual o **porte ou perfil** dos pets?`;
       const botMsg: ChatMessage = {
         id: `bot-pet-details-${Date.now()}`,
         sender: "thamires",
@@ -425,10 +444,62 @@ export function WhatsAppChatFlow({
     });
   };
 
-  // Step 2: Submit Pet Details (Breed or SRD)
+  // Step 2A: Handle Multi-Pet Profile Quick Selection (1-Tap)
+  const handleSelectMultiPetProfile = (profileValue: string) => {
+    if (profileValue === "CUSTOM") {
+      setIsCustomMultiBreed(true);
+      return;
+    }
+
+    setPetBreed(profileValue);
+    setIsSrd(profileValue.includes("SRD") || profileValue.includes("Sem raça"));
+    const time = getNowTime();
+    const isBrachy = /braquicef|focinho curto/i.test(profileValue);
+    const isLarge = /grande porte/i.test(profileValue);
+
+    const userMsg: ChatMessage = {
+      id: `user-pet-profile-${Date.now()}`,
+      sender: "user",
+      text: `${profileValue}`,
+      time,
+    };
+
+    const nextMessages = [...messages, userMsg];
+    setMessages(nextMessages);
+    pushStep("origin", messages.length);
+
+    const thoughtText = isBrachy
+      ? "Mapeando companhias com controle térmico para braquicefálicos..."
+      : isLarge
+      ? "Dimensionando caixas IATA para pets de grande porte..."
+      : "Mapeando logística sanitária para múltiplos pets...";
+
+    triggerAiResponse(thoughtText, () => {
+      let dynamicInsight = "";
+      if (isBrachy) {
+        dynamicInsight = `Identifiquei o perfil **braquicefálico (focinho curto)** no grupo. Já separei as companhias com **controle térmico ativo** e ventilação adequada.`;
+      } else if (isLarge) {
+        dynamicInsight = `Registrado! Para pet de **grande porte**, já dimensionamos as caixas IATA reforçadas e porões pressurizados.`;
+      } else {
+        dynamicInsight = `Perfil dos pets (**${profileValue}**) registrado com sucesso.`;
+      }
+
+      const botMsg: ChatMessage = {
+        id: `bot-origin-${Date.now()}`,
+        sender: "thamires",
+        text: `${dynamicInsight}\n\nDe qual **país ou cidade** os pets vão sair? (Origem)`,
+        time: getNowTime(),
+      };
+      setMessages((prev) => [...prev, botMsg]);
+    });
+  };
+
+  // Step 2B: Submit Pet Details (Breed or SRD via composer)
   const handleConfirmPetDetails = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    const defaultBreedFallback = petSpecies.toLowerCase().includes("gato")
+    const defaultBreedFallback = isMultiPetFlow
+      ? "Múltiplos Pets (Portes Variados)"
+      : petSpecies.toLowerCase().includes("gato")
       ? "Gato Doméstico"
       : petSpecies.toLowerCase().includes("ave")
       ? "Ave / Pássaro"
@@ -438,7 +509,7 @@ export function WhatsAppChatFlow({
     const resolvedBreed = isSrd ? "Sem raça específica (SRD)" : petBreed.trim() || defaultBreedFallback;
 
     const time = getNowTime();
-    const isBrachy = /buld|bulldog|pug|shih|boxer|pekin|lhasa|persa|boston|cavalier|shar\s*pei|malt[eê]s/i.test(resolvedBreed);
+    const isBrachy = /buld|bulldog|pug|shih|boxer|pekin|lhasa|persa|boston|cavalier|shar\s*pei|malt[eê]s|braqui/i.test(resolvedBreed);
 
     const userMsg: ChatMessage = {
       id: `user-pet-details-${Date.now()}`,
@@ -453,12 +524,16 @@ export function WhatsAppChatFlow({
 
     const thoughtText = isBrachy
       ? "Identificando regras especiais para focinho curto (braquicefálico)..."
+      : isMultiPetFlow
+      ? "Mapeando logística sanitária para múltiplos pets..."
       : "Mapeando protocolos sanitários da rota...";
 
     triggerAiResponse(thoughtText, () => {
       let dynamicInsight = "";
       if (isBrachy) {
         dynamicInsight = `Identifiquei o perfil **braquicefálico (focinho curto)**. Já separei as companhias com **controle térmico ativo** e ventilação adequada.`;
+      } else if (isMultiPetFlow) {
+        dynamicInsight = `Perfil dos pets (**${resolvedBreed}**) registrado com sucesso.`;
       } else {
         dynamicInsight = `Perfil **${resolvedBreed}** registrado com sucesso.`;
       }
@@ -466,7 +541,7 @@ export function WhatsAppChatFlow({
       const botMsg: ChatMessage = {
         id: `bot-origin-${Date.now()}`,
         sender: "thamires",
-        text: `${dynamicInsight}\n\nDe qual **país ou cidade** o pet vai sair? (Origem)`,
+        text: `${dynamicInsight}\n\nDe qual **país ou cidade** ${isMultiPetFlow ? "os pets vão sair" : "o pet vai sair"}? (Origem)`,
         time: getNowTime(),
       };
       setMessages((prev) => [...prev, botMsg]);
@@ -836,15 +911,40 @@ export function WhatsAppChatFlow({
               </div>
             )}
 
-            {/* Step 2: Breed Selection - Native WhatsApp Message Composer */}
-            {currentStep === "pet_details" && (
+            {/* Step 2: Breed Selection - Quick Profile Pills for Multi-Pet OR Native WhatsApp Composer */}
+            {currentStep === "pet_details" && isMultiPetFlow && !isCustomMultiBreed ? (
+              <div className="ep-wa-quick-replies">
+                <div className="ep-wa-quick-replies__grid">
+                  {multiPetProfileOptions.map((opt) => (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      className={`ep-wa-quick-reply-btn ${opt.isFull ? "ep-wa-quick-reply-btn--full-span" : ""}`}
+                      onClick={() => handleSelectMultiPetProfile(opt.value)}
+                    >
+                      {opt.value.includes("Pequeno") && <PawPrint size={14} className="ep-wa-quick-reply-icon" />}
+                      {opt.value.includes("SRD") && <Sparkles size={14} className="ep-wa-quick-reply-icon" />}
+                      {opt.value.includes("Grande") && <Dog size={14} className="ep-wa-quick-reply-icon" />}
+                      {opt.value.includes("Braquicefálico") && <AlertTriangle size={14} style={{ color: "#d97706", flexShrink: 0 }} />}
+                      <span>{opt.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : currentStep === "pet_details" ? (
               <form onSubmit={handleConfirmPetDetails} className="ep-wa-msg-composer">
                 <div className="ep-wa-msg-composer__row">
                   <div className="ep-wa-msg-composer__input-wrap">
                     <input
                       className={`ep-wa-msg-composer__input ${isSrd ? "ep-wa-msg-composer__input--srd" : ""}`}
                       type="text"
-                      placeholder={isSrd ? "Sem raça específica (SRD)" : "Digite a raça do pet..."}
+                      placeholder={
+                        isSrd
+                          ? "Sem raça específica (SRD)"
+                          : isMultiPetFlow
+                          ? "Ex: 1 Golden e 1 Shih Tzu..."
+                          : "Digite a raça do pet..."
+                      }
                       value={isSrd ? "Sem raça específica (SRD)" : petBreed}
                       onChange={(e) => {
                         setIsSrd(false);
@@ -919,9 +1019,19 @@ export function WhatsAppChatFlow({
                   >
                     <span>{isSrd ? "✓ Sem raça definida (SRD)" : "🐾 Sem raça específica (SRD / Vira-lata)"}</span>
                   </button>
+                  {isMultiPetFlow && (
+                    <button
+                      type="button"
+                      className="ep-wa-quick-reply-sub"
+                      onClick={() => setIsCustomMultiBreed(false)}
+                      style={{ marginTop: 6 }}
+                    >
+                      ✕ Voltar para opções de perfil rápido
+                    </button>
+                  )}
                 </div>
               </form>
-            )}
+            ) : null}
 
             {/* Step 3: Origin Selection - Clean Quick Replies */}
             {currentStep === "origin" && (
@@ -1221,7 +1331,7 @@ export function WhatsAppChatFlow({
       {/* 2. Sleek Minimalist Bottom Bar */}
       <div className="ep-wa-bottom-bar">
         <div className="ep-wa-bottom-bar__row">
-          {stepHistory.length > 0 || isMultiPetMode || isCustomOrigin || isCustomDestination ? (
+          {stepHistory.length > 0 || isMultiPetMode || isCustomMultiBreed || isCustomOrigin || isCustomDestination ? (
             <button
               type="button"
               className="ep-wa-bottom-bar__back-btn"
