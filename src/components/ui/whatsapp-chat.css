@@ -909,38 +909,153 @@
   box-shadow: 0 2px 8px rgba(51, 65, 85, 0.35);
 }
 
-/* AI Suggestions Container & Strikethrough */
-.ep-wa-dock__suggestions-container {
+/* ==========================================================================
+   AI BREED AUTOCOMPLETE DROPDOWN (BANK OF 150+ SUGGESTIONS)
+   ========================================================================== */
+.ep-wa-dock__breed-dropdown {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1.5px solid #a7f3d0;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 168, 132, 0.08);
+  padding: 6px;
   margin-top: 4px;
+  animation: ep-wa-pop 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  position: relative;
+  z-index: 10;
+  width: 100%;
 }
 
-.ep-wa-dock__suggestions-label {
+.ep-wa-dock__dropdown-header {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
+  padding: 4px 8px 6px;
+  border-bottom: 1px solid #f1f5f9;
   font-size: 11px;
   font-weight: 800;
   color: #005c4b;
-  text-transform: lowercase;
-  letter-spacing: 0.02em;
-  transition: color 0.15s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
-.ep-wa-dock__suggestions-label--disabled {
-  color: #94a3b8;
+.ep-wa-dock__dropdown-sparkle {
+  color: #00a884;
+  flex-shrink: 0;
 }
 
-.ep-wa-dock__chip--struck {
-  text-decoration: line-through;
-  opacity: 0.38;
-  background: #f1f5f9 !important;
-  color: #94a3b8 !important;
-  border-color: #e2e8f0 !important;
-  cursor: not-allowed !important;
-  transform: none !important;
+.ep-wa-dock__breed-dropdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-height: 210px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding: 4px 2px 2px;
+}
+
+.ep-wa-dock__breed-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.ep-wa-dock__breed-dropdown-item:hover {
+  background: #f0fdf4;
+  border-color: #a7f3d0;
+}
+
+.ep-wa-dock__breed-dropdown-item--selected {
+  background: #e6f7f2 !important;
+  border-color: #00a884 !important;
+}
+
+.ep-wa-dock__breed-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.ep-wa-dock__breed-icon-box {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #e6f7f2;
+  color: #00a884;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.ep-wa-dock__breed-dropdown-item:hover .ep-wa-dock__breed-icon-box,
+.ep-wa-dock__breed-dropdown-item--selected .ep-wa-dock__breed-icon-box {
+  background: #00a884;
+  color: #ffffff;
+}
+
+.ep-wa-dock__breed-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.ep-wa-dock__breed-name {
+  font-size: 13px;
+  font-weight: 750;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+}
+
+.ep-wa-dock__breed-sub {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #64748b;
+  line-height: 1.2;
+}
+
+.ep-wa-dock__breed-tag {
+  font-size: 10.5px;
+  font-weight: 750;
+  color: #065f46;
+  background: #dcfce7;
+  padding: 2.5px 7px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ep-wa-dock__breed-tag--brachy {
+  color: #92400e;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+}
+
+.ep-wa-dock__dropdown-empty {
+  padding: 14px 10px;
+  font-size: 12px;
+  color: #64748b;
+  text-align: center;
+  font-style: italic;
+  line-height: 1.4;
 }
 
 /* Destination & Origin Grids (2 Columns + Full-Width Outro País) */

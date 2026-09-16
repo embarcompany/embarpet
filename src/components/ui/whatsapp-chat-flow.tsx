@@ -29,7 +29,22 @@ import { submitLead, type PublicLead } from "../../lead-contract";
 import { trackConversionEvent } from "../../lib/analytics";
 import { countryFlagSvg } from "../../lib/country-flag";
 import { useCountrySuggestions } from "../../hooks/use-country-suggestions";
-import { searchAiBreeds, normalizeText } from "../../data/pet-species-database";
+import { searchAiBreedsDetailed, type AiPetSuggestion, normalizeText } from "../../data/pet-species-database";
+
+function renderPetCategoryIcon(category: string) {
+  switch (category) {
+    case "dog":
+      return <Dog size={16} className="ep-wa-dock__breed-icon" />;
+    case "cat":
+      return <Cat size={16} className="ep-wa-dock__breed-icon" />;
+    case "bird":
+      return <Bird size={16} className="ep-wa-dock__breed-icon" />;
+    case "rodent":
+      return <Rabbit size={16} className="ep-wa-dock__breed-icon" />;
+    default:
+      return <Sparkles size={16} className="ep-wa-dock__breed-icon" />;
+  }
+}
 
 export function WhatsAppIconSvg({ size = 18, color = "#25D366" }: { size?: number; color?: string }) {
   return (
@@ -219,8 +234,8 @@ export function WhatsAppChatFlow({
     return `${parts.slice(0, -1).join(", ")} e ${parts[parts.length - 1]}`;
   };
 
-  // Real-Time AI Breed Suggestions Bank (140+ database)
-  const dynamicAiBreeds = searchAiBreeds(petBreed, petSpecies, 12);
+  // Real-Time AI Breed Suggestions Bank (150+ database with rich metadata)
+  const dynamicBreedSuggestions = searchAiBreedsDetailed(petBreed, petSpecies, 10);
 
   const [routeOrigin, setRouteOrigin] = useState(initialRoute.origin || "Brasil");
   const [routeDestination, setRouteDestination] = useState(initialRoute.destination || "");
@@ -933,7 +948,7 @@ export function WhatsAppChatFlow({
                 </div>
               )}
 
-              {/* Step 2: Breed / Pet Details with Real-Time AI Suggestions */}
+              {/* Step 2: Breed / Pet Details with Real-Time AI Autocomplete Dropdown */}
               {currentStep === "pet_details" && (
                 <form onSubmit={handleConfirmPetDetails} className="ep-wa-stream-card">
                   <div className="ep-wa-dock__field-group">
@@ -942,63 +957,89 @@ export function WhatsAppChatFlow({
                     </span>
 
                     {/* Input with SRD Badge Button inside on the right */}
-                    <div className="ep-wa-dock__input-wrap">
-                      <PawPrint size={18} className="ep-wa-dock__input-icon" />
-                      <input
-                        className={`ep-wa-dock__input ep-wa-dock__input--with-icon ep-wa-dock__input--with-srd ${isSrd ? "ep-wa-dock__input--srd-active" : ""}`}
-                        type="text"
-                        placeholder={isSrd ? "Sem raça específica (SRD)" : "Digite a raça ou selecione abaixo..."}
-                        value={isSrd ? "Sem raça específica (SRD)" : petBreed}
-                        onChange={(e) => {
-                          setIsSrd(false);
-                          setPetBreed(e.target.value);
-                        }}
-                        disabled={isSrd}
-                        autoFocus={!isSrd}
-                      />
-                      <button
-                        type="button"
-                        className={`ep-wa-dock__srd-badge-btn ${isSrd ? "ep-wa-dock__srd-badge-btn--active" : ""}`}
-                        onClick={() => {
-                          const nextSrd = !isSrd;
-                          setIsSrd(nextSrd);
-                          if (nextSrd) {
-                            setPetBreed("Sem raça específica (SRD)");
-                          } else {
-                            setPetBreed("");
-                          }
-                        }}
-                      >
-                        {isSrd ? "✓ Sem raça (SRD)" : "Sem raça (SRD)"}
-                      </button>
-                    </div>
-
-                    {/* Dynamic AI Suggestions from 140+ database filtered in real-time */}
-                    <div className="ep-wa-dock__suggestions-container">
-                      <span className={`ep-wa-dock__suggestions-label ${isSrd ? "ep-wa-dock__suggestions-label--disabled" : ""}`}>
-                        <Sparkles size={12} />
-                        sugestões da ia
-                      </span>
-                      <div className="ep-wa-dock__chips-grid">
-                        {dynamicAiBreeds.map((b) => {
-                          const isSelected = !isSrd && normalizeText(petBreed) === normalizeText(b);
-                          return (
-                            <button
-                              key={b}
-                              type="button"
-                              disabled={isSrd}
-                              className={`ep-wa-dock__chip ${isSelected ? "ep-wa-dock__chip--active" : ""} ${isSrd ? "ep-wa-dock__chip--struck" : ""}`}
-                              onClick={() => {
-                                setIsSrd(false);
-                                setPetBreed(b);
-                              }}
-                              title={b}
-                            >
-                              {b}
-                            </button>
-                          );
-                        })}
+                    <div className="ep-wa-dock__search-container">
+                      <div className="ep-wa-dock__input-wrap">
+                        <PawPrint size={18} className="ep-wa-dock__input-icon" />
+                        <input
+                          className={`ep-wa-dock__input ep-wa-dock__input--with-icon ep-wa-dock__input--with-srd ${isSrd ? "ep-wa-dock__input--srd-active" : ""}`}
+                          type="text"
+                          placeholder={isSrd ? "Sem raça específica (SRD)" : "Digite a raça ou escolha na lista..."}
+                          value={isSrd ? "Sem raça específica (SRD)" : petBreed}
+                          onChange={(e) => {
+                            setIsSrd(false);
+                            setPetBreed(e.target.value);
+                          }}
+                          disabled={isSrd}
+                          autoFocus={!isSrd}
+                        />
+                        <button
+                          type="button"
+                          className={`ep-wa-dock__srd-badge-btn ${isSrd ? "ep-wa-dock__srd-badge-btn--active" : ""}`}
+                          onClick={() => {
+                            const nextSrd = !isSrd;
+                            setIsSrd(nextSrd);
+                            if (nextSrd) {
+                              setPetBreed("Sem raça específica (SRD)");
+                            } else {
+                              setPetBreed("");
+                            }
+                          }}
+                        >
+                          {isSrd ? "✓ Sem raça (SRD)" : "Sem raça (SRD)"}
+                        </button>
                       </div>
+
+                      {/* Real-Time AI Suggestions Dropdown List */}
+                      {!isSrd && (
+                        <div className="ep-wa-dock__breed-dropdown" role="listbox">
+                          <div className="ep-wa-dock__dropdown-header">
+                            <Sparkles size={13} className="ep-wa-dock__dropdown-sparkle" />
+                            <span>Sugestões da IA ({dynamicBreedSuggestions.length} encontradas):</span>
+                          </div>
+
+                          <div className="ep-wa-dock__breed-dropdown-list">
+                            {dynamicBreedSuggestions.length > 0 ? (
+                              dynamicBreedSuggestions.map((item) => {
+                                const isSelected = normalizeText(petBreed) === normalizeText(item.name);
+                                return (
+                                  <button
+                                    key={item.name}
+                                    type="button"
+                                    className={`ep-wa-dock__breed-dropdown-item ${isSelected ? "ep-wa-dock__breed-dropdown-item--selected" : ""}`}
+                                    onClick={() => {
+                                      setIsSrd(false);
+                                      setPetBreed(item.name);
+                                    }}
+                                  >
+                                    <div className="ep-wa-dock__breed-item-left">
+                                      <div className="ep-wa-dock__breed-icon-box">
+                                        {renderPetCategoryIcon(item.category)}
+                                      </div>
+                                      <div className="ep-wa-dock__breed-info">
+                                        <span className="ep-wa-dock__breed-name">{item.name}</span>
+                                        <span className="ep-wa-dock__breed-sub">{item.categoryLabel}</span>
+                                      </div>
+                                    </div>
+                                    {item.tag && (
+                                      <span
+                                        className={`ep-wa-dock__breed-tag ${
+                                          item.isBrachy ? "ep-wa-dock__breed-tag--brachy" : ""
+                                        }`}
+                                      >
+                                        {item.tag}
+                                      </span>
+                                    )}
+                                  </button>
+                                );
+                              })
+                            ) : (
+                              <div className="ep-wa-dock__dropdown-empty">
+                                <span>Nenhuma raça exata no catálogo da IA. Você pode digitar livremente acima e confirmar.</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
 
