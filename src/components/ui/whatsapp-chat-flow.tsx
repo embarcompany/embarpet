@@ -15,6 +15,8 @@ import {
   Bird,
   Search,
   AlertTriangle,
+  ChevronDown,
+  Check,
 } from "lucide-react";
 import { submitLead, type PublicLead } from "../../lead-contract";
 import { trackConversionEvent } from "../../lib/analytics";
@@ -68,7 +70,7 @@ const mainSpeciesOptions = [
   { label: "Gato", value: "Gato", icon: Cat, isFull: false },
   { label: "Roedor", value: "Roedor", icon: Rabbit, isFull: false },
   { label: "Ave", value: "Ave", icon: Bird, isFull: false },
-  { label: "Outro pet / Exótico", value: "Outro Pet / Exótico", icon: Sparkles, isFull: true },
+  { label: "Outro pet", value: "Outro Pet", icon: Sparkles, isFull: true },
 ];
 
 const multiSpeciesItems = [
@@ -214,7 +216,11 @@ const phoneMasks: Record<string, { max: number; format: (digits: string) => stri
 };
 
 function formatPhoneNumber(value: string, countryCode: string) {
-  const digits = value.replace(/\D/g, "");
+  let digits = value.replace(/\D/g, "");
+  // Defesa inteligente contra colagem de DDI 55 (ex: 5511999999999)
+  if (countryCode === "BR" && digits.startsWith("55") && digits.length > 11) {
+    digits = digits.substring(2);
+  }
   const mask = phoneMasks[countryCode];
   return mask ? mask.format(digits.slice(0, mask.max)) : digits.slice(0, 15).replace(/(\d{3})(?=\d)/g, "$1 ");
 }
@@ -341,6 +347,20 @@ export function WhatsAppChatFlow({
   const [tutorName, setTutorName] = useState("");
   const [tutorPhone, setTutorPhone] = useState("");
   const [phoneCountry, setPhoneCountry] = useState(phoneCountries[0]);
+  const [phoneCountryOpen, setPhoneCountryOpen] = useState(false);
+  const ddiWrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!phoneCountryOpen) return;
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ddiWrapRef.current && !ddiWrapRef.current.contains(event.target as Node)) {
+        setPhoneCountryOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [phoneCountryOpen]);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [completedWhatsAppUrl, setCompletedWhatsAppUrl] = useState<string | null>(null);
 
@@ -1371,27 +1391,59 @@ export function WhatsAppChatFlow({
                   />
 
                   <div className="ep-wa-phone-row">
-                    <div className="ep-wa-ddi-box">
-                      <img
-                        src={countryFlagSvg(phoneCountry.code)}
-                        alt=""
-                        className="ep-wa-flag-icon"
-                      />
-                      <select
-                        className="ep-wa-ddi-select"
-                        value={phoneCountry.code}
-                        onChange={(e) => {
-                          const selected = phoneCountries.find((c) => c.code === e.target.value) ?? phoneCountries[0];
-                          setPhoneCountry(selected);
-                        }}
-                        aria-label="DDI do país"
+                    <div className="ep-wa-ddi-wrap" ref={ddiWrapRef}>
+                      <button
+                        type="button"
+                        className="ep-wa-ddi-trigger"
+                        aria-label={`País do WhatsApp: ${phoneCountry.name}`}
+                        aria-haspopup="listbox"
+                        aria-expanded={phoneCountryOpen}
+                        onClick={() => setPhoneCountryOpen((prev) => !prev)}
                       >
-                        {phoneCountries.map((c) => (
-                          <option key={c.code} value={c.code}>
-                            {c.dial}
-                          </option>
-                        ))}
-                      </select>
+                        <img
+                          src={countryFlagSvg(phoneCountry.code)}
+                          alt=""
+                          className="ep-wa-flag-icon"
+                        />
+                        <span className="ep-wa-ddi-dial">{phoneCountry.dial}</span>
+                        <ChevronDown size={13} className={`ep-wa-ddi-chevron ${phoneCountryOpen ? "ep-wa-ddi-chevron--open" : ""}`} aria-hidden="true" />
+                      </button>
+
+                      {phoneCountryOpen && (
+                        <div
+                          className="ep-wa-ddi-dropdown"
+                          role="listbox"
+                          aria-label="Selecione o país do WhatsApp"
+                        >
+                          {phoneCountries.map((c) => {
+                            const isSelected = c.code === phoneCountry.code;
+                            return (
+                              <button
+                                type="button"
+                                role="option"
+                                key={c.code}
+                                aria-selected={isSelected}
+                                className={`ep-wa-ddi-option ${isSelected ? "ep-wa-ddi-option--selected" : ""}`}
+                                onClick={() => {
+                                  setPhoneCountry(c);
+                                  setPhoneCountryOpen(false);
+                                }}
+                              >
+                                <img
+                                  src={countryFlagSvg(c.code)}
+                                  alt=""
+                                  className="ep-wa-flag-icon"
+                                />
+                                <span className="ep-wa-ddi-option-text">
+                                  <b>{c.name}</b>
+                                  <small>{c.dial}</small>
+                                </span>
+                                {isSelected && <Check size={14} className="ep-wa-ddi-check" aria-hidden="true" />}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
 
                     <input
@@ -1414,6 +1466,7 @@ export function WhatsAppChatFlow({
                     <span>Gerando pré-diagnóstico...</span>
                   ) : (
                     <>
+                      <WhatsAppIconSvg size={18} color="#ffffff" />
                       <span>Receber cronograma no WhatsApp</span>
                       <ArrowRight size={16} />
                     </>

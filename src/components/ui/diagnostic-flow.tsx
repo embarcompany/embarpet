@@ -100,13 +100,19 @@ const phoneMasks: Record<string, { max: number; format: (digits: string) => stri
 };
 
 const formatPhoneNumber = (value: string, countryCode: string) => {
-  const digits = value.replace(/\D/g, "");
+  let digits = value.replace(/\D/g, "");
+  if (countryCode === "BR" && digits.startsWith("55") && digits.length > 11) {
+    digits = digits.substring(2);
+  }
   const mask = phoneMasks[countryCode];
   return mask ? mask.format(digits.slice(0, mask.max)) : digits.slice(0, 15).replace(/(\d{3})(?=\d)/g, "$1 ");
 };
 
 const normalizePhoneNumber = (value: string, countryCode: string) => {
-  const digits = value.replace(/\D/g, "");
+  let digits = value.replace(/\D/g, "");
+  if (countryCode === "BR" && digits.startsWith("55") && digits.length > 11) {
+    digits = digits.substring(2);
+  }
   return digits.slice(0, phoneMasks[countryCode]?.max ?? 15);
 };
 
