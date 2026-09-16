@@ -247,12 +247,14 @@
 
 .ep-wa-bubble__text strong,
 .ep-wa-bold-text {
-  color: #005c4b;
-  font-weight: 750;
+  color: #111b21;
+  font-weight: 600;
 }
 
-.ep-wa-bubble--outgoing .ep-wa-bold-text {
-  color: #05463e;
+.ep-wa-bubble--outgoing .ep-wa-bold-text,
+.ep-wa-bubble--outgoing strong {
+  color: #111b21;
+  font-weight: 600;
 }
 
 .ep-wa-bubble__meta {
