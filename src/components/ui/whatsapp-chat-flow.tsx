@@ -82,9 +82,10 @@ const multiSpeciesItems = [
 
 const multiPetProfileOptions = [
   { label: "Pequeno / Médio porte", value: "Pequeno / Médio porte", isFull: false },
-  { label: "Sem raça definida (SRD)", value: "Sem raça definida (SRD)", isFull: false },
-  { label: "Possui Grande porte", value: "Possui pet de Grande porte", isFull: false },
+  { label: "Portes mistos (Pequeno + Grande)", value: "Portes mistos (Pequeno e Grande)", isFull: false },
+  { label: "Todos de Grande porte", value: "Todos de Grande porte", isFull: false },
   { label: "Focinho curto (Braquicefálico)", value: "Focinho curto (Braquicefálico)", isFull: false },
+  { label: "Sem raça definida (SRD)", value: "Sem raça definida (SRD)", isFull: false },
   { label: "✍️ Digitar raças personalizadas...", value: "CUSTOM", isFull: true },
 ];
 
@@ -455,7 +456,8 @@ export function WhatsAppChatFlow({
     setIsSrd(profileValue.includes("SRD") || profileValue.includes("Sem raça"));
     const time = getNowTime();
     const isBrachy = /braquicef|focinho curto/i.test(profileValue);
-    const isLarge = /grande porte/i.test(profileValue);
+    const isMixed = /misto|variado|pequeno e grande/i.test(profileValue);
+    const isLarge = /grande porte/i.test(profileValue) && !isMixed;
 
     const userMsg: ChatMessage = {
       id: `user-pet-profile-${Date.now()}`,
@@ -470,6 +472,8 @@ export function WhatsAppChatFlow({
 
     const thoughtText = isBrachy
       ? "Mapeando companhias com controle térmico para braquicefálicos..."
+      : isMixed
+      ? "Mapeando cabine para o menor e porão pressurizado IATA para o maior..."
       : isLarge
       ? "Dimensionando caixas IATA para pets de grande porte..."
       : "Mapeando logística sanitária para múltiplos pets...";
@@ -478,8 +482,10 @@ export function WhatsAppChatFlow({
       let dynamicInsight = "";
       if (isBrachy) {
         dynamicInsight = `Identifiquei o perfil **braquicefálico (focinho curto)** no grupo. Já separei as companhias com **controle térmico ativo** e ventilação adequada.`;
+      } else if (isMixed) {
+        dynamicInsight = `Excelente! Para **portes combinados (1 pequeno e 1 grande)**, planejamos a logística mista: viabilidade de **cabine para o menor** e **caixa IATA homologada no compartimento pressurizado para o maior** no mesmo voo.`;
       } else if (isLarge) {
-        dynamicInsight = `Registrado! Para pet de **grande porte**, já dimensionamos as caixas IATA reforçadas e porões pressurizados.`;
+        dynamicInsight = `Registrado! Para pets de **grande porte**, já dimensionamos as caixas IATA reforçadas e porões pressurizados.`;
       } else {
         dynamicInsight = `Perfil dos pets (**${profileValue}**) registrado com sucesso.`;
       }
@@ -922,10 +928,11 @@ export function WhatsAppChatFlow({
                       className={`ep-wa-quick-reply-btn ${opt.isFull ? "ep-wa-quick-reply-btn--full-span" : ""}`}
                       onClick={() => handleSelectMultiPetProfile(opt.value)}
                     >
-                      {opt.value.includes("Pequeno") && <PawPrint size={14} className="ep-wa-quick-reply-icon" />}
-                      {opt.value.includes("SRD") && <Sparkles size={14} className="ep-wa-quick-reply-icon" />}
-                      {opt.value.includes("Grande") && <Dog size={14} className="ep-wa-quick-reply-icon" />}
+                      {opt.value.includes("Pequeno / Médio") && <PawPrint size={14} className="ep-wa-quick-reply-icon" />}
+                      {opt.value.includes("mistos") && <Sparkles size={14} className="ep-wa-quick-reply-icon" />}
+                      {opt.value.includes("Grande") && !opt.value.includes("mistos") && <Dog size={14} className="ep-wa-quick-reply-icon" />}
                       {opt.value.includes("Braquicefálico") && <AlertTriangle size={14} style={{ color: "#d97706", flexShrink: 0 }} />}
+                      {opt.value.includes("SRD") && <PawPrint size={14} className="ep-wa-quick-reply-icon" />}
                       <span>{opt.label}</span>
                     </button>
                   ))}
