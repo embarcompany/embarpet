@@ -14,7 +14,6 @@ import {
   Rabbit,
   Bird,
   Search,
-  Send,
   AlertTriangle,
 } from "lucide-react";
 import { submitLead, type PublicLead } from "../../lead-contract";
@@ -512,7 +511,7 @@ export function WhatsAppChatFlow({
       : petSpecies.toLowerCase().includes("roedor")
       ? "Roedor"
       : "SRD (Sem raça definida)";
-    const resolvedBreed = isSrd ? "Sem raça específica (SRD)" : petBreed.trim() || defaultBreedFallback;
+    const resolvedBreed = isSrd ? "Sem raça definida (Vira-lata)" : petBreed.trim() || defaultBreedFallback;
 
     const time = getNowTime();
     const isBrachy = /buld|bulldog|pug|shih|boxer|pekin|lhasa|persa|boston|cavalier|shar\s*pei|malt[eê]s|braqui/i.test(resolvedBreed);
@@ -947,12 +946,12 @@ export function WhatsAppChatFlow({
                       type="text"
                       placeholder={
                         isSrd
-                          ? "Sem raça específica (SRD)"
+                          ? "Sem raça definida (Vira-lata)"
                           : isMultiPetFlow
                           ? "Ex: 1 Golden e 1 Shih Tzu..."
                           : "Digite a raça do pet..."
                       }
-                      value={isSrd ? "Sem raça específica (SRD)" : petBreed}
+                      value={isSrd ? "Sem raça definida (Vira-lata)" : petBreed}
                       onChange={(e) => {
                         setIsSrd(false);
                         setIsBreedSelected(false);
@@ -1004,7 +1003,7 @@ export function WhatsAppChatFlow({
                     aria-label="Enviar"
                     title="Enviar resposta"
                   >
-                    <Send size={15} />
+                    <ArrowRight size={16} />
                   </button>
                 </div>
 
@@ -1018,13 +1017,13 @@ export function WhatsAppChatFlow({
                       setIsSrd(nextSrd);
                       setIsBreedSelected(false);
                       if (nextSrd) {
-                        setPetBreed("Sem raça específica (SRD)");
+                        setPetBreed("Sem raça definida (Vira-lata)");
                       } else {
                         setPetBreed("");
                       }
                     }}
                   >
-                    <span>{isSrd ? "✓ Sem raça definida (SRD)" : "🐾 Sem raça específica (SRD / Vira-lata)"}</span>
+                    <span>{isSrd ? "✓ Sem raça definida (Vira-lata)" : "Sem raça definida (Vira-lata)"}</span>
                   </button>
                   {isMultiPetFlow && (
                     <button
@@ -1116,7 +1115,7 @@ export function WhatsAppChatFlow({
                         onClick={() => handleSelectOrigin(customOriginInput.trim())}
                         aria-label="Enviar país"
                       >
-                        <Send size={15} />
+                        <ArrowRight size={16} />
                       </button>
                     </div>
 
@@ -1211,7 +1210,7 @@ export function WhatsAppChatFlow({
                         onClick={() => handleSelectDestination(customDestinationInput.trim())}
                         aria-label="Enviar país"
                       >
-                        <Send size={15} />
+                        <ArrowRight size={16} />
                       </button>
                     </div>
 
