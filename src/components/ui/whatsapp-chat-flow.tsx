@@ -511,7 +511,7 @@ export function WhatsAppChatFlow({
       : petSpecies.toLowerCase().includes("roedor")
       ? "Roedor"
       : "SRD (Sem raça definida)";
-    const resolvedBreed = isSrd ? "Sem raça definida (Vira-lata)" : petBreed.trim() || defaultBreedFallback;
+    const resolvedBreed = isSrd ? "Sem raça definida (SRD)" : petBreed.trim() || defaultBreedFallback;
 
     const time = getNowTime();
     const isBrachy = /buld|bulldog|pug|shih|boxer|pekin|lhasa|persa|boston|cavalier|shar\s*pei|malt[eê]s|braqui/i.test(resolvedBreed);
@@ -946,12 +946,12 @@ export function WhatsAppChatFlow({
                       type="text"
                       placeholder={
                         isSrd
-                          ? "Sem raça definida (Vira-lata)"
+                          ? "Sem raça definida (SRD)"
                           : isMultiPetFlow
                           ? "Ex: 1 Golden e 1 Shih Tzu..."
                           : "Digite a raça do pet..."
                       }
-                      value={isSrd ? "Sem raça definida (Vira-lata)" : petBreed}
+                      value={isSrd ? "Sem raça definida (SRD)" : petBreed}
                       onChange={(e) => {
                         setIsSrd(false);
                         setIsBreedSelected(false);
@@ -1017,13 +1017,13 @@ export function WhatsAppChatFlow({
                       setIsSrd(nextSrd);
                       setIsBreedSelected(false);
                       if (nextSrd) {
-                        setPetBreed("Sem raça definida (Vira-lata)");
+                        setPetBreed("Sem raça definida (SRD)");
                       } else {
                         setPetBreed("");
                       }
                     }}
                   >
-                    <span>{isSrd ? "✓ Sem raça definida (Vira-lata)" : "Sem raça definida (Vira-lata)"}</span>
+                    <span>{isSrd ? "✓ Sem raça definida (SRD)" : "Sem raça definida (SRD)"}</span>
                   </button>
                   {isMultiPetFlow && (
                     <button
