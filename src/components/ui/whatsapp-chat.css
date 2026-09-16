@@ -654,91 +654,73 @@
   border-radius: 4px;
 }
 
-/* Multi-Pet Stepper Card */
-.ep-wa-multi-card {
-  display: flex;
-  flex-direction: column;
-  align-self: flex-end;
-  gap: 7px;
-  background: #e7fddc;
-  border-radius: 16px 16px 4px 16px;
-  border: 1px solid #bbf7d0;
-  padding: 11px;
-  box-shadow: 0 1px 3px rgba(11, 20, 26, 0.06);
-  width: 100%;
-  max-width: 92%;
-}
-
-.ep-wa-multi-card__header {
-  font-size: 12px;
-  font-weight: 750;
-  color: #005c4b;
-  padding-bottom: 2px;
-}
-
-.ep-wa-multi-card__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 6px;
-}
-
-.ep-wa-multi-card__row {
+/* Multi-Pet Stepper Integrated Within Quick Reply Pills */
+.ep-wa-quick-reply-btn--stepper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 9px;
-  border-radius: 9px;
-  border: 1px solid #bbf7d0;
-  background: #ffffff;
+  padding: 6px 8px 6px 12px;
+  cursor: default;
 }
 
-.ep-wa-multi-card__row--full {
-  grid-column: 1 / -1;
+.ep-wa-quick-reply-btn--stepper:hover {
+  transform: none;
 }
 
-.ep-wa-multi-card__label {
+.ep-wa-quick-reply-btn__info {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  min-width: 0;
+}
+
+.ep-wa-quick-reply-btn__info span {
+  font-size: 13px;
   font-weight: 650;
-  color: #1e293b;
+  color: #064e3b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.ep-wa-multi-card__stepper {
+.ep-wa-quick-reply-btn__stepper {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 3px;
+  flex-shrink: 0;
 }
 
-.ep-wa-multi-card__stepper button {
+.ep-wa-stepper-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #bbf7d0;
   background: #ffffff;
-  color: #0f172a;
+  color: #064e3b;
   cursor: pointer;
   transition: all 0.12s ease;
+  padding: 0;
+  flex-shrink: 0;
 }
 
-.ep-wa-multi-card__stepper button:hover:not(:disabled) {
+.ep-wa-stepper-btn:hover:not(:disabled) {
   background: #00a884;
   border-color: #00a884;
   color: #ffffff;
 }
 
-.ep-wa-multi-card__stepper button:disabled {
+.ep-wa-stepper-btn:disabled {
   opacity: 0.35;
   cursor: not-allowed;
 }
 
-.ep-wa-multi-card__stepper span {
+.ep-wa-stepper-count {
   font-size: 13px;
   font-weight: 750;
+  color: #064e3b;
   min-width: 14px;
   text-align: center;
 }

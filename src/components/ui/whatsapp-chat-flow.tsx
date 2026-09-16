@@ -71,6 +71,14 @@ const mainSpeciesOptions = [
   { label: "Outro pet / Exótico", value: "Outro Pet / Exótico", icon: Sparkles, isFull: true },
 ];
 
+const multiSpeciesItems = [
+  { label: "Cães", key: "dogs" as const, icon: Dog, isFull: false },
+  { label: "Gatos", key: "cats" as const, icon: Cat, isFull: false },
+  { label: "Roedores", key: "rodents" as const, icon: Rabbit, isFull: false },
+  { label: "Aves", key: "birds" as const, icon: Bird, isFull: false },
+  { label: "Outros pets", key: "others" as const, icon: Sparkles, isFull: true },
+];
+
 const popularOrigins = [
   { label: "Brasil", code: "BR" },
   { label: "Estados Unidos", code: "US" },
@@ -758,113 +766,54 @@ export function WhatsAppChatFlow({
               </div>
             )}
 
-            {/* Step 1 (Multi-Pet Mode): Minimal Stepper */}
+            {/* Step 1 (Multi-Pet Mode): Same Quick Replies Grid with Integrated Steppers */}
             {currentStep === "greeting" && isMultiPetMode && (
-              <div className="ep-wa-multi-card">
-                <div className="ep-wa-multi-card__header">
-                  <span>Selecione a quantidade de pets:</span>
-                </div>
-
-                <div className="ep-wa-multi-card__grid">
-                  <div className="ep-wa-multi-card__row">
-                    <div className="ep-wa-multi-card__label">
-                      <Dog size={16} />
-                      <span>Cães</span>
-                    </div>
-                    <div className="ep-wa-multi-card__stepper">
-                      <button
-                        type="button"
-                        onClick={() => updateMultiCount("dogs", -1)}
-                        disabled={multiCounts.dogs === 0}
+              <div className="ep-wa-quick-replies">
+                <div className="ep-wa-quick-replies__grid">
+                  {multiSpeciesItems.map((item) => {
+                    const IconComponent = item.icon;
+                    const count = multiCounts[item.key];
+                    return (
+                      <div
+                        key={item.key}
+                        className={`ep-wa-quick-reply-btn ep-wa-quick-reply-btn--stepper ${
+                          item.isFull ? "ep-wa-quick-reply-btn--full-span" : ""
+                        }`}
                       >
-                        <Minus size={13} />
-                      </button>
-                      <span>{multiCounts.dogs}</span>
-                      <button type="button" onClick={() => updateMultiCount("dogs", 1)}>
-                        <Plus size={13} />
-                      </button>
-                    </div>
-                  </div>
+                        <div className="ep-wa-quick-reply-btn__info">
+                          <IconComponent size={16} className="ep-wa-quick-reply-icon" />
+                          <span>{item.label}</span>
+                        </div>
 
-                  <div className="ep-wa-multi-card__row">
-                    <div className="ep-wa-multi-card__label">
-                      <Cat size={16} />
-                      <span>Gatos</span>
-                    </div>
-                    <div className="ep-wa-multi-card__stepper">
-                      <button
-                        type="button"
-                        onClick={() => updateMultiCount("cats", -1)}
-                        disabled={multiCounts.cats === 0}
-                      >
-                        <Minus size={13} />
-                      </button>
-                      <span>{multiCounts.cats}</span>
-                      <button type="button" onClick={() => updateMultiCount("cats", 1)}>
-                        <Plus size={13} />
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="ep-wa-multi-card__row">
-                    <div className="ep-wa-multi-card__label">
-                      <Rabbit size={16} />
-                      <span>Roedores</span>
-                    </div>
-                    <div className="ep-wa-multi-card__stepper">
-                      <button
-                        type="button"
-                        onClick={() => updateMultiCount("rodents", -1)}
-                        disabled={multiCounts.rodents === 0}
-                      >
-                        <Minus size={13} />
-                      </button>
-                      <span>{multiCounts.rodents}</span>
-                      <button type="button" onClick={() => updateMultiCount("rodents", 1)}>
-                        <Plus size={13} />
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="ep-wa-multi-card__row">
-                    <div className="ep-wa-multi-card__label">
-                      <Bird size={16} />
-                      <span>Aves</span>
-                    </div>
-                    <div className="ep-wa-multi-card__stepper">
-                      <button
-                        type="button"
-                        onClick={() => updateMultiCount("birds", -1)}
-                        disabled={multiCounts.birds === 0}
-                      >
-                        <Minus size={13} />
-                      </button>
-                      <span>{multiCounts.birds}</span>
-                      <button type="button" onClick={() => updateMultiCount("birds", 1)}>
-                        <Plus size={13} />
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="ep-wa-multi-card__row ep-wa-multi-card__row--full">
-                    <div className="ep-wa-multi-card__label">
-                      <Sparkles size={16} />
-                      <span>Outros</span>
-                    </div>
-                    <div className="ep-wa-multi-card__stepper">
-                      <button
-                        type="button"
-                        onClick={() => updateMultiCount("others", -1)}
-                        disabled={multiCounts.others === 0}
-                      >
-                        <Minus size={13} />
-                      </button>
-                      <span>{multiCounts.others}</span>
-                      <button type="button" onClick={() => updateMultiCount("others", 1)}>
-                        <Plus size={13} />
-                      </button>
-                    </div>
-                  </div>
+                        <div className="ep-wa-quick-reply-btn__stepper">
+                          <button
+                            type="button"
+                            className="ep-wa-stepper-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              updateMultiCount(item.key, -1);
+                            }}
+                            disabled={count === 0}
+                            aria-label={`Diminuir ${item.label}`}
+                          >
+                            <Minus size={11} />
+                          </button>
+                          <span className="ep-wa-stepper-count">{count}</span>
+                          <button
+                            type="button"
+                            className="ep-wa-stepper-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              updateMultiCount(item.key, 1);
+                            }}
+                            aria-label={`Aumentar ${item.label}`}
+                          >
+                            <Plus size={11} />
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
 
                 <button
@@ -873,7 +822,7 @@ export function WhatsAppChatFlow({
                   disabled={totalMultiPets === 0}
                   onClick={handleConfirmMultiPets}
                 >
-                  <span>Confirmar {totalMultiPets > 0 ? `${totalMultiPets} pets` : "pets"}</span>
+                  <span>Confirmar {totalMultiPets > 0 ? `${totalMultiPets} ${totalMultiPets > 1 ? "pets" : "pet"}` : "pets"}</span>
                   <ArrowRight size={16} />
                 </button>
 
