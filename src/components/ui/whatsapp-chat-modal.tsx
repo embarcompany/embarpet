@@ -63,11 +63,16 @@ export function WhatsAppChatModal({
       if (event.key === "Escape") onClose();
     };
 
-    document.body.style.overflow = "hidden";
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+      document.body.style.overflow = "hidden";
+    }
     window.addEventListener("keydown", closeOnEscape);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      if (isMobile) {
+        document.body.style.overflow = previousOverflow;
+      }
       window.removeEventListener("keydown", closeOnEscape);
     };
   }, [onClose, open]);
