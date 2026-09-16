@@ -79,14 +79,76 @@ const multiSpeciesItems = [
   { label: "Outros pets", key: "others" as const, icon: Sparkles, isFull: true },
 ];
 
-const multiPetProfileOptions = [
-  { label: "Pequeno / Médio porte", value: "Pequeno / Médio porte", isFull: false },
-  { label: "1 Pequeno e 1 Grande", value: "Portes mistos (Pequeno e Grande)", isFull: false },
-  { label: "Todos de Grande porte", value: "Todos de Grande porte", isFull: false },
-  { label: "Focinho curto (Braquicefálico)", value: "Focinho curto (Braquicefálico)", isFull: false },
-  { label: "Sem raça definida (SRD)", value: "Sem raça definida (SRD)", isFull: false },
-  { label: "✍️ Digitar raças personalizadas...", value: "CUSTOM", isFull: true },
-];
+type PetQueueItem = {
+  id: string;
+  species: string;
+  label: string;
+};
+
+type CollectedPetBreed = {
+  id: string;
+  species: string;
+  label: string;
+  breed: string;
+  isSrd: boolean;
+  isBrachy: boolean;
+};
+
+function buildPetQueue(counts: {
+  dogs: number;
+  cats: number;
+  rodents: number;
+  birds: number;
+  others: number;
+}): PetQueueItem[] {
+  const queue: PetQueueItem[] = [];
+  if (counts.dogs > 0) {
+    for (let i = 1; i <= counts.dogs; i++) {
+      queue.push({
+        id: `dog-${i}`,
+        species: "Cachorro",
+        label: counts.dogs === 1 ? "cão" : `${i}º cão`,
+      });
+    }
+  }
+  if (counts.cats > 0) {
+    for (let i = 1; i <= counts.cats; i++) {
+      queue.push({
+        id: `cat-${i}`,
+        species: "Gato",
+        label: counts.cats === 1 ? "gato" : `${i}º gato`,
+      });
+    }
+  }
+  if (counts.rodents > 0) {
+    for (let i = 1; i <= counts.rodents; i++) {
+      queue.push({
+        id: `rodent-${i}`,
+        species: "Roedor",
+        label: counts.rodents === 1 ? "roedor" : `${i}º roedor`,
+      });
+    }
+  }
+  if (counts.birds > 0) {
+    for (let i = 1; i <= counts.birds; i++) {
+      queue.push({
+        id: `bird-${i}`,
+        species: "Ave",
+        label: counts.birds === 1 ? "ave" : `${i}ª ave`,
+      });
+    }
+  }
+  if (counts.others > 0) {
+    for (let i = 1; i <= counts.others; i++) {
+      queue.push({
+        id: `other-${i}`,
+        species: "Outro Pet",
+        label: counts.others === 1 ? "outro pet" : `${i}º outro pet`,
+      });
+    }
+  }
+  return queue;
+}
 
 const popularOrigins = [
   { label: "Brasil", code: "BR" },
@@ -204,10 +266,12 @@ export function WhatsAppChatFlow({
   const [isSrd, setIsSrd] = useState(false);
   const [isBreedSelected, setIsBreedSelected] = useState(false);
 
-  // Multi-Pet Selector State
+  // Multi-Pet Queue & Flow State
   const [isMultiPetMode, setIsMultiPetMode] = useState(false);
   const [isMultiPetFlow, setIsMultiPetFlow] = useState(false);
-  const [isCustomMultiBreed, setIsCustomMultiBreed] = useState(false);
+  const [multiPetQueue, setMultiPetQueue] = useState<PetQueueItem[]>([]);
+  const [currentMultiPetIndex, setCurrentMultiPetIndex] = useState(0);
+  const [collectedMultiBreeds, setCollectedMultiBreeds] = useState<CollectedPetBreed[]>([]);
   const [multiCounts, setMultiCounts] = useState({
     dogs: 1,
     cats: 1,
@@ -243,8 +307,23 @@ export function WhatsAppChatFlow({
     return `${parts.slice(0, -1).join(", ")} e ${parts[parts.length - 1]}`;
   };
 
-  // Real-Time AI Breed Suggestions Bank
-  const dynamicBreedSuggestions = searchAiBreedsDetailed(petBreed, petSpecies, 8);
+  // Currently Active Pet in the Queue (or single pet)
+  const currentActivePet = isMultiPetFlow && multiPetQueue.length > 0 ? multiPetQueue[currentMultiPetIndex] : null;
+  const activeSpecies = currentActivePet ? currentActivePet.species : petSpecies;
+  const activePetLabel = currentActivePet
+    ? currentActivePet.label
+    : petSpecies === "Gato"
+    ? "gato"
+    : petSpecies === "Cachorro"
+    ? "cão"
+    : petSpecies === "Ave"
+    ? "ave"
+    : petSpecies === "Roedor"
+    ? "roedor"
+    : "pet";
+
+  // Real-Time AI Breed Suggestions Bank filtered by active species
+  const dynamicBreedSuggestions = searchAiBreedsDetailed(petBreed, activeSpecies, 8);
 
   const [routeOrigin, setRouteOrigin] = useState(initialRoute.origin || "Brasil");
   const [routeDestination, setRouteDestination] = useState(initialRoute.destination || "");
@@ -315,10 +394,6 @@ export function WhatsAppChatFlow({
       setIsMultiPetMode(false);
       return;
     }
-    if (isCustomMultiBreed) {
-      setIsCustomMultiBreed(false);
-      return;
-    }
     if (isCustomOrigin) {
       setIsCustomOrigin(false);
       return;
@@ -327,7 +402,20 @@ export function WhatsAppChatFlow({
       setIsCustomDestination(false);
       return;
     }
-    if (stepHistory.length === 0 || isTyping || thinkingText) return;
+    if (isTyping || thinkingText) return;
+
+    // Undo Turn in Multi-Pet Queue if past 1st pet
+    if (currentStep === "pet_details" && isMultiPetFlow && currentMultiPetIndex > 0) {
+      setCurrentMultiPetIndex((prev) => prev - 1);
+      setCollectedMultiBreeds((prev) => prev.slice(0, -1));
+      setMessages((prev) => prev.slice(0, -2));
+      setPetBreed("");
+      setIsSrd(false);
+      setIsBreedSelected(false);
+      return;
+    }
+
+    if (stepHistory.length === 0) return;
     const previous = stepHistory[stepHistory.length - 1];
     setStepHistory((prev) => prev.slice(0, -1));
     setCurrentStep(previous.step);
@@ -373,8 +461,11 @@ export function WhatsAppChatFlow({
     setPetSpecies(species);
     setPetBreed("");
     setIsSrd(false);
+    setIsBreedSelected(false);
     setIsMultiPetFlow(false);
-    setIsCustomMultiBreed(false);
+    setMultiPetQueue([]);
+    setCollectedMultiBreeds([]);
+    setCurrentMultiPetIndex(0);
     const time = getNowTime();
 
     const userMsg: ChatMessage = {
@@ -388,14 +479,18 @@ export function WhatsAppChatFlow({
     setMessages(nextMessages);
     pushStep("pet_details", messages.length);
 
-    const thoughtText = species === "Gato"
-      ? "Consultando diretrizes IATA para felinos..."
-      : species === "Cachorro"
-      ? "Consultando regras IATA para caninos..."
-      : "Verificando exigências para pets especiais...";
+    const singleLabel =
+      species === "Gato" ? "gato" : species === "Cachorro" ? "cão" : species === "Ave" ? "ave" : species === "Roedor" ? "roedor" : "pet";
+
+    const thoughtText =
+      species === "Gato"
+        ? "Consultando diretrizes IATA para felinos..."
+        : species === "Cachorro"
+        ? "Consultando regras IATA para caninos..."
+        : "Verificando exigências para pets especiais...";
 
     triggerAiResponse(thoughtText, () => {
-      const followUp = `Perfeito! Qual a **raça ou perfil** do seu **${species === "Gato" ? "gato" : species === "Cachorro" ? "cão" : "pet"}**?`;
+      const followUp = `Perfeito! Qual a **raça** do seu **${singleLabel}**?`;
       const botMsg: ChatMessage = {
         id: `bot-pet-details-${Date.now()}`,
         sender: "thamires",
@@ -411,18 +506,22 @@ export function WhatsAppChatFlow({
     if (totalMultiPets === 0) return;
     trackStart();
     const summary = formatMultiSummary();
+    const queue = buildPetQueue(multiCounts);
     setPetSpecies(summary);
     setPetBreed("");
     setIsSrd(false);
+    setIsBreedSelected(false);
     setIsMultiPetMode(false);
     setIsMultiPetFlow(true);
-    setIsCustomMultiBreed(false);
+    setMultiPetQueue(queue);
+    setCurrentMultiPetIndex(0);
+    setCollectedMultiBreeds([]);
     const time = getNowTime();
 
     const userMsg: ChatMessage = {
       id: `user-species-${Date.now()}`,
       sender: "user",
-      text: `${summary} (${totalMultiPets} pets)`,
+      text: `${summary} (${totalMultiPets} ${totalMultiPets > 1 ? "pets" : "pet"})`,
       time,
     };
 
@@ -430,10 +529,11 @@ export function WhatsAppChatFlow({
     setMessages(nextMessages);
     pushStep("pet_details", messages.length);
 
-    const thoughtText = `Calculando caixas de transporte homologadas para ${totalMultiPets} pets...`;
+    const firstPet = queue[0];
+    const thoughtText = `Dimensionando logística sanitária e caixas IATA para ${totalMultiPets} pets...`;
 
     triggerAiResponse(thoughtText, () => {
-      const followUp = `Perfeito! Já registrei o planejamento para **${summary}**.\n\nQual o **porte ou perfil** dos pets?`;
+      const followUp = `Perfeito! Já registrei o planejamento para **${summary}**.\n\nQual a **raça** do seu **${firstPet.label}**?`;
       const botMsg: ChatMessage = {
         id: `bot-pet-details-${Date.now()}`,
         sender: "thamires",
@@ -444,113 +544,139 @@ export function WhatsAppChatFlow({
     });
   };
 
-  // Step 2A: Handle Multi-Pet Profile Quick Selection (1-Tap)
-  const handleSelectMultiPetProfile = (profileValue: string) => {
-    if (profileValue === "CUSTOM") {
-      setIsCustomMultiBreed(true);
-      return;
-    }
-
-    setPetBreed(profileValue);
-    setIsSrd(profileValue.includes("SRD") || profileValue.includes("Sem raça"));
-    const time = getNowTime();
-    const isBrachy = /braquicef|focinho curto/i.test(profileValue);
-    const isMixed = /misto|variado|pequeno e grande/i.test(profileValue);
-    const isLarge = /grande porte/i.test(profileValue) && !isMixed;
-
-    const userMsg: ChatMessage = {
-      id: `user-pet-profile-${Date.now()}`,
-      sender: "user",
-      text: `${profileValue}`,
-      time,
-    };
-
-    const nextMessages = [...messages, userMsg];
-    setMessages(nextMessages);
-    pushStep("origin", messages.length);
-
-    const thoughtText = isBrachy
-      ? "Mapeando companhias com controle térmico para braquicefálicos..."
-      : isMixed
-      ? "Mapeando cabine para o menor e porão pressurizado IATA para o maior..."
-      : isLarge
-      ? "Dimensionando caixas IATA para pets de grande porte..."
-      : "Mapeando logística sanitária para múltiplos pets...";
-
-    triggerAiResponse(thoughtText, () => {
-      let dynamicInsight = "";
-      if (isBrachy) {
-        dynamicInsight = `Identifiquei o perfil **braquicefálico (focinho curto)** no grupo. Já separei as companhias com **controle térmico ativo** e ventilação adequada.`;
-      } else if (isMixed) {
-        dynamicInsight = `Excelente! Para **portes combinados (1 pequeno e 1 grande)**, planejamos a logística mista: viabilidade de **cabine para o menor** e **caixa IATA homologada no compartimento pressurizado para o maior** no mesmo voo.`;
-      } else if (isLarge) {
-        dynamicInsight = `Registrado! Para pets de **grande porte**, já dimensionamos as caixas IATA reforçadas e porões pressurizados.`;
-      } else {
-        dynamicInsight = `Perfil dos pets (**${profileValue}**) registrado com sucesso.`;
-      }
-
-      const botMsg: ChatMessage = {
-        id: `bot-origin-${Date.now()}`,
-        sender: "thamires",
-        text: `${dynamicInsight}\n\nDe qual **país ou cidade** os pets vão sair? (Origem)`,
-        time: getNowTime(),
-      };
-      setMessages((prev) => [...prev, botMsg]);
-    });
-  };
-
-  // Step 2B: Submit Pet Details (Breed or SRD via composer)
+  // Step 2: Submit Pet Details (Single Pet or Step-by-Step Multi-Pet Breed)
   const handleConfirmPetDetails = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    const defaultBreedFallback = isMultiPetFlow
-      ? "Múltiplos Pets (Portes Variados)"
-      : petSpecies.toLowerCase().includes("gato")
+    const fallback = isSrd
+      ? "Sem raça definida (SRD)"
+      : activeSpecies.toLowerCase().includes("gato")
       ? "Gato Doméstico"
-      : petSpecies.toLowerCase().includes("ave")
+      : activeSpecies.toLowerCase().includes("ave")
       ? "Ave / Pássaro"
-      : petSpecies.toLowerCase().includes("roedor")
+      : activeSpecies.toLowerCase().includes("roedor")
       ? "Roedor"
-      : "SRD (Sem raça definida)";
-    const resolvedBreed = isSrd ? "Sem raça definida (SRD)" : petBreed.trim() || defaultBreedFallback;
+      : "Sem raça definida (SRD)";
 
+    const resolvedBreed = isSrd ? "Sem raça definida (SRD)" : petBreed.trim() || fallback;
     const time = getNowTime();
-    const isBrachy = /buld|bulldog|pug|shih|boxer|pekin|lhasa|persa|boston|cavalier|shar\s*pei|malt[eê]s|braqui/i.test(resolvedBreed);
+    const isBrachy = /buld|bulldog|pug|shih|boxer|pekin|lhasa|persa|boston|cavalier|shar\s*pei|malt[eê]s|braqui|ex[oó]tico/i.test(resolvedBreed);
 
-    const userMsg: ChatMessage = {
-      id: `user-pet-details-${Date.now()}`,
-      sender: "user",
-      text: `${resolvedBreed}`,
-      time,
-    };
-
-    const nextMessages = [...messages, userMsg];
-    setMessages(nextMessages);
-    pushStep("origin", messages.length);
-
-    const thoughtText = isBrachy
-      ? "Identificando regras especiais para focinho curto (braquicefálico)..."
-      : isMultiPetFlow
-      ? "Mapeando logística sanitária para múltiplos pets..."
-      : "Mapeando protocolos sanitários da rota...";
-
-    triggerAiResponse(thoughtText, () => {
-      let dynamicInsight = "";
-      if (isBrachy) {
-        dynamicInsight = `Identifiquei o perfil **braquicefálico (focinho curto)**. Já separei as companhias com **controle térmico ativo** e ventilação adequada.`;
-      } else if (isMultiPetFlow) {
-        dynamicInsight = `Perfil dos pets (**${resolvedBreed}**) registrado com sucesso.`;
-      } else {
-        dynamicInsight = `Perfil **${resolvedBreed}** registrado com sucesso.`;
-      }
-
-      const botMsg: ChatMessage = {
-        id: `bot-origin-${Date.now()}`,
-        sender: "thamires",
-        text: `${dynamicInsight}\n\nDe qual **país ou cidade** ${isMultiPetFlow ? "os pets vão sair" : "o pet vai sair"}? (Origem)`,
-        time: getNowTime(),
+    if (!isMultiPetFlow) {
+      setPetBreed(resolvedBreed);
+      const userMsg: ChatMessage = {
+        id: `user-pet-details-${Date.now()}`,
+        sender: "user",
+        text: `${resolvedBreed}`,
+        time,
       };
-      setMessages((prev) => [...prev, botMsg]);
-    });
+
+      const nextMessages = [...messages, userMsg];
+      setMessages(nextMessages);
+      pushStep("origin", messages.length);
+
+      const thoughtText = isBrachy
+        ? "Identificando regras especiais para focinho curto (braquicefálico)..."
+        : "Mapeando protocolos sanitários da rota...";
+
+      triggerAiResponse(thoughtText, () => {
+        let dynamicInsight = "";
+        if (isBrachy) {
+          dynamicInsight = `Identifiquei o perfil **braquicefálico (focinho curto)**. Já separei as companhias com **controle térmico ativo** e ventilação adequada.`;
+        } else {
+          dynamicInsight = `Raça **${resolvedBreed}** registrada com sucesso.`;
+        }
+
+        const botMsg: ChatMessage = {
+          id: `bot-origin-${Date.now()}`,
+          sender: "thamires",
+          text: `${dynamicInsight}\n\nDe qual **país ou cidade** o pet vai sair? (Origem)`,
+          time: getNowTime(),
+        };
+        setMessages((prev) => [...prev, botMsg]);
+      });
+    } else {
+      const currentPet = multiPetQueue[currentMultiPetIndex];
+      const newEntry: CollectedPetBreed = {
+        id: currentPet.id,
+        species: currentPet.species,
+        label: currentPet.label,
+        breed: resolvedBreed,
+        isSrd,
+        isBrachy,
+      };
+
+      const updatedCollected = [...collectedMultiBreeds, newEntry];
+      setCollectedMultiBreeds(updatedCollected);
+
+      const userMsg: ChatMessage = {
+        id: `user-pet-details-${Date.now()}`,
+        sender: "user",
+        text: `${currentPet.label.charAt(0).toUpperCase() + currentPet.label.slice(1)}: ${resolvedBreed}`,
+        time,
+      };
+
+      const nextMessages = [...messages, userMsg];
+      setMessages(nextMessages);
+
+      const nextIndex = currentMultiPetIndex + 1;
+      if (nextIndex < multiPetQueue.length) {
+        setCurrentMultiPetIndex(nextIndex);
+        setPetBreed("");
+        setIsSrd(false);
+        setIsBreedSelected(false);
+        const nextPet = multiPetQueue[nextIndex];
+
+        const thoughtText = `Registrando ${currentPet.label} e consultando diretrizes para ${nextPet.label}...`;
+
+        triggerAiResponse(thoughtText, () => {
+          const botMsg: ChatMessage = {
+            id: `bot-pet-next-${Date.now()}`,
+            sender: "thamires",
+            text: `Anotado! E qual a **raça** do seu **${nextPet.label}**?`,
+            time: getNowTime(),
+          };
+          setMessages((prev) => [...prev, botMsg]);
+        });
+      } else {
+        const fullSummary = updatedCollected.map((p) => `${p.label}: ${p.breed}`).join(", ");
+        setPetBreed(fullSummary);
+        setPetBreed("");
+        setIsSrd(false);
+        setIsBreedSelected(false);
+        pushStep("origin", nextMessages.length);
+
+        const hasBrachy = updatedCollected.some((p) => p.isBrachy);
+        const thoughtText = hasBrachy
+          ? "Mapeando companhias aéreas com controle térmico e caixas IATA para todos os pets..."
+          : "Dimensionando caixas IATA e logística sanitária para todos os pets...";
+
+        triggerAiResponse(thoughtText, () => {
+          const petListBullet = updatedCollected
+            .map(
+              (p) =>
+                `• **${p.label.charAt(0).toUpperCase() + p.label.slice(1)}:** ${p.breed}${
+                  p.isBrachy ? " *(Focinho curto / Braquicefálico)*" : ""
+                }`
+            )
+            .join("\n");
+
+          let groupInsight = "";
+          if (hasBrachy) {
+            groupInsight = `Identifiquei pets de **focinho curto (braquicefálico)** no grupo. Já mapeamos as companhias aéreas com **controle térmico ativo** e ventilação adequada para cada um.`;
+          } else {
+            groupInsight = `Excelente! Já dimensionamos as caixas de transporte homologadas IATA e o protocolo sanitário completo para o grupo.`;
+          }
+
+          const botMsg: ChatMessage = {
+            id: `bot-origin-${Date.now()}`,
+            sender: "thamires",
+            text: `Perfeito! Registrei todos os pets:\n\n${petListBullet}\n\n${groupInsight}\n\nDe qual **país ou cidade** os pets vão sair? (Origem)`,
+            time: getNowTime(),
+          };
+          setMessages((prev) => [...prev, botMsg]);
+        });
+      }
+    }
   };
 
   // Step 3: Handle Origin Selection
@@ -576,7 +702,7 @@ export function WhatsAppChatFlow({
       const botMsg: ChatMessage = {
         id: `bot-dest-${Date.now()}`,
         sender: "thamires",
-        text: `Origem confirmada em **${origin}**.\n\nPara qual **país de destino** o pet vai viajar?`,
+        text: `Origem confirmada em **${origin}**.\n\nPara qual **país de destino** ${isMultiPetFlow ? "os pets vão viajar" : "o pet vai viajar"}?`,
         time: getNowTime(),
       };
       setMessages((prev) => [...prev, botMsg]);
@@ -682,6 +808,12 @@ export function WhatsAppChatFlow({
     const time = getNowTime();
     const fullPhone = `${phoneCountry.dial} ${tutorPhone}`;
 
+    const resolvedBreedsSummary = isMultiPetFlow
+      ? (collectedMultiBreeds.length > 0
+          ? collectedMultiBreeds.map((p) => `${p.label}: ${p.breed}`).join(", ")
+          : petBreed.trim() || "Sem raça definida (SRD)")
+      : (isSrd ? "Sem raça definida (SRD)" : petBreed.trim()) || "Sem raça definida (SRD)";
+
     const lead: PublicLead = {
       source: analyticsSource,
       page: typeof window !== "undefined" ? window.location.pathname : "/whatsapp",
@@ -689,7 +821,7 @@ export function WhatsAppChatFlow({
       destination: routeDestination,
       period: travelPeriod,
       species: petSpecies,
-      size: (isSrd ? "Sem raça específica (SRD)" : petBreed.trim()) || "Não especificado",
+      size: resolvedBreedsSummary,
       name: tutorName.trim(),
       phone: fullPhone,
       consent: true,
@@ -720,8 +852,12 @@ export function WhatsAppChatFlow({
       // Graceful fallback
     }
 
+    const resolvedPetDetails = isMultiPetFlow
+      ? `${petSpecies} (${resolvedBreedsSummary})`
+      : `${petSpecies} - ${resolvedBreedsSummary}`;
+
     const waText = encodeURIComponent(
-      `Olá Thamires! Preenchi o pré-diagnóstico no site da Embarpet para meu pet (${petSpecies} - ${isSrd ? "sem raça definida" : petBreed || "sem raça definida"}).\n\n` +
+      `Olá Thamires! Preenchi o pré-diagnóstico no site da Embarpet para meu pet (${resolvedPetDetails}).\n\n` +
       `✈️ Rota: ${routeOrigin} ➔ ${routeDestination || "Internacional"}\n` +
       `📅 Previsão: ${travelPeriod || "A definir"}\n` +
       `👤 Tutor: ${tutorName}\n\n` +
@@ -916,29 +1052,15 @@ export function WhatsAppChatFlow({
               </div>
             )}
 
-            {/* Step 2: Breed Selection - Quick Profile Pills for Multi-Pet OR Native WhatsApp Composer */}
-            {currentStep === "pet_details" && isMultiPetFlow && !isCustomMultiBreed ? (
-              <div className="ep-wa-quick-replies">
-                <div className="ep-wa-quick-replies__grid">
-                  {multiPetProfileOptions.map((opt) => (
-                    <button
-                      key={opt.value}
-                      type="button"
-                      className={`ep-wa-quick-reply-btn ${opt.isFull ? "ep-wa-quick-reply-btn--full-span" : ""}`}
-                      onClick={() => handleSelectMultiPetProfile(opt.value)}
-                    >
-                      {opt.value.includes("Pequeno / Médio") && <PawPrint size={14} className="ep-wa-quick-reply-icon" />}
-                      {opt.value.includes("mistos") && <Sparkles size={14} className="ep-wa-quick-reply-icon" />}
-                      {opt.value.includes("Grande") && !opt.value.includes("mistos") && <Dog size={14} className="ep-wa-quick-reply-icon" />}
-                      {opt.value.includes("Braquicefálico") && <AlertTriangle size={14} style={{ color: "#d97706", flexShrink: 0 }} />}
-                      {opt.value.includes("SRD") && <PawPrint size={14} className="ep-wa-quick-reply-icon" />}
-                      <span>{opt.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ) : currentStep === "pet_details" ? (
+            {/* Step 2: Breed Selection - Native WhatsApp Composer with Dynamic AI Autocomplete & SRD Option */}
+            {currentStep === "pet_details" && (
               <form onSubmit={handleConfirmPetDetails} className="ep-wa-msg-composer">
+                {isMultiPetFlow && multiPetQueue.length > 1 && (
+                  <div className="ep-wa-multi-pet-counter-tag">
+                    Pet {currentMultiPetIndex + 1} de {multiPetQueue.length} • {activePetLabel}
+                  </div>
+                )}
+
                 <div className="ep-wa-msg-composer__row">
                   <div className="ep-wa-msg-composer__input-wrap">
                     <input
@@ -948,8 +1070,8 @@ export function WhatsAppChatFlow({
                         isSrd
                           ? "Sem raça definida (SRD)"
                           : isMultiPetFlow
-                          ? "Ex: 1 Golden e 1 Shih Tzu..."
-                          : "Digite a raça do pet..."
+                          ? `Digite a raça do seu ${activePetLabel}...`
+                          : `Digite a raça do seu ${activePetLabel}...`
                       }
                       value={isSrd ? "Sem raça definida (SRD)" : petBreed}
                       onChange={(e) => {
@@ -1025,19 +1147,9 @@ export function WhatsAppChatFlow({
                   >
                     <span>{isSrd ? "✓ Sem raça definida (SRD)" : "Sem raça definida (SRD)"}</span>
                   </button>
-                  {isMultiPetFlow && (
-                    <button
-                      type="button"
-                      className="ep-wa-quick-reply-sub"
-                      onClick={() => setIsCustomMultiBreed(false)}
-                      style={{ marginTop: 6 }}
-                    >
-                      ✕ Voltar para opções de perfil rápido
-                    </button>
-                  )}
                 </div>
               </form>
-            ) : null}
+            )}
 
             {/* Step 3: Origin Selection - Clean Quick Replies */}
             {currentStep === "origin" && (
@@ -1337,7 +1449,7 @@ export function WhatsAppChatFlow({
       {/* 2. Sleek Minimalist Bottom Bar */}
       <div className="ep-wa-bottom-bar">
         <div className="ep-wa-bottom-bar__row">
-          {stepHistory.length > 0 || isMultiPetMode || isCustomMultiBreed || isCustomOrigin || isCustomDestination ? (
+          {stepHistory.length > 0 || isMultiPetMode || isCustomOrigin || isCustomDestination || (currentStep === "pet_details" && isMultiPetFlow && currentMultiPetIndex > 0) ? (
             <button
               type="button"
               className="ep-wa-bottom-bar__back-btn"

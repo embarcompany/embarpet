@@ -12,7 +12,7 @@ export interface AiPetSuggestion {
 
 export const detailedPetDatabase: AiPetSuggestion[] = [
   // --- CÃES (DOGS) ---
-  { name: "Sem Raça Definida (Vira-lata / SRD)", category: "dog", categoryLabel: "Cão", tag: "Sem restrições de raça", isBrachy: false },
+  { name: "Sem Raça Definida (SRD)", category: "dog", categoryLabel: "Cão", tag: "Sem restrições de raça", isBrachy: false },
   { name: "Spitz Alemão (Lulu da Pomerânia)", category: "dog", categoryLabel: "Cão", tag: "Porte Pequeno", isBrachy: false },
   { name: "Golden Retriever", category: "dog", categoryLabel: "Cão", tag: "Porte Grande", isBrachy: false },
   { name: "Labrador Retriever", category: "dog", categoryLabel: "Cão", tag: "Porte Grande", isBrachy: false },
@@ -74,7 +74,7 @@ export const detailedPetDatabase: AiPetSuggestion[] = [
   { name: "Welsh Corgi Pembroke", category: "dog", categoryLabel: "Cão", tag: "Porte Pequeno", isBrachy: false },
 
   // --- GATOS (CATS) ---
-  { name: "Gato Comum (SRD / Vira-lata)", category: "cat", categoryLabel: "Gato", tag: "Sem restrições de raça", isBrachy: false },
+  { name: "Sem Raça Definida (SRD)", category: "cat", categoryLabel: "Gato", tag: "Sem restrições de raça", isBrachy: false },
   { name: "Siamês", category: "cat", categoryLabel: "Gato", tag: "Felino Doméstico", isBrachy: false },
   { name: "Persa", category: "cat", categoryLabel: "Gato", tag: "Braquicefálico Felino", isBrachy: true },
   { name: "Maine Coon", category: "cat", categoryLabel: "Gato", tag: "Porte Grande", isBrachy: false },
