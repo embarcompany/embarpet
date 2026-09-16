@@ -196,6 +196,7 @@ export function WhatsAppChatFlow({
   const [petSpecies, setPetSpecies] = useState("Cachorro");
   const [petBreed, setPetBreed] = useState("");
   const [isSrd, setIsSrd] = useState(false);
+  const [isBreedSelected, setIsBreedSelected] = useState(false);
 
   // Multi-Pet Selector State
   const [isMultiPetMode, setIsMultiPetMode] = useState(false);
@@ -963,10 +964,11 @@ export function WhatsAppChatFlow({
                         <input
                           className={`ep-wa-dock__input ep-wa-dock__input--with-icon ep-wa-dock__input--with-srd ${isSrd ? "ep-wa-dock__input--srd-active" : ""}`}
                           type="text"
-                          placeholder={isSrd ? "Sem raça específica (SRD)" : "Digite a raça ou escolha na lista..."}
+                          placeholder={isSrd ? "Sem raça específica (SRD)" : "Digite a raça do pet..."}
                           value={isSrd ? "Sem raça específica (SRD)" : petBreed}
                           onChange={(e) => {
                             setIsSrd(false);
+                            setIsBreedSelected(false);
                             setPetBreed(e.target.value);
                           }}
                           disabled={isSrd}
@@ -978,6 +980,7 @@ export function WhatsAppChatFlow({
                           onClick={() => {
                             const nextSrd = !isSrd;
                             setIsSrd(nextSrd);
+                            setIsBreedSelected(false);
                             if (nextSrd) {
                               setPetBreed("Sem raça específica (SRD)");
                             } else {
@@ -989,52 +992,43 @@ export function WhatsAppChatFlow({
                         </button>
                       </div>
 
-                      {/* Real-Time AI Suggestions Dropdown List */}
-                      {!isSrd && (
+                      {/* Real-Time AI Suggestions Dropdown List - Appears only while user is typing */}
+                      {!isSrd && !isBreedSelected && petBreed.trim().length > 0 && (
                         <div className="ep-wa-dock__breed-dropdown" role="listbox">
                           <div className="ep-wa-dock__dropdown-header">
-                            <Sparkles size={13} className="ep-wa-dock__dropdown-sparkle" />
-                            <span>Sugestões da IA ({dynamicBreedSuggestions.length} encontradas):</span>
+                            <Sparkles size={12} className="ep-wa-dock__dropdown-sparkle" />
+                            <span>Sugestões da IA</span>
                           </div>
 
                           <div className="ep-wa-dock__breed-dropdown-list">
                             {dynamicBreedSuggestions.length > 0 ? (
-                              dynamicBreedSuggestions.map((item) => {
-                                const isSelected = normalizeText(petBreed) === normalizeText(item.name);
-                                return (
-                                  <button
-                                    key={item.name}
-                                    type="button"
-                                    className={`ep-wa-dock__breed-dropdown-item ${isSelected ? "ep-wa-dock__breed-dropdown-item--selected" : ""}`}
-                                    onClick={() => {
-                                      setIsSrd(false);
-                                      setPetBreed(item.name);
-                                    }}
-                                  >
-                                    <div className="ep-wa-dock__breed-item-left">
-                                      <div className="ep-wa-dock__breed-icon-box">
-                                        {renderPetCategoryIcon(item.category)}
-                                      </div>
-                                      <div className="ep-wa-dock__breed-info">
-                                        <span className="ep-wa-dock__breed-name">{item.name}</span>
-                                        <span className="ep-wa-dock__breed-sub">{item.categoryLabel}</span>
-                                      </div>
+                              dynamicBreedSuggestions.map((item) => (
+                                <button
+                                  key={item.name}
+                                  type="button"
+                                  className="ep-wa-dock__breed-dropdown-item"
+                                  onClick={() => {
+                                    setIsSrd(false);
+                                    setPetBreed(item.name);
+                                    setIsBreedSelected(true);
+                                  }}
+                                >
+                                  <div className="ep-wa-dock__breed-item-left">
+                                    <div className="ep-wa-dock__breed-icon-box">
+                                      {renderPetCategoryIcon(item.category)}
                                     </div>
-                                    {item.tag && (
-                                      <span
-                                        className={`ep-wa-dock__breed-tag ${
-                                          item.isBrachy ? "ep-wa-dock__breed-tag--brachy" : ""
-                                        }`}
-                                      >
-                                        {item.tag}
-                                      </span>
-                                    )}
-                                  </button>
-                                );
-                              })
+                                    <span className="ep-wa-dock__breed-name">{item.name}</span>
+                                  </div>
+                                  {item.isBrachy && (
+                                    <span className="ep-wa-dock__breed-tag ep-wa-dock__breed-tag--brachy">
+                                      Braquicefálico
+                                    </span>
+                                  )}
+                                </button>
+                              ))
                             ) : (
                               <div className="ep-wa-dock__dropdown-empty">
-                                <span>Nenhuma raça exata no catálogo da IA. Você pode digitar livremente acima e confirmar.</span>
+                                <span>Nenhuma raça encontrada. Pode continuar digitando e confirmar abaixo.</span>
                               </div>
                             )}
                           </div>
