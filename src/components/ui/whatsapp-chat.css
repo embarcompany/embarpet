@@ -411,6 +411,12 @@
   font-weight: 650;
 }
 
+.ep-wa-quick-reply-btn--full-span {
+  grid-column: 1 / -1;
+  width: 100%;
+  justify-content: center;
+}
+
 .ep-wa-quick-reply-icon {
   color: #059669;
   flex-shrink: 0;

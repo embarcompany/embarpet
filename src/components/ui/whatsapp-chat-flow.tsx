@@ -64,11 +64,11 @@ type ChatMessage = {
 };
 
 const mainSpeciesOptions = [
-  { label: "Cachorro", value: "Cachorro", icon: Dog },
-  { label: "Gato", value: "Gato", icon: Cat },
-  { label: "Roedor", value: "Roedor", icon: Rabbit },
-  { label: "Ave", value: "Ave", icon: Bird },
-  { label: "Outro pet / Exótico", value: "Outro Pet / Exótico", icon: Sparkles },
+  { label: "Cachorro", value: "Cachorro", icon: Dog, isFull: false },
+  { label: "Gato", value: "Gato", icon: Cat, isFull: false },
+  { label: "Roedor", value: "Roedor", icon: Rabbit, isFull: false },
+  { label: "Ave", value: "Ave", icon: Bird, isFull: false },
+  { label: "Outro pet / Exótico", value: "Outro Pet / Exótico", icon: Sparkles, isFull: true },
 ];
 
 const popularOrigins = [
@@ -737,7 +737,7 @@ export function WhatsAppChatFlow({
                       <button
                         key={opt.value}
                         type="button"
-                        className="ep-wa-quick-reply-btn"
+                        className={`ep-wa-quick-reply-btn ${opt.isFull ? "ep-wa-quick-reply-btn--full-span" : ""}`}
                         onClick={() => handleSelectSpecies(opt.value)}
                       >
                         <IconComponent size={16} className="ep-wa-quick-reply-icon" />
