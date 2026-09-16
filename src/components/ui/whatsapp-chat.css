@@ -448,7 +448,7 @@
   overflow: hidden;
 }
 
-/* Species Selection Cards (Min-height 60px, Clean Lucide Icons) */
+/* Species Selection Cards (2x2 Grid without subtext, Clean Lucide Icons) */
 .ep-wa-dock__grid--species {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -459,9 +459,9 @@
 .ep-wa-dock__btn-species {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 60px;
-  padding: 10px 12px;
+  gap: 12px;
+  min-height: 58px;
+  padding: 10px 14px;
   border-radius: 14px;
   border: 1.5px solid #e2e8f0;
   background: #f8fafc;
@@ -503,139 +503,128 @@
   color: #ffffff;
 }
 
-.ep-wa-dock__species-info {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  min-width: 0;
-}
-
 .ep-wa-dock__species-title {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 750;
   color: #0f172a;
   line-height: 1.2;
 }
 
-.ep-wa-dock__species-sub {
-  font-size: 11px;
-  color: #64748b;
-  font-weight: 550;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Breed Input Container & SRD 1-Tap Shortcut */
-.ep-wa-dock__breed-input-container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
-
-.ep-wa-dock__input--breed {
-  padding-right: 38px;
-}
-
-.ep-wa-dock__clear-input-btn {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: none;
-  background: #e2e8f0;
-  color: #475569;
-  font-size: 15px;
-  font-weight: 700;
+/* Species Footer (Direct on bg text options) */
+.ep-wa-dock__species-footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: all 0.15s ease;
+  gap: 10px;
+  padding: 4px 0 0;
 }
 
-.ep-wa-dock__clear-input-btn:hover {
-  background: #cbd5e1;
-  color: #0f172a;
-}
-
-.ep-wa-dock__srd-btn {
+.ep-wa-dock__species-text-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  width: 100%;
-  min-height: 42px;
-  padding: 8px 14px;
-  border-radius: 21px;
-  border: 1.5px dashed #00a884;
-  background: #f0fdf9;
-  color: #005c4b;
-  font-size: 13px;
-  font-weight: 750;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.ep-wa-dock__srd-btn:hover {
-  background: #e6f7f2;
-  border-color: #008f6f;
-  transform: translateY(-1px);
-}
-
-.ep-wa-dock__srd-btn--active {
-  background: #005c4b;
-  border-color: #005c4b;
-  border-style: solid;
-  color: #ffffff;
-  box-shadow: 0 3px 10px rgba(0, 92, 75, 0.22);
-}
-
-/* Route Origin & Destination Grids */
-.ep-wa-dock__grid--origins {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-  overflow: hidden;
-}
-
-.ep-wa-dock__btn-route-pill {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-height: 42px;
-  padding: 6px 10px;
-  border-radius: 21px;
-  border: 1.5px solid #e2e8f0;
-  background: #f8fafc;
-  color: #1e293b;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px 6px;
+  color: #475569;
   font-size: 12.5px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.15s ease;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  transition: color 0.15s ease, transform 0.14s ease;
 }
 
-.ep-wa-dock__btn-route-pill:hover {
-  background: #e6f7f2;
-  border-color: #00a884;
+.ep-wa-dock__species-text-btn:hover {
   color: #005c4b;
+  transform: translateY(-0.5px);
+  text-decoration: underline;
 }
 
-.ep-wa-dock__btn-route-pill--active {
-  background: #005c4b;
-  border-color: #005c4b;
-  color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 92, 75, 0.25);
+.ep-wa-dock__species-dot {
+  color: #94a3b8;
+  font-size: 12px;
 }
 
+/* Breed Input with SRD Badge Button Inside Right */
+.ep-wa-dock__input--with-srd {
+  padding-right: 142px;
+}
+
+.ep-wa-dock__input--srd-active {
+  background: #fff1f2;
+  border-color: #f43f5e;
+  color: #e11d48;
+  font-weight: 700;
+}
+
+.ep-wa-dock__srd-badge-btn {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 20px;
+  border: 1px solid #cbd5e1;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  white-space: nowrap;
+}
+
+.ep-wa-dock__srd-badge-btn:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+.ep-wa-dock__srd-badge-btn--active {
+  background: #dc2626 !important;
+  border-color: #b91c1c !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.35);
+}
+
+/* AI Suggestions Container & Strikethrough */
+.ep-wa-dock__suggestions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 4px;
+}
+
+.ep-wa-dock__suggestions-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 750;
+  color: #00a884;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  transition: color 0.15s ease;
+}
+
+.ep-wa-dock__suggestions-label--disabled {
+  color: #94a3b8;
+}
+
+.ep-wa-dock__chip--struck {
+  text-decoration: line-through;
+  opacity: 0.38;
+  background: #f1f5f9 !important;
+  color: #94a3b8 !important;
+  border-color: #e2e8f0 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* Destination & Origin Grids (2 Columns + Full-Width Outro País) */
 .ep-wa-dock__grid--destinations {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -647,7 +636,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  min-height: 46px;
+  min-height: 48px;
   padding: 8px 12px;
   border-radius: 12px;
   border: 1.5px solid #e2e8f0;
@@ -660,6 +649,20 @@
   background: #e6f7f2;
   border-color: #00a884;
   transform: translateY(-1px);
+}
+
+.ep-wa-dock__btn-dest--full {
+  grid-column: 1 / -1;
+  justify-content: center;
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #005c4b;
+  font-weight: 750;
+}
+
+.ep-wa-dock__btn-dest--full:hover {
+  background: #e6f7f2;
+  border-color: #00a884;
 }
 
 .ep-wa-dock__dest-flag {
