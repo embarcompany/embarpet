@@ -1465,11 +1465,7 @@ export function WhatsAppChatFlow({
                   {isSubmitting ? (
                     <span>Gerando pré-diagnóstico...</span>
                   ) : (
-                    <>
-                      <WhatsAppIconSvg size={18} color="#ffffff" />
-                      <span>Receber cronograma no WhatsApp</span>
-                      <ArrowRight size={16} />
-                    </>
+                    <span>Receber cronograma no WhatsApp</span>
                   )}
                 </button>
 
