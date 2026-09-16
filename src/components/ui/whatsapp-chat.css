@@ -9,12 +9,12 @@
   inset: 0;
   z-index: 1000;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  background: rgba(0, 18, 22, 0.72);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0 24px 88px 0;
+  background: rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   animation: ep-wa-fade-in 0.2s ease-out both;
 }
 
@@ -31,24 +31,35 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 460px;
-  height: min(700px, 92vh);
+  width: 400px;
+  max-width: calc(100vw - 32px);
+  height: min(650px, calc(100vh - 105px));
   background: #efeae2;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 24px 60px -10px rgba(0, 30, 36, 0.45), 0 0 1px rgba(0, 0, 0, 0.2);
-  animation: ep-wa-slide-up 0.26s cubic-bezier(0.16, 1, 0.3, 1) both;
+  box-shadow: 0 16px 48px -4px rgba(0, 30, 36, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  animation: ep-wa-popup-open 0.26s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: bottom right;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
   .ep-wa-modal {
     padding: 0;
+    align-items: stretch;
+    justify-content: stretch;
+    background: rgba(0, 18, 22, 0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
   .ep-wa-modal__panel {
+    width: 100%;
     max-width: 100%;
     height: 100vh;
+    height: 100dvh;
     border-radius: 0;
+    box-shadow: none;
+    animation: ep-wa-slide-up 0.26s cubic-bezier(0.16, 1, 0.3, 1) both;
+    transform-origin: center bottom;
   }
 }
 
@@ -345,7 +356,7 @@
   align-items: flex-end;
   gap: 6px;
   width: 100%;
-  max-width: 92%;
+  max-width: 100%;
 }
 
 .ep-wa-quick-replies__grid {
@@ -367,30 +378,38 @@
   align-items: flex-end;
   gap: 6px;
   width: 100%;
-  max-width: 88%;
+  max-width: 90%;
 }
 
 /* Quick Reply Button (Derived from light green outgoing message bubble #d9fdd3) */
 .ep-wa-quick-reply-btn {
   display: flex;
   align-items: center;
-  gap: 7px;
-  min-height: 42px;
-  padding: 8px 13px;
-  border-radius: 18px 18px 4px 18px;
+  gap: 6px;
+  min-height: 40px;
+  padding: 8px 11px;
+  border-radius: 16px 16px 4px 16px;
   border: 1px solid #bbf7d0;
   background: #e7fddc;
   color: #064e3b;
-  font-size: 13.5px;
+  font-size: 12.6px;
   font-weight: 650;
   cursor: pointer;
   box-shadow: 0 1px 2px rgba(11, 20, 26, 0.06);
   transition: all 0.14s ease;
   text-align: left;
   width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: normal;
+  line-height: 1.25;
+}
+
+.ep-wa-quick-reply-btn span {
+  display: inline-block;
+  flex: 1;
+  min-width: 0;
+  line-height: 1.25;
+  word-break: normal;
 }
 
 .ep-wa-quick-reply-btn:hover {
@@ -415,6 +434,7 @@
   grid-column: 1 / -1;
   width: 100%;
   justify-content: center;
+  text-align: center;
 }
 
 .ep-wa-quick-reply-icon {
@@ -965,4 +985,15 @@
 @keyframes ep-wa-dot-bounce {
   0%, 80%, 100% { transform: scale(0); }
   40% { transform: scale(1); }
+}
+
+@keyframes ep-wa-popup-open {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }

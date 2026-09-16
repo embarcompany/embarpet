@@ -82,7 +82,7 @@ const multiSpeciesItems = [
 
 const multiPetProfileOptions = [
   { label: "Pequeno / Médio porte", value: "Pequeno / Médio porte", isFull: false },
-  { label: "Portes mistos (Pequeno + Grande)", value: "Portes mistos (Pequeno e Grande)", isFull: false },
+  { label: "1 Pequeno e 1 Grande", value: "Portes mistos (Pequeno e Grande)", isFull: false },
   { label: "Todos de Grande porte", value: "Todos de Grande porte", isFull: false },
   { label: "Focinho curto (Braquicefálico)", value: "Focinho curto (Braquicefálico)", isFull: false },
   { label: "Sem raça definida (SRD)", value: "Sem raça definida (SRD)", isFull: false },
