@@ -24,6 +24,7 @@ import {
   Clock,
   ShieldCheck,
   Search,
+  Send,
 } from "lucide-react";
 import { submitLead, type PublicLead } from "../../lead-contract";
 import { trackConversionEvent } from "../../lib/analytics";
@@ -949,101 +950,100 @@ export function WhatsAppChatFlow({
                 </div>
               )}
 
-              {/* Step 2: Breed / Pet Details with Real-Time AI Autocomplete Dropdown */}
+              {/* Step 2: Breed / Pet Details - Authentic WhatsApp Message Drafting */}
               {currentStep === "pet_details" && (
-                <form onSubmit={handleConfirmPetDetails} className="ep-wa-stream-card">
-                  <div className="ep-wa-dock__field-group">
-                    <span className="ep-wa-dock__label">
-                      Raça ou perfil {petSpecies.toLowerCase().includes("gato") ? "do gato" : petSpecies.toLowerCase().includes("cão") || petSpecies.toLowerCase().includes("cachorro") ? "do cão" : "dos pets"}:
-                    </span>
-
-                    {/* Input with SRD Badge Button inside on the right */}
-                    <div className="ep-wa-dock__search-container">
-                      <div className="ep-wa-dock__input-wrap">
-                        <PawPrint size={18} className="ep-wa-dock__input-icon" />
-                        <input
-                          className={`ep-wa-dock__input ep-wa-dock__input--with-icon ep-wa-dock__input--with-srd ${isSrd ? "ep-wa-dock__input--srd-active" : ""}`}
-                          type="text"
-                          placeholder={isSrd ? "Sem raça específica (SRD)" : "Digite a raça do pet..."}
-                          value={isSrd ? "Sem raça específica (SRD)" : petBreed}
-                          onChange={(e) => {
-                            setIsSrd(false);
-                            setIsBreedSelected(false);
-                            setPetBreed(e.target.value);
-                          }}
-                          disabled={isSrd}
-                          autoFocus={!isSrd}
-                        />
-                        <button
-                          type="button"
-                          className={`ep-wa-dock__srd-badge-btn ${isSrd ? "ep-wa-dock__srd-badge-btn--active" : ""}`}
-                          onClick={() => {
-                            const nextSrd = !isSrd;
-                            setIsSrd(nextSrd);
-                            setIsBreedSelected(false);
-                            if (nextSrd) {
-                              setPetBreed("Sem raça específica (SRD)");
-                            } else {
-                              setPetBreed("");
-                            }
-                          }}
-                        >
-                          {isSrd ? "✓ Sem raça (SRD)" : "Sem raça (SRD)"}
-                        </button>
-                      </div>
-
-                      {/* Real-Time AI Suggestions Dropdown List - Appears only while user is typing */}
-                      {!isSrd && !isBreedSelected && petBreed.trim().length > 0 && (
-                        <div className="ep-wa-dock__breed-dropdown" role="listbox">
-                          <div className="ep-wa-dock__dropdown-header">
-                            <Sparkles size={12} className="ep-wa-dock__dropdown-sparkle" />
-                            <span>Sugestões da IA</span>
-                          </div>
-
-                          <div className="ep-wa-dock__breed-dropdown-list">
-                            {dynamicBreedSuggestions.length > 0 ? (
-                              dynamicBreedSuggestions.map((item) => (
-                                <button
-                                  key={item.name}
-                                  type="button"
-                                  className="ep-wa-dock__breed-dropdown-item"
-                                  onClick={() => {
-                                    setIsSrd(false);
-                                    setPetBreed(item.name);
-                                    setIsBreedSelected(true);
-                                  }}
-                                >
-                                  <div className="ep-wa-dock__breed-item-left">
-                                    <div className="ep-wa-dock__breed-icon-box">
-                                      {renderPetCategoryIcon(item.category)}
-                                    </div>
-                                    <span className="ep-wa-dock__breed-name">{item.name}</span>
-                                  </div>
-                                  {item.isBrachy && (
-                                    <span className="ep-wa-dock__breed-tag ep-wa-dock__breed-tag--brachy">
-                                      Braquicefálico
-                                    </span>
-                                  )}
-                                </button>
-                              ))
-                            ) : (
-                              <div className="ep-wa-dock__dropdown-empty">
-                                <span>Nenhuma raça encontrada. Pode continuar digitando e confirmar abaixo.</span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      )}
+                <form onSubmit={handleConfirmPetDetails} className="ep-wa-msg-composer">
+                  <div className="ep-wa-msg-composer__row">
+                    <div className="ep-wa-msg-composer__input-wrap">
+                      <PawPrint size={17} className="ep-wa-msg-composer__icon" />
+                      <input
+                        className={`ep-wa-msg-composer__input ${isSrd ? "ep-wa-msg-composer__input--srd" : ""}`}
+                        type="text"
+                        placeholder={isSrd ? "Sem raça específica (SRD)" : "Digite a raça do pet..."}
+                        value={isSrd ? "Sem raça específica (SRD)" : petBreed}
+                        onChange={(e) => {
+                          setIsSrd(false);
+                          setIsBreedSelected(false);
+                          setPetBreed(e.target.value);
+                        }}
+                        disabled={isSrd}
+                        autoFocus={!isSrd}
+                      />
                     </div>
+
+                    <button
+                      type="submit"
+                      className="ep-wa-msg-composer__send-btn"
+                      disabled={!isSrd && !petBreed.trim()}
+                      aria-label="Enviar mensagem"
+                      title="Enviar resposta"
+                    >
+                      <Send size={16} />
+                    </button>
                   </div>
 
-                  <button
-                    type="submit"
-                    className="ep-wa-dock__cta-btn ep-wa-dock__cta-btn--bold"
-                  >
-                    <span>CONFIRMAR PERFIL DO PET</span>
-                    <ArrowRight size={17} strokeWidth={2.5} />
-                  </button>
+                  {/* Real-Time AI Suggestions Dropdown List - Appears only while user is typing */}
+                  {!isSrd && !isBreedSelected && petBreed.trim().length > 0 && (
+                    <div className="ep-wa-dock__breed-dropdown" role="listbox">
+                      <div className="ep-wa-dock__dropdown-header">
+                        <Sparkles size={12} className="ep-wa-dock__dropdown-sparkle" />
+                        <span>Sugestões da IA</span>
+                      </div>
+
+                      <div className="ep-wa-dock__breed-dropdown-list">
+                        {dynamicBreedSuggestions.length > 0 ? (
+                          dynamicBreedSuggestions.map((item) => (
+                            <button
+                              key={item.name}
+                              type="button"
+                              className="ep-wa-dock__breed-dropdown-item"
+                              onClick={() => {
+                                setIsSrd(false);
+                                setPetBreed(item.name);
+                                setIsBreedSelected(true);
+                              }}
+                            >
+                              <div className="ep-wa-dock__breed-item-left">
+                                <div className="ep-wa-dock__breed-icon-box">
+                                  {renderPetCategoryIcon(item.category)}
+                                </div>
+                                <span className="ep-wa-dock__breed-name">{item.name}</span>
+                              </div>
+                              {item.isBrachy && (
+                                <span className="ep-wa-dock__breed-tag ep-wa-dock__breed-tag--brachy">
+                                  Braquicefálico
+                                </span>
+                              )}
+                            </button>
+                          ))
+                        ) : (
+                          <div className="ep-wa-dock__dropdown-empty">
+                            <span>Nenhuma raça encontrada. Você pode enviar digitando normalmente.</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Quick SRD Option Button */}
+                  <div className="ep-wa-msg-composer__footer">
+                    <button
+                      type="button"
+                      className={`ep-wa-msg-composer__srd-btn ${isSrd ? "ep-wa-msg-composer__srd-btn--active" : ""}`}
+                      onClick={() => {
+                        const nextSrd = !isSrd;
+                        setIsSrd(nextSrd);
+                        setIsBreedSelected(false);
+                        if (nextSrd) {
+                          setPetBreed("Sem raça específica (SRD)");
+                        } else {
+                          setPetBreed("");
+                        }
+                      }}
+                    >
+                      <span>{isSrd ? "✓ Sem raça definida (SRD)" : "🐾 Sem raça específica (SRD / Vira-lata)"}</span>
+                    </button>
+                  </div>
                 </form>
               )}
 
@@ -1085,11 +1085,11 @@ export function WhatsAppChatFlow({
                       </div>
                     ) : (
                       <div className="ep-wa-dock__search-container">
-                        <div className="ep-wa-dock__input-row">
-                          <div className="ep-wa-dock__input-wrap">
-                            <Search size={17} className="ep-wa-dock__input-icon" />
+                        <div className="ep-wa-msg-composer__row">
+                          <div className="ep-wa-msg-composer__input-wrap">
+                            <Search size={16} className="ep-wa-msg-composer__icon" />
                             <input
-                              className="ep-wa-dock__input ep-wa-dock__input--with-icon"
+                              className="ep-wa-msg-composer__input"
                               type="text"
                               placeholder="Digite o país (ex: Japão, Canadá...)"
                               value={customOriginInput}
@@ -1105,12 +1105,12 @@ export function WhatsAppChatFlow({
                           </div>
                           <button
                             type="button"
-                            className="ep-wa-dock__cta-btn ep-wa-dock__cta-btn--compact ep-wa-dock__cta-btn--bold"
+                            className="ep-wa-msg-composer__send-btn"
                             disabled={!customOriginInput.trim()}
                             onClick={() => handleSelectOrigin(customOriginInput.trim())}
+                            aria-label="Enviar país de origem"
                           >
-                            <span>OK</span>
-                            <ChevronRight size={17} />
+                            <Send size={16} />
                           </button>
                         </div>
 
@@ -1194,11 +1194,11 @@ export function WhatsAppChatFlow({
                       </div>
                     ) : (
                       <div className="ep-wa-dock__search-container">
-                        <div className="ep-wa-dock__input-row">
-                          <div className="ep-wa-dock__input-wrap">
-                            <Search size={18} className="ep-wa-dock__input-icon" />
+                        <div className="ep-wa-msg-composer__row">
+                          <div className="ep-wa-msg-composer__input-wrap">
+                            <Search size={16} className="ep-wa-msg-composer__icon" />
                             <input
-                              className="ep-wa-dock__input ep-wa-dock__input--with-icon"
+                              className="ep-wa-msg-composer__input"
                               type="text"
                               placeholder="Digite o país (ex: Japão, Canadá...)"
                               value={customDestinationInput}
@@ -1214,12 +1214,12 @@ export function WhatsAppChatFlow({
                           </div>
                           <button
                             type="button"
-                            className="ep-wa-dock__cta-btn ep-wa-dock__cta-btn--compact ep-wa-dock__cta-btn--bold"
+                            className="ep-wa-msg-composer__send-btn"
                             disabled={!customDestinationInput.trim()}
                             onClick={() => handleSelectDestination(customDestinationInput.trim())}
+                            aria-label="Enviar país de destino"
                           >
-                            <span>OK</span>
-                            <ChevronRight size={17} />
+                            <Send size={16} />
                           </button>
                         </div>
 
