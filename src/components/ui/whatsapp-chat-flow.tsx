@@ -740,40 +740,33 @@ export function WhatsAppChatFlow({
         {!isTyping && !thinkingText && currentStep !== "complete" && (
           <div className="ep-wa-stream-turn">
             <div className="ep-wa-bubble ep-wa-bubble--outgoing ep-wa-bubble--active">
-              {/* Step 1: Species Selection */}
+              {/* Step 1: Species Selection - Quick Replies */}
               {currentStep === "greeting" && !isMultiPetMode && (
-                <div className="ep-wa-stream-card">
-                  <div className="ep-wa-stream-card__header">
-                    <PawPrint size={15} className="ep-wa-stream-card__header-icon" />
-                    <span>Escolha uma opção para responder:</span>
-                  </div>
-
-                  <div className="ep-wa-dock__grid ep-wa-dock__grid--species">
+                <div className="ep-wa-quick-replies">
+                  <div className="ep-wa-quick-replies__grid">
                     {mainSpeciesOptions.map((opt) => {
                       const IconComponent = opt.icon;
                       return (
                         <button
                           key={opt.value}
                           type="button"
-                          className={`ep-wa-dock__btn-species ${opt.isFull ? "ep-wa-dock__btn-species--full" : ""}`}
+                          className="ep-wa-quick-reply-btn"
                           onClick={() => handleSelectSpecies(opt.value)}
                         >
-                          <div className="ep-wa-dock__species-icon-wrap">
-                            <IconComponent size={22} className="ep-wa-dock__species-icon" />
-                          </div>
-                          <span className="ep-wa-dock__species-title">{opt.label}</span>
+                          <IconComponent size={17} className="ep-wa-quick-reply-icon" />
+                          <span>{opt.label}</span>
                         </button>
                       );
                     })}
                   </div>
 
-                  <div className="ep-wa-dock__species-footer">
+                  <div className="ep-wa-quick-replies__footer">
                     <button
                       type="button"
-                      className="ep-wa-dock__species-text-btn"
+                      className="ep-wa-quick-reply-sub"
                       onClick={() => setIsMultiPetMode(true)}
                     >
-                      <PawPrint size={15} />
+                      <PawPrint size={14} />
                       <span>Viajar com mais de 1 pet</span>
                     </button>
                   </div>
@@ -1047,243 +1040,216 @@ export function WhatsAppChatFlow({
                 </form>
               )}
 
-              {/* Step 3: Origin Selection */}
+              {/* Step 3: Origin Selection - Clean WhatsApp Quick Replies */}
               {currentStep === "origin" && (
-                <div className="ep-wa-stream-card">
-                  <div className="ep-wa-dock__field-group">
-                    <span className="ep-wa-dock__label">
-                      <PlaneTakeoff size={14} style={{ display: "inline", verticalAlign: "-2px", marginRight: 5, color: "#00a884" }} />
-                      De onde o pet vai sair? (Origem)
-                    </span>
+                <div className="ep-wa-quick-replies">
+                  {!isCustomOrigin ? (
+                    <div className="ep-wa-quick-replies__grid ep-wa-quick-replies__grid--countries">
+                      {popularOrigins.map((orig) => (
+                        <button
+                          key={orig.code}
+                          type="button"
+                          className="ep-wa-quick-reply-btn ep-wa-quick-reply-btn--country"
+                          onClick={() => {
+                            if (orig.code === "OTHER") {
+                              setIsCustomOrigin(true);
+                            } else {
+                              handleSelectOrigin(orig.label);
+                            }
+                          }}
+                        >
+                          {orig.code !== "OTHER" ? (
+                            <img src={countryFlagSvg(orig.code)} alt="" className="ep-wa-quick-reply-flag" />
+                          ) : (
+                            <Search size={15} />
+                          )}
+                          <span>{orig.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="ep-wa-msg-composer">
+                      <div className="ep-wa-msg-composer__row">
+                        <div className="ep-wa-msg-composer__input-wrap">
+                          <Search size={16} className="ep-wa-msg-composer__icon" />
+                          <input
+                            className="ep-wa-msg-composer__input"
+                            type="text"
+                            placeholder="Digite o país de saída..."
+                            value={customOriginInput}
+                            onChange={(e) => setCustomOriginInput(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" && customOriginInput.trim()) {
+                                e.preventDefault();
+                                handleSelectOrigin(customOriginInput.trim());
+                              }
+                            }}
+                            autoFocus
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          className="ep-wa-msg-composer__send-btn"
+                          disabled={!customOriginInput.trim()}
+                          onClick={() => handleSelectOrigin(customOriginInput.trim())}
+                          aria-label="Enviar país de origem"
+                        >
+                          <Send size={16} />
+                        </button>
+                      </div>
 
-                    {!isCustomOrigin ? (
-                      <div className="ep-wa-dock__grid ep-wa-dock__grid--destinations">
-                        {popularOrigins.map((orig) => {
-                          const isFullWidth = orig.code === "OTHER";
-                          return (
+                      {originSuggestions.length > 0 && (
+                        <div className="ep-wa-dock__country-dropdown" role="listbox">
+                          {originSuggestions.map((s) => (
                             <button
-                              key={orig.code}
+                              key={s.code}
                               type="button"
-                              className={`ep-wa-dock__btn-dest ${isFullWidth ? "ep-wa-dock__btn-dest--full" : ""}`}
+                              className="ep-wa-dock__country-dropdown-item"
                               onClick={() => {
-                                if (orig.code === "OTHER") {
-                                  setIsCustomOrigin(true);
-                                } else {
-                                  handleSelectOrigin(orig.label);
-                                }
+                                setCustomOriginInput(s.name);
+                                handleSelectOrigin(s.name);
                               }}
                             >
-                              {orig.code !== "OTHER" ? (
-                                <img src={countryFlagSvg(orig.code)} alt="" className="ep-wa-dock__dest-flag" />
-                              ) : (
-                                <Search size={16} />
-                              )}
-                              <span className="ep-wa-dock__dest-name">{orig.label}</span>
+                              <img src={countryFlagSvg(s.code)} alt="" className="ep-wa-dock__dropdown-flag" />
+                              <span className="ep-wa-dock__dropdown-name">{s.name}</span>
+                              <span className="ep-wa-dock__dropdown-code">{s.code}</span>
                             </button>
-                          );
-                        })}
-                      </div>
-                    ) : (
-                      <div className="ep-wa-dock__search-container">
-                        <div className="ep-wa-msg-composer__row">
-                          <div className="ep-wa-msg-composer__input-wrap">
-                            <Search size={16} className="ep-wa-msg-composer__icon" />
-                            <input
-                              className="ep-wa-msg-composer__input"
-                              type="text"
-                              placeholder="Digite o país (ex: Japão, Canadá...)"
-                              value={customOriginInput}
-                              onChange={(e) => setCustomOriginInput(e.target.value)}
-                              onKeyDown={(e) => {
-                                if (e.key === "Enter" && customOriginInput.trim()) {
-                                  e.preventDefault();
-                                  handleSelectOrigin(customOriginInput.trim());
-                                }
-                              }}
-                              autoFocus
-                            />
-                          </div>
-                          <button
-                            type="button"
-                            className="ep-wa-msg-composer__send-btn"
-                            disabled={!customOriginInput.trim()}
-                            onClick={() => handleSelectOrigin(customOriginInput.trim())}
-                            aria-label="Enviar país de origem"
-                          >
-                            <Send size={16} />
-                          </button>
+                          ))}
                         </div>
+                      )}
 
-                        {originSuggestions.length > 0 && (
-                          <div className="ep-wa-dock__country-dropdown" role="listbox">
-                            {originSuggestions.map((s) => (
-                              <button
-                                key={s.code}
-                                type="button"
-                                className="ep-wa-dock__country-dropdown-item"
-                                onClick={() => {
-                                  setCustomOriginInput(s.name);
-                                  handleSelectOrigin(s.name);
-                                }}
-                              >
-                                <img src={countryFlagSvg(s.code)} alt="" className="ep-wa-dock__dropdown-flag" />
-                                <span className="ep-wa-dock__dropdown-name">{s.name}</span>
-                                <span className="ep-wa-dock__dropdown-code">{s.code}</span>
-                              </button>
-                            ))}
-                          </div>
-                        )}
-
-                        <div className="ep-wa-dock__species-footer">
-                          <button
-                            type="button"
-                            className="ep-wa-dock__species-text-btn"
-                            onClick={() => {
-                              setIsCustomOrigin(false);
-                              setCustomOriginInput("");
-                            }}
-                          >
-                            ✕ Voltar aos países principais
-                          </button>
-                        </div>
+                      <div className="ep-wa-quick-replies__footer">
+                        <button
+                          type="button"
+                          className="ep-wa-quick-reply-sub"
+                          onClick={() => {
+                            setIsCustomOrigin(false);
+                            setCustomOriginInput("");
+                          }}
+                        >
+                          ✕ Voltar aos países principais
+                        </button>
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               )}
 
-              {/* Step 4: Destination Selection */}
+              {/* Step 4: Destination Selection - Clean WhatsApp Quick Replies */}
               {currentStep === "destination" && (
-                <div className="ep-wa-stream-card">
-                  <div className="ep-wa-dock__field-group">
-                    <span className="ep-wa-dock__label">
-                      <PlaneLanding size={14} style={{ display: "inline", verticalAlign: "-2px", marginRight: 5, color: "#00a884" }} />
-                      Para onde o pet vai viajar? (Destino)
-                    </span>
+                <div className="ep-wa-quick-replies">
+                  {!isCustomDestination ? (
+                    <div className="ep-wa-quick-replies__grid ep-wa-quick-replies__grid--countries">
+                      {popularDestinations.map((dest) => (
+                        <button
+                          key={dest.code}
+                          type="button"
+                          className="ep-wa-quick-reply-btn ep-wa-quick-reply-btn--country"
+                          onClick={() => {
+                            if (dest.code === "OTHER") {
+                              setIsCustomDestination(true);
+                            } else {
+                              handleSelectDestination(dest.label);
+                            }
+                          }}
+                        >
+                          {dest.code !== "OTHER" ? (
+                            <img src={countryFlagSvg(dest.code)} alt="" className="ep-wa-quick-reply-flag" />
+                          ) : (
+                            <Search size={15} />
+                          )}
+                          <span>{dest.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="ep-wa-msg-composer">
+                      <div className="ep-wa-msg-composer__row">
+                        <div className="ep-wa-msg-composer__input-wrap">
+                          <Search size={16} className="ep-wa-msg-composer__icon" />
+                          <input
+                            className="ep-wa-msg-composer__input"
+                            type="text"
+                            placeholder="Digite o país de destino..."
+                            value={customDestinationInput}
+                            onChange={(e) => setCustomDestinationInput(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" && customDestinationInput.trim()) {
+                                e.preventDefault();
+                                handleSelectDestination(customDestinationInput.trim());
+                              }
+                            }}
+                            autoFocus
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          className="ep-wa-msg-composer__send-btn"
+                          disabled={!customDestinationInput.trim()}
+                          onClick={() => handleSelectDestination(customDestinationInput.trim())}
+                          aria-label="Enviar país de destino"
+                        >
+                          <Send size={16} />
+                        </button>
+                      </div>
 
-                    {!isCustomDestination ? (
-                      <div className="ep-wa-dock__grid ep-wa-dock__grid--destinations">
-                        {popularDestinations.map((dest) => {
-                          const isFullWidth = dest.code === "OTHER";
-                          return (
+                      {destinationSuggestions.length > 0 && (
+                        <div className="ep-wa-dock__country-dropdown" role="listbox">
+                          {destinationSuggestions.map((s) => (
                             <button
-                              key={dest.code}
+                              key={s.code}
                               type="button"
-                              className={`ep-wa-dock__btn-dest ${isFullWidth ? "ep-wa-dock__btn-dest--full" : ""}`}
+                              className="ep-wa-dock__country-dropdown-item"
                               onClick={() => {
-                                if (dest.code === "OTHER") {
-                                  setIsCustomDestination(true);
-                                } else {
-                                  handleSelectDestination(dest.label);
-                                }
+                                setCustomDestinationInput(s.name);
+                                handleSelectDestination(s.name);
                               }}
                             >
-                              {dest.code !== "OTHER" ? (
-                                <img
-                                  src={countryFlagSvg(dest.code)}
-                                  alt=""
-                                  className="ep-wa-dock__dest-flag"
-                                />
-                              ) : (
-                                <Search size={16} />
-                              )}
-                              <span className="ep-wa-dock__dest-name">{dest.label}</span>
+                              <img src={countryFlagSvg(s.code)} alt="" className="ep-wa-dock__dropdown-flag" />
+                              <span className="ep-wa-dock__dropdown-name">{s.name}</span>
+                              <span className="ep-wa-dock__dropdown-code">{s.code}</span>
                             </button>
-                          );
-                        })}
-                      </div>
-                    ) : (
-                      <div className="ep-wa-dock__search-container">
-                        <div className="ep-wa-msg-composer__row">
-                          <div className="ep-wa-msg-composer__input-wrap">
-                            <Search size={16} className="ep-wa-msg-composer__icon" />
-                            <input
-                              className="ep-wa-msg-composer__input"
-                              type="text"
-                              placeholder="Digite o país (ex: Japão, Canadá...)"
-                              value={customDestinationInput}
-                              onChange={(e) => setCustomDestinationInput(e.target.value)}
-                              onKeyDown={(e) => {
-                                if (e.key === "Enter" && customDestinationInput.trim()) {
-                                  e.preventDefault();
-                                  handleSelectDestination(customDestinationInput.trim());
-                                }
-                              }}
-                              autoFocus
-                            />
-                          </div>
-                          <button
-                            type="button"
-                            className="ep-wa-msg-composer__send-btn"
-                            disabled={!customDestinationInput.trim()}
-                            onClick={() => handleSelectDestination(customDestinationInput.trim())}
-                            aria-label="Enviar país de destino"
-                          >
-                            <Send size={16} />
-                          </button>
+                          ))}
                         </div>
+                      )}
 
-                        {destinationSuggestions.length > 0 && (
-                          <div className="ep-wa-dock__country-dropdown" role="listbox">
-                            {destinationSuggestions.map((s) => (
-                              <button
-                                key={s.code}
-                                type="button"
-                                className="ep-wa-dock__country-dropdown-item"
-                                onClick={() => {
-                                  setCustomDestinationInput(s.name);
-                                  handleSelectDestination(s.name);
-                                }}
-                              >
-                                <img src={countryFlagSvg(s.code)} alt="" className="ep-wa-dock__dropdown-flag" />
-                                <span className="ep-wa-dock__dropdown-name">{s.name}</span>
-                                <span className="ep-wa-dock__dropdown-code">{s.code}</span>
-                              </button>
-                            ))}
-                          </div>
-                        )}
-
-                        <div className="ep-wa-dock__species-footer">
-                          <button
-                            type="button"
-                            className="ep-wa-dock__species-text-btn"
-                            onClick={() => {
-                              setIsCustomDestination(false);
-                              setCustomDestinationInput("");
-                            }}
-                          >
-                            ✕ Voltar aos países principais
-                          </button>
-                        </div>
+                      <div className="ep-wa-quick-replies__footer">
+                        <button
+                          type="button"
+                          className="ep-wa-quick-reply-sub"
+                          onClick={() => {
+                            setIsCustomDestination(false);
+                            setCustomDestinationInput("");
+                          }}
+                        >
+                          ✕ Voltar aos países principais
+                        </button>
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               )}
 
-              {/* Step 5: Period Selection */}
+              {/* Step 5: Period Selection - Clean WhatsApp Quick Replies */}
               {currentStep === "period" && (
-                <div className="ep-wa-stream-card">
-                  <div className="ep-wa-dock__period-list">
+                <div className="ep-wa-quick-replies">
+                  <div className="ep-wa-quick-replies__stack">
                     {travelPeriods.map((period) => {
                       const PeriodIcon = period.icon;
                       return (
                         <button
                           key={period.value}
                           type="button"
-                          className="ep-wa-dock__period-btn"
+                          className="ep-wa-quick-reply-btn ep-wa-quick-reply-btn--period"
                           onClick={() => handleSelectPeriod(period.value)}
                         >
-                          <div className="ep-wa-dock__period-btn-left">
-                            <div className="ep-wa-dock__period-icon-wrap">
-                              <PeriodIcon size={17} className="ep-wa-dock__period-icon" />
-                            </div>
-                            <span className="ep-wa-dock__period-text">{period.label}</span>
+                          <div className="ep-wa-quick-reply-left">
+                            <PeriodIcon size={16} className="ep-wa-quick-reply-icon" />
+                            <span>{period.label}</span>
                           </div>
-                          <div className="ep-wa-dock__period-btn-right">
-                            <span className="ep-wa-dock__period-tag">{period.tag}</span>
-                            <ChevronRight size={16} className="ep-wa-dock__period-arrow" />
-                          </div>
+                          {period.tag && (
+                            <span className="ep-wa-quick-reply-tag">{period.tag}</span>
+                          )}
                         </button>
                       );
                     })}

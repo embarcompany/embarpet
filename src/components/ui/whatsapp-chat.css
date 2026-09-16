@@ -582,6 +582,140 @@
 }
 
 /* ==========================================================================
+   WHATSAPP QUICK REPLIES (CLEAN, 1-TAP CONVERSATIONAL PILLS)
+   ========================================================================== */
+.ep-wa-quick-replies {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+  animation: ep-wa-slide-up 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ep-wa-quick-replies__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6.5px;
+  width: 100%;
+}
+
+.ep-wa-quick-replies__grid--countries {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  width: 100%;
+}
+
+.ep-wa-quick-replies__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.ep-wa-quick-reply-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 22px;
+  border: 1.5px solid #a7f3d0;
+  background: #ffffff;
+  color: #005c4b;
+  font-size: 13.5px;
+  font-weight: 750;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.15s ease;
+  text-align: left;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ep-wa-quick-reply-btn:hover {
+  background: #e6f7f2;
+  border-color: #00a884;
+  color: #004d40;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 168, 132, 0.18);
+}
+
+.ep-wa-quick-reply-btn:active {
+  transform: scale(0.98);
+}
+
+.ep-wa-quick-reply-btn--country {
+  min-height: 42px;
+  padding: 6px 11px;
+  font-size: 13px;
+}
+
+.ep-wa-quick-reply-btn--period {
+  justify-content: space-between;
+  min-height: 46px;
+  padding: 8px 14px;
+}
+
+.ep-wa-quick-reply-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ep-wa-quick-reply-flag {
+  width: 20px;
+  height: auto;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.ep-wa-quick-reply-icon {
+  color: #00a884;
+  flex-shrink: 0;
+}
+
+.ep-wa-quick-reply-tag {
+  font-size: 10.5px;
+  font-weight: 750;
+  color: #065f46;
+  background: #dcfce7;
+  padding: 2px 7px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ep-wa-quick-replies__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 0 0;
+}
+
+.ep-wa-quick-reply-sub {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  color: #065f46;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 4px 6px;
+  transition: color 0.15s ease;
+}
+
+.ep-wa-quick-reply-sub:hover {
+  color: #004d40;
+}
+
+/* ==========================================================================
    SLEEK WHATSAPP NATIVE BOTTOM BAR
    ========================================================================== */
 .ep-wa-bottom-bar {
