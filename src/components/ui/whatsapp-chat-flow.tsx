@@ -7,10 +7,9 @@ import {
   ArrowLeft,
   Phone,
   Plus,
+  Minus,
   Sparkles,
-  Lock,
   ChevronRight,
-  Check,
   User,
   PawPrint,
   PlaneTakeoff,
@@ -24,10 +23,12 @@ import {
   Calendar,
   Clock,
   ShieldCheck,
+  Search,
 } from "lucide-react";
 import { submitLead, type PublicLead } from "../../lead-contract";
 import { trackConversionEvent } from "../../lib/analytics";
 import { countryFlagSvg } from "../../lib/country-flag";
+import { useCountrySuggestions } from "../../hooks/use-country-suggestions";
 
 export function WhatsAppIconSvg({ size = 18, color = "#25D366" }: { size?: number; color?: string }) {
   return (
@@ -67,7 +68,11 @@ const popularOrigins = [
   { label: "Brasil", code: "BR" },
   { label: "Estados Unidos", code: "US" },
   { label: "Portugal", code: "PT" },
+  { label: "Espanha", code: "ES" },
+  { label: "Itália", code: "IT" },
+  { label: "França", code: "FR" },
   { label: "Argentina", code: "AR" },
+  { label: "Uruguai", code: "UY" },
   { label: "Outro país", code: "OTHER" },
 ];
 
@@ -76,36 +81,50 @@ const popularDestinations = [
   { label: "Portugal", code: "PT" },
   { label: "Espanha", code: "ES" },
   { label: "Itália", code: "IT" },
+  { label: "França", code: "FR" },
+  { label: "Alemanha", code: "DE" },
   { label: "Argentina", code: "AR" },
   { label: "Uruguai", code: "UY" },
   { label: "Outro país", code: "OTHER" },
 ];
 
 const dogBreeds = [
-  "Spitz / Lulu",
-  "Golden / Labrador",
-  "Bulldog / Pug",
-  "Shih Tzu / Lhasa",
-  "Yorkshire / Maltês",
-  "Pastor / Border",
+  "Spitz Alemão",
+  "Golden Retriever",
+  "Labrador",
+  "Bulldog Francês",
+  "Pug",
+  "Shih Tzu",
+  "Lhasa Apso",
+  "Yorkshire",
+  "Maltês",
+  "Border Collie",
+  "Pastor Alemão",
+  "Poodle",
 ];
 
 const catBreeds = [
   "Siamês",
-  "Persa (Braqui)",
+  "Persa",
   "Maine Coon",
   "Bengal",
   "Ragdoll",
+  "Sphynx",
+  "British Shorthair",
+  "Angorá",
   "Gato Comum",
 ];
 
 const exoticPets = [
   "Calopsita",
-  "Coelho / Porquinho",
-  "Furão / Ferret",
+  "Coelho",
+  "Porquinho-da-Índia",
+  "Furão",
   "Papagaio",
+  "Canário",
+  "Hamster",
+  "Chinchila",
   "Réptil",
-  "Outra Espécie",
 ];
 
 const travelPeriods = [
@@ -199,20 +218,69 @@ export function WhatsAppChatFlow({
   const [petBreed, setPetBreed] = useState("");
   const [isSrd, setIsSrd] = useState(false);
 
-  const availableBreeds = petSpecies === "Gato" ? catBreeds : (petSpecies === "Roedor" || petSpecies === "Ave" || petSpecies === "Outro Pet / Exótico") ? exoticPets : dogBreeds;
+  // Multi-Pet Selector State
+  const [isMultiPetMode, setIsMultiPetMode] = useState(false);
+  const [multiCounts, setMultiCounts] = useState({
+    dogs: 1,
+    cats: 1,
+    rodents: 0,
+    birds: 0,
+    others: 0,
+  });
+
+  const totalMultiPets =
+    multiCounts.dogs +
+    multiCounts.cats +
+    multiCounts.rodents +
+    multiCounts.birds +
+    multiCounts.others;
+
+  const updateMultiCount = (type: keyof typeof multiCounts, delta: number) => {
+    setMultiCounts((prev) => {
+      const nextVal = Math.max(0, Math.min(10, prev[type] + delta));
+      return { ...prev, [type]: nextVal };
+    });
+  };
+
+  const formatMultiSummary = () => {
+    const parts: string[] = [];
+    if (multiCounts.dogs > 0) parts.push(`${multiCounts.dogs} ${multiCounts.dogs > 1 ? "Cães" : "Cão"}`);
+    if (multiCounts.cats > 0) parts.push(`${multiCounts.cats} ${multiCounts.cats > 1 ? "Gatos" : "Gato"}`);
+    if (multiCounts.rodents > 0) parts.push(`${multiCounts.rodents} ${multiCounts.rodents > 1 ? "Roedores" : "Roedor"}`);
+    if (multiCounts.birds > 0) parts.push(`${multiCounts.birds} ${multiCounts.birds > 1 ? "Aves" : "Ave"}`);
+    if (multiCounts.others > 0) parts.push(`${multiCounts.others} Outro(s)`);
+    if (parts.length === 0) return "Múltiplos Pets";
+    if (parts.length === 1) return parts[0];
+    if (parts.length === 2) return `${parts[0]} e ${parts[1]}`;
+    return `${parts.slice(0, -1).join(", ")} e ${parts[parts.length - 1]}`;
+  };
+
+  const availableBreeds = petSpecies.toLowerCase().includes("gato")
+    ? catBreeds
+    : petSpecies.toLowerCase().includes("roedor") ||
+      petSpecies.toLowerCase().includes("ave") ||
+      petSpecies.toLowerCase().includes("exótico") ||
+      petSpecies.toLowerCase().includes("outro")
+    ? exoticPets
+    : dogBreeds;
 
   const [routeOrigin, setRouteOrigin] = useState(initialRoute.origin || "Brasil");
   const [routeDestination, setRouteDestination] = useState(initialRoute.destination || "");
   const [customOriginInput, setCustomOriginInput] = useState("");
   const [isCustomOrigin, setIsCustomOrigin] = useState(false);
 
+  const [customDestinationInput, setCustomDestinationInput] = useState("");
+  const [isCustomDestination, setIsCustomDestination] = useState(false);
+
+  // Country Suggestions Hooks for Origin & Destination
+  const originSuggestions = useCountrySuggestions(customOriginInput, isCustomOrigin, "pt-BR");
+  const destinationSuggestions = useCountrySuggestions(customDestinationInput, isCustomDestination, "pt-BR");
+
   const [travelPeriod, setTravelPeriod] = useState(initialRoute.period || "");
   const [tutorName, setTutorName] = useState("");
   const [tutorPhone, setTutorPhone] = useState("");
   const [phoneCountry, setPhoneCountry] = useState(phoneCountries[0]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [customDestinationInput, setCustomDestinationInput] = useState("");
-  const [isCustomDestination, setIsCustomDestination] = useState(false);
   const [completedWhatsAppUrl, setCompletedWhatsAppUrl] = useState<string | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -224,7 +292,7 @@ export function WhatsAppChatFlow({
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isTyping, thinkingText, currentStep]);
+  }, [messages, isTyping, thinkingText, currentStep, isMultiPetMode, isCustomOrigin, isCustomDestination]);
 
   const trackStart = () => {
     if (hasTrackedStart.current) return;
@@ -258,6 +326,18 @@ export function WhatsAppChatFlow({
 
   // Step Back Navigation
   const handleGoBack = () => {
+    if (isMultiPetMode) {
+      setIsMultiPetMode(false);
+      return;
+    }
+    if (isCustomOrigin) {
+      setIsCustomOrigin(false);
+      return;
+    }
+    if (isCustomDestination) {
+      setIsCustomDestination(false);
+      return;
+    }
     if (stepHistory.length === 0 || isTyping || thinkingText) return;
     const previous = stepHistory[stepHistory.length - 1];
     setStepHistory((prev) => prev.slice(0, -1));
@@ -296,7 +376,7 @@ export function WhatsAppChatFlow({
     return () => clearTimeout(timer1);
   }, []);
 
-  // Step 1: Handle Species Selection (1-Tap)
+  // Step 1A: Handle Single Species Selection (1-Tap)
   const handleSelectSpecies = (species: string) => {
     trackStart();
     setPetSpecies(species);
@@ -323,6 +403,42 @@ export function WhatsAppChatFlow({
 
     triggerAiResponse(thoughtText, () => {
       const followUp = `Perfeito! Qual a raça ou tipo do seu **${species === "Gato" ? "gatinho" : species === "Cachorro" ? "cãozinho" : "pet"}**?`;
+      const botMsg: ChatMessage = {
+        id: `bot-pet-details-${Date.now()}`,
+        sender: "thamires",
+        text: followUp,
+        time: getNowTime(),
+      };
+      setMessages((prev) => [...prev, botMsg]);
+    });
+  };
+
+  // Step 1B: Handle Multi-Pet Confirmation
+  const handleConfirmMultiPets = () => {
+    if (totalMultiPets === 0) return;
+    trackStart();
+    const summary = formatMultiSummary();
+    setPetSpecies(summary);
+    setPetBreed("");
+    setIsSrd(false);
+    setIsMultiPetMode(false);
+    const time = getNowTime();
+
+    const userMsg: ChatMessage = {
+      id: `user-species-${Date.now()}`,
+      sender: "user",
+      text: `${summary} (${totalMultiPets} pets)`,
+      time,
+    };
+
+    const nextMessages = [...messages, userMsg];
+    setMessages(nextMessages);
+    pushStep("pet_details", messages.length);
+
+    const thoughtText = `Calculando compartimentos e caixas de transporte homologadas para ${totalMultiPets} pets...`;
+
+    triggerAiResponse(thoughtText, () => {
+      const followUp = `Perfeito! Planejando a logística para **${summary}**.\n\nQuais as raças ou portes dos pets?`;
       const botMsg: ChatMessage = {
         id: `bot-pet-details-${Date.now()}`,
         sender: "thamires",
@@ -643,12 +759,12 @@ export function WhatsAppChatFlow({
           <div className="ep-wa-dock__progress-wrap">
             <div className="ep-wa-dock__progress-info">
               <div className="ep-wa-dock__step-row">
-                {stepHistory.length > 0 ? (
+                {stepHistory.length > 0 || isMultiPetMode || isCustomOrigin || isCustomDestination ? (
                   <button
                     type="button"
                     className="ep-wa-dock__back-btn"
                     onClick={handleGoBack}
-                    title="Voltar para a pergunta anterior"
+                    title="Voltar para a opção anterior"
                   >
                     <ArrowLeft size={13} />
                     <span>Voltar</span>
@@ -657,7 +773,7 @@ export function WhatsAppChatFlow({
                   <span className="ep-wa-dock__step-indicator">Início</span>
                 )}
                 <span className={`ep-wa-dock__progress-label ${stepMeta.isFinal ? "ep-wa-dock__progress-label--urgent" : ""}`}>
-                  {stepMeta.title}
+                  {isMultiPetMode ? "Quantidade de Pets" : isCustomOrigin ? "Buscar Origem" : isCustomDestination ? "Buscar Destino" : stepMeta.title}
                 </span>
               </div>
               <span className="ep-wa-dock__progress-badge">
@@ -673,8 +789,8 @@ export function WhatsAppChatFlow({
           </div>
         )}
 
-        {/* Step 1: Species Selection (2x2 cards for main 4 + 2-column card for Outro Pet + text button for multiple pets) */}
-        {currentStep === "greeting" && !isTyping && (
+        {/* Step 1: Species Selection (Default Mode) */}
+        {currentStep === "greeting" && !isMultiPetMode && !isTyping && (
           <div className="ep-wa-dock__step">
             <div className="ep-wa-dock__grid ep-wa-dock__grid--species">
               {mainSpeciesOptions.map((opt) => {
@@ -699,7 +815,7 @@ export function WhatsAppChatFlow({
               <button
                 type="button"
                 className="ep-wa-dock__species-text-btn"
-                onClick={() => handleSelectSpecies("Múltiplos Pets")}
+                onClick={() => setIsMultiPetMode(true)}
               >
                 <PawPrint size={15} />
                 <span>Viajar com mais de 1 pet</span>
@@ -708,12 +824,182 @@ export function WhatsAppChatFlow({
           </div>
         )}
 
-        {/* Step 2: Breed / Pet Details (SRD Badge Inside Input on the Right + Strikethrough AI Suggestions) */}
+        {/* Step 1 (Multi-Pet Mode): Low-friction Tactile Stepper Counters */}
+        {currentStep === "greeting" && isMultiPetMode && !isTyping && (
+          <div className="ep-wa-dock__step">
+            <div className="ep-wa-dock__multi-selector">
+              <div className="ep-wa-dock__multi-header">
+                <span className="ep-wa-dock__label">Quantos pets vão viajar?</span>
+              </div>
+
+              <div className="ep-wa-dock__counters-grid">
+                <div className="ep-wa-dock__counter-row">
+                  <div className="ep-wa-dock__counter-info">
+                    <Dog size={17} className="ep-wa-dock__counter-icon" />
+                    <span className="ep-wa-dock__counter-label">Cães</span>
+                  </div>
+                  <div className="ep-wa-dock__counter-stepper">
+                    <button
+                      type="button"
+                      className="ep-wa-dock__counter-btn"
+                      onClick={() => updateMultiCount("dogs", -1)}
+                      disabled={multiCounts.dogs === 0}
+                      aria-label="Diminuir cães"
+                    >
+                      <Minus size={13} />
+                    </button>
+                    <span className="ep-wa-dock__counter-val">{multiCounts.dogs}</span>
+                    <button
+                      type="button"
+                      className="ep-wa-dock__counter-btn"
+                      onClick={() => updateMultiCount("dogs", 1)}
+                      aria-label="Aumentar cães"
+                    >
+                      <Plus size={13} />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="ep-wa-dock__counter-row">
+                  <div className="ep-wa-dock__counter-info">
+                    <Cat size={17} className="ep-wa-dock__counter-icon" />
+                    <span className="ep-wa-dock__counter-label">Gatos</span>
+                  </div>
+                  <div className="ep-wa-dock__counter-stepper">
+                    <button
+                      type="button"
+                      className="ep-wa-dock__counter-btn"
+                      onClick={() => updateMultiCount("cats", -1)}
+                      disabled={multiCounts.cats === 0}
+                      aria-label="Diminuir gatos"
+                    >
+                      <Minus size={13} />
+                    </button>
+                    <span className="ep-wa-dock__counter-val">{multiCounts.cats}</span>
+                    <button
+                      type="button"
+                      className="ep-wa-dock__counter-btn"
+                      onClick={() => updateMultiCount("cats", 1)}
+                      aria-label="Aumentar gatos"
+                    >
+                      <Plus size={13} />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="ep-wa-dock__counter-row">
+                  <div className="ep-wa-dock__counter-info">
+                    <Rabbit size={17} className="ep-wa-dock__counter-icon" />
+                    <span className="ep-wa-dock__counter-label">Roedores</span>
+                  </div>
+                  <div className="ep-wa-dock__counter-stepper">
+                    <button
+                      type="button"
+                      className="ep-wa-dock__counter-btn"
+                      onClick={() => updateMultiCount("rodents", -1)}
+                      disabled={multiCounts.rodents === 0}
+                      aria-label="Diminuir roedores"
+                    >
+                      <Minus size={13} />
+                    </button>
+                    <span className="ep-wa-dock__counter-val">{multiCounts.rodents}</span>
+                    <button
+                      type="button"
+                      className="ep-wa-dock__counter-btn"
+                      onClick={() => updateMultiCount("rodents", 1)}
+                      aria-label="Aumentar roedores"
+                    >
+                      <Plus size={13} />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="ep-wa-dock__counter-row">
+                  <div className="ep-wa-dock__counter-info">
+                    <Bird size={17} className="ep-wa-dock__counter-icon" />
+                    <span className="ep-wa-dock__counter-label">Aves</span>
+                  </div>
+                  <div className="ep-wa-dock__counter-stepper">
+                    <button
+                      type="button"
+                      className="ep-wa-dock__counter-btn"
+                      onClick={() => updateMultiCount("birds", -1)}
+                      disabled={multiCounts.birds === 0}
+                      aria-label="Diminuir aves"
+                    >
+                      <Minus size={13} />
+                    </button>
+                    <span className="ep-wa-dock__counter-val">{multiCounts.birds}</span>
+                    <button
+                      type="button"
+                      className="ep-wa-dock__counter-btn"
+                      onClick={() => updateMultiCount("birds", 1)}
+                      aria-label="Aumentar aves"
+                    >
+                      <Plus size={13} />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="ep-wa-dock__counter-row ep-wa-dock__counter-row--full">
+                  <div className="ep-wa-dock__counter-info">
+                    <Sparkles size={17} className="ep-wa-dock__counter-icon" />
+                    <span className="ep-wa-dock__counter-label">Outros pets</span>
+                  </div>
+                  <div className="ep-wa-dock__counter-stepper">
+                    <button
+                      type="button"
+                      className="ep-wa-dock__counter-btn"
+                      onClick={() => updateMultiCount("others", -1)}
+                      disabled={multiCounts.others === 0}
+                      aria-label="Diminuir outros"
+                    >
+                      <Minus size={13} />
+                    </button>
+                    <span className="ep-wa-dock__counter-val">{multiCounts.others}</span>
+                    <button
+                      type="button"
+                      className="ep-wa-dock__counter-btn"
+                      onClick={() => updateMultiCount("others", 1)}
+                      aria-label="Aumentar outros"
+                    >
+                      <Plus size={13} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                className="ep-wa-dock__cta-btn ep-wa-dock__cta-btn--bold"
+                disabled={totalMultiPets === 0}
+                onClick={handleConfirmMultiPets}
+              >
+                <span>
+                  CONFIRMAR {totalMultiPets > 0 ? `${totalMultiPets} ${totalMultiPets > 1 ? "PETS" : "PET"}` : "PETS"}
+                </span>
+                <ArrowRight size={17} strokeWidth={2.5} />
+              </button>
+
+              <div className="ep-wa-dock__species-footer">
+                <button
+                  type="button"
+                  className="ep-wa-dock__species-text-btn"
+                  onClick={() => setIsMultiPetMode(false)}
+                >
+                  ✕ Voltar para seleção única
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Step 2: Breed / Pet Details (SRD Badge in Neutral Grey + 3-Column 100% Full Breed Grid without Slashes) */}
         {currentStep === "pet_details" && !isTyping && !thinkingText && (
           <form onSubmit={handleConfirmPetDetails} className="ep-wa-dock__step">
             <div className="ep-wa-dock__field-group">
               <span className="ep-wa-dock__label">
-                Raça ou tipo do seu {petSpecies === "Gato" ? "gato" : petSpecies === "Cachorro" ? "cão" : "pet"}:
+                Raça ou perfil {petSpecies.toLowerCase().includes("gato") ? "do gato" : petSpecies.toLowerCase().includes("cão") || petSpecies.toLowerCase().includes("cachorro") ? "do cão" : "dos pets"}:
               </span>
 
               {/* Input with SRD Badge Button inside on the right */}
@@ -744,17 +1030,17 @@ export function WhatsAppChatFlow({
                     }
                   }}
                 >
-                  {isSrd ? "✕ Sem raça (SRD)" : "Sem raça (SRD)"}
+                  {isSrd ? "✓ Sem raça (SRD)" : "Sem raça (SRD)"}
                 </button>
               </div>
 
-              {/* Suggestion Chips (Strikethrough / tachadas when SRD is active) */}
+              {/* Suggestion Chips (100% full width grid, no empty gaps, no slashes, lowercase label) */}
               <div className="ep-wa-dock__suggestions-container">
                 <span className={`ep-wa-dock__suggestions-label ${isSrd ? "ep-wa-dock__suggestions-label--disabled" : ""}`}>
                   <Sparkles size={12} />
-                  Sugestões da IA:
+                  sugestões da ia
                 </span>
-                <div className="ep-wa-dock__chips-wrap">
+                <div className="ep-wa-dock__chips-grid">
                   {availableBreeds.map((b) => {
                     const isSelected = !isSrd && petBreed === b;
                     return (
@@ -767,6 +1053,7 @@ export function WhatsAppChatFlow({
                           setIsSrd(false);
                           setPetBreed(b);
                         }}
+                        title={b}
                       >
                         {b}
                       </button>
@@ -787,7 +1074,7 @@ export function WhatsAppChatFlow({
           </form>
         )}
 
-        {/* Step 3: Origin Selection (Separate Micro-step with "Outro país" full width) */}
+        {/* Step 3: Origin Selection (8 Popular Countries + Autocomplete Dropdown Search) */}
         {currentStep === "origin" && !isTyping && !thinkingText && (
           <div className="ep-wa-dock__step">
             <div className="ep-wa-dock__field-group">
@@ -816,7 +1103,7 @@ export function WhatsAppChatFlow({
                         {orig.code !== "OTHER" ? (
                           <img src={countryFlagSvg(orig.code)} alt="" className="ep-wa-dock__dest-flag" />
                         ) : (
-                          <Plus size={16} />
+                          <Search size={16} />
                         )}
                         <span className="ep-wa-dock__dest-name">{orig.label}</span>
                       </button>
@@ -824,34 +1111,76 @@ export function WhatsAppChatFlow({
                   })}
                 </div>
               ) : (
-                <div className="ep-wa-dock__input-row">
-                  <div className="ep-wa-dock__input-wrap">
-                    <PlaneTakeoff size={17} className="ep-wa-dock__input-icon" />
-                    <input
-                      className="ep-wa-dock__input ep-wa-dock__input--with-icon"
-                      type="text"
-                      placeholder="Digite o país de origem..."
-                      value={customOriginInput}
-                      onChange={(e) => setCustomOriginInput(e.target.value)}
-                      autoFocus
-                    />
+                <div className="ep-wa-dock__search-container">
+                  <div className="ep-wa-dock__input-row">
+                    <div className="ep-wa-dock__input-wrap">
+                      <Search size={17} className="ep-wa-dock__input-icon" />
+                      <input
+                        className="ep-wa-dock__input ep-wa-dock__input--with-icon"
+                        type="text"
+                        placeholder="Digite o país (ex: Japão, Canadá...)"
+                        value={customOriginInput}
+                        onChange={(e) => setCustomOriginInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && customOriginInput.trim()) {
+                            e.preventDefault();
+                            handleSelectOrigin(customOriginInput.trim());
+                          }
+                        }}
+                        autoFocus
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      className="ep-wa-dock__cta-btn ep-wa-dock__cta-btn--compact ep-wa-dock__cta-btn--bold"
+                      disabled={!customOriginInput.trim()}
+                      onClick={() => handleSelectOrigin(customOriginInput.trim())}
+                    >
+                      <span>OK</span>
+                      <ChevronRight size={17} />
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    className="ep-wa-dock__cta-btn ep-wa-dock__cta-btn--compact ep-wa-dock__cta-btn--bold"
-                    disabled={!customOriginInput.trim()}
-                    onClick={() => handleSelectOrigin(customOriginInput.trim())}
-                  >
-                    <span>OK</span>
-                    <ChevronRight size={17} />
-                  </button>
+
+                  {/* Autocomplete Dropdown List */}
+                  {originSuggestions.length > 0 && (
+                    <div className="ep-wa-dock__country-dropdown" role="listbox">
+                      {originSuggestions.map((s) => (
+                        <button
+                          key={s.code}
+                          type="button"
+                          className="ep-wa-dock__country-dropdown-item"
+                          onClick={() => {
+                            setCustomOriginInput(s.name);
+                            handleSelectOrigin(s.name);
+                          }}
+                        >
+                          <img src={countryFlagSvg(s.code)} alt="" className="ep-wa-dock__dropdown-flag" />
+                          <span className="ep-wa-dock__dropdown-name">{s.name}</span>
+                          <span className="ep-wa-dock__dropdown-code">{s.code}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="ep-wa-dock__species-footer">
+                    <button
+                      type="button"
+                      className="ep-wa-dock__species-text-btn"
+                      onClick={() => {
+                        setIsCustomOrigin(false);
+                        setCustomOriginInput("");
+                      }}
+                    >
+                      ✕ Voltar aos países principais
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
           </div>
         )}
 
-        {/* Step 4: Destination Selection (Separate Micro-step with "Outro país" full width) */}
+        {/* Step 4: Destination Selection (8 Popular Countries + Autocomplete Dropdown Search) */}
         {currentStep === "destination" && !isTyping && !thinkingText && (
           <div className="ep-wa-dock__step">
             <div className="ep-wa-dock__field-group">
@@ -884,7 +1213,7 @@ export function WhatsAppChatFlow({
                             className="ep-wa-dock__dest-flag"
                           />
                         ) : (
-                          <Plus size={16} />
+                          <Search size={16} />
                         )}
                         <span className="ep-wa-dock__dest-name">{dest.label}</span>
                       </button>
@@ -892,27 +1221,69 @@ export function WhatsAppChatFlow({
                   })}
                 </div>
               ) : (
-                <div className="ep-wa-dock__input-row">
-                  <div className="ep-wa-dock__input-wrap">
-                    <PlaneLanding size={18} className="ep-wa-dock__input-icon" />
-                    <input
-                      className="ep-wa-dock__input ep-wa-dock__input--with-icon"
-                      type="text"
-                      placeholder="Digite o país de destino..."
-                      value={customDestinationInput}
-                      onChange={(e) => setCustomDestinationInput(e.target.value)}
-                      autoFocus
-                    />
+                <div className="ep-wa-dock__search-container">
+                  <div className="ep-wa-dock__input-row">
+                    <div className="ep-wa-dock__input-wrap">
+                      <Search size={18} className="ep-wa-dock__input-icon" />
+                      <input
+                        className="ep-wa-dock__input ep-wa-dock__input--with-icon"
+                        type="text"
+                        placeholder="Digite o país (ex: Japão, Canadá...)"
+                        value={customDestinationInput}
+                        onChange={(e) => setCustomDestinationInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && customDestinationInput.trim()) {
+                            e.preventDefault();
+                            handleSelectDestination(customDestinationInput.trim());
+                          }
+                        }}
+                        autoFocus
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      className="ep-wa-dock__cta-btn ep-wa-dock__cta-btn--compact ep-wa-dock__cta-btn--bold"
+                      disabled={!customDestinationInput.trim()}
+                      onClick={() => handleSelectDestination(customDestinationInput.trim())}
+                    >
+                      <span>OK</span>
+                      <ChevronRight size={17} />
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    className="ep-wa-dock__cta-btn ep-wa-dock__cta-btn--compact ep-wa-dock__cta-btn--bold"
-                    disabled={!customDestinationInput.trim()}
-                    onClick={() => handleSelectDestination(customDestinationInput.trim())}
-                  >
-                    <span>OK</span>
-                    <ChevronRight size={17} />
-                  </button>
+
+                  {/* Autocomplete Dropdown List */}
+                  {destinationSuggestions.length > 0 && (
+                    <div className="ep-wa-dock__country-dropdown" role="listbox">
+                      {destinationSuggestions.map((s) => (
+                        <button
+                          key={s.code}
+                          type="button"
+                          className="ep-wa-dock__country-dropdown-item"
+                          onClick={() => {
+                            setCustomDestinationInput(s.name);
+                            handleSelectDestination(s.name);
+                          }}
+                        >
+                          <img src={countryFlagSvg(s.code)} alt="" className="ep-wa-dock__dropdown-flag" />
+                          <span className="ep-wa-dock__dropdown-name">{s.name}</span>
+                          <span className="ep-wa-dock__dropdown-code">{s.code}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="ep-wa-dock__species-footer">
+                    <button
+                      type="button"
+                      className="ep-wa-dock__species-text-btn"
+                      onClick={() => {
+                        setIsCustomDestination(false);
+                        setCustomDestinationInput("");
+                      }}
+                    >
+                      ✕ Voltar aos países principais
+                    </button>
+                  </div>
                 </div>
               )}
             </div>

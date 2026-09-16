@@ -549,15 +549,113 @@
   font-size: 12px;
 }
 
+/* Multi-Pet Stepper Counter Panel */
+.ep-wa-dock__multi-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.ep-wa-dock__multi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ep-wa-dock__counters-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 7px;
+}
+
+.ep-wa-dock__counter-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.ep-wa-dock__counter-row:hover {
+  border-color: #00a884;
+  background: #f0fdf9;
+}
+
+.ep-wa-dock__counter-row--full {
+  grid-column: 1 / -1;
+}
+
+.ep-wa-dock__counter-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ep-wa-dock__counter-icon {
+  color: #00a884;
+  flex-shrink: 0;
+}
+
+.ep-wa-dock__counter-label {
+  font-size: 13px;
+  font-weight: 750;
+  color: #1e293b;
+}
+
+.ep-wa-dock__counter-stepper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ep-wa-dock__counter-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ep-wa-dock__counter-btn:hover:not(:disabled) {
+  background: #00a884;
+  border-color: #00a884;
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+.ep-wa-dock__counter-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.ep-wa-dock__counter-val {
+  font-size: 14px;
+  font-weight: 850;
+  color: #0f172a;
+  min-width: 16px;
+  text-align: center;
+}
+
 /* Breed Input with SRD Badge Button Inside Right */
 .ep-wa-dock__input--with-srd {
   padding-right: 142px;
 }
 
 .ep-wa-dock__input--srd-active {
-  background: #fff1f2;
-  border-color: #f43f5e;
-  color: #e11d48;
+  background: #f8fafc;
+  border-color: #94a3b8;
+  color: #334155;
   font-weight: 700;
 }
 
@@ -583,16 +681,16 @@
 }
 
 .ep-wa-dock__srd-badge-btn:hover {
-  background: #fee2e2;
-  border-color: #fca5a5;
-  color: #dc2626;
+  background: #e2e8f0;
+  border-color: #94a3b8;
+  color: #1e293b;
 }
 
 .ep-wa-dock__srd-badge-btn--active {
-  background: #dc2626 !important;
-  border-color: #b91c1c !important;
+  background: #334155 !important;
+  border-color: #1e293b !important;
   color: #ffffff !important;
-  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.35);
+  box-shadow: 0 2px 8px rgba(51, 65, 85, 0.35);
 }
 
 /* AI Suggestions Container & Strikethrough */
@@ -610,8 +708,8 @@
   font-size: 11px;
   font-weight: 750;
   color: #00a884;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
   transition: color 0.15s ease;
 }
 
@@ -796,7 +894,14 @@
   text-decoration: underline;
 }
 
-/* Flex-Wrap Chip Container (Zero Horizontal Scroll!) */
+/* 3-Column Full-Width Breed Chips Grid (Zero Empty Space • No Horizontal Scroll) */
+.ep-wa-dock__chips-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  width: 100%;
+}
+
 .ep-wa-dock__chips-wrap {
   display: flex;
   flex-wrap: wrap;
@@ -805,15 +910,21 @@
 }
 
 .ep-wa-dock__chip {
-  padding: 6px 12px;
+  width: 100%;
+  padding: 6.5px 4px;
   border-radius: 999px;
   border: 1px solid #d1d5db;
   background: #f9fafb;
   color: #374151;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 650;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   cursor: pointer;
   transition: all 0.15s ease;
+  display: block;
 }
 
 .ep-wa-dock__chip:hover {
@@ -828,6 +939,75 @@
   color: #ffffff;
   font-weight: 750;
   box-shadow: 0 2px 6px rgba(0, 92, 75, 0.25);
+}
+
+/* Country Search Container & Floating Autocomplete Dropdown */
+.ep-wa-dock__search-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+.ep-wa-dock__country-dropdown {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1.5px solid #cbd5e1;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.18), 0 0 1px rgba(0, 0, 0, 0.12);
+  z-index: 50;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  animation: ep-wa-pop 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  scrollbar-width: thin;
+}
+
+.ep-wa-dock__country-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.12s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.ep-wa-dock__country-dropdown-item:hover {
+  background: #e6f7f2;
+}
+
+.ep-wa-dock__dropdown-flag {
+  width: 22px;
+  height: auto;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.ep-wa-dock__dropdown-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0f172a;
+  flex: 1;
+}
+
+.ep-wa-dock__dropdown-code {
+  font-size: 11px;
+  font-weight: 750;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
 /* ==========================================================================
