@@ -1030,68 +1030,226 @@
   box-shadow: 0 6px 16px rgba(37, 211, 102, 0.42);
 }
 
-/* Sleek Minimalist Bottom Bar */
-.ep-wa-bottom-bar {
-  background: #ffffff;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-  padding: 6px 14px 8px;
-  flex-shrink: 0;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
+/* Top Progress Bar */
+.ep-wa-top-progress {
+  width: 100%;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  z-index: 3;
 }
 
-.ep-wa-bottom-bar__row {
+.ep-wa-top-progress__bar {
+  height: 100%;
+  background: #25d366;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Back Navigation in Action Area */
+.ep-wa-back-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 0 2px 4px;
+}
+
+.ep-wa-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.ep-wa-back-btn:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+  border-color: #94a3b8;
+}
+
+/* Unified Phone Input Group */
+.ep-wa-unified-phone {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #bbf7d0;
+  border-radius: 10px;
+  background: #ffffff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+}
+
+.ep-wa-unified-phone:focus-within {
+  border-color: #00a884;
+  box-shadow: 0 0 0 2px rgba(0, 168, 132, 0.18);
+}
+
+.ep-wa-unified-phone .ep-wa-ddi-trigger {
+  border: none;
+  border-radius: 8px 0 0 8px;
+  background: transparent;
+  padding: 0 8px 0 10px;
+  height: 42px;
+  border-right: 1px solid #e2e8f0;
+}
+
+.ep-wa-unified-phone .ep-wa-clean-input--phone {
+  border: none;
+  border-radius: 0 8px 8px 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0 12px;
+  height: 42px;
+}
+
+.ep-wa-unified-phone .ep-wa-clean-input--phone:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Single-Line Submit Button */
+.ep-wa-submit-single-line {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #00a884 0%, #008f6f 100%);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0, 168, 132, 0.28);
+  transition: all 0.16s ease;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.ep-wa-submit-single-line span {
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.ep-wa-submit-single-line:hover:not(:disabled) {
+  background: linear-gradient(135deg, #009978 0%, #007e62 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 168, 132, 0.38);
+}
+
+.ep-wa-submit-single-line:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.ep-wa-submit-single-line:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Multi-Pet Stepper Card */
+.ep-wa-multi-pet-card {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  gap: 10px;
+  background: #ffffff;
+  border-radius: 16px 16px 2px 16px;
+  border: 1px solid #bbf7d0;
+  padding: 12px 14px;
+  box-shadow: 0 1px 2px rgba(11, 20, 26, 0.08);
+  width: 100%;
+  max-width: 90%;
+  position: relative;
+}
+
+.ep-wa-multi-pet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ep-wa-multi-pet-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
+  padding: 4px 0;
+  border-bottom: 1px dashed #f1f5f9;
 }
 
-.ep-wa-bottom-bar__back-btn {
+.ep-wa-multi-pet-row:last-child {
+  border-bottom: none;
+}
+
+.ep-wa-multi-pet-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.ep-wa-multi-pet-icon {
+  color: #059669;
+  flex-shrink: 0;
+}
+
+.ep-wa-multi-pet-stepper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.ep-wa-multi-pet-counter-tag {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  padding: 2px 6px;
-  border-radius: 6px;
-  border: 1px solid #cbd5e1;
-  background: #f8fafc;
-  color: #334155;
-  font-size: 10.5px;
-  font-weight: 650;
-  cursor: pointer;
-  transition: all 0.12s ease;
-}
-
-.ep-wa-bottom-bar__back-btn:hover {
-  background: #e2e8f0;
-}
-
-.ep-wa-bottom-bar__label {
   font-size: 11px;
   font-weight: 700;
-  color: #475569;
-}
-
-.ep-wa-bottom-bar__pct {
-  font-size: 10.5px;
-  font-weight: 750;
-  color: #00a884;
-}
-
-.ep-wa-bottom-bar__track {
-  width: 100%;
-  height: 3px;
+  color: #065f46;
+  background: #dcfce7;
+  padding: 2px 8px;
   border-radius: 999px;
-  background: #e2e8f0;
-  overflow: hidden;
+  margin-bottom: 4px;
+  align-self: flex-start;
 }
 
-.ep-wa-bottom-bar__fill {
-  height: 100%;
-  background: #00a884;
-  border-radius: 999px;
-  transition: width 0.25s ease;
+/* Route Disqualification Card */
+.ep-wa-disqualified-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  border-radius: 12px;
+  color: #92400e;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.ep-wa-disqualified-card p {
+  margin: 0;
+}
+
+/* Bold Chat Text */
+.ep-wa-bold-text {
+  font-weight: 700;
+  color: inherit;
 }
 
 /* Animations */

@@ -55,6 +55,7 @@ export function WhatsAppChatModal({
 }: WhatsAppChatModalProps) {
   const { text } = useLocale();
   const [headerStatus, setHeaderStatus] = useState<"Online" | "digitando..." | "anotando...">("Online");
+  const [progress, setProgress] = useState(15);
 
   useEffect(() => {
     if (!open) return;
@@ -129,6 +130,20 @@ export function WhatsAppChatModal({
           </div>
         </header>
 
+        {/* Top Progress Bar */}
+        <div
+          className="ep-wa-top-progress"
+          role="progressbar"
+          aria-valuenow={progress}
+          aria-valuemin={0}
+          aria-valuemax={100}
+        >
+          <div
+            className="ep-wa-top-progress__bar"
+            style={{ width: `${Math.max(10, Math.min(100, progress))}%` }}
+          />
+        </div>
+
         {/* Conversational Step Flow with AI Reasoning & Interactive Dock */}
         <WhatsAppChatFlow
           initialRoute={initialRoute}
@@ -138,6 +153,7 @@ export function WhatsAppChatModal({
             else if (status === "anotando...") setHeaderStatus("anotando...");
             else setHeaderStatus("Online");
           }}
+          onProgressChange={setProgress}
         />
       </section>
     </div>

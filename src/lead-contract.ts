@@ -13,6 +13,7 @@ export type PublicLead = {
   size?: string;
   name?: string;
   phone?: string;
+  email?: string;
   consent: boolean;
 };
 

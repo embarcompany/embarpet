@@ -168,7 +168,29 @@ export function normalizeText(val: string): string {
 }
 
 /**
+ * Reconhece automaticamente variações populares de Sem Raça Definida (SRD)
+ */
+export function isSrdTerm(term: string): boolean {
+  const norm = normalizeText(term);
+  if (!norm) return false;
+  return (
+    norm === "srd" ||
+    norm.includes("sem raca") ||
+    norm.includes("vira lata") ||
+    norm.includes("viralata") ||
+    norm.includes("mestico") ||
+    norm.includes("mestica") ||
+    norm.includes("mixed") ||
+    norm.includes("mutt") ||
+    norm.includes("indefinid") ||
+    norm.includes("sem pedigree") ||
+    norm === "comum"
+  );
+}
+
+/**
  * Real-time AI Breed search and scoring engine returning rich structured metadata.
+ * Isolamento estrito por espécie para evitar vazamento de raças de cães em gatos.
  */
 export function searchAiBreedsDetailed(
   query: string,
@@ -176,39 +198,49 @@ export function searchAiBreedsDetailed(
   limit = 8
 ): AiPetSuggestion[] {
   const normQuery = normalizeText(query);
-  const specLower = petSpecies.toLowerCase();
-  const isCat = specLower.includes("gato");
-  const isBird = specLower.includes("ave") || specLower.includes("pássaro");
+  const specLower = normalizeText(petSpecies);
+  const isCat = specLower.includes("gato") || specLower.includes("felin");
+  const isDog = specLower.includes("cao") || specLower.includes("cachorro") || specLower.includes("canin");
+  const isBird = specLower.includes("ave") || specLower.includes("passaro");
   const isRodent = specLower.includes("roedor") || specLower.includes("coelho") || specLower.includes("hamster");
   const isExotic =
-    specLower.includes("exótico") ||
+    specLower.includes("exotico") ||
     specLower.includes("outro") ||
     specLower.includes("especial") ||
-    specLower.includes("réptil");
-  const isMulti =
-    (specLower.includes("cão") || specLower.includes("cachorro") || specLower.includes("cães")) &&
-    specLower.includes("gato") ||
-    specLower.includes("múltiplos") ||
-    specLower.includes("pets");
+    specLower.includes("reptil");
 
-  let baseList = detailedPetDatabase.filter((p) => p.category === "dog");
-  if (isMulti) {
-    baseList = detailedPetDatabase;
-  } else if (isCat) {
+  let baseList: AiPetSuggestion[] = [];
+  if (isCat) {
     baseList = detailedPetDatabase.filter((p) => p.category === "cat");
+  } else if (isDog) {
+    baseList = detailedPetDatabase.filter((p) => p.category === "dog");
   } else if (isBird) {
     baseList = detailedPetDatabase.filter((p) => p.category === "bird");
   } else if (isRodent) {
     baseList = detailedPetDatabase.filter((p) => p.category === "rodent");
   } else if (isExotic) {
     baseList = detailedPetDatabase.filter((p) => p.category === "rodent" || p.category === "bird" || p.category === "exotic");
+  } else {
+    baseList = detailedPetDatabase;
   }
 
   if (!normQuery) {
     return baseList.slice(0, limit);
   }
 
-  // Score matching breeds within current category
+  // Se o usuário digitou algum termo de vira-lata/SRD, coloca a opção SRD no topo
+  if (isSrdTerm(normQuery)) {
+    const srdItem = baseList.find((p) => p.name.includes("SRD")) || {
+      name: "Sem Raça Definida (SRD)",
+      category: isCat ? "cat" : "dog",
+      categoryLabel: isCat ? "Gato" : "Cão",
+      tag: "Sem restrições de raça",
+      isBrachy: false,
+    };
+    return [srdItem];
+  }
+
+  // Score matching breeds strictly within current category
   const scored = baseList
     .map((item) => {
       const normName = normalizeText(item.name);
@@ -230,33 +262,7 @@ export function searchAiBreedsDetailed(
     .filter((s) => s.score > 0)
     .sort((a, b) => b.score - a.score);
 
-  if (scored.length > 0) {
-    return scored.slice(0, limit).map((s) => s.item);
-  }
-
-  // Fallback to cross-category search if nothing matched in current species
-  const allScored = detailedPetDatabase
-    .map((item) => {
-      const normName = normalizeText(item.name);
-      const normTag = normalizeText(item.tag || "");
-      let score = 0;
-      if (normName === normQuery) {
-        score = 100;
-      } else if (normName.startsWith(normQuery)) {
-        score = 85;
-      } else if (normName.split(/\s+/).some((w) => w.startsWith(normQuery))) {
-        score = 75;
-      } else if (normName.includes(normQuery)) {
-        score = 55;
-      } else if (normTag.includes(normQuery)) {
-        score = 40;
-      }
-      return { item, score };
-    })
-    .filter((s) => s.score > 0)
-    .sort((a, b) => b.score - a.score);
-
-  return allScored.slice(0, limit).map((s) => s.item);
+  return scored.slice(0, limit).map((s) => s.item);
 }
 
 /**
