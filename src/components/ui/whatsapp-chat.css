@@ -236,7 +236,6 @@
 .ep-wa-thought-pill__icon {
   display: inline-flex;
   color: #00a884;
-  animation: ep-wa-spin-slow 3s linear infinite;
   flex-shrink: 0;
 }
 
@@ -449,7 +448,7 @@
   overflow: hidden;
 }
 
-/* Species Selection Cards (Min-height 56px, Clean Lucide Icons) */
+/* Species Selection Cards (Min-height 60px, Clean Lucide Icons) */
 .ep-wa-dock__grid--species {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -461,7 +460,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  min-height: 56px;
+  min-height: 60px;
   padding: 10px 12px;
   border-radius: 14px;
   border: 1.5px solid #e2e8f0;
@@ -480,15 +479,15 @@
 }
 
 .ep-wa-dock__btn-species:active,
-.ep-wa-dock__chip-box:active,
+.ep-wa-dock__btn-route-pill:active,
 .ep-wa-dock__btn-dest:active,
 .ep-wa-dock__period-btn:active {
   transform: scale(0.985);
 }
 
 .ep-wa-dock__species-icon-wrap {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 10px;
   background: #e6f7f2;
   color: #00a884;
@@ -512,7 +511,7 @@
 }
 
 .ep-wa-dock__species-title {
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 750;
   color: #0f172a;
   line-height: 1.2;
@@ -527,139 +526,116 @@
   text-overflow: ellipsis;
 }
 
-/* 2x2 Weight Box Grid */
-.ep-wa-dock__grid--weights {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  overflow: hidden;
-}
-
-.ep-wa-dock__chip-box {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-height: 52px;
-  padding: 9px 12px;
-  border-radius: 12px;
-  border: 1.5px solid #e2e8f0;
-  background: #f8fafc;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  text-align: left;
-}
-
-.ep-wa-dock__chip-box:hover {
-  background: #e6f7f2;
-  border-color: #00a884;
-  transform: translateY(-1px);
-}
-
-.ep-wa-dock__chip-box--active {
-  background: #e6f7f2;
-  border-color: #00a884;
-  box-shadow: 0 3px 10px rgba(0, 168, 132, 0.18);
-}
-
-.ep-wa-dock__chip-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.ep-wa-dock__chip-title {
-  font-size: 13.5px;
-  font-weight: 750;
-  color: #0f172a;
-}
-
-.ep-wa-dock__chip-check {
-  color: #00a884;
-  stroke-width: 3;
-}
-
-.ep-wa-dock__chip-sub {
-  font-size: 11px;
-  color: #64748b;
-  font-weight: 550;
-}
-
-/* Bilateral Flight Route Header Card */
-.ep-wa-dock__route-card {
+/* Breed Input Container & SRD 1-Tap Shortcut */
+.ep-wa-dock__breed-input-container {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 10px 14px;
-  border-radius: 14px;
-  background: #f8fafc;
-  border: 1.5px solid #e2e8f0;
+  width: 100%;
 }
 
-.ep-wa-dock__route-endpoint {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.ep-wa-dock__input--breed {
+  padding-right: 38px;
 }
 
-.ep-wa-dock__route-icon-badge {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: #e6f7f2;
-  color: #00a884;
+.ep-wa-dock__clear-input-btn {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: #e2e8f0;
+  color: #475569;
+  font-size: 15px;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.ep-wa-dock__route-details {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 0;
-}
-
-.ep-wa-dock__route-sublabel {
-  font-size: 10.5px;
-  font-weight: 750;
-  color: #64748b;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.ep-wa-dock__route-country {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
+.ep-wa-dock__clear-input-btn:hover {
+  background: #cbd5e1;
   color: #0f172a;
 }
 
-.ep-wa-dock__route-change-btn {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  padding: 4px 10px;
+.ep-wa-dock__srd-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 14px;
+  border-radius: 21px;
+  border: 1.5px dashed #00a884;
+  background: #f0fdf9;
   color: #005c4b;
-  font-size: 11.5px;
+  font-size: 13px;
   font-weight: 750;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
-.ep-wa-dock__route-change-btn:hover {
+.ep-wa-dock__srd-btn:hover {
+  background: #e6f7f2;
+  border-color: #008f6f;
+  transform: translateY(-1px);
+}
+
+.ep-wa-dock__srd-btn--active {
+  background: #005c4b;
+  border-color: #005c4b;
+  border-style: solid;
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(0, 92, 75, 0.22);
+}
+
+/* Route Origin & Destination Grids */
+.ep-wa-dock__grid--origins {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  overflow: hidden;
+}
+
+.ep-wa-dock__btn-route-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 42px;
+  padding: 6px 10px;
+  border-radius: 21px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  color: #1e293b;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ep-wa-dock__btn-route-pill:hover {
   background: #e6f7f2;
   border-color: #00a884;
+  color: #005c4b;
 }
 
-.ep-wa-dock__origin-selector {
-  padding-top: 8px;
-  border-top: 1px dashed #cbd5e1;
-  animation: ep-wa-pop 0.2s ease-out both;
+.ep-wa-dock__btn-route-pill--active {
+  background: #005c4b;
+  border-color: #005c4b;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 92, 75, 0.25);
 }
 
-/* Destination Buttons Grid (Zero vertical scroll, natural fit) */
 .ep-wa-dock__grid--destinations {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -672,9 +648,9 @@
   align-items: center;
   gap: 8px;
   min-height: 46px;
-  padding: 9px 12px;
+  padding: 8px 12px;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  border: 1.5px solid #e2e8f0;
   background: #f8fafc;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -684,19 +660,6 @@
   background: #e6f7f2;
   border-color: #00a884;
   transform: translateY(-1px);
-}
-
-.ep-wa-dock__btn-dest--more {
-  background: #ffffff;
-  border-color: #cbd5e1;
-  color: #005c4b;
-  font-weight: 750;
-  justify-content: center;
-}
-
-.ep-wa-dock__btn-dest--more:hover {
-  border-color: #00a884;
-  background: #e6f7f2;
 }
 
 .ep-wa-dock__dest-flag {
@@ -882,7 +845,7 @@
   gap: 8px;
 }
 
-/* Unified Phone Group */
+/* Unified Phone Group & DDI with Flag */
 .ep-wa-dock__phone-group {
   display: flex;
   align-items: center;
@@ -890,25 +853,45 @@
   width: 100%;
 }
 
-.ep-wa-dock__phone-select {
+.ep-wa-dock__ddi-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
   min-height: 52px;
   height: 52px;
-  width: 118px;
-  flex: 0 0 118px;
-  padding: 0 12px;
+  width: 130px;
+  flex: 0 0 130px;
   border-radius: 26px;
   border: 1.5px solid #cbd5e1;
   background: #ffffff;
-  font-size: 14px;
-  font-weight: 700;
-  color: #0f172a;
-  outline: none;
+  padding: 0 8px 0 12px;
+  gap: 6px;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.ep-wa-dock__phone-select:focus {
+.ep-wa-dock__ddi-wrap:focus-within {
   border-color: #00a884;
   box-shadow: 0 0 0 2.5px rgba(0, 168, 132, 0.22);
+}
+
+.ep-wa-dock__ddi-flag {
+  width: 20px;
+  height: auto;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.ep-wa-dock__ddi-wrap .ep-wa-dock__phone-select {
+  border: none;
+  background: transparent;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0f172a;
+  outline: none;
+  cursor: pointer;
 }
 
 .ep-wa-dock__phone-input-wrap {
@@ -917,6 +900,16 @@
 
 .ep-wa-dock__phone-input {
   width: 100%;
+}
+
+.ep-wa-dock__input-icon--whatsapp {
+  position: absolute;
+  left: 15px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .ep-wa-dock__input {
