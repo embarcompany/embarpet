@@ -56,10 +56,11 @@ type ChatMessage = {
 };
 
 const mainSpeciesOptions = [
-  { label: "Cachorro", value: "Cachorro", icon: Dog },
-  { label: "Gato", value: "Gato", icon: Cat },
-  { label: "Roedor", value: "Roedor", icon: Rabbit },
-  { label: "Ave", value: "Ave", icon: Bird },
+  { label: "Cachorro", value: "Cachorro", icon: Dog, isFull: false },
+  { label: "Gato", value: "Gato", icon: Cat, isFull: false },
+  { label: "Roedor", value: "Roedor", icon: Rabbit, isFull: false },
+  { label: "Ave", value: "Ave", icon: Bird, isFull: false },
+  { label: "Outro Pet / Exótico", value: "Outro Pet / Exótico", icon: Sparkles, isFull: true },
 ];
 
 const popularOrigins = [
@@ -672,7 +673,7 @@ export function WhatsAppChatFlow({
           </div>
         )}
 
-        {/* Step 1: Species Selection (4 big cards 2x2 without subtext + text buttons on bg) */}
+        {/* Step 1: Species Selection (2x2 cards for main 4 + 2-column card for Outro Pet + text button for multiple pets) */}
         {currentStep === "greeting" && !isTyping && (
           <div className="ep-wa-dock__step">
             <div className="ep-wa-dock__grid ep-wa-dock__grid--species">
@@ -682,7 +683,7 @@ export function WhatsAppChatFlow({
                   <button
                     key={opt.value}
                     type="button"
-                    className="ep-wa-dock__btn-species"
+                    className={`ep-wa-dock__btn-species ${opt.isFull ? "ep-wa-dock__btn-species--full" : ""}`}
                     onClick={() => handleSelectSpecies(opt.value)}
                   >
                     <div className="ep-wa-dock__species-icon-wrap">
@@ -702,15 +703,6 @@ export function WhatsAppChatFlow({
               >
                 <PawPrint size={15} />
                 <span>Viajar com mais de 1 pet</span>
-              </button>
-              <span className="ep-wa-dock__species-dot">•</span>
-              <button
-                type="button"
-                className="ep-wa-dock__species-text-btn"
-                onClick={() => handleSelectSpecies("Outro Pet / Exótico")}
-              >
-                <Sparkles size={14} />
-                <span>Outro pet / Exótico</span>
               </button>
             </div>
           </div>

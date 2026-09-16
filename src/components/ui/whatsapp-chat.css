@@ -478,6 +478,11 @@
   box-shadow: 0 4px 12px rgba(0, 168, 132, 0.15);
 }
 
+.ep-wa-dock__btn-species--full {
+  grid-column: 1 / -1;
+  justify-content: center;
+}
+
 .ep-wa-dock__btn-species:active,
 .ep-wa-dock__btn-route-pill:active,
 .ep-wa-dock__btn-dest:active,
