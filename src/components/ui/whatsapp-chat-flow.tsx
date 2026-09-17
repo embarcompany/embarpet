@@ -458,13 +458,26 @@ export function WhatsAppChatFlow({
         setTimeout(() => {
           setIsTyping(false);
           onStatusChange?.("online");
+          const followUpId = `followup-${Date.now()}`;
           setMessages((prev) => [
             ...prev,
             {
-              id: `followup-${Date.now()}`,
+              id: followUpId,
               sender: "thamires",
               text: followUpText,
               time: getNowTime(),
+              card: (
+                <div className="ep-wa-followup-card">
+                  <button
+                    type="button"
+                    className="ep-wa-followup-btn"
+                    onClick={() => handleResumeFromFollowUp(followUpId)}
+                  >
+                    <RotateCcw size={13} />
+                    <span>Continuar atendimento</span>
+                  </button>
+                </div>
+              ),
             },
           ]);
         }, 1200);
@@ -563,6 +576,82 @@ export function WhatsAppChatFlow({
         time: getNowTime(),
       },
     ]);
+  };
+
+  // Follow-Up Resumption Handler: re-prompts the current step questions
+  const handleResumeFromFollowUp = (followUpId?: string) => {
+    trackStart();
+    const time = getNowTime();
+
+    if (followUpId) {
+      setMessages((prev) =>
+        prev.map((m) =>
+          m.id === followUpId ? { ...m, card: undefined } : m
+        )
+      );
+    }
+
+    const userMsg: ChatMessage = {
+      id: `user-resume-${Date.now()}`,
+      sender: "user",
+      text: "Continuar atendimento",
+      time,
+    };
+
+    setMessages((prev) => [...prev, userMsg]);
+
+    if (currentStep === "greeting") {
+      deliverBotSequence([
+        {
+          text: "Perfeito! Vamos continuar. **Qual pet vai viajar com você?**",
+        },
+      ]);
+    } else if (currentStep === "pet_details") {
+      if (isMultiPetFlow && multiPetQueue.length > 0) {
+        const active = multiPetQueue[currentMultiPetIndex] ? multiPetQueue[currentMultiPetIndex].species : petSpecies;
+        deliverBotSequence([
+          {
+            text: `Perfeito! Estávamos na etapa das raças: **qual é a raça do seu ${active.toLowerCase()}**?`,
+          },
+        ]);
+      } else if (petSpecies === "Outro Pet") {
+        deliverBotSequence([
+          {
+            text: "Perfeito! **Qual é o seu pet?**",
+          },
+        ]);
+      } else {
+        deliverBotSequence([
+          {
+            text: `Perfeito! Estávamos na etapa da raça: **qual é a raça ${getPetGrammar(petSpecies)}**?`,
+          },
+        ]);
+      }
+    } else if (currentStep === "origin") {
+      deliverBotSequence([
+        {
+          text: "Perfeito! Estávamos definindo a rota: **de qual país você e seu pet vão sair?**",
+        },
+      ]);
+    } else if (currentStep === "destination") {
+      deliverBotSequence([
+        {
+          text: `Perfeito! O embarque sai de **${routeOrigin || "Brasil"}**: **para qual país o seu pet vai viajar?**`,
+        },
+      ]);
+    } else if (currentStep === "period") {
+      deliverBotSequence([
+        {
+          text: `Perfeito! A rota é **${routeOrigin} → ${routeDestination}**: **quando vocês pretendem viajar?**`,
+        },
+      ]);
+    } else if (currentStep === "contact") {
+      deliverBotSequence([
+        {
+          text: "Perfeito! Falta só o último passo: **para quem enviamos a análise completa da viagem?**",
+        },
+      ]);
+    }
   };
 
   // Step Back Navigation

@@ -1159,6 +1159,49 @@
   margin: 0;
 }
 
+/* Follow-Up Action Card */
+.ep-wa-followup-card {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ep-wa-followup-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 7px 12px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  color: #00875a;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.ep-wa-followup-btn svg {
+  color: #00875a;
+  flex-shrink: 0;
+}
+
+.ep-wa-followup-btn:hover {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #006644;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 135, 90, 0.12);
+}
+
+.ep-wa-followup-btn:active {
+  transform: scale(0.98);
+}
+
 /* Animations */
 @keyframes ep-wa-fade-in {
   from { opacity: 0; }
