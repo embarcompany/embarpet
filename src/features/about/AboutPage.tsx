@@ -22,9 +22,8 @@ import { CaseDragCards } from "../../components/ui/case-drag-cards";
 import { SiteHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisModal } from "../../components/ui/analysis-modal";
-import { WhatsAppChatModal } from "../../components/ui/whatsapp-chat-modal";
 import { setPageMetadata } from "../../lib/seo";
-import { WhatsAppFloat } from "../../components/ui/whatsapp-float";
+import { openWhatsAppModal } from "../../components/ui/whatsapp-float";
 
 const embarkationGallery = [
   { src: "/embarpet-marquee-airport-crate.webp", alt: "Pet e caixa de transporte prontos para o embarque", destination: "Canadá" },
@@ -277,16 +276,13 @@ export default function AboutPage() {
     });
   }, []);
 
-  const [whatsappModalOpen, setWhatsappModalOpen] = useState(false);
-
   const openAnalysis = (route = {}) => {
     setAnalysisRoute(route);
     setAnalysisOpen(true);
   };
 
   const openWhatsappModal = (route = {}) => {
-    setAnalysisRoute(route);
-    setWhatsappModalOpen(true);
+    openWhatsAppModal(route);
   };
 
   return (
@@ -296,12 +292,6 @@ export default function AboutPage() {
         onClose={() => setAnalysisOpen(false)}
         initialRoute={analysisRoute}
         analyticsSource="about_modal"
-      />
-      <WhatsAppChatModal
-        open={whatsappModalOpen}
-        onClose={() => setWhatsappModalOpen(false)}
-        initialRoute={analysisRoute}
-        analyticsSource="about_whatsapp_modal"
       />
 
       <SiteHeader overlay logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" activeLabel="Sobre" />
@@ -561,8 +551,6 @@ export default function AboutPage() {
           </div>
         </ScrollFlyIn>
       </main>
-
-      <WhatsAppFloat onStart={openWhatsappModal} />
 
       <SiteFooter
         logoSrc="/logo-embarpet-dark.png"

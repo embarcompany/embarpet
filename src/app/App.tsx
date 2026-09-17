@@ -6,6 +6,8 @@ import AboutPage from "../features/about/AboutPage";
 import { DestinationPage } from "../features/destinations/DestinationUnitedStatesPage";
 import { getDestinationLanding } from "../features/destinations/destination-content";
 import { getLocaleFromPath, locales, LocaleProvider, type Locale } from "../i18n/locale";
+import { WhatsAppFloat } from "../components/ui/whatsapp-float";
+import { SmoothScroll } from "../components/ui/smooth-scroll";
 
 /** Application shell. Future routes should be composed here, never inside the design system. */
 export function App({ initialLocale = "pt-BR", initialPath = "/" }: { initialLocale?: Locale; initialPath?: string }) {
@@ -21,6 +23,12 @@ export function App({ initialLocale = "pt-BR", initialPath = "/" }: { initialLoc
     : route === "/obrigado" ? <ThankYouPage />
     : route === "/design-system/botoes" ? <ButtonsPage />
     : <EmbarpetHome />;
-  return <LocaleProvider locale={locale}>{page}</LocaleProvider>;
+  return (
+    <LocaleProvider locale={locale}>
+      <SmoothScroll />
+      {page}
+      <WhatsAppFloat />
+    </LocaleProvider>
+  );
 }
 

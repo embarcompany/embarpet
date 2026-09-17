@@ -103,7 +103,7 @@ export function WhatsAppChatModal({
         aria-label={text.close}
       />
 
-      <section className="ep-wa-modal__panel">
+      <section className="ep-wa-modal__panel" data-lenis-prevent>
         {/* Minimalist WhatsApp Top Bar with Thamires Felix */}
         <header className="ep-wa-header">
           <div className="ep-wa-header__profile">

@@ -1,6 +1,5 @@
 "use client";
 
-import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { PublicLead } from "../../lead-contract";
 import { trackConversionEvent } from "../../lib/analytics";
@@ -17,6 +16,48 @@ const defaultLeadContext: LeadContext = {
   size: "medium",
 };
 
+/** Helper global para abrir o modal de WhatsApp de qualquer lugar do site */
+export function openWhatsAppModal(route?: { origin?: string; destination?: string; period?: string }) {
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("embarp:open-whatsapp", { detail: route }));
+  }
+}
+
+function getRouteFromLocation(): { origin?: string; destination?: string; period?: string } {
+  if (typeof window === "undefined") return {};
+  const query = new URLSearchParams(window.location.search);
+  const origin = query.get("origin") || undefined;
+  const destination = query.get("destination") || undefined;
+  const period = query.get("period") || undefined;
+
+  const pathname = window.location.pathname;
+  if (pathname.startsWith("/destinos/")) {
+    const slug = pathname.replace("/destinos/", "").replace(/\/+$/, "");
+    const slugMap: Record<string, string> = {
+      "estados-unidos": "Estados Unidos",
+      "portugal": "Portugal",
+      "espanha": "Espanha",
+      "italia": "Itália",
+      "franca": "França",
+      "alemanha": "Alemanha",
+      "reino-unido": "Reino Unido",
+      "canada": "Canadá",
+      "uruguai": "Uruguai",
+      "argentina": "Argentina",
+      "chile": "Chile",
+      "japao": "Japão",
+      "australia": "Austrália",
+    };
+    return {
+      origin: origin || "Brasil",
+      destination: destination || slugMap[slug] || slug.replace(/-/g, " "),
+      period,
+    };
+  }
+
+  return { origin, destination, period };
+}
+
 export function WhatsAppFloat({
   context = defaultLeadContext,
   onStart,
@@ -24,35 +65,112 @@ export function WhatsAppFloat({
   context?: LeadContext;
   onStart?: (context: LeadContext) => void;
 }) {
-  const [open, setOpen] = useState(false);
-  const [showNudge, setShowNudge] = useState(false);
+  const [nudgePhase, setNudgePhase] = useState<"hidden" | "typing" | "message">("hidden");
   const [chatModalOpen, setChatModalOpen] = useState(false);
+  const [activeRoute, setActiveRoute] = useState<{ origin?: string; destination?: string; period?: string }>({
+    origin: context.origin,
+    destination: context.destination,
+    period: context.period,
+  });
 
   useEffect(() => {
-    let dismissTimer: ReturnType<typeof setTimeout> | undefined;
-    const reveal = () => {
-      if (window.scrollY > 120) {
-        setShowNudge(true);
-        dismissTimer = setTimeout(() => setShowNudge(false), 4200);
-        window.removeEventListener("scroll", reveal);
+    // 1. Contexto inteligente a partir da URL se não estiver explícito
+    const routeFromUrl = getRouteFromLocation();
+    if (routeFromUrl.origin || routeFromUrl.destination || routeFromUrl.period) {
+      setActiveRoute((prev) => ({
+        origin: prev.origin || routeFromUrl.origin,
+        destination: prev.destination || routeFromUrl.destination,
+        period: prev.period || routeFromUrl.period,
+      }));
+    }
+
+    // 2. Temporizador suave com efeito de balão digitando
+    let typingTimer: ReturnType<typeof setTimeout> | undefined;
+    let messageTimer: ReturnType<typeof setTimeout> | undefined;
+    let autoDismissTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const startTypingSequence = () => {
+      setNudgePhase("typing");
+      if (messageTimer) clearTimeout(messageTimer);
+      messageTimer = setTimeout(() => {
+        setNudgePhase("message");
+        if (autoDismissTimer) clearTimeout(autoDismissTimer);
+        autoDismissTimer = setTimeout(() => setNudgePhase("hidden"), 11000);
+      }, 1400);
+    };
+
+    typingTimer = setTimeout(() => {
+      startTypingSequence();
+    }, 2600);
+
+    const revealOnScroll = () => {
+      if (window.scrollY > 80) {
+        startTypingSequence();
+        window.removeEventListener("scroll", revealOnScroll);
       }
     };
-    window.addEventListener("scroll", reveal, { passive: true });
+    window.addEventListener("scroll", revealOnScroll, { passive: true });
+
+    // 3. Ouvir eventos globais de abertura do WhatsApp
+    const handleGlobalOpen = (event: Event) => {
+      const customEvent = event as CustomEvent<{ origin?: string; destination?: string; period?: string }>;
+      const detail = customEvent.detail || {};
+      setActiveRoute((prev) => ({
+        origin: detail.origin || prev.origin,
+        destination: detail.destination || prev.destination,
+        period: detail.period || prev.period,
+      }));
+      setNudgePhase("hidden");
+      setChatModalOpen(true);
+    };
+
+    const handleAnalysisOpen = (event: Event) => {
+      const customEvent = event as CustomEvent<{ origin?: string; destination?: string; period?: string; mode?: string }>;
+      if (customEvent.detail?.mode === "whatsapp") {
+        handleGlobalOpen(event);
+      }
+    };
+
+    const handlePopState = () => {
+      const isWhatsapp =
+        window.location.pathname.endsWith("/whatsapp") ||
+        (window.location.search.includes("mode=whatsapp"));
+      if (isWhatsapp) {
+        const route = getRouteFromLocation();
+        setActiveRoute(route);
+        setChatModalOpen(true);
+      }
+    };
+
+    handlePopState();
+    window.addEventListener("embarp:open-whatsapp", handleGlobalOpen);
+    window.addEventListener("embarp:open-analysis", handleAnalysisOpen);
+    window.addEventListener("popstate", handlePopState);
+
     return () => {
-      window.removeEventListener("scroll", reveal);
-      if (dismissTimer) clearTimeout(dismissTimer);
+      window.removeEventListener("scroll", revealOnScroll);
+      window.removeEventListener("embarp:open-whatsapp", handleGlobalOpen);
+      window.removeEventListener("embarp:open-analysis", handleAnalysisOpen);
+      window.removeEventListener("popstate", handlePopState);
+      if (typingTimer) clearTimeout(typingTimer);
+      if (messageTimer) clearTimeout(messageTimer);
+      if (autoDismissTimer) clearTimeout(autoDismissTimer);
     };
   }, []);
 
-  const start = () => {
+  const handleStart = () => {
     trackConversionEvent("whatsapp_clicked", {
-      source: "floating_assistant",
-      has_route: Boolean(context.origin && context.destination),
+      source: "floating_balloon",
+      has_route: Boolean(activeRoute.origin && activeRoute.destination),
     });
-    setOpen(false);
-    setShowNudge(false);
+    setNudgePhase("hidden");
     if (onStart) {
-      onStart(context);
+      onStart({
+        ...context,
+        origin: activeRoute.origin || context.origin,
+        destination: activeRoute.destination || context.destination,
+        period: activeRoute.period || context.period,
+      });
     } else {
       setChatModalOpen(true);
     }
@@ -61,51 +179,46 @@ export function WhatsAppFloat({
   const handleDirectTrigger = () => {
     trackConversionEvent("whatsapp_clicked", {
       source: "floating_trigger_direct",
-      has_route: Boolean(context.origin && context.destination),
+      has_route: Boolean(activeRoute.origin && activeRoute.destination),
     });
-    setOpen(false);
-    setShowNudge(false);
+    setNudgePhase("hidden");
     if (onStart) {
-      onStart(context);
+      onStart({
+        ...context,
+        origin: activeRoute.origin || context.origin,
+        destination: activeRoute.destination || context.destination,
+        period: activeRoute.period || context.period,
+      });
     } else {
-      setChatModalOpen(true);
+      setChatModalOpen((prev) => !prev);
     }
   };
 
   return (
     <>
-      <aside className="ep-whatsapp-float" aria-label="Ajuda pelo WhatsApp com Thamires Felix">
-        {showNudge && !open && !chatModalOpen ? (
-          <button
-            type="button"
-            className="ep-whatsapp-nudge"
-            onClick={start}
+      <aside className="ep-whatsapp-float" aria-label="Atendimento pelo WhatsApp">
+        {nudgePhase !== "hidden" && !chatModalOpen ? (
+          <div
+            className={`ep-whatsapp-balloon ${nudgePhase === "typing" ? "ep-whatsapp-balloon--typing" : "ep-whatsapp-balloon--message"}`}
+            onClick={handleStart}
+            role="button"
+            tabIndex={0}
+            aria-label="Abrir atendimento pelo WhatsApp"
           >
-            <b>Thamires Felix está online</b>
-            <span>Tire dúvidas sobre a viagem do seu pet</span>
-          </button>
-        ) : null}
-
-        {open && !chatModalOpen ? (
-          <div className="ep-whatsapp-popover">
-            <button
-              className="ep-whatsapp-close"
-              type="button"
-              aria-label="Fechar conversa"
-              onClick={() => setOpen(false)}
-            >
-              <X size={16} />
-            </button>
-            <span className="ep-whatsapp-avatar">
-              <img src="/embarpet-thamires-felix.webp" alt="Thamires Felix" style={{ borderRadius: "50%", objectFit: "cover" }} />
-            </span>
-            <p>
-              <b>Precisa de ajuda com a viagem?</b>
-              <small>Fale com a Thamires e veja os requisitos da sua rota.</small>
-            </p>
-            <button type="button" onClick={start}>
-              Conversar com Thamires <span aria-hidden="true">→</span>
-            </button>
+            {nudgePhase === "typing" ? (
+              <div className="ep-whatsapp-balloon__typing">
+                <span className="ep-whatsapp-balloon__dots" aria-label="Digitando">
+                  <i />
+                  <i />
+                  <i />
+                </span>
+              </div>
+            ) : (
+              <p className="ep-whatsapp-balloon__text">
+                Vamos começar a analisar a viagem sua e do seu pet?
+              </p>
+            )}
+            <span className="ep-whatsapp-balloon__tail" aria-hidden="true" />
           </div>
         ) : null}
 
@@ -116,22 +229,20 @@ export function WhatsAppFloat({
           aria-expanded={chatModalOpen}
           onClick={handleDirectTrigger}
         >
-          <img src="/icons/social/whatsapp-white.svg" alt="" />
+          <img src="/icons/social/whatsapp-white.svg" alt="" width="26" height="26" />
         </button>
       </aside>
 
-      {!onStart && (
-        <WhatsAppChatModal
-          open={chatModalOpen}
-          onClose={() => setChatModalOpen(false)}
-          initialRoute={{
-            origin: context.origin,
-            destination: context.destination,
-            period: context.period,
-          }}
-          analyticsSource="whatsapp_floating_widget"
-        />
-      )}
+      <WhatsAppChatModal
+        open={chatModalOpen}
+        onClose={() => setChatModalOpen(false)}
+        initialRoute={{
+          origin: activeRoute.origin,
+          destination: activeRoute.destination,
+          period: activeRoute.period,
+        }}
+        analyticsSource="whatsapp_floating_widget"
+      />
     </>
   );
 }

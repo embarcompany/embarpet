@@ -43,7 +43,7 @@ export function AnalysisModal({ open, onClose, initialRoute = {}, analyticsSourc
 
   return <div className="ep-analysis-modal" role="dialog" aria-modal="true" aria-label={text.startAnalysis}>
     <button className="ep-analysis-modal__backdrop" type="button" onClick={onClose} aria-label={text.close} />
-    <section className="ep-analysis-modal__panel">
+    <section className="ep-analysis-modal__panel" data-lenis-prevent>
       <button className="ep-analysis-modal__close" type="button" onClick={onClose} aria-label={text.close}><X size={21} /></button>
       <div className="ep-analysis-modal__content">
         <DiagnosticFlow key={flowKey} routeFirst startAtPet={routeIsComplete} initialRoute={initialRoute} analyticsSource={analyticsSource} />

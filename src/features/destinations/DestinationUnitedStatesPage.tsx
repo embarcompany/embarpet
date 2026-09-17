@@ -4,7 +4,7 @@ import { SiteHeader } from "../../components/ui/navigation";
 import { setPageMetadata } from "../../lib/seo";
 import { AnalysisButton } from "../../components/ui/buttons";
 import { AnalysisModal, type AnalysisRouteContext } from "../../components/ui/analysis-modal";
-import { WhatsAppChatModal } from "../../components/ui/whatsapp-chat-modal";
+import { openWhatsAppModal } from "../../components/ui/whatsapp-float";
 import { AiWarningSection } from "./sections/AiWarningSection";
 import { AuthoritySection } from "./sections/AuthoritySection";
 import { ComparisonSection } from "./sections/ComparisonSection";
@@ -27,7 +27,6 @@ export function DestinationPage({ destination }: { destination: DestinationLandi
   const [routeInverted, setRouteInverted] = useState(false);
   const [heroVisible, setHeroVisible] = useState(true);
   const [analysisOpen, setAnalysisOpen] = useState(false);
-  const [whatsappModalOpen, setWhatsappModalOpen] = useState(false);
   const [analysisSource, setAnalysisSource] = useState(`destination_${destination.analyticsKey}_hero`);
   const heroRef = useRef<HTMLElement>(null);
 
@@ -52,7 +51,7 @@ export function DestinationPage({ destination }: { destination: DestinationLandi
   const startPlanning = (placement = "hero") => {
     setAnalysisSource(source(placement));
     if (placement === "whatsapp") {
-      setWhatsappModalOpen(true);
+      openWhatsAppModal(analysisRoute);
     } else {
       setAnalysisOpen(true);
     }
@@ -84,7 +83,6 @@ export function DestinationPage({ destination }: { destination: DestinationLandi
       <FinalCtaSection onStartPlanning={() => startPlanning("final_cta")} />
     </main>
     <AnalysisModal open={analysisOpen} onClose={() => setAnalysisOpen(false)} initialRoute={analysisRoute} analyticsSource={analysisSource} />
-    <WhatsAppChatModal open={whatsappModalOpen} onClose={() => setWhatsappModalOpen(false)} initialRoute={analysisRoute} analyticsSource={`${analysisSource}_wa`} />
     <SiteFooter minimal logoSrc="/logo-embarpet-dark.png" note={destination.footerNote} brandCta={{ label: "Começar o planejamento", href: "#planejar" }} quickLinks={[]} onAnalysisClick={() => startPlanning("footer")} groups={[
       { title: "Sua viagem", links: [{ label: "Começar o planejamento", href: "#planejar" }, { label: "Como ajudamos", href: "#plano" }] },
       { title: "Embarpet", links: [{ label: "Por que a Embarpet", href: "#autoridade" }, { label: "Falar sobre meu pet", href: "#planejar" }] },
