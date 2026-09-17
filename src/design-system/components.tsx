@@ -24,9 +24,8 @@ export function ModalityRail({ items, onItemAction }: { items: Array<{ icon: Ico
   const railRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ pointerId: number; startX: number; startLeft: number } | null>(null);
   const suppressClickRef = useRef(false);
-  const isMobileRail = () => typeof window !== "undefined" && window.matchMedia("(max-width: 900px)").matches;
   const startDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!isMobileRail() || event.pointerType === "mouse" && event.button !== 0) return;
+    if (event.pointerType !== "mouse" || event.button !== 0) return;
     dragRef.current = { pointerId:event.pointerId, startX:event.clientX, startLeft:event.currentTarget.scrollLeft };
     event.currentTarget.setPointerCapture(event.pointerId);
   };
@@ -36,7 +35,6 @@ export function ModalityRail({ items, onItemAction }: { items: Array<{ icon: Ico
     const distance = event.clientX - drag.startX;
     if (Math.abs(distance) > 4) suppressClickRef.current = true;
     event.currentTarget.scrollLeft = drag.startLeft - distance;
-    event.preventDefault();
   };
   const endDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (dragRef.current?.pointerId !== event.pointerId) return;
