@@ -434,7 +434,7 @@ export function WhatsAppChatFlow({
     };
   }, []);
 
-  // Inactivity Follow-Up Timer (45-50s of idle in chat)
+  // Inactivity Follow-Up Timer (2 minutes of idle in chat)
   useEffect(() => {
     if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
     if (isBotDelivering || currentStep === "complete" || currentStep === "disqualified" || hasSentInactivityFollowUp.current) {
@@ -450,7 +450,7 @@ export function WhatsAppChatFlow({
             : "Ainda posso te ajudar com o planejamento da viagem do seu pet?";
 
         if (document.visibilityState === "hidden") {
-          document.title = "💬 Nova mensagem da Thamires";
+          document.title = "(1) Nova mensagem";
         }
 
         setIsTyping(true);
@@ -469,7 +469,7 @@ export function WhatsAppChatFlow({
           ]);
         }, 1200);
       }
-    }, 50000);
+    }, 120000); // 2 minutos (120s)
 
     return () => {
       if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
@@ -531,7 +531,7 @@ export function WhatsAppChatFlow({
           setTimeout(() => {
             pushBotMessage(item.text);
             if (document.visibilityState === "hidden") {
-              document.title = "💬 Nova mensagem da Thamires";
+              document.title = "(1) Nova mensagem";
             }
             setTimeout(playNext, Math.min(1000, typingTime * 0.35));
           }, typingTime);
@@ -543,7 +543,7 @@ export function WhatsAppChatFlow({
         setTimeout(() => {
           pushBotMessage(item.text);
           if (document.visibilityState === "hidden") {
-            document.title = "💬 Nova mensagem da Thamires";
+            document.title = "(1) Nova mensagem";
           }
           setTimeout(playNext, Math.min(1000, typingTime * 0.35));
         }, typingTime);
