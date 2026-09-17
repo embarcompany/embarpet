@@ -971,7 +971,8 @@
   .ep-home-cases { padding:0; }.ep-case-carousel { gap:14px; padding:54px 20px 56px; }.ep-case-carousel__heading h2 { font-size:clamp(34px,10.5vw,42px); }.ep-case-carousel__card .ep-case-card__image { height:300px; }
 
   .ep-home-luxury { margin-block:8px; }.ep-home-luxury__grid { gap:26px; padding-block:38px; }.ep-home-luxury__image { width:100%; max-width:none; aspect-ratio:4 / 5; }.ep-home-luxury__content .ep-copy { margin:15px 0 22px; font-size:15px; }
-  .ep-home-luxury__list { display:flex; gap:12px; margin-right:-20px; overflow-x:auto; padding-right:20px; scroll-snap-type:x mandatory; }.ep-home-luxury__list span { min-width:82%; min-height:122px; scroll-snap-align:start; }
+  .ep-home-luxury__list { display:grid!important; grid-template-columns:1fr!important; gap:10px!important; margin-right:0!important; overflow-x:visible!important; padding-right:0!important; }
+  .ep-home-luxury__list span { width:100%!important; min-width:0!important; min-height:auto!important; padding:15px 16px!important; }
 
   .ep-home-authority { padding:62px 0; }.ep-home-authority__grid { gap:28px; }.ep-home-authority__mosaic { width:100%; min-height:320px; aspect-ratio:1; }.ep-home-authority__content > .ep-copy { margin:16px 0 22px; font-size:15px; }.ep-home-authority__proof { margin-bottom:22px; }.ep-home-authority__proof > div { min-height:64px; padding:10px 8px; }
 
