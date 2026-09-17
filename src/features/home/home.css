@@ -172,19 +172,66 @@
   }
   .ep-conversion-hero__copy {
     min-height:0;
-    align-items:flex-start;
+    display:flex;
+    flex-direction:column;
+    align-items:center !important;
     justify-content:center;
+    text-align:center !important;
     padding:clamp(20px,5vw,32px) 20px clamp(24px,6vw,38px);
   }
-  .ep-conversion-hero__copy .ep-title-xl { color:var(--ep-teal); }
+  .ep-conversion-hero__copy .ep-hero-proof {
+    margin:0 auto 16px !important;
+    align-self:center !important;
+    justify-content:center;
+  }
+  .ep-conversion-hero__copy .ep-title-xl {
+    color:var(--ep-teal);
+    text-align:center !important;
+    margin-inline:auto !important;
+    max-width:650px;
+  }
   .ep-conversion-hero__copy .ep-eyebrow,
-  .ep-hero-route-intro { color:#285f63; }
+  .ep-hero-route-intro {
+    color:#285f63;
+    text-align:center !important;
+    margin-inline:auto !important;
+    max-width:540px;
+  }
   .ep-hero-highlight,
   .ep-hero-route-intro strong { color:var(--ep-turq-deep); }
   .ep-conversion-hero__form { display:none!important; }
-  .ep-conversion-hero__aside { display:block!important; height:clamp(250px,68vw,360px); margin:0 16px 28px; overflow:visible!important; border-radius:0!important; }
+  .ep-conversion-hero__aside {
+    display:block!important;
+    height:clamp(250px,68vw,360px);
+    margin:0 auto 28px !important;
+    overflow:visible!important;
+    border-radius:0!important;
+  }
+  .ep-hero-showcase {
+    margin-inline:auto;
+    display:flex;
+    justify-content:center;
+  }
   .ep-hero-showcase__vsl { display:none!important; }
-  .ep-hero-mobile-analysis { display:inline-flex; width:100%; min-height:54px; align-items:center; justify-content:space-between; margin-top:26px; padding:0 20px; border:0; border-radius:999px; background:var(--ep-teal); color:var(--ep-paper); font:inherit; font-size:15px; font-weight:900; cursor:pointer; }
+  .ep-hero-mobile-analysis {
+    display:inline-flex;
+    width:100%;
+    max-width:380px;
+    min-height:54px;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    margin:24px auto 0 !important;
+    padding:0 24px;
+    border:0;
+    border-radius:999px;
+    background:var(--ep-teal);
+    color:var(--ep-paper);
+    font:inherit;
+    font-size:15px;
+    font-weight:900;
+    cursor:pointer;
+  }
   .ep-hero-mobile-analysis svg { color:var(--ep-turq); }
   .ep-hero-mobile-analysis:active { transform:scale(.98); }
 }
