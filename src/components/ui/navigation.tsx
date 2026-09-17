@@ -340,13 +340,6 @@ export function SiteHeader({
     openMobilePlanner();
   };
 
-  const mobileShortcutItems = [
-    { href: path("/destinos/estados-unidos"), icon: MapPin, label: "Destinos" },
-    { href: path("/#modalidades"), icon: Route, label: "Modalidades" },
-    { href: path("/sobre"), icon: ShieldCheck, label: "Sobre Nós" },
-    { href: path("/#historias"), icon: HeartHandshake, label: "Histórias" },
-  ];
-
   return (
     <>
       <header className={cn("ep-site-header", overlay && "ep-site-header--overlay", !showMobileJourney && "ep-site-header--compact-mobile")}>
@@ -583,22 +576,6 @@ export function SiteHeader({
                 </button>
               </div>
 
-              {/* Navigation Shortcuts Grid inside Megamenu */}
-              <div className="ep-mobile-menu__shortcuts" aria-label="Atalhos rápidos de navegação">
-                {mobileShortcutItems.map(({ href, icon: Icon, label }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    className="ep-mobile-menu__shortcut-item"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    <span className="ep-mobile-menu__shortcut-icon">
-                      <Icon size={18} />
-                    </span>
-                    <span>{label}</span>
-                  </a>
-                ))}
-              </div>
 
               {/* WhatsApp Fast Header on Mobile */}
               <a
