@@ -38,7 +38,7 @@ export function HeroPlannerSection({
   return <section ref={heroRef} className={heroVisible ? "ep-us-hero is-in-view" : "ep-us-hero"} id="planejar">
     <div className="ep-container ep-us-hero__grid">
       <div className="ep-us-hero__copy">
-        <div className="ep-us-proof" aria-label="Mais de dois mil embarques realizados e avaliação 4,9 no Google"><div className="ep-us-proof__seal"><strong>+2.000</strong><span>pets embarcados</span><i aria-hidden="true" /><img src="/logo-google.svg" alt="Google" /><strong>4,9</strong><span>no Google</span></div></div>
+        <div className="ep-us-proof" aria-label="Mais de dois mil embarques realizados e avaliação 4,9 no Google"><div className="ep-us-proof__seal"><strong>+2.000</strong><span>pets embarcados</span><i aria-hidden="true" /><img src="/logo-google.svg" alt="Google" /><strong>4,9</strong><span>Nota no Google</span></div></div>
         <h1>{destination.hero.titleLead} <em>{destination.hero.titleHighlight}</em><br />com segurança.</h1>
         <p className="ep-us-hero__intro">{destination.hero.intro} <strong>{destination.hero.introHighlight}</strong></p>
       </div>

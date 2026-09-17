@@ -36,7 +36,7 @@ function ReviewTrack({ reviews, reverse = false }: { reviews: readonly (typeof g
 export function GoogleReviewsSection({ onStartPlanning }: { onStartPlanning: () => void }) {
   return <section className="ep-us-google-reviews" aria-labelledby="google-reviews-title">
     <div className="ep-container ep-us-google-reviews__heading">
-      <p className="ep-us-kicker ep-us-google-reviews__trust"><span><img src="/logo-google.svg" alt="Google" /><strong>4,9</strong> avaliação no Google</span></p>
+      <p className="ep-us-kicker ep-us-google-reviews__trust"><span><img src="/logo-google.svg" alt="Google" /><strong>4,9</strong> Nota no Google</span></p>
       <h2 id="google-reviews-title">Mais de 400 avaliações <em>positivas.</em></h2>
       <p>Relatos reais de famílias que confiaram a viagem internacional dos seus pets à Embarpet.</p>
     </div>
