@@ -83,7 +83,6 @@ export function DestinationPage({ destination }: { destination: DestinationLandi
       <FaqSection destination={destination} onStartPlanning={() => startPlanning("faq")} />
       <FinalCtaSection onStartPlanning={() => startPlanning("final_cta")} />
     </main>
-    {!heroVisible ? <div className="ep-us-mobile-cta"><AnalysisButton size="lg" fullWidth onClick={() => startPlanning("mobile_sticky")}>Começar análise</AnalysisButton></div> : null}
     <AnalysisModal open={analysisOpen} onClose={() => setAnalysisOpen(false)} initialRoute={analysisRoute} analyticsSource={analysisSource} />
     <WhatsAppChatModal open={whatsappModalOpen} onClose={() => setWhatsappModalOpen(false)} initialRoute={analysisRoute} analyticsSource={`${analysisSource}_wa`} />
     <SiteFooter minimal logoSrc="/logo-embarpet-dark.png" note={destination.footerNote} brandCta={{ label: "Começar o planejamento", href: "#planejar" }} quickLinks={[]} onAnalysisClick={() => startPlanning("footer")} groups={[

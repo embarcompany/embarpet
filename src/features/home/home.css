@@ -2901,3 +2901,14 @@ main > .ep-home-faq {
   display:block;
   transform:translateX(1px);
 }
+
+/* Padronização de margin-top dos botões e CTAs */
+.ep-home-service .ep-ds-button,
+.ep-home-service .ep-internal-cta,
+.ep-home-process__cta,
+.ep-home-luxury__actions,
+.ep-home-authority__content > a,
+.ep-final-fly-in .ep-ds-button {
+  margin-top: 24px!important;
+}
+

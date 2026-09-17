@@ -302,7 +302,7 @@
   .ep-us-faq__list { min-width:0; }
   .ep-us-faq__list summary { gap:12px; }
   .ep-us-faq__cta--desktop { display:none; }
-  .ep-us-faq__cta--mobile { display:flex; width:100%; margin-top:-12px; }
+  .ep-us-faq__cta--mobile { display:flex; width:100%; margin-top:24px; }
   .ep-us-faq__cta--mobile .ep-ds-button { width:100%; justify-content:center; }
 }
 
@@ -376,10 +376,9 @@
 }
 
 @media (max-width:700px) {
-  .ep-destination-lp { padding-bottom:78px; }
-  .ep-us-faq__inline-cta { min-height:32px; margin-top:13px; font-size:12px; }
-  .ep-us-mobile-cta { position:fixed; z-index:45; right:16px; bottom:calc(12px + env(safe-area-inset-bottom)); left:16px; display:block; animation:ep-us-mobile-cta-in .24s cubic-bezier(.2,.8,.2,1) both; }
-  .ep-us-mobile-cta .ep-ds-button { min-height:50px; border:1px solid rgba(255,255,255,.35); box-shadow:0 14px 30px rgba(0,62,67,.24); }
+  .ep-destination-lp { padding-bottom:16px; }
+  .ep-us-faq__inline-cta { min-height:32px; margin-top:14px; font-size:12px; }
+  .ep-us-mobile-cta { display:none!important; }
 }
 
 /* Títulos são compostos como blocos editoriais: linhas equilibradas e sem uma palavra órfã no fim. */
@@ -435,3 +434,21 @@
 @media (prefers-reduced-motion:reduce) {
   .ep-us-google-reviews__track,.ep-us-google-reviews__track.is-reverse { animation-play-state:running; }
 }
+
+/* Padronização de margin-top dos botões e CTAs */
+.ep-us-section-cta,
+.ep-destination-services__cta,
+.ep-us-method__cta,
+.ep-us-comparison__cta,
+.ep-us-mosaic__cta,
+.ep-us-google-reviews__cta,
+.ep-us-destination-context__closing .ep-ds-button,
+.ep-us-support__copy > .ep-ds-button,
+.ep-us-doubt__cta,
+.ep-us-faq__cta--desktop,
+.ep-us-faq__cta--mobile,
+.ep-us-final .ep-ds-button,
+.ep-us-hero__planner .ep-ds-button {
+  margin-top: 24px!important;
+}
+
