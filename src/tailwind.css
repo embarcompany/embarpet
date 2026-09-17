@@ -5,8 +5,8 @@
 @layer base {
   * { @apply box-border; }
   html {
-    scroll-behavior: smooth;
     scroll-padding-top: 80px;
+    scroll-behavior: smooth;
   }
   html, body, #root { max-width:100%; overflow-x:clip; }
   body { @apply m-0 bg-background font-sans text-foreground; }
@@ -14,18 +14,26 @@
 }
 
 /* Lenis Smooth Scroll Core Styles */
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
+
+html.lenis,
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }
-.lenis.lenis-smooth [data-lenis-prevent] {
+
+.lenis.lenis-smooth [data-lenis-prevent],
+.lenis.lenis-smooth [data-lenis-prevent-wheel],
+.lenis.lenis-smooth [data-lenis-prevent-touch] {
   overscroll-behavior: contain;
 }
-.lenis.lenis-stopped {
-  overflow: hidden;
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
 }
+
 .lenis.lenis-smooth iframe {
   pointer-events: none;
 }
