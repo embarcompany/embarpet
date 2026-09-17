@@ -1,4 +1,4 @@
-import { useRef, type FormEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import { useRef, useState, useEffect, type FormEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import { Icon, type IconName } from "./icons";
 import { Button, Notice, SelectField, TextField } from "./primitives";
 import { trackConversionEvent } from "../lib/analytics";
@@ -22,27 +22,147 @@ export function TrustStrip({ items }: { items: Array<{ icon: IconName; children:
 
 export function ModalityRail({ items, onItemAction }: { items: Array<{ icon: IconName; title: string; copy: string; detailHref: string; imageSrc: string; imageAlt: string; ctaLabel: string; featured?: boolean; videoSrc?: string }>; onItemAction?: (title: string) => void }) {
   const railRef = useRef<HTMLDivElement>(null);
-  const dragRef = useRef<{ pointerId: number; startX: number; startLeft: number } | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const startScrollLeftRef = useRef(0);
   const suppressClickRef = useRef(false);
+
+  // Sincronizar dot ativo durante rolagem / swipe horizontal
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail) return;
+
+    const handleScroll = () => {
+      const scrollLeft = rail.scrollLeft;
+      const card = rail.querySelector("article");
+      const cardWidth = card ? card.offsetWidth + 16 : 320;
+      const idx = Math.round(scrollLeft / cardWidth);
+      setActiveIndex(Math.max(0, Math.min(items.length - 1, idx)));
+    };
+
+    rail.addEventListener("scroll", handleScroll, { passive: true });
+    return () => rail.removeEventListener("scroll", handleScroll);
+  }, [items.length]);
+
+  const scrollToCard = (index: number) => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const cards = rail.querySelectorAll("article");
+    if (cards[index]) {
+      cards[index].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
+      });
+      setActiveIndex(index);
+    }
+  };
+
+  // Arraste com mouse no desktop/trackpad
   const startDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== "mouse" || event.button !== 0) return;
-    dragRef.current = { pointerId:event.pointerId, startX:event.clientX, startLeft:event.currentTarget.scrollLeft };
+    isDraggingRef.current = true;
+    startXRef.current = event.clientX;
+    startScrollLeftRef.current = event.currentTarget.scrollLeft;
     event.currentTarget.setPointerCapture(event.pointerId);
   };
+
   const moveDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
-    const drag = dragRef.current;
-    if (!drag || drag.pointerId !== event.pointerId) return;
-    const distance = event.clientX - drag.startX;
-    if (Math.abs(distance) > 4) suppressClickRef.current = true;
-    event.currentTarget.scrollLeft = drag.startLeft - distance;
+    if (!isDraggingRef.current) return;
+    const distance = event.clientX - startXRef.current;
+    if (Math.abs(distance) > 5) {
+      suppressClickRef.current = true;
+    }
+    event.currentTarget.scrollLeft = startScrollLeftRef.current - distance;
   };
+
   const endDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (dragRef.current?.pointerId !== event.pointerId) return;
-    dragRef.current = null;
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
-    window.setTimeout(() => { suppressClickRef.current = false; }, 0);
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    window.setTimeout(() => {
+      suppressClickRef.current = false;
+    }, 60);
   };
-  return <div ref={railRef} className="ep-modality-rail" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag} onClickCapture={(event) => { if (suppressClickRef.current) { event.preventDefault(); event.stopPropagation(); } }}>{items.map((item) => <article key={item.title} className={item.featured ? "is-featured" : ""}><div className="ep-modality-rail__media">{item.videoSrc ? <video className="ep-modality-rail__video" src={item.videoSrc} poster={item.imageSrc} aria-label={item.imageAlt} autoPlay loop muted playsInline preload="metadata" /> : <img src={item.imageSrc} alt={item.imageAlt} loading="lazy" decoding="async" />}</div><div><h3>{item.title}</h3><p>{item.copy}</p><div className="ep-modality-actions"><InternalLink href={onItemAction ? "#planejar" : item.detailHref} onClick={(event) => { if (onItemAction) { event.preventDefault(); trackConversionEvent("modality_clicked", { modality: item.title, action: "start_analysis" }); onItemAction(item.title); return; } trackConversionEvent("modality_clicked", { modality: item.title, action: "learn_more" }); }}>{item.ctaLabel}</InternalLink></div></div></article>)}</div>;
+
+  return (
+    <div className="ep-modality-rail-wrapper">
+      <div
+        ref={railRef}
+        className="ep-modality-rail"
+        data-lenis-prevent
+        data-lenis-prevent-wheel
+        data-lenis-prevent-touch
+        onPointerDown={startDrag}
+        onPointerMove={moveDrag}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onClickCapture={(event) => {
+          if (suppressClickRef.current) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+        }}
+      >
+        {items.map((item) => (
+          <article key={item.title} className={item.featured ? "is-featured" : ""}>
+            <div className="ep-modality-rail__media">
+              {item.videoSrc ? (
+                <video
+                  className="ep-modality-rail__video"
+                  src={item.videoSrc}
+                  poster={item.imageSrc}
+                  aria-label={item.imageAlt}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                />
+              ) : (
+                <img src={item.imageSrc} alt={item.imageAlt} loading="lazy" decoding="async" />
+              )}
+            </div>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.copy}</p>
+              <div className="ep-modality-actions">
+                <InternalLink
+                  href={onItemAction ? "#planejar" : item.detailHref}
+                  onClick={(event) => {
+                    if (onItemAction) {
+                      event.preventDefault();
+                      trackConversionEvent("modality_clicked", { modality: item.title, action: "start_analysis" });
+                      onItemAction(item.title);
+                      return;
+                    }
+                    trackConversionEvent("modality_clicked", { modality: item.title, action: "learn_more" });
+                  }}
+                >
+                  {item.ctaLabel}
+                </InternalLink>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="ep-modality-rail__pagination" aria-hidden="true">
+        {items.map((item, idx) => (
+          <button
+            key={item.title}
+            type="button"
+            className={`ep-modality-rail__dot ${activeIndex === idx ? "is-active" : ""}`}
+            onClick={() => scrollToCard(idx)}
+            aria-label={`Ir para ${item.title}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export function ProcessList({ items }: { items: Array<{ title: string; copy: string }> }) {

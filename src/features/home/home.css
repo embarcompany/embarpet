@@ -986,99 +986,131 @@
   .ep-home-modalities__intro { gap:14px; padding-bottom:28px; }
   .ep-home-modalities__intro .ep-title-lg,.ep-title-lg { font-size:clamp(28px,8.2vw,32px); line-height:1.1; }
   .ep-home-modalities__intro .ep-copy { font-size:15px; line-height:1.56; }
-  .ep-modality-rail {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: stretch;
-    gap: 16px;
-    margin-inline: -20px;
-    padding: 6px 20px 20px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    overscroll-behavior-inline: contain;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-    scroll-padding-left: 20px;
-    scroll-padding-inline: 20px;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x pan-y;
-    scrollbar-width: none;
-    user-select: none;
+  .ep-modality-rail-wrapper {
+    position: relative;
+    width: 100%;
   }
-  .ep-modality-rail::-webkit-scrollbar { display: none; }
+  .ep-modality-rail {
+    display: flex !important;
+    flex-flow: row nowrap !important;
+    align-items: stretch !important;
+    gap: 16px !important;
+    margin-inline: -20px !important;
+    padding: 6px 20px 16px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    overscroll-behavior-x: contain !important;
+    scroll-behavior: smooth !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-padding-left: 20px !important;
+    scroll-padding-inline: 20px !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-x pan-y !important;
+    scrollbar-width: none !important;
+    user-select: none !important;
+    cursor: grab;
+  }
+  .ep-modality-rail:active {
+    cursor: grabbing;
+  }
+  .ep-modality-rail::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
   .ep-modality-rail article,
   .ep-modality-rail article:first-child,
   .ep-modality-rail article:nth-child(n) {
-    flex: 0 0 min(82vw, 305px);
-    width: min(82vw, 305px);
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    min-height: 0;
-    height: auto;
-    scroll-snap-align: start;
-    scroll-snap-stop: normal;
-    border: 1px solid var(--ep-line);
-    border-radius: 18px;
-    background: #ffffff;
-    overflow: hidden;
-    box-shadow: 0 4px 18px rgba(0, 58, 64, 0.05);
+    flex: 0 0 min(82vw, 305px) !important;
+    width: min(82vw, 305px) !important;
+    min-width: min(82vw, 305px) !important;
+    max-width: min(82vw, 305px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-self: stretch !important;
+    min-height: 0 !important;
+    height: auto !important;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: normal !important;
+    border: 1px solid var(--ep-line) !important;
+    border-radius: 18px !important;
+    background: #ffffff !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 18px rgba(0, 58, 64, 0.05) !important;
   }
   .ep-modality-rail__media,
   .ep-modality-rail article > .ep-modality-rail__media {
-    height: 180px;
-    min-height: 180px;
-    max-height: 180px;
-    flex: 0 0 180px;
-    width: 100%;
-    margin: 0;
+    height: 180px !important;
+    min-height: 180px !important;
+    max-height: 180px !important;
+    flex: 0 0 180px !important;
+    width: 100% !important;
+    margin: 0 !important;
     padding: 0 !important;
-    overflow: hidden;
-    position: relative;
-    border-bottom: 1px solid rgba(0, 157, 172, 0.08);
+    overflow: hidden !important;
+    position: relative !important;
+    border-bottom: 1px solid rgba(0, 157, 172, 0.08) !important;
   }
   .ep-modality-rail__media > img,
   .ep-modality-rail__media > video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
   }
   .ep-modality-rail article > div:not(.ep-modality-rail__media) {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    padding: 20px 18px 18px;
-    box-sizing: border-box;
-    min-height: 250px;
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    padding: 20px 18px 18px !important;
+    box-sizing: border-box !important;
+    min-height: 250px !important;
   }
   .ep-modality-rail article h3 {
-    margin: 0 0 8px;
-    font-size: 17px;
-    font-weight: 800;
-    color: var(--ep-teal);
-    line-height: 1.25;
-    min-height: 42px;
-    display: flex;
-    align-items: flex-start;
+    margin: 0 0 8px !important;
+    font-size: 17px !important;
+    font-weight: 800 !important;
+    color: var(--ep-teal) !important;
+    line-height: 1.25 !important;
+    min-height: 42px !important;
+    display: flex !important;
+    align-items: flex-start !important;
   }
   .ep-modality-rail article p {
-    margin: 0 0 16px;
-    font-size: 13px;
-    line-height: 1.55;
-    color: #4e676c;
-    flex: 1 1 auto;
+    margin: 0 0 16px !important;
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+    color: #4e676c !important;
+    flex: 1 1 auto !important;
   }
   .ep-modality-rail .ep-modality-actions {
-    margin-top: auto;
-    padding-top: 0;
-    width: 100%;
+    margin-top: auto !important;
+    padding-top: 0 !important;
+    width: 100% !important;
   }
   .ep-modality-rail .ep-modality-actions a,
   .ep-modality-rail .ep-modality-actions .ep-ds-button.ep-ds-button--internal {
     min-height: 48px !important;
     font-size: 12px !important;
     font-weight: 800 !important;
+  }
+  .ep-modality-rail__pagination {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+    margin-bottom: 2px;
+  }
+  .ep-modality-rail__dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(0, 157, 172, 0.22);
+    cursor: pointer;
+    transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .ep-modality-rail__dot.is-active {
+    width: 26px;
+    background: var(--ep-turq-deep);
   }
   .ep-home-bridge { margin-top: 22px; font-size: 14px; }
 
