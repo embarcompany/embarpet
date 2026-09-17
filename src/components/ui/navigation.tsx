@@ -512,6 +512,7 @@ export function SiteHeader({
           </div>
 
           {/* Right: WhatsApp + Language + Primary Action */}
+          {/* Right: WhatsApp + Language + Primary Action */}
           <div className="ep-site-nav__right">
             <div className="ep-nav-utilities">
               {showLanguage ? <LanguageSelector /> : null}
@@ -542,48 +543,63 @@ export function SiteHeader({
             </a>
           </div>
 
-          {/* Mobile Fast CTA + Burger Trigger */}
-          <button className="ep-nav-mobile-cta" type="button" onClick={openPrimaryCta}>
-            <span>{mobileCtaLabel ?? resolvedCta.label}</span>
-          </button>
-          <button
-            className="ep-nav-mobile-toggle"
-            type="button"
-            aria-label={mobileOpen ? text.close : "Abrir menu"}
-            aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen((value) => !value)}
-          >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </nav>
-
-        {/* Mobile Quick Navigation Bar */}
-        {showMobileJourney ? (
-          <div className="ep-mobile-journey">
-            <div className="ep-mobile-shortcuts" aria-label="Navigation shortcuts">
-              {mobileShortcutItems.map(({ href, icon: Icon, label }) => (
-                <a key={label} href={href}>
-                  <Icon size={16} />
-                  <span>{label}</span>
-                </a>
-              ))}
-            </div>
-            <div className="ep-mobile-route-search">
-              <MapPin size={17} aria-hidden="true" />
-              <button className="ep-mobile-route-search__trigger" type="button" onClick={openPrimaryCta}>
-                {resolvedCta.label}
-              </button>
-              <button className="ep-mobile-route-search__cta" type="button" onClick={openPrimaryCta}>
-                {text.startTrip}
-              </button>
-            </div>
+          {/* Mobile Right Controls: Fast CTA + Burger Trigger */}
+          <div className="ep-site-nav__mobile-controls">
+            <button className="ep-nav-mobile-cta" type="button" onClick={openPrimaryCta}>
+              <span>{mobileCtaLabel ?? (resolvedCta.label === text.analyze ? "Analisar viagem" : resolvedCta.label)}</span>
+            </button>
+            <button
+              className="ep-nav-mobile-toggle"
+              type="button"
+              aria-label={mobileOpen ? text.close : "Abrir menu"}
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen((value) => !value)}
+            >
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
           </div>
-        ) : null}
+        </nav>
 
         {/* Mobile Slide Drawer Menu */}
         {mobileOpen ? (
           <div className="ep-mobile-menu">
             <div className="ep-container ep-mobile-menu__inner">
+              {/* Quick Trip Search inside Megamenu */}
+              <div className="ep-mobile-menu__search">
+                <MapPin size={17} className="ep-mobile-menu__search-icon" aria-hidden="true" />
+                <button
+                  className="ep-mobile-menu__search-trigger"
+                  type="button"
+                  onClick={openPrimaryCta}
+                >
+                  Analisar a viagem
+                </button>
+                <button
+                  className="ep-mobile-menu__search-cta"
+                  type="button"
+                  onClick={openPrimaryCta}
+                >
+                  {text.startTrip}
+                </button>
+              </div>
+
+              {/* Navigation Shortcuts Grid inside Megamenu */}
+              <div className="ep-mobile-menu__shortcuts" aria-label="Atalhos rápidos de navegação">
+                {mobileShortcutItems.map(({ href, icon: Icon, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    className="ep-mobile-menu__shortcut-item"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <span className="ep-mobile-menu__shortcut-icon">
+                      <Icon size={18} />
+                    </span>
+                    <span>{label}</span>
+                  </a>
+                ))}
+              </div>
+
               {/* WhatsApp Fast Header on Mobile */}
               <a
                 href={getSmartWhatsAppUrl(
