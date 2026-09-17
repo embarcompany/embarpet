@@ -27,7 +27,7 @@ import {
   useCountrySuggestions,
 } from "../../hooks/use-country-suggestions";
 import { trackConversionEvent } from "../../lib/analytics";
-import { countryFlagSvg } from "../../lib/country-flag";
+import { CountryFlag } from "./country-flag";
 import { useLocale } from "../../i18n/locale";
 
 type Step = 1 | 2 | 3 | 4;
@@ -636,6 +636,7 @@ export function DiagnosticFlow({
               <input
                 value={otherSpeciesDraft}
                 onChange={(event) => setOtherSpeciesDraft(event.target.value)}
+                maxLength={50}
                 placeholder="Ex.: coelho, ave, tartaruga"
                 autoFocus
               />
@@ -804,6 +805,7 @@ export function DiagnosticFlow({
                         onChange={(event) =>
                           changePet(index, "name", event.target.value)
                         }
+                        maxLength={40}
                         placeholder="Nome do pet (opcional)"
                         aria-label={`Nome do ${index === 0 ? "pet principal" : `pet ${index + 1}`} (opcional)`}
                       />
@@ -819,6 +821,7 @@ export function DiagnosticFlow({
                         onChange={(event) =>
                           changePet(index, "breed", event.target.value)
                         }
+                        maxLength={60}
                         placeholder="Ex.: Sírio, Anão Russo, Teddy..."
                         disabled={pet.breed === "Sem raça definida"}
                         required
@@ -835,6 +838,7 @@ export function DiagnosticFlow({
                           onChange={(event) =>
                             changePet(index, "weight", formatWeight(event.target.value))
                           }
+                          maxLength={6}
                           placeholder="Ex.: 4,5"
                           aria-describedby={`pet-weight-hint-${index}`}
                           required
@@ -923,6 +927,7 @@ export function DiagnosticFlow({
                       name: event.target.value,
                     }))
                   }
+                  maxLength={80}
                   placeholder="Como podemos chamar você?"
                   required
                 />
@@ -951,11 +956,11 @@ export function DiagnosticFlow({
                   aria-expanded={phoneCountryOpen}
                   onClick={() => setPhoneCountryOpen((current) => !current)}
                 >
-                  <img
-                    src={countryFlagSvg(phoneCountry.code)}
-                    alt={`Bandeira de ${phoneCountry.name}`}
-                    width="24"
-                    height="24"
+                  <CountryFlag
+                    code={phoneCountry.code}
+                    name={phoneCountry.name}
+                    width={24}
+                    height={24}
                   />
                   <small>{phoneCountry.dial}</small>
                   <ChevronDown size={13} aria-hidden="true" />
@@ -982,11 +987,11 @@ export function DiagnosticFlow({
                           setPhoneCountryOpen(false);
                         }}
                       >
-                        <img
-                          src={countryFlagSvg(country.code)}
-                          alt=""
-                          width="24"
-                          height="24"
+                        <CountryFlag
+                          code={country.code}
+                          name={country.name}
+                          width={24}
+                          height={24}
                         />
                         <span>
                           <b>{country.name}</b>
@@ -1002,6 +1007,7 @@ export function DiagnosticFlow({
                 <input
                   aria-label="Número do WhatsApp"
                   inputMode="tel"
+                  maxLength={20}
                   value={formatPhoneNumber(contact.phone, phoneCountry.code)}
                   onChange={(event) =>
                     setContact((current) => ({
@@ -1167,6 +1173,7 @@ function CityAirportField({
         <MapPin size={15} aria-hidden="true" />
         <input
           value={value}
+          maxLength={70}
           onChange={(event) => {
             onChange(event.target.value, undefined);
             setOpen(true);
@@ -1195,11 +1202,11 @@ function CityAirportField({
               onClick={() => chooseSuggestion(suggestion)}
               role="option"
             >
-              <img
-                src={countryFlagSvg(suggestion.code)}
-                alt=""
-                width="24"
-                height="24"
+              <CountryFlag
+                code={suggestion.code}
+                name={suggestion.name}
+                width={24}
+                height={24}
               />
               <b>{suggestion.name}</b>
               <small>{suggestion.code}</small>
@@ -1216,21 +1223,6 @@ function RequiredMark() {
     <span className="ep-required-mark" aria-hidden="true">
       *
     </span>
-  );
-}
-
-function CountryFlag({ code, name }: { code?: string; name?: string }) {
-  const { locale } = useLocale();
-  const resolvedCode = code ?? resolveCountryCode(name ?? "", locale);
-  if (!resolvedCode) return null;
-  return (
-    <img
-      className="ep-route-country-flag"
-      src={countryFlagSvg(resolvedCode)}
-      alt={`Bandeira de ${name || resolvedCode}`}
-      width="22"
-      height="22"
-    />
   );
 }
 

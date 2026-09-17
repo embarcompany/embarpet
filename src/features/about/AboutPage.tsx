@@ -562,7 +562,7 @@ export default function AboutPage() {
         </ScrollFlyIn>
       </main>
 
-      <WhatsAppFloat />
+      <WhatsAppFloat onStart={openWhatsappModal} />
 
       <SiteFooter
         logoSrc="/logo-embarpet-dark.png"

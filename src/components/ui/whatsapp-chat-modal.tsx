@@ -56,6 +56,13 @@ export function WhatsAppChatModal({
   const { text } = useLocale();
   const [headerStatus, setHeaderStatus] = useState<"Online" | "digitando..." | "anotando...">("Online");
   const [progress, setProgress] = useState(15);
+  const [hasEverOpened, setHasEverOpened] = useState(open);
+
+  useEffect(() => {
+    if (open && !hasEverOpened) {
+      setHasEverOpened(true);
+    }
+  }, [open, hasEverOpened]);
 
   useEffect(() => {
     if (!open) return;
@@ -78,13 +85,15 @@ export function WhatsAppChatModal({
     };
   }, [onClose, open]);
 
-  if (!open) return null;
+  // Only render once opened; keep mounted across open/close to preserve state until F5
+  if (!open && !hasEverOpened) return null;
 
   return (
     <div
-      className="ep-wa-modal"
+      className={`ep-wa-modal ${open ? "ep-wa-modal--open" : "ep-wa-modal--closed"}`}
       role="dialog"
       aria-modal="true"
+      aria-hidden={!open}
       aria-label="Atendimento WhatsApp com Thamires Felix"
     >
       <button

@@ -28,6 +28,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "../../lib/utils";
+import { DEFAULT_EMBARPET_WHATSAPP, getSmartWhatsAppUrl, openWhatsApp } from "../../lib/whatsapp";
 import { languageOptions, localizePath, useLocale } from "../../i18n/locale";
 import { countryFlagSvg } from "../../lib/country-flag";
 
@@ -585,10 +586,20 @@ export function SiteHeader({
             <div className="ep-container ep-mobile-menu__inner">
               {/* WhatsApp Fast Header on Mobile */}
               <a
-                href="https://wa.me/5511978253579?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20viagem%20internacional%20com%20meu%20pet."
+                href={getSmartWhatsAppUrl(
+                  DEFAULT_EMBARPET_WHATSAPP,
+                  "Olá, gostaria de informações sobre viagem internacional com meu pet."
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ep-mobile-menu__whatsapp-bar"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openWhatsApp(
+                    DEFAULT_EMBARPET_WHATSAPP,
+                    "Olá, gostaria de informações sobre viagem internacional com meu pet."
+                  );
+                }}
               >
                 <MessageCircle size={18} />
                 <div>

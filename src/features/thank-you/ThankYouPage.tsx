@@ -3,8 +3,8 @@ import { ArrowRight, CheckCircle2, MessageCircle, Play, ShieldCheck, Star } from
 import { trackConversionEvent } from "../../lib/analytics";
 import { setPageMetadata } from "../../lib/seo";
 import { useLocale } from "../../i18n/locale";
+import { DEFAULT_EMBARPET_WHATSAPP, getSmartWhatsAppUrl, openWhatsApp } from "../../lib/whatsapp";
 
-const EMBARPET_WHATSAPP = "551149694604";
 type ThankYouContext = { destination: string; animal: string; period: string; modality: string; source: string };
 
 function contextFromLocation(): ThankYouContext {
@@ -13,24 +13,27 @@ function contextFromLocation(): ThankYouContext {
   return { destination: query.get("destino") || "seu destino", animal: query.get("animal") || "pet", period: query.get("prazo") || "", modality: query.get("modalidade") || "", source: query.get("source") || "direct" };
 }
 function cleanDestination(value: string) { return value.split("·")[0].trim() || "seu destino"; }
-function toWhatsappUrl(context: ThankYouContext) {
+function toWhatsappMessage(context: ThankYouContext) {
   const details = [`Destino: ${cleanDestination(context.destination)}.`, `Animal: ${context.animal}.`, context.modality ? `Modalidade de interesse: ${context.modality}.` : "", context.period ? `Data prevista: ${context.period}.` : ""].filter(Boolean).join(" ");
-  return `https://wa.me/${EMBARPET_WHATSAPP}?text=${encodeURIComponent(`Olá, Embarpet! Acabei de preencher o diagnóstico no site. ${details} Quero continuar o atendimento pelo WhatsApp.`)}`;
+  return `Olá, Embarpet! Acabei de preencher o diagnóstico no site. ${details} Quero continuar o atendimento com a equipe.`;
 }
 
 export default function ThankYouPage() {
   const { text, path } = useLocale();
   const context = useMemo(contextFromLocation, []);
   const destination = cleanDestination(context.destination);
-  const whatsappUrl = useMemo(() => toWhatsappUrl(context), [context]);
+  const whatsappMessage = useMemo(() => toWhatsappMessage(context), [context]);
+  const whatsappUrl = useMemo(() => getSmartWhatsAppUrl(DEFAULT_EMBARPET_WHATSAPP, whatsappMessage), [whatsappMessage]);
   useEffect(() => {
     const restoreMetadata = setPageMetadata({ title: `${text.whatsapp} | Embarpet`, description: text.thankYouCopy, canonicalPath: path("/obrigado"), robots: "noindex, nofollow" });
     trackConversionEvent("thank_you_view", { source: context.source, destination, animal: context.animal, has_period: Boolean(context.period) });
     return restoreMetadata;
   }, [context.animal, context.period, context.source, destination, path, text.thankYouCopy, text.whatsapp]);
-  const continueToWhatsApp = () => {
+  const continueToWhatsApp = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
     trackConversionEvent("whatsapp_click_after_form", { source: context.source, destination, animal: context.animal, has_period: Boolean(context.period) });
     trackConversionEvent("lead_continued_whatsapp", { source: context.source, destination, animal: context.animal, has_period: Boolean(context.period) });
+    openWhatsApp(DEFAULT_EMBARPET_WHATSAPP, whatsappMessage);
   };
   return <main className="ep-thank-you-page">
     <header className="ep-thank-you-page__header"><a href={path("/")} aria-label={text.backHome}><img src="/logo-embarpet-dark.png" alt="Embarpet" /></a></header>

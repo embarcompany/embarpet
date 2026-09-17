@@ -314,5 +314,5 @@ export default function EmbarpetHome() {
     { title:"Planeje a viagem", links:[{ label:"Como funciona", href:"#como-funciona" },{ label:"Modalidades", href:"#modalidades" },{ label:"Destinos", href:"#destinos" }] },
     { title:"Conteúdo", links:[{ label:"Guias para viagem", href:"#guias" },{ label:"Histórias reais", href:"#historias" },{ label:"Perguntas frequentes", href:"#faq" }] },
     { title:"Embarpet", links:[{ label:"Sobre nós", href:"/sobre" },{ label:"Fale com a equipe", href:"#analise" },{ label:"Privacidade", href:"/privacidade" }] },
-  ]} /><WhatsAppFloat context={leadContext} /></>;
+  ]} /><WhatsAppFloat context={leadContext} onStart={openWhatsappChat} /></>;
 }

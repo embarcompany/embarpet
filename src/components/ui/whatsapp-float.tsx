@@ -49,10 +49,13 @@ export function WhatsAppFloat({
       source: "floating_assistant",
       has_route: Boolean(context.origin && context.destination),
     });
-    onStart?.(context);
     setOpen(false);
     setShowNudge(false);
-    setChatModalOpen(true);
+    if (onStart) {
+      onStart(context);
+    } else {
+      setChatModalOpen(true);
+    }
   };
 
   const handleDirectTrigger = () => {
@@ -60,9 +63,13 @@ export function WhatsAppFloat({
       source: "floating_trigger_direct",
       has_route: Boolean(context.origin && context.destination),
     });
-    setChatModalOpen(true);
     setOpen(false);
     setShowNudge(false);
+    if (onStart) {
+      onStart(context);
+    } else {
+      setChatModalOpen(true);
+    }
   };
 
   return (
@@ -113,16 +120,18 @@ export function WhatsAppFloat({
         </button>
       </aside>
 
-      <WhatsAppChatModal
-        open={chatModalOpen}
-        onClose={() => setChatModalOpen(false)}
-        initialRoute={{
-          origin: context.origin,
-          destination: context.destination,
-          period: context.period,
-        }}
-        analyticsSource="whatsapp_floating_widget"
-      />
+      {!onStart && (
+        <WhatsAppChatModal
+          open={chatModalOpen}
+          onClose={() => setChatModalOpen(false)}
+          initialRoute={{
+            origin: context.origin,
+            destination: context.destination,
+            period: context.period,
+          }}
+          analyticsSource="whatsapp_floating_widget"
+        />
+      )}
     </>
   );
 }
