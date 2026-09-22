@@ -101,7 +101,6 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
         <div className="ep-container ep-modality-hero__grid">
           <div className="ep-modality-hero__content">
             <p className="ep-eyebrow">{modality.eyebrow}</p>
-            <p className="ep-modality-hero__label">{modality.label}</p>
             <h1 className="ep-title-xl">{modality.title} <em>{modality.titleHighlight}</em></h1>
             <p className="ep-copy">{modality.intro}</p>
             <AnalysisButton size="lg" onClick={() => startPlanning("hero")}>Começar minha análise</AnalysisButton>
