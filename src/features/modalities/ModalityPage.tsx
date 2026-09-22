@@ -50,13 +50,13 @@ function BagagemDecisionMap({ onStartPlanning }: { onStartPlanning: (placement: 
   </section>;
 }
 
-export function ModalityPage({ modality }: { modality: ModalityContent }) {
+export function ModalityPage({ modality, isLp = false }: { modality: ModalityContent; isLp?: boolean }) {
   const storytelling = modalityStorytelling[modality.slug];
   const [analysisOpen, setAnalysisOpen] = useState(false);
   const [analysisSource, setAnalysisSource] = useState(`modality_${modality.slug}_hero`);
   const analysisRoute: AnalysisRouteContext = {};
 
-  useEffect(() => setPageMetadata({ title: modality.seo.title, description: modality.seo.description, canonicalPath: `/modalidades/${modality.slug}` }), [modality]);
+  useEffect(() => setPageMetadata({ title: modality.seo.title, description: modality.seo.description, canonicalPath: `/modalidades/${modality.slug}${isLp ? "-lp" : ""}`, robots: isLp ? "noindex,nofollow" : "index,follow" }), [modality, isLp]);
 
   const startPlanning = (placement = "hero") => {
     setAnalysisSource(`modality_${modality.slug}_${placement}`);
@@ -74,7 +74,9 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
   ];
 
   return <>
-    <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" items={pageNavigation} cta={{ label: "Começar minha análise", href: "#planejar" }} showMobileJourney={false} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />
+    {isLp
+      ? <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" items={pageNavigation} cta={{ label: "Começar minha análise", href: "#planejar" }} showMobileJourney={false} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />
+      : <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />}
     <main className={`ep-modality-page ep-modality-page--${modality.slug}`}>
       <section className="ep-modality-hero" id="planejar">
         <div className="ep-container ep-modality-hero__grid">

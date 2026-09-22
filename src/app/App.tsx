@@ -18,13 +18,18 @@ export function App({ initialLocale = "pt-BR", initialPath = "/" }: { initialLoc
   const locale = typeof window !== "undefined" ? getLocaleFromPath(pathname) : initialLocale;
   const localePrefix = locales.filter((item) => item !== "pt-BR").join("|");
   const route = pathname.replace(new RegExp(`^/(${localePrefix})(?=/|$)`), "") || "/";
-  const destinationSlug = route.startsWith("/destinos/") ? route.slice("/destinos/".length).replace(/\/+$/, "") : null;
+  const rawDestinationSlug = route.startsWith("/destinos/") ? route.slice("/destinos/".length).replace(/\/+$/, "") : null;
+  const destinationIsLp = rawDestinationSlug?.endsWith("-lp") ?? false;
+  const destinationSlug = rawDestinationSlug?.replace(/-lp$/, "") ?? null;
   const destination = destinationSlug ? getDestinationLanding(destinationSlug) : undefined;
-  const modalitySlug = route.startsWith("/modalidades/") ? route.slice("/modalidades/".length).replace(/\/+$/, "") as ModalitySlug : null;
+  const rawModalitySlug = route.startsWith("/modalidades/") ? route.slice("/modalidades/".length).replace(/\/+$/, "") : null;
+  const modalityIsLp = rawModalitySlug?.endsWith("-lp") ?? false;
+  const modalitySlug = (rawModalitySlug?.replace(/-lp$/, "") ?? null) as ModalitySlug | null;
   const modality = modalitySlug && modalityContent[modalitySlug] ? modalityContent[modalitySlug] : undefined;
-  const page = destination ? <DestinationPage destination={destination} />
-    : modality ? <ModalityPage modality={modality} />
-    : route === "/pet-luxo" ? <PetLuxoPage />
+  const petLuxoIsLp = route === "/pet-luxo-lp";
+  const page = destination ? <DestinationPage destination={destination} isLp={destinationIsLp} />
+    : modality ? <ModalityPage modality={modality} isLp={modalityIsLp} />
+    : (route === "/pet-luxo" || petLuxoIsLp) ? <PetLuxoPage isLp={petLuxoIsLp} />
     : (route === "/sobre" || route === "/quem-somos") ? <AboutPage />
     : route === "/viajar" ? <AnalysisPage />
     : route === "/obrigado" ? <ThankYouPage />

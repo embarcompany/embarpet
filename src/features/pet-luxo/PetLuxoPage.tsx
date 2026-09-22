@@ -9,12 +9,12 @@ import { petLuxoContent } from "./pet-luxo-content";
 
 const eligibilityIcons = [Crown, HeartHandshake, ShieldCheck];
 
-export default function PetLuxoPage() {
+export default function PetLuxoPage({ isLp = false }: { isLp?: boolean }) {
   const [analysisOpen, setAnalysisOpen] = useState(false);
   const [analysisSource, setAnalysisSource] = useState("pet_luxo_hero");
   const analysisRoute: AnalysisRouteContext = {};
 
-  useEffect(() => setPageMetadata({ title: petLuxoContent.seo.title, description: petLuxoContent.seo.description, canonicalPath: "/pet-luxo" }), []);
+  useEffect(() => setPageMetadata({ title: petLuxoContent.seo.title, description: petLuxoContent.seo.description, canonicalPath: isLp ? "/pet-luxo-lp" : "/pet-luxo", robots: isLp ? "noindex,nofollow" : "index,follow" }), [isLp]);
 
   const startPlanning = (placement = "hero") => {
     setAnalysisSource(`pet_luxo_${placement}`);
@@ -28,7 +28,9 @@ export default function PetLuxoPage() {
   ];
 
   return <>
-    <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" overlay items={pageNavigation} cta={{ label: "Saiba mais sobre o PetLuxo", href: "#planejar" }} showMobileJourney={false} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />
+    {isLp
+      ? <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" overlay items={pageNavigation} cta={{ label: "Saiba mais sobre o PetLuxo", href: "#planejar" }} showMobileJourney={false} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />
+      : <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" overlay mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />}
     <main className="ep-petluxo-page">
       <section className="ep-petluxo-hero" id="planejar">
         <div className="ep-container ep-petluxo-hero__grid">
