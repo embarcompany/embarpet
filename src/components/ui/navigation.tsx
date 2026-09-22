@@ -252,28 +252,28 @@ export function SiteHeader({
         children: [
           {
             label: "Viagem na Cabine",
-            href: path("/#modalidades"),
+            href: path("/modalidades/viagem-na-cabine"),
             badge: "Até 8–10kg",
             description: "Com o tutor dentro da cabine de passageiros, quando rota e porte permitem.",
             icon: Plane,
           },
           {
             label: "Bagagem Acompanhada",
-            href: path("/#modalidades"),
+            href: path("/modalidades/bagagem-acompanhada"),
             badge: "Mesmo Voo",
             description: "No mesmo voo do tutor, em compartimento apropriado, pressurizado e climatizado.",
             icon: Package,
           },
           {
             label: "Compartimento de Cargas",
-            href: path("/#modalidades"),
+            href: path("/modalidades/compartimento-de-cargas"),
             badge: "Carga Viva",
             description: "Operação dedicada para portes médios/grandes ou quando o tutor viaja em outra data.",
             icon: Route,
           },
           {
             label: "Suporte Emocional & Cão Guia",
-            href: path("/#modalidades"),
+            href: path("/modalidades/suporte-emocional"),
             badge: "Casos Especiais",
             description: "Orientação e conformidade técnica para animais de assistência em viagens internacionais.",
             icon: HeartHandshake,

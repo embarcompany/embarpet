@@ -90,17 +90,19 @@ export function LocaleProvider({ locale: initialLocale, children }: { locale: Lo
     setLocaleState(getLocaleFromPath(window.location.pathname));
   }, []);
   useEffect(() => {
-    const text = getCopy(locale);
     document.documentElement.lang = locale === "pt-BR" ? "pt-BR" : locale;
     const localePrefix = locales.filter((item) => item !== "pt-BR").join("|");
     const currentPath = window.location.pathname.replace(new RegExp(`^/(${localePrefix})(?=/|$)`), "") || "/";
-    const restoreMetadata = setPageMetadata({
+    try { window.localStorage.setItem("embarpet-locale", locale); } catch { /* optional preference */ }
+    // Só a home usa o título/descrição genéricos daqui; outras rotas definem o próprio SEO
+    // e não podem ser sobrescritas por este efeito, que roda depois do da página (pai monta após o filho).
+    if (currentPath !== "/") return;
+    const text = getCopy(locale);
+    return setPageMetadata({
       title: text.title,
       description: text.description,
       canonicalPath: localizePath(locale, currentPath),
     });
-    try { window.localStorage.setItem("embarpet-locale", locale); } catch { /* optional preference */ }
-    return restoreMetadata;
   }, [locale]);
   const value = useMemo(() => ({ locale, text: getCopy(locale), path: (path = "/") => localizePath(locale, path), setLocale: setLocaleState }), [locale]);
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>;

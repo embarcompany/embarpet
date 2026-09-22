@@ -21,6 +21,11 @@ const pages = {
   "destinos/uruguai": { path: "/destinos/uruguai", lang: "pt-BR", title: "Transporte Internacional de Pets para o Uruguai | Embarpet", description: "Planeje a viagem do seu pet para o Uruguai com análise de normas sanitárias MGAP, vacinas, CVI e logística de transporte." },
   "destinos/paraguai": { path: "/destinos/paraguai", lang: "pt-BR", title: "Transporte Internacional de Pets para o Paraguai | Embarpet", description: "Planeje o transporte internacional do seu pet para o Paraguai com suporte em documentação Mercosul, CVI e análise de rota." },
   "sobre": { path: "/sobre", lang: "pt-BR", title: "Quem Somos | Sobre a Embarpet — Especialistas em Transporte Internacional de Pets", description: "Conheça a Embarpet: empresa do Grupo Embarcompany especializada em mobilidade aérea internacional de animais. Conheça nossa base em Guarulhos, equipe, valores e credenciais." },
+  "modalidades/viagem-na-cabine": { path: "/modalidades/viagem-na-cabine", lang: "pt-BR", title: "Viagem de Pet na Cabine | Embarpet", description: "Saiba quando um pet pode viajar na cabine e entenda os critérios de porte, rota, caixa de transporte e documentação internacional." },
+  "modalidades/bagagem-acompanhada": { path: "/modalidades/bagagem-acompanhada", lang: "pt-BR", title: "Bagagem Acompanhada para Pets | Embarpet", description: "Entenda como funciona a bagagem acompanhada para transporte internacional de pets no mesmo voo do tutor." },
+  "modalidades/compartimento-de-cargas": { path: "/modalidades/compartimento-de-cargas", lang: "pt-BR", title: "Compartimento de Cargas para Pets | Embarpet", description: "Entenda como funciona o transporte internacional de pets em compartimento de cargas e receba uma análise da rota, do pet e da documentação." },
+  "modalidades/suporte-emocional": { path: "/modalidades/suporte-emocional", lang: "pt-BR", title: "Suporte Emocional e Viagem com Pets | Embarpet", description: "Entenda como a Embarpet orienta casos de suporte emocional em viagens internacionais com pets, sem promessas de aprovação." },
+  "pet-luxo": { path: "/pet-luxo", lang: "pt-BR", title: "PetLuxo | Acompanhamento Dedicado para a Viagem do seu Pet | Embarpet", description: "Conheça o PetLuxo: um consultor especializado acompanha o seu pet do planejamento até o encontro com a família, em cada marco da viagem internacional." },
 };
 
 const { render } = await import(pathToFileURL(resolve(serverOutput, "entry-server.js")).href);
@@ -44,7 +49,7 @@ function renderPage(locale, page) {
 }
 
 for (const [locale, page] of Object.entries(pages)) {
-  const renderLocale = page.path.startsWith("/destinos/") || page.path === "/sobre" ? "pt-BR" : locale;
+  const renderLocale = page.path.startsWith("/destinos/") || page.path.startsWith("/modalidades/") || page.path === "/sobre" || page.path === "/pet-luxo" ? "pt-BR" : locale;
   const isRoot = locale === "pt-BR";
   const destination = isRoot ? templatePath : resolve(dist, locale, "index.html");
   if (!isRoot) await mkdir(resolve(dist, locale), { recursive: true });

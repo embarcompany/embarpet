@@ -30,6 +30,8 @@
     { "source": "/quem-somos", "destination": "/index.html" },
     { "source": "/design-system/botoes", "destination": "/index.html" },
     { "source": "/destinos/(.*)", "destination": "/index.html" },
+    { "source": "/modalidades/(.*)", "destination": "/index.html" },
+    { "source": "/pet-luxo", "destination": "/index.html" },
     { "source": "/analise", "destination": "/index.html" },
     { "source": "/viajar", "destination": "/index.html" },
     { "source": "/obrigado", "destination": "/index.html" },
