@@ -20,10 +20,6 @@ export type ModalityContent = {
   benefitTitle: string;
   benefitCopy: string;
   benefits: string[];
-  proofImage: string;
-  proofAlt: string;
-  proofTitle: string;
-  proofCopy: string;
   faqs: Array<{ question: string; answer: string }>;
   seo: { title: string; description: string };
 };
@@ -68,10 +64,6 @@ export const modalityContent: Record<ModalitySlug, ModalityContent> = {
     benefitTitle: "Uma alternativa técnica, sem escolhas por medo.",
     benefitCopy: "O compartimento de cargas não deve ser tratado como um plano B automático. Quando a rota e o perfil do pet apontam para essa operação, o valor está em organizar cada requisito com antecedência e clareza.",
     benefits: ["Mais possibilidades para diferentes portes", "Planejamento da caixa e da reserva com antecedência", "Leitura da rota completa, inclusive conexões"],
-    proofImage: "/embarpet-carga-viva-operacao.jpeg",
-    proofAlt: "Equipe Embarpet com caixas de transporte no aeroporto",
-    proofTitle: "A escolha não é sobre rótulo. É sobre a jornada possível.",
-    proofCopy: "Falamos abertamente sobre compartimento de cargas porque confiança exige clareza. A modalidade é avaliada com responsabilidade, sem promessas prontas, para encontrar a alternativa coerente com a viagem de cada família.",
     faqs: [
       { question: "O porão do avião é seguro para o meu pet?", answer: "A área reservada a animais vivos no porão é pressurizada e mantida em temperatura controlada, seguindo padrões internacionais de transporte de animais vivos — não é a mesma coisa que uma área de carga comum. Dados públicos do setor nos EUA mostram taxas de incidente muito baixas nos últimos anos, mas o risco real está concentrado na operação em solo (embarque, desembarque, tempo de espera na pista), por isso rota, horário e época do ano fazem parte da análise." },
       { question: "Meu pet pode viajar no compartimento de cargas se for de focinho curto (braquicefálico)?", answer: "Raças como buldogue, pug, shih tzu e persa têm maior risco respiratório sob estresse e calor, e a maioria das companhias aéreas restringe ou proíbe essas raças no porão. Cada caso é avaliado individualmente antes de indicar essa modalidade." },
@@ -82,13 +74,13 @@ export const modalityContent: Record<ModalitySlug, ModalityContent> = {
     seo: { title: "Compartimento de Cargas para Pets | Embarpet", description: "Entenda como funciona o transporte internacional de pets em compartimento de cargas e receba uma análise da rota, do pet e da documentação." },
   },
   "viagem-na-cabine": {
-    slug: "viagem-na-cabine", label: "Viagem na cabine", eyebrow: "Pet próximo ao tutor", title: "Quando o seu pet pode viajar", titleHighlight: "na cabine com você.", intro: "A viagem na cabine mantém pet e tutor próximos durante o voo, mas depende dos limites de porte, peso, rota e regras da companhia aérea.", heroImage: "/embarpet-modalidade-viagem-cabine.jpg", heroAlt: "Cachorro observando a janela durante uma viagem na cabine", heroFacts: ["Proximidade com o tutor", "Algumas companhias aceitam até 8–10kg com bolsa", "Regras variam por companhia"], whatTitle: "Proximidade funciona quando a", whatTitleHighlight: "rota permite.", whatCopy: "O pet viaja em bolsa ou caixa aprovada, acomodado conforme as regras da companhia. É uma possibilidade desejada por muitas famílias, mas só é indicada quando o perfil do pet e a rota atendem aos critérios vigentes.", howItWorks: [{ number:"01", title:"Analisamos os critérios", copy:"Porte, peso, espécie, rota e companhia aérea." }, { number:"02", title:"Definimos a bolsa ou caixa", copy:"A escolha precisa respeitar medidas e regras aplicáveis." }, { number:"03", title:"Organizamos documentos", copy:"A documentação acompanha o destino e o período da viagem." }, { number:"04", title:"Preparamos o embarque", copy:"A família recebe as orientações para o dia do voo." }], decisionTitle:"Quando a cabine pode ser a melhor alternativa?", decisionCopy:"Quando o pet se enquadra nos critérios e a rota permite, a cabine pode preservar a proximidade com o tutor. A análise verifica se essa preferência também é viável para a jornada inteira.", decisionPoints:["Pets dentro dos limites da companhia", "Rotas e conexões compatíveis", "Bolsa ou caixa aprovada para a cabine"], benefitTitle:"Perto do tutor, com critérios que protegem a jornada.", benefitCopy:"A cabine é desejada pela proximidade, mas a melhor decisão continua sendo a que respeita o porte, a bolsa, o voo e o bem-estar do pet do início ao fim.", benefits:["Pet e tutor compartilham o mesmo ambiente de voo", "Validação de medidas, peso e disponibilidade", "Orientações para uma acomodação adequada"], proofImage:"/embarpet-pet-na-cabine.jpeg", proofAlt:"Pet em uma bolsa de transporte dentro da aeronave", proofTitle:"Proximidade é importante. Viabilidade também.", proofCopy:"A cabine não é uma promessa automática. É uma modalidade possível quando os critérios operacionais e o bem-estar do pet caminham juntos.", faqs:[{ question:"Todo pet pequeno pode viajar na cabine?", answer:"Não. Além de porte e peso, cada companhia define critérios de bolsa, espécie, rota e disponibilidade." }, ...sharedFaqs], seo:{ title:"Viagem de Pet na Cabine | Embarpet", description:"Saiba quando um pet pode viajar na cabine e entenda os critérios de porte, rota, caixa de transporte e documentação internacional." },
+    slug: "viagem-na-cabine", label: "Viagem na cabine", eyebrow: "Pet próximo ao tutor", title: "Quando o seu pet pode viajar", titleHighlight: "na cabine com você.", intro: "A viagem na cabine mantém pet e tutor próximos durante o voo, mas depende dos limites de porte, peso, rota e regras da companhia aérea.", heroImage: "/embarpet-modalidade-viagem-cabine.jpg", heroAlt: "Cachorro observando a janela durante uma viagem na cabine", heroFacts: ["Proximidade com o tutor", "Algumas companhias aceitam até 8–10kg com bolsa", "Regras variam por companhia"], whatTitle: "Proximidade funciona quando a", whatTitleHighlight: "rota permite.", whatCopy: "O pet viaja em bolsa ou caixa aprovada, acomodado conforme as regras da companhia. É uma possibilidade desejada por muitas famílias, mas só é indicada quando o perfil do pet e a rota atendem aos critérios vigentes.", howItWorks: [{ number:"01", title:"Analisamos os critérios", copy:"Porte, peso, espécie, rota e companhia aérea." }, { number:"02", title:"Definimos a bolsa ou caixa", copy:"A escolha precisa respeitar medidas e regras aplicáveis." }, { number:"03", title:"Organizamos documentos", copy:"A documentação acompanha o destino e o período da viagem." }, { number:"04", title:"Preparamos o embarque", copy:"A família recebe as orientações para o dia do voo." }], decisionTitle:"Quando a cabine pode ser a melhor alternativa?", decisionCopy:"Quando o pet se enquadra nos critérios e a rota permite, a cabine pode preservar a proximidade com o tutor. A análise verifica se essa preferência também é viável para a jornada inteira.", decisionPoints:["Pets dentro dos limites da companhia", "Rotas e conexões compatíveis", "Bolsa ou caixa aprovada para a cabine"], benefitTitle:"Perto do tutor, com critérios que protegem a jornada.", benefitCopy:"A cabine é desejada pela proximidade, mas a melhor decisão continua sendo a que respeita o porte, a bolsa, o voo e o bem-estar do pet do início ao fim.", benefits:["Pet e tutor compartilham o mesmo ambiente de voo", "Validação de medidas, peso e disponibilidade", "Orientações para uma acomodação adequada"], faqs:[{ question:"Todo pet pequeno pode viajar na cabine?", answer:"Não. Além de porte e peso, cada companhia define critérios de bolsa, espécie, rota e disponibilidade." }, ...sharedFaqs], seo:{ title:"Viagem de Pet na Cabine | Embarpet", description:"Saiba quando um pet pode viajar na cabine e entenda os critérios de porte, rota, caixa de transporte e documentação internacional." },
   },
   "bagagem-acompanhada": {
-    slug:"bagagem-acompanhada", label:"Bagagem acompanhada", eyebrow:"No mesmo voo da família", title:"Na bagagem acompanhada, pet e tutor seguem no mesmo itinerário,", titleHighlight:"com uma operação própria.", intro:"Uma alternativa para famílias que querem manter o planejamento do voo conectado ao embarque do pet. A Embarpet analisa rota, companhia, caixa e documentação antes de indicar se essa modalidade faz sentido.", heroImage:"/embarpet-bagagem-acompanhada.webp", heroAlt:"Consultora Embarpet com pets em aeroporto", heroFacts:["Mesmo voo do tutor", "Porão pressurizado e climatizado", "Operação coordenada"], whatTitle:"Mesmo voo, com uma", whatTitleHighlight:"operação coordenada.", whatCopy:"Na bagagem acompanhada, o pet segue no mesmo itinerário do tutor, em caixa apropriada, na área do porão reservada e climatizada para animais vivos — pressurizada como a cabine de passageiros. A decisão depende de companhia aérea, rota, conexões, porte e raça do animal, caixa e cronograma documental.", howItWorks:[{ number:"01", title:"Conferimos a rota", copy:"Avaliamos companhia, conexões e disponibilidade." },{ number:"02", title:"Validamos o pet e a caixa", copy:"Porte, espécie e especificações da caixa orientam a reserva." },{ number:"03", title:"Coordenamos a documentação", copy:"Cada exigência é organizada dentro do cronograma." },{ number:"04", title:"Alinhamos o dia do voo", copy:"A família entende horários, entrega e retirada do pet." }], decisionTitle:"Quando essa modalidade pode fazer sentido?", decisionCopy:"Ela pode entrar quando a família viaja junto, mas a cabine não atende ao perfil do pet ou não está disponível. O ponto central é descobrir se o voo do tutor também comporta a operação do animal com segurança, regra e prazo.", decisionPoints:["Tutor e pet no mesmo voo", "Cabine indisponível pelo porte ou pela raça do pet", "Raça sem restrição de focinho curto, ou avaliação específica para braquicefálicos"], benefitTitle:"O mesmo itinerário, com coordenação em cada ponto.", benefitCopy:"Aqui, a segurança está na conexão entre o roteiro da família e os requisitos da operação. A preparação evita que detalhes de reserva, caixa ou documentos virem surpresa no aeroporto.", benefits:["Tutor e pet seguem o mesmo planejamento de voo", "Reserva e caixa analisadas de forma conectada", "Orientação para entrega e retirada no aeroporto"], proofImage:"/embarpet-mosaico-encontro.jpg", proofAlt:"Tutora com pet após uma jornada acompanhada", proofTitle:"Uma mesma viagem, etapas bem coordenadas.", proofCopy:"A bagagem acompanhada funciona melhor quando a família entende a operação inteira: o que precisa ser validado antes, o que acontece no aeroporto e como o pet será entregue no destino.", faqs:[{ question:"Meu pet ficará perto de mim no avião?", answer:"O pet não viaja na cabine nesta modalidade. Ele segue em compartimento apropriado, no mesmo itinerário quando a rota e a reserva permitem — fisicamente separado do tutor, mas no mesmo voo." }, { question:"É seguro meu pet viajar no porão enquanto eu estou na cabine?", answer:"A área de animais vivos do porão é pressurizada e climatizada, dentro de padrões internacionais de temperatura — diferente de uma área de carga comum. Dados públicos do setor mostram taxas de incidente muito baixas, concentradas principalmente na operação em solo (embarque, desembarque, espera na pista), por isso rota, horário e época do ano entram na análise." }, { question:"Cães de focinho curto podem viajar na bagagem acompanhada?", answer:"Raças braquicefálicas (buldogue, pug, shih tzu, persa) têm restrição ou exigem avaliação adicional na maioria das companhias aéreas, pela maior sensibilidade respiratória ao estresse e ao calor. Isso é conferido antes de confirmar a modalidade." }, ...sharedFaqs], seo:{ title:"Bagagem Acompanhada para Pets | Embarpet", description:"Entenda como funciona a bagagem acompanhada para transporte internacional de pets no mesmo voo do tutor." },
+    slug:"bagagem-acompanhada", label:"Bagagem acompanhada", eyebrow:"No mesmo voo da família", title:"Na bagagem acompanhada, pet e tutor seguem no mesmo itinerário,", titleHighlight:"com uma operação própria.", intro:"Uma alternativa para famílias que querem manter o planejamento do voo conectado ao embarque do pet. A Embarpet analisa rota, companhia, caixa e documentação antes de indicar se essa modalidade faz sentido.", heroImage:"/embarpet-bagagem-acompanhada.webp", heroAlt:"Consultora Embarpet com pets em aeroporto", heroFacts:["Mesmo voo do tutor", "Porão pressurizado e climatizado", "Operação coordenada"], whatTitle:"Mesmo voo, com uma", whatTitleHighlight:"operação coordenada.", whatCopy:"Na bagagem acompanhada, o pet segue no mesmo itinerário do tutor, em caixa apropriada, na área do porão reservada e climatizada para animais vivos — pressurizada como a cabine de passageiros. A decisão depende de companhia aérea, rota, conexões, porte e raça do animal, caixa e cronograma documental.", howItWorks:[{ number:"01", title:"Conferimos a rota", copy:"Avaliamos companhia, conexões e disponibilidade." },{ number:"02", title:"Validamos o pet e a caixa", copy:"Porte, espécie e especificações da caixa orientam a reserva." },{ number:"03", title:"Coordenamos a documentação", copy:"Cada exigência é organizada dentro do cronograma." },{ number:"04", title:"Alinhamos o dia do voo", copy:"A família entende horários, entrega e retirada do pet." }], decisionTitle:"Quando essa modalidade pode fazer sentido?", decisionCopy:"Ela pode entrar quando a família viaja junto, mas a cabine não atende ao perfil do pet ou não está disponível. O ponto central é descobrir se o voo do tutor também comporta a operação do animal com segurança, regra e prazo.", decisionPoints:["Tutor e pet no mesmo voo", "Cabine indisponível pelo porte ou pela raça do pet", "Raça sem restrição de focinho curto, ou avaliação específica para braquicefálicos"], benefitTitle:"O mesmo itinerário, com coordenação em cada ponto.", benefitCopy:"Aqui, a segurança está na conexão entre o roteiro da família e os requisitos da operação. A preparação evita que detalhes de reserva, caixa ou documentos virem surpresa no aeroporto.", benefits:["Tutor e pet seguem o mesmo planejamento de voo", "Reserva e caixa analisadas de forma conectada", "Orientação para entrega e retirada no aeroporto"], faqs:[{ question:"Meu pet ficará perto de mim no avião?", answer:"O pet não viaja na cabine nesta modalidade. Ele segue em compartimento apropriado, no mesmo itinerário quando a rota e a reserva permitem — fisicamente separado do tutor, mas no mesmo voo." }, { question:"É seguro meu pet viajar no porão enquanto eu estou na cabine?", answer:"A área de animais vivos do porão é pressurizada e climatizada, dentro de padrões internacionais de temperatura — diferente de uma área de carga comum. Dados públicos do setor mostram taxas de incidente muito baixas, concentradas principalmente na operação em solo (embarque, desembarque, espera na pista), por isso rota, horário e época do ano entram na análise." }, { question:"Cães de focinho curto podem viajar na bagagem acompanhada?", answer:"Raças braquicefálicas (buldogue, pug, shih tzu, persa) têm restrição ou exigem avaliação adicional na maioria das companhias aéreas, pela maior sensibilidade respiratória ao estresse e ao calor. Isso é conferido antes de confirmar a modalidade." }, ...sharedFaqs], seo:{ title:"Bagagem Acompanhada para Pets | Embarpet", description:"Entenda como funciona a bagagem acompanhada para transporte internacional de pets no mesmo voo do tutor." },
   },
   "suporte-emocional": {
-    slug:"suporte-emocional", label:"Suporte emocional", eyebrow:"Orientação responsável", title:"Uma análise responsável para casos de", titleHighlight:"suporte emocional.", intro:"O suporte emocional exige uma leitura cuidadosa da documentação, da rota e das regras aplicáveis. Não há promessa de aceitação: existe orientação para entender o que pode ser considerado.", heroImage:"/embarpet-suporte-emocional.jpg", heroAlt:"Família e pet dentro de uma aeronave", heroFacts:["Avaliação individual do caso", "Documentação é decisiva", "Sem promessa de aprovação automática"], whatTitle:"Clareza para decidir", whatTitleHighlight:"antes de criar expectativa.", whatCopy:"A Embarpet analisa o contexto apresentado, os documentos e as regras da companhia aérea ou do destino. Se a modalidade não se aplicar, a conversa evolui para possibilidades de transporte viáveis para a viagem.", howItWorks:[{ number:"01", title:"Entendemos o contexto", copy:"A necessidade e a rota são consideradas com cuidado." },{ number:"02", title:"Lemos as regras vigentes", copy:"Companhia, destino e tipo de documento importam." },{ number:"03", title:"Orientamos os documentos", copy:"Explicamos o que precisa ser confirmado antes da viagem." },{ number:"04", title:"Indicamos próximos passos", copy:"A análise pode apontar alternativas quando necessário." }], decisionTitle:"O que precisa ser confirmado antes de seguir?", decisionCopy:"A aceitação depende de regras que podem variar entre companhias, destinos e tipos de documento. Por isso, a orientação responsável evita promessas e começa pela análise do caso.", decisionPoints:["Critérios e políticas da companhia aérea", "Documentação aplicável ao contexto", "Alternativas de embarque quando necessário"], benefitTitle:"Acolher a necessidade também é orientar com verdade.", benefitCopy:"O papel da Embarpet é verificar o cenário com responsabilidade e mostrar o próximo passo possível — inclusive quando a modalidade não se aplica e outra solução protege melhor a viagem.", benefits:["Leitura das políticas e documentos aplicáveis", "Expectativa alinhada antes da compra ou reserva", "Alternativas avaliadas quando necessário"], proofImage:"/embarpet-suporte-emocional.jpg", proofAlt:"Tutor com pet em contexto de viagem aérea", proofTitle:"Clareza antes de criar expectativa.", proofCopy:"Quando se trata de suporte emocional, nossa função é traduzir o que as regras permitem e construir um próximo passo responsável para a família e o pet.", faqs:[{ question:"Suporte emocional garante que meu pet viaje na cabine?", answer:"Não. A aceitação depende das políticas vigentes, documentação e análise da companhia aérea. A Embarpet não promete aprovação antes dessa verificação." }, ...sharedFaqs], seo:{ title:"Suporte Emocional e Viagem com Pets | Embarpet", description:"Entenda como a Embarpet orienta casos de suporte emocional em viagens internacionais com pets, sem promessas de aprovação." },
+    slug:"suporte-emocional", label:"Suporte emocional", eyebrow:"Orientação responsável", title:"Uma análise responsável para casos de", titleHighlight:"suporte emocional.", intro:"O suporte emocional exige uma leitura cuidadosa da documentação, da rota e das regras aplicáveis. Não há promessa de aceitação: existe orientação para entender o que pode ser considerado.", heroImage:"/embarpet-suporte-emocional.jpg", heroAlt:"Família e pet dentro de uma aeronave", heroFacts:["Avaliação individual do caso", "Documentação é decisiva", "Sem promessa de aprovação automática"], whatTitle:"Clareza para decidir", whatTitleHighlight:"antes de criar expectativa.", whatCopy:"A Embarpet analisa o contexto apresentado, os documentos e as regras da companhia aérea ou do destino. Se a modalidade não se aplicar, a conversa evolui para possibilidades de transporte viáveis para a viagem.", howItWorks:[{ number:"01", title:"Entendemos o contexto", copy:"A necessidade e a rota são consideradas com cuidado." },{ number:"02", title:"Lemos as regras vigentes", copy:"Companhia, destino e tipo de documento importam." },{ number:"03", title:"Orientamos os documentos", copy:"Explicamos o que precisa ser confirmado antes da viagem." },{ number:"04", title:"Indicamos próximos passos", copy:"A análise pode apontar alternativas quando necessário." }], decisionTitle:"O que precisa ser confirmado antes de seguir?", decisionCopy:"A aceitação depende de regras que podem variar entre companhias, destinos e tipos de documento. Por isso, a orientação responsável evita promessas e começa pela análise do caso.", decisionPoints:["Critérios e políticas da companhia aérea", "Documentação aplicável ao contexto", "Alternativas de embarque quando necessário"], benefitTitle:"Acolher a necessidade também é orientar com verdade.", benefitCopy:"O papel da Embarpet é verificar o cenário com responsabilidade e mostrar o próximo passo possível — inclusive quando a modalidade não se aplica e outra solução protege melhor a viagem.", benefits:["Leitura das políticas e documentos aplicáveis", "Expectativa alinhada antes da compra ou reserva", "Alternativas avaliadas quando necessário"], faqs:[{ question:"Suporte emocional garante que meu pet viaje na cabine?", answer:"Não. A aceitação depende das políticas vigentes, documentação e análise da companhia aérea. A Embarpet não promete aprovação antes dessa verificação." }, ...sharedFaqs], seo:{ title:"Suporte Emocional e Viagem com Pets | Embarpet", description:"Entenda como a Embarpet orienta casos de suporte emocional em viagens internacionais com pets, sem promessas de aprovação." },
   },
 };
 
@@ -134,112 +126,4 @@ export const modalityStorytelling: Record<ModalitySlug, {
     reassuranceCopy: "Lemos o caso com cuidado, explicamos o que precisa ser confirmado e indicamos o próximo caminho viável — mesmo que ele seja diferente da expectativa inicial.",
     reassurancePoints: ["Orientação honesta antes de qualquer compromisso", "Critérios e documentos avaliados com contexto", "Alternativas quando a modalidade não se aplica"],
   },
-};
-
-/**
- * Mapa de fotografia para a próxima direção de arte. Enquanto a curadoria não
- * está fechada, a interface usa estes placeholders para validar escala e ritmo.
- */
-export const modalityVisualPlan: Record<ModalitySlug, {
-  label: string;
-  title: string;
-  description: string;
-  solutionTitle: string;
-  solutionCopy: string;
-  direction: "cabin" | "luggage" | "cargo" | "support";
-}> = {
-  "viagem-na-cabine": {
-    label: "Imagem de contexto",
-    title: "O pet perto do tutor, antes do embarque.",
-    description: "Foto real de pet, tutor e bolsa de transporte em ambiente de aeroporto ou aeronave. O foco é proximidade com responsabilidade — não uma promessa automática de cabine.",
-    solutionTitle: "Proximidade só é boa quando a jornada inteira é viável.",
-    solutionCopy: "A Embarpet cruza perfil do pet, regras da companhia e roteiro da família antes de transformar a cabine em uma possibilidade real.",
-    direction: "cabin",
-  },
-  "bagagem-acompanhada": {
-    label: "Imagem de contexto",
-    title: "O itinerário da família começa antes do portão.",
-    description: "Foto real de tutor, pet e caixa ou bolsa no aeroporto. A cena precisa mostrar coordenação e preparação, não apenas um pet posando para a câmera.",
-    solutionTitle: "O itinerário do tutor e o do pet precisam conversar.",
-    solutionCopy: "Da reserva à retirada, a equipe organiza os pontos que conectam o voo da família à operação do pet.",
-    direction: "luggage",
-  },
-  "compartimento-de-cargas": {
-    label: "Imagem de contexto",
-    title: "Operação real, explicada com clareza.",
-    description: "Foto de caixa adequada, equipe ou área operacional do aeroporto. A imagem existe para desmistificar a modalidade com contexto técnico e humano.",
-    solutionTitle: "O que parece complexo fica claro quando cada requisito tem dono.",
-    solutionCopy: "Equipe, caixa, rota, reserva e documentos entram no mesmo plano para que a decisão seja técnica, humana e antecipada.",
-    direction: "cargo",
-  },
-  "suporte-emocional": {
-    label: "Imagem de contexto",
-    title: "A necessidade da família também faz parte da análise.",
-    description: "Foto real de família com pet em contexto de viagem. A direção deve ser acolhedora e sóbria, sem sugerir que a aceitação é garantida.",
-    solutionTitle: "Acolher também é explicar o que pode — e o que não pode — acontecer.",
-    solutionCopy: "A Embarpet lê as regras e os documentos com responsabilidade para proteger a família de expectativas que não foram confirmadas.",
-    direction: "support",
-  },
-};
-
-/** Prova social aparece em todas as LPs, sem atribuir uma modalidade específica
- * a uma história quando o que foi acompanhado foi a jornada completa. */
-export const modalitySocialProof: Record<ModalitySlug, { image: string; alt: string; label: string; copy: string }> = {
-  "viagem-na-cabine": {
-    image: "/case-talles-magno.jpg",
-    alt: "Tutor com pet em contexto de viagem",
-    label: "Histórias que acompanham a viagem",
-    copy: "Cada embarque tem uma combinação própria de rota, prazo e perfil do pet. É por isso que experiência não substitui análise: ela melhora a leitura do seu caso.",
-  },
-  "bagagem-acompanhada": {
-    image: "/case-renato-paiva.jpeg",
-    alt: "Família atendida pela Embarpet durante uma jornada internacional",
-    label: "Histórias que acompanham a viagem",
-    copy: "Por trás de cada chegada há uma sequência de decisões coordenadas. A experiência da Embarpet ajuda a transformar uma viagem complexa em próximos passos claros.",
-  },
-  "compartimento-de-cargas": {
-    image: "/case-leandro-hassum.jpeg",
-    alt: "Tutor e pet em um momento de encontro",
-    label: "Histórias que acompanham a viagem",
-    copy: "A segurança da operação nasce de preparação e acompanhamento. Mais de dois mil embarques realizados ajudam a nossa equipe a reconhecer o que a rota exige antes do dia do voo.",
-  },
-  "suporte-emocional": {
-    image: "/embarpet-suporte-emocional.jpg",
-    alt: "Pet em contexto de viagem internacional",
-    label: "Histórias que acompanham a viagem",
-    copy: "Nenhuma família deveria atravessar essa decisão sozinha. A experiência acumulada pela equipe ajuda a traduzir regras e possibilidades com responsabilidade.",
-  },
-};
-
-/** Galerias por modalidade: imagens reais que mostram jornadas e operações,
- * sem prometer que uma foto isolada representa uma regra ou resultado individual. */
-export const modalityCaseMosaic: Record<ModalitySlug, Array<{ image: string; alt: string; label: string }>> = {
-  "viagem-na-cabine": [
-    { image: "/embarpet-marquee-cabin-dog.webp", alt: "Pet em cabine durante uma viagem", label: "Pet em cabine" },
-    { image: "/embarpet-marquee-cabin-pomeranian.webp", alt: "Pet em contexto de aeronave", label: "Jornada aérea" },
-    { image: "/embarpet-marquee-window-flight.webp", alt: "Pet observando a janela do avião", label: "Rota internacional" },
-    { image: "/embarpet-mosaico-cabine.jpeg", alt: "Pet em viagem internacional", label: "Embarque acompanhado" },
-    { image: "/embarpet-viagem-cabine.jpg", alt: "Pet em ambiente de avião", label: "História real" },
-  ],
-  "bagagem-acompanhada": [
-    { image: "/embarpet-marquee-family-airport.webp", alt: "Família com pet no aeroporto", label: "Família e pet" },
-    { image: "/embarpet-marquee-welcome-family.webp", alt: "Família recebendo o pet", label: "Encontro planejado" },
-    { image: "/embarpet-mosaico-encontro.jpg", alt: "Tutora com pet após a viagem", label: "Chegada da família" },
-    { image: "/embarpet-mosaico-familia.jpg", alt: "Família e pet em momento de cuidado", label: "Família acompanhada" },
-    { image: "/case-renato-paiva.jpeg", alt: "Jornada acompanhada pela Embarpet", label: "História acompanhada" },
-  ],
-  "compartimento-de-cargas": [
-    { image: "/embarpet-marquee-airport-crate.webp", alt: "Caixa de transporte em aeroporto", label: "Preparação da caixa" },
-    { image: "/embarpet-carga-viva-operacao.jpeg", alt: "Equipe com caixas de transporte em aeroporto", label: "Operação real" },
-    { image: "/embarpet-crate-preparation.png", alt: "Preparação de caixa de transporte para pet", label: "Critérios técnicos" },
-    { image: "/embarpet-marquee-cockatiel.webp", alt: "Ave em contexto de transporte", label: "Outras espécies" },
-    { image: "/embarpet-mosaico-cuidado.jpg", alt: "Tutor com pet em momento de cuidado", label: "Cuidado em cada etapa" },
-  ],
-  "suporte-emocional": [
-    { image: "/embarpet-suporte-emocional.jpg", alt: "Família e pet em contexto de viagem", label: "Família em viagem" },
-    { image: "/case-talles-magno.jpg", alt: "Tutor com pet em contexto de viagem", label: "História acompanhada" },
-    { image: "/embarpet-marquee-carrier-car.webp", alt: "Pet em transporte com a família", label: "Rotina da jornada" },
-    { image: "/embarpet-marquee-road-trip.webp", alt: "Pet em deslocamento com a família", label: "Próximo passo" },
-    { image: "/case-leandro-hassum.jpeg", alt: "Tutor e pet em um momento de encontro", label: "Relação de confiança" },
-  ],
 };

@@ -1,48 +1,25 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, FileText, HeartHandshake, Package, Route, ShieldCheck, Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, FileText, HeartHandshake, Package, Route, ShieldCheck } from "lucide-react";
 import { SiteHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisButton } from "../../components/ui/buttons";
 import { AnalysisModal, type AnalysisRouteContext } from "../../components/ui/analysis-modal";
 import { openWhatsAppModal } from "../../components/ui/whatsapp-float";
-import { useLocale } from "../../i18n/locale";
 import { setPageMetadata } from "../../lib/seo";
-import { modalityCaseMosaic, modalityContent, modalitySocialProof, modalityStorytelling, modalityVisualPlan, type ModalityContent } from "./modality-content";
-
-function ScrollReveal({ children, className = "" }: { children: ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reducedMotion) { element.classList.add("is-revealed"); return; }
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return;
-      element.classList.add("is-revealed");
-      observer.disconnect();
-    }, { threshold: 0.22 });
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
-
-  return <div ref={ref} className={`ep-scroll-reveal ${className}`.trim()}>{children}</div>;
-}
+import { AuthoritySection } from "../destinations/sections/AuthoritySection";
+import { RiskSection } from "../destinations/sections/RiskSection";
+import { AiWarningSection } from "../destinations/sections/AiWarningSection";
+import { GoogleReviewsSection } from "../destinations/sections/GoogleReviewsSection";
+import { WhatsappSupportSection } from "../destinations/sections/WhatsappSupportSection";
+import { ComparisonSection } from "../destinations/sections/ComparisonSection";
+import { EmbarkationMosaicSection } from "../destinations/sections/EmbarkationMosaicSection";
+import { PetLuxoSection } from "../../components/ui/pet-luxo-section";
+import { FinalCtaSection } from "../destinations/sections/FinalCtaSection";
+import { modalityContent, modalityStorytelling, type ModalityContent } from "./modality-content";
 
 const modalityStepIcons = [Route, ShieldCheck, FileText, ClipboardCheck];
 const decisionIcons = [Route, ShieldCheck, Package];
 const benefitIcons = [HeartHandshake, ClipboardCheck, CheckCircle2];
-
-function VisualStory({ visual, items }: { visual: { label: string; solutionTitle: string; solutionCopy: string }; items: Array<{ image: string; alt: string; label: string }> }) {
-  return <section className="ep-section ep-modality-visual-plan">
-    <div className="ep-container ep-modality-visual-plan__grid">
-      <div className="ep-modality-human-mosaic" aria-label="Registros reais de embarques acompanhados pela Embarpet">
-        {items.slice(0, 3).map((item) => <figure key={item.image}><img src={item.image} alt={item.alt} loading="eager" /><figcaption>{item.label}</figcaption></figure>)}
-      </div>
-      <div><p className="ep-eyebrow">{visual.label}</p><h2 className="ep-title-lg">{visual.solutionTitle}</h2><p className="ep-copy">{visual.solutionCopy}</p><ul className="ep-modality-visual-plan__proof"><li><CheckCircle2 aria-hidden="true" />Leitura humana da rota e do pet</li><li><CheckCircle2 aria-hidden="true" />Requisitos traduzidos em próximos passos</li><li><CheckCircle2 aria-hidden="true" />Acompanhamento conectado à operação</li></ul></div>
-    </div>
-  </section>;
-}
 
 function BagagemDecisionMap({ onStartPlanning }: { onStartPlanning: (placement: string) => void }) {
   const cards = [
@@ -74,11 +51,7 @@ function BagagemDecisionMap({ onStartPlanning }: { onStartPlanning: (placement: 
 }
 
 export function ModalityPage({ modality }: { modality: ModalityContent }) {
-  const { text } = useLocale();
   const storytelling = modalityStorytelling[modality.slug];
-  const visualPlan = modalityVisualPlan[modality.slug];
-  const socialProof = modalitySocialProof[modality.slug];
-  const cases = modalityCaseMosaic[modality.slug];
   const [analysisOpen, setAnalysisOpen] = useState(false);
   const [analysisSource, setAnalysisSource] = useState(`modality_${modality.slug}_hero`);
   const analysisRoute: AnalysisRouteContext = {};
@@ -94,10 +67,16 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
     }
   };
 
+  const pageNavigation = [
+    { label: "Por que a Embarpet", href: "#autoridade" },
+    { label: "Como funciona", href: "#processo" },
+    { label: "Dúvidas", href: "#faq" },
+  ];
+
   return <>
-    <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" activeLabel={text.navModalities} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />
+    <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" items={pageNavigation} cta={{ label: "Começar minha análise", href: "#planejar" }} showMobileJourney={false} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />
     <main className={`ep-modality-page ep-modality-page--${modality.slug}`}>
-      <section className="ep-modality-hero">
+      <section className="ep-modality-hero" id="planejar">
         <div className="ep-container ep-modality-hero__grid">
           <div className="ep-modality-hero__content">
             <p className="ep-eyebrow">{modality.eyebrow}</p>
@@ -109,9 +88,11 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
         </div>
       </section>
 
+      <AuthoritySection onStartPlanning={() => startPlanning("authority")} />
+
       <section className="ep-section ep-modality-introduction"><div className="ep-container ep-modality-introduction__grid">
-        <ScrollReveal className="ep-modality-introduction__heading"><p className="ep-eyebrow">Entenda esta modalidade</p><h2 className="ep-title-lg">{modality.whatTitle} <em>{modality.whatTitleHighlight}</em></h2></ScrollReveal>
-        <ScrollReveal className="ep-modality-introduction__copy"><p className="ep-copy">{modality.whatCopy}</p></ScrollReveal>
+        <div className="ep-modality-introduction__heading"><p className="ep-eyebrow">Entenda esta modalidade</p><h2 className="ep-title-lg">{modality.whatTitle} <em>{modality.whatTitleHighlight}</em></h2></div>
+        <div className="ep-modality-introduction__copy"><p className="ep-copy">{modality.whatCopy}</p></div>
       </div></section>
 
       {modality.slug === "bagagem-acompanhada" ? <BagagemDecisionMap onStartPlanning={startPlanning} /> : null}
@@ -121,9 +102,16 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
         <ul>{storytelling.painPoints.map((point) => <li key={point}><CircleAlert aria-hidden="true" /><span>{point}</span></li>)}</ul>
       </div></section>
 
-      <VisualStory visual={visualPlan} items={cases} />
+      <section className="ep-section ep-modality-reassurance"><div className="ep-container ep-modality-reassurance__grid">
+        {modality.slug === "bagagem-acompanhada" ? <img className="ep-modality-cutout ep-modality-cutout--operation" src="/embarpet-bagagem-operacao-cutout.png" alt="" aria-hidden="true" loading="lazy" /> : null}
+        <div><p className="ep-eyebrow">O que muda com uma boa análise</p><h2 className="ep-title-lg">{storytelling.reassuranceTitle}</h2><p className="ep-copy">{storytelling.reassuranceCopy}</p><AnalysisButton onClick={() => startPlanning("reassurance")}>Começar minha análise</AnalysisButton></div>
+        <ol>{storytelling.reassurancePoints.map((point, index) => <li key={point}><span>0{index + 1}</span><p>{point}</p></li>)}</ol>
+      </div></section>
 
-      <section className="ep-section ep-modality-process"><div className="ep-container">
+      <RiskSection />
+      <AiWarningSection />
+
+      <section className="ep-section ep-modality-process" id="processo"><div className="ep-container">
         <div className="ep-modality-section-heading"><p className="ep-eyebrow">Do primeiro contato ao embarque</p><h2 className="ep-title-lg">Cada etapa existe para dar <em>clareza à decisão.</em></h2></div>
         <ol className="ep-modality-steps">{modality.howItWorks.map((step, index) => { const StepIcon = modalityStepIcons[index]; return <li key={step.number}><span>{step.number}</span><StepIcon className="ep-modality-steps__icon" aria-hidden="true" /><div><h3>{step.title}</h3><p>{step.copy}</p></div>{index < modality.howItWorks.length - 1 ? <ChevronRight className="ep-modality-steps__arrow" aria-hidden="true" /> : null}</li>; })}</ol>
         <div className="ep-modality-inline-cta"><span>Quer saber se essa possibilidade se aplica à sua viagem?</span><AnalysisButton onClick={() => startPlanning("process")}>Iniciar uma análise</AnalysisButton></div>
@@ -140,45 +128,21 @@ export function ModalityPage({ modality }: { modality: ModalityContent }) {
         <ul>{modality.benefits.map((benefit, index) => { const BenefitIcon = benefitIcons[index]; return <li key={benefit}><BenefitIcon aria-hidden="true" /><span>{benefit}</span></li>; })}</ul>
       </div></section>
 
-      <section className="ep-section ep-modality-reassurance"><div className="ep-container ep-modality-reassurance__grid">
-        {modality.slug === "bagagem-acompanhada" ? <img className="ep-modality-cutout ep-modality-cutout--operation" src="/embarpet-bagagem-operacao-cutout.png" alt="" aria-hidden="true" loading="lazy" /> : null}
-        <div><p className="ep-eyebrow">O que muda com uma boa análise</p><h2 className="ep-title-lg">{storytelling.reassuranceTitle}</h2><p className="ep-copy">{storytelling.reassuranceCopy}</p><AnalysisButton onClick={() => startPlanning("reassurance")}>Começar minha análise</AnalysisButton></div>
-        <ol>{storytelling.reassurancePoints.map((point, index) => <li key={point}><span>0{index + 1}</span><p>{point}</p></li>)}</ol>
-      </div></section>
+      <GoogleReviewsSection onStartPlanning={() => startPlanning("google_reviews")} />
+      <WhatsappSupportSection onStartPlanning={() => startPlanning("whatsapp")} />
+      <ComparisonSection onStartPlanning={() => startPlanning("comparison")} />
+      <EmbarkationMosaicSection onStartPlanning={() => startPlanning("embarkations")} />
+      <PetLuxoSection onStartPlanning={() => startPlanning("petluxo")} />
 
-      <section className="ep-section ep-modality-proof"><div className="ep-container ep-modality-proof__grid"><img src={modality.proofImage} alt={modality.proofAlt} loading="lazy" /><div><p className="ep-eyebrow">Experiência que orienta</p><h2 className="ep-title-lg">{modality.proofTitle}</h2><p className="ep-copy">{modality.proofCopy}</p><div className="ep-modality-proof__links"><span><ShieldCheck aria-hidden="true" />Leitura técnica da viagem</span><span><FileText aria-hidden="true" />Documentação com contexto</span><span><ClipboardCheck aria-hidden="true" />Operação acompanhada</span></div><AnalysisButton onClick={() => startPlanning("proof")}>Avaliar esta possibilidade</AnalysisButton></div></div></section>
+      <section className="ep-section ep-modality-faq" id="faq"><div className="ep-container ep-modality-faq__grid"><div><p className="ep-eyebrow">Dúvidas sobre {modality.label.toLocaleLowerCase("pt-BR")}</p><h2 className="ep-title-lg">Respostas antes de <em>decidir.</em></h2></div><div>{modality.faqs.map((faq) => <details key={faq.question}><summary>{faq.question}<ChevronRight aria-hidden="true" /></summary><p>{faq.answer}</p></details>)}</div></div></section>
 
-      <section className="ep-section ep-modality-authority"><div className="ep-container ep-modality-authority__grid">
-        <div><p className="ep-eyebrow">Experiência comprovada</p><h2 className="ep-title-lg">Decisões mais seguras começam com <em>quem vive a operação.</em></h2><p className="ep-copy">{socialProof.copy}</p><div className="ep-modality-authority__metrics"><div><strong>+2.000</strong><span>embarques<br />realizados</span></div><div><img src="/logo-google.svg" alt="Google" /><strong>4,9</strong><span aria-label="Avaliação 4,9 no Google"><Star size={11} fill="currentColor" /><Star size={11} fill="currentColor" /><Star size={11} fill="currentColor" /><Star size={11} fill="currentColor" /><Star size={11} fill="currentColor" /></span></div><div className="ep-modality-authority__members"><img src="/logo-ipata.png" alt="IPATA" /><img src="/logo-iata.png" alt="IATA" /><span>Membro IPATA<br />e IATA</span></div></div><AnalysisButton onClick={() => startPlanning("authority")}>Começar minha análise</AnalysisButton></div>
-        <figure><img src={socialProof.image} alt={socialProof.alt} loading="lazy" /><figcaption>{socialProof.label}</figcaption></figure>
-      </div></section>
-
-      <section className="ep-section ep-modality-cases">
-        <div className="ep-container"><div className="ep-modality-cases__heading">
-          <p className="ep-eyebrow">Jornadas que acontecem de verdade</p>
-          <h2 className="ep-title-lg">Cada caso é diferente. O cuidado precisa ser <em>consistente.</em></h2>
-          <p className="ep-copy">Imagens reais de famílias, pets e momentos de operação acompanhados pela Embarpet.</p>
-        </div></div>
-        <div className="ep-modality-cases__viewport"><div className="ep-modality-cases__track">
-          {[...cases, ...cases].map((item, index) => <figure key={`${item.image}-${index}`} aria-hidden={index >= cases.length}>
-            <img src={item.image} alt={index < cases.length ? item.alt : ""} loading="lazy" />
-            <figcaption>{item.label}</figcaption>
-          </figure>)}
-        </div></div>
-      </section>
-
-      <section className="ep-section ep-modality-faq"><div className="ep-container ep-modality-faq__grid"><div><p className="ep-eyebrow">Dúvidas sobre {modality.label.toLocaleLowerCase("pt-BR")}</p><h2 className="ep-title-lg">Respostas antes de <em>decidir.</em></h2></div><div>{modality.faqs.map((faq) => <details key={faq.question}><summary>{faq.question}<ChevronRight aria-hidden="true" /></summary><p>{faq.answer}</p></details>)}</div></div></section>
-
-      <section className="ep-modality-final"><div className="ep-container ep-modality-final__inner">
-        {modality.slug === "bagagem-acompanhada" ? <img className="ep-modality-cutout ep-modality-cutout--passport" src="/embarpet-pet-passaporte-cutout.png" alt="" aria-hidden="true" loading="lazy" /> : null}
-        <div className="ep-modality-final__content"><p className="ep-eyebrow">Próximo passo</p><h2 className="ep-title-lg">Conte a sua rota. A análise começa <em>pelo contexto.</em></h2><p className="ep-copy">Em poucos passos, reunimos as informações que ajudam a avaliar esta e outras possibilidades para a viagem do seu pet.</p><div><AnalysisButton size="lg" onClick={() => startPlanning("final_cta")}>Começar minha análise</AnalysisButton></div></div>
-      </div></section>
+      <FinalCtaSection onStartPlanning={() => startPlanning("final_cta")} />
     </main>
     <AnalysisModal open={analysisOpen} onClose={() => setAnalysisOpen(false)} initialRoute={analysisRoute} analyticsSource={analysisSource} />
-    <SiteFooter logoSrc="/logo-embarpet-dark.png" note={`Planejamento individual para a modalidade de ${modality.label.toLocaleLowerCase("pt-BR")}.`} onAnalysisClick={() => startPlanning("footer")} groups={[
+    <SiteFooter minimal logoSrc="/logo-embarpet-dark.png" note={`Planejamento individual para a modalidade de ${modality.label.toLocaleLowerCase("pt-BR")}.`} brandCta={{ label: "Começar minha análise", href: "#planejar" }} quickLinks={[]} onAnalysisClick={() => startPlanning("footer")} groups={[
       { title: "Planeje a viagem", links: [{ label: "Como funciona", href: "/#como-funciona" },{ label: "Modalidades", href: "/#modalidades" },{ label: "Destinos", href: "/#destinos" }] },
       { title: "Conteúdo", links: [{ label: "Histórias reais", href: "/#historias" },{ label: "Perguntas frequentes", href: "/#faq" }] },
       { title: "Embarpet", links: [{ label: "Sobre nós", href: "/sobre" },{ label: "Fale com a equipe", href: "#planejar" }] },
-    ]} />
+    ]} showLanguageLink={false} />
   </>;
 }

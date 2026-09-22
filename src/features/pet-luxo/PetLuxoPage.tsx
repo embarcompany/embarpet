@@ -4,14 +4,12 @@ import { SiteHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisButton } from "../../components/ui/buttons";
 import { AnalysisModal, type AnalysisRouteContext } from "../../components/ui/analysis-modal";
-import { useLocale } from "../../i18n/locale";
 import { setPageMetadata } from "../../lib/seo";
 import { petLuxoContent } from "./pet-luxo-content";
 
 const eligibilityIcons = [Crown, HeartHandshake, ShieldCheck];
 
 export default function PetLuxoPage() {
-  const { text } = useLocale();
   const [analysisOpen, setAnalysisOpen] = useState(false);
   const [analysisSource, setAnalysisSource] = useState("pet_luxo_hero");
   const analysisRoute: AnalysisRouteContext = {};
@@ -23,10 +21,16 @@ export default function PetLuxoPage() {
     setAnalysisOpen(true);
   };
 
+  const pageNavigation = [
+    { label: "Por que delegar com um consultor", href: "#dor" },
+    { label: "Como funciona", href: "#processo" },
+    { label: "Elegibilidade", href: "#elegibilidade" },
+  ];
+
   return <>
-    <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" overlay activeLabel={text.navModalities} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />
+    <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" overlay items={pageNavigation} cta={{ label: "Saiba mais sobre o PetLuxo", href: "#planejar" }} showMobileJourney={false} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />
     <main className="ep-petluxo-page">
-      <section className="ep-petluxo-hero">
+      <section className="ep-petluxo-hero" id="planejar">
         <div className="ep-container ep-petluxo-hero__grid">
           <div className="ep-petluxo-hero__content">
             <p className="ep-eyebrow">{petLuxoContent.hero.eyebrow}</p>
@@ -44,17 +48,17 @@ export default function PetLuxoPage() {
         </div>
       </section>
 
-      <section className="ep-section ep-petluxo-pain"><div className="ep-container ep-petluxo-pain__grid">
+      <section className="ep-section ep-petluxo-pain" id="dor"><div className="ep-container ep-petluxo-pain__grid">
         <div><p className="ep-eyebrow">{petLuxoContent.pain.eyebrow}</p><h2 className="ep-title-lg">{petLuxoContent.pain.title}</h2><p className="ep-copy">{petLuxoContent.pain.copy}</p></div>
         <ul>{petLuxoContent.pain.points.map((point) => <li key={point}><CircleAlert aria-hidden="true" /><span>{point}</span></li>)}</ul>
       </div></section>
 
-      <section className="ep-section ep-petluxo-process"><div className="ep-container">
+      <section className="ep-section ep-petluxo-process" id="processo"><div className="ep-container">
         <div><p className="ep-eyebrow">{petLuxoContent.process.eyebrow}</p><h2 className="ep-title-lg">{petLuxoContent.process.title}</h2><p className="ep-copy">{petLuxoContent.process.copy}</p></div>
         <ol className="ep-petluxo-process__steps">{petLuxoContent.process.steps.map((step) => <li key={step.number}><span>{step.number}</span><h3>{step.title}</h3><p>{step.copy}</p></li>)}</ol>
       </div></section>
 
-      <section className="ep-section ep-petluxo-eligibility"><div className="ep-container ep-petluxo-eligibility__grid">
+      <section className="ep-section ep-petluxo-eligibility" id="elegibilidade"><div className="ep-container ep-petluxo-eligibility__grid">
         <div><p className="ep-eyebrow">{petLuxoContent.eligibility.eyebrow}</p><h2 className="ep-title-lg">{petLuxoContent.eligibility.title}</h2><p className="ep-copy">{petLuxoContent.eligibility.copy}</p><AnalysisButton className="ep-ds-button--luxury" onClick={() => startPlanning("eligibility")}>Avaliar meu caso</AnalysisButton></div>
         <ul>{petLuxoContent.eligibility.points.map((point, index) => { const PointIcon = eligibilityIcons[index]; return <li key={point}><PointIcon aria-hidden="true" /><span>{point}</span></li>; })}</ul>
       </div></section>
