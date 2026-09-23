@@ -296,20 +296,12 @@ export function SiteHeader({
         },
       },
       {
-        label: text.navHow,
-        href: path("/#como-funciona"),
-      },
-      {
         label: "Sobre Nós",
         href: path("/sobre"),
         badges: ["Aeroporto GRU", "Desde 2018"],
       },
-      {
-        label: "Histórias",
-        href: path("/#historias"),
-      },
     ],
-    [path, text.navDestinations, text.navHow, text.navModalities]
+    [path, text.navDestinations, text.navModalities]
   );
 
   const navigationItems = items ?? standardItems;
