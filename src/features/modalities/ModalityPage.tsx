@@ -77,14 +77,17 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
     <AdaptiveHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" isLp={isLp} sections={pageNavigation} ctaLabel="Começar minha análise" onCtaClick={() => startPlanning("header")} />
     <main className={`ep-modality-page ep-modality-page--${modality.slug}`}>
       <section className="ep-modality-hero" id="planejar">
-        <div className="ep-container ep-modality-hero__grid">
-          <div className="ep-modality-hero__content">
-            <p className="ep-eyebrow">{modality.eyebrow}</p>
-            <h1 className="ep-title-xl">{modality.title} <em>{modality.titleHighlight}</em></h1>
-            <p className="ep-copy">{modality.intro}</p>
-            <AnalysisButton size="lg" onClick={() => startPlanning("hero")}>Começar minha análise</AnalysisButton>
+        <div className="ep-modality-hero__grid">
+          <div className="ep-modality-hero__content-wrap">
+            <div className="ep-modality-hero__content">
+              <p className="ep-eyebrow">{modality.eyebrow}</p>
+              <h1 className="ep-title-xl">{modality.title} <em>{modality.titleHighlight}</em></h1>
+              <p className="ep-copy">{modality.intro}</p>
+              <ul className="ep-modality-hero__facts">{modality.heroFacts.map((fact) => <li key={fact}><Check size={15} aria-hidden="true" />{fact}</li>)}</ul>
+              <AnalysisButton size="lg" onClick={() => startPlanning("hero")}>Começar minha análise</AnalysisButton>
+            </div>
           </div>
-          <div className="ep-modality-hero__visual"><img src={modality.heroImage} alt={modality.heroAlt} /><ul>{modality.heroFacts.map((fact) => <li key={fact}><Check size={15} aria-hidden="true" />{fact}</li>)}</ul></div>
+          <div className="ep-modality-hero__visual"><img src={modality.heroImage} alt={modality.heroAlt} /></div>
         </div>
       </section>
 
