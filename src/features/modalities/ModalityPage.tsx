@@ -91,8 +91,12 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
       <AuthoritySection onStartPlanning={() => startPlanning("authority")} />
 
       <section className="ep-section ep-modality-introduction"><div className="ep-container ep-modality-introduction__grid">
-        <div className="ep-modality-introduction__heading"><p className="ep-eyebrow">Entenda esta modalidade</p><h2 className="ep-title-lg">{modality.whatTitle} <em>{modality.whatTitleHighlight}</em></h2></div>
-        <div className="ep-modality-introduction__copy"><p className="ep-copy">{modality.whatCopy}</p></div>
+        <div className="ep-modality-introduction__content">
+          <p className="ep-eyebrow">Entenda esta modalidade</p>
+          <h2 className="ep-title-lg">{modality.whatTitle} <em>{modality.whatTitleHighlight}</em></h2>
+          <ul className="ep-modality-introduction__cards">{modality.whatCards.map((card) => <li key={card.title}><h3>{card.title}</h3><p>{card.copy}</p></li>)}</ul>
+        </div>
+        <div className="ep-modality-introduction__media"><img src={modality.whatImage} alt={modality.whatImageAlt} loading="lazy" /></div>
       </div></section>
 
       {modality.slug === "bagagem-acompanhada" ? <BagagemDecisionMap onStartPlanning={startPlanning} /> : null}

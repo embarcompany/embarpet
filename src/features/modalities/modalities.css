@@ -15,14 +15,16 @@
 .ep-modality-hero__visual li{ display:flex; align-items:flex-start; gap:7px; min-height:52px; padding:10px; border:1px solid rgba(255,255,255,.2); border-radius:var(--ep-radius-sm); background:rgba(4,63,70,.42); color:var(--ep-paper); font-size:11px; font-weight:700; line-height:1.25; }
 .ep-modality-hero__visual li svg{ flex:0 0 auto; color:var(--ep-turq); }
 .ep-modality-introduction{ background:var(--ep-page); }
-.ep-modality-introduction__grid{ align-items:start; }
-.ep-modality-introduction__grid > div{ display:grid; gap:var(--ep-stack-title-copy); }
-.ep-modality-introduction__grid .ep-title-lg{ max-width:15ch; margin:0; }
-.ep-modality-introduction__grid .ep-copy{ max-width:58ch; margin:0; padding:24px 26px; border:1px solid var(--ep-line); border-radius:var(--ep-radius-md); background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(232,249,247,.72)); box-shadow:0 12px 28px rgba(5,67,74,.045); font-size:clamp(17px,1.6vw,20px); line-height:1.55; }
-.ep-modality-introduction__heading,.ep-modality-introduction__copy{ opacity:0; transform:translateY(24px); transition:opacity .66s cubic-bezier(.22,1,.36,1),transform .66s cubic-bezier(.22,1,.36,1); }
-.ep-modality-introduction__copy{ transition-delay:.12s; }
-.ep-modality-introduction__heading.is-revealed,.ep-modality-introduction__copy.is-revealed{ opacity:1; transform:translateY(0); }
+.ep-modality-introduction__grid{ align-items:center; }
+.ep-modality-introduction__content{ display:grid; gap:var(--ep-stack-title-copy); }
+.ep-modality-introduction__grid .ep-title-lg{ max-width:16ch; margin:0; }
 .ep-modality-introduction .ep-title-lg em{ color:var(--ep-turquoise); font-style:normal; }
+.ep-modality-introduction__cards{ display:grid; gap:12px; margin:8px 0 0; padding:0; list-style:none; }
+.ep-modality-introduction__cards li{ padding:18px 20px; border:1px solid var(--ep-line); border-radius:var(--ep-radius-sm); background:rgba(255,255,255,.78); box-shadow:0 10px 24px rgba(5,67,74,.04); }
+.ep-modality-introduction__cards h3{ margin:0 0 6px; color:var(--ep-teal); font-size:15px; font-weight:800; letter-spacing:-.01em; }
+.ep-modality-introduction__cards p{ margin:0; color:var(--ep-muted); font-size:13px; line-height:1.5; }
+.ep-modality-introduction__media{ overflow:hidden; min-height:340px; border-radius:var(--ep-radius-lg); background:var(--ep-soft); }
+.ep-modality-introduction__media img{ display:block; width:100%; height:100%; object-fit:cover; }
 .ep-modality-pain{ position:relative; background:linear-gradient(135deg,#7d2430,#a93c42); color:#fff8f6; }
 .ep-modality-pain .ep-eyebrow{ border-color:rgba(255,241,235,.34); background:rgba(255,255,255,.08); color:#fff8f6; }
 .ep-modality-pain .ep-title-lg{ color:#fff8f6; }
@@ -99,9 +101,6 @@
 .ep-modality-faq details p{ max-width:62ch; margin:0; padding:0 18px 20px; color:var(--ep-muted); font-size:14px; line-height:1.55; }
 .ep-modality-cutout{ display:none; pointer-events:none; user-select:none; }
 /* Cada modalidade usa a mesma base,mas não a mesma distribuição. */
-.ep-modality-page--viagem-na-cabine .ep-modality-introduction__grid{ grid-template-columns:1fr; max-width:820px; text-align:center; }
-.ep-modality-page--viagem-na-cabine .ep-modality-introduction__grid > div{ justify-items:center; }
-.ep-modality-page--viagem-na-cabine .ep-modality-introduction__grid .ep-copy{ max-width:62ch; margin-inline:auto; padding:0; border-left:0; }
 .ep-modality-page--viagem-na-cabine .ep-modality-benefits__grid{ grid-template-columns:1fr; }
 .ep-modality-page--viagem-na-cabine .ep-modality-benefits__grid > div{ max-width:620px; }
 .ep-modality-page--viagem-na-cabine .ep-modality-benefits__grid ul{ grid-template-columns:repeat(3,minmax(0,1fr)); }
@@ -118,11 +117,6 @@
 /* Bagagem acompanhada: a sequência alterna prova,decisão e orientação para
    evitar a repetição de duas colunas com a mesma leitura em toda a LP. */
 .ep-modality-page--bagagem-acompanhada .ep-modality-introduction{ margin-top:-54px; padding-block:0 clamp(54px,6vw,86px); background:linear-gradient(180deg,rgba(232,249,247,0) 0%,var(--ep-page) 42%); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-introduction__grid{ grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr); gap:clamp(30px,5vw,82px); align-items:stretch; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-introduction__grid .ep-title-lg{ max-width:13ch; font-size:clamp(36px,3.65vw,58px); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-introduction__grid .ep-copy{ align-self:stretch; display:flex; align-items:center; padding:30px 34px; border-color:rgba(0,157,172,.18); border-radius:24px; background:#fff; box-shadow:0 22px 42px rgba(5,67,74,.07); }
-@media (prefers-reduced-motion:reduce) {.ep-modality-introduction__heading,.ep-modality-introduction__copy{ opacity:1; transform:none; transition:none; }
-}
 .ep-modality-page--bagagem-acompanhada .ep-modality-process{ background:#f8fdfc; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-container{ display:grid; grid-template-columns:minmax(260px,.7fr) minmax(0,1.3fr); column-gap:clamp(46px,7vw,108px); row-gap:var(--ep-space-4); align-items:center; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-modality-section-heading{ justify-items:start; align-self:center; max-width:480px; padding-top:0; }
