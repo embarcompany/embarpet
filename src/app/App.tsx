@@ -27,14 +27,16 @@ export function App({ initialLocale = "pt-BR", initialPath = "/" }: { initialLoc
   const modalitySlug = (rawModalitySlug?.replace(/-lp$/, "") ?? null) as ModalitySlug | null;
   const modality = modalitySlug && modalityContent[modalitySlug] ? modalityContent[modalitySlug] : undefined;
   const petLuxoIsLp = route === "/pet-luxo-lp";
+  const aboutIsLp = route === "/sobre-lp";
+  const homeIsLp = route === "/lp";
   const page = destination ? <DestinationPage destination={destination} isLp={destinationIsLp} />
     : modality ? <ModalityPage modality={modality} isLp={modalityIsLp} />
     : (route === "/pet-luxo" || petLuxoIsLp) ? <PetLuxoPage isLp={petLuxoIsLp} />
-    : (route === "/sobre" || route === "/quem-somos") ? <AboutPage />
+    : (route === "/sobre" || route === "/quem-somos" || aboutIsLp) ? <AboutPage isLp={aboutIsLp} />
     : route === "/viajar" ? <AnalysisPage />
     : route === "/obrigado" ? <ThankYouPage />
     : route === "/design-system/botoes" ? <ButtonsPage />
-    : <EmbarpetHome />;
+    : <EmbarpetHome isLp={homeIsLp} />;
   return (
     <LocaleProvider locale={locale}>
       <SmoothScroll />

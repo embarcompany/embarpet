@@ -6,7 +6,7 @@ import { InternationalTransfer, type Region } from "../../components/ui/country-
 import { ScrollFlyIn } from "../../components/ui/hero-section-3";
 import { FAQItem } from "../../components/ui/system";
 import { ArrowRight, ClipboardCheck, FileText, Globe2, Headset, MapPin, Pause, Play } from "lucide-react";
-import { SiteHeader } from "../../components/ui/navigation";
+import { AdaptiveHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { openWhatsAppModal } from "../../components/ui/whatsapp-float";
 import { HeroRouteStarter } from "../../components/ui/hero-route-starter";
@@ -16,6 +16,7 @@ import { InternalLink } from "../../components/ui/buttons";
 import { PetLuxoSection } from "../../components/ui/pet-luxo-section";
 import { useLocale } from "../../i18n/locale";
 import { countryFlagSvg } from "../../lib/country-flag";
+import { setPageMetadata } from "../../lib/seo";
 
 const images = {
   planning: "/embarpet-trip-planning.png",
@@ -178,8 +179,13 @@ function EmbarkationMarquee() {
   return <section className="ep-embarkation-marquee" aria-label="Embarques realizados pela Embarpet"><div className="ep-embarkation-marquee__viewport" ref={viewportRef}><div className="ep-embarkation-marquee__track" ref={trackRef}>{rails.map((rail) => <div className="ep-embarkation-marquee__rail" key={rail} aria-hidden={rail ? "true" : undefined}>{embarkationGallery.map(({ src, alt }) => <figure className="ep-embarkation-marquee__item" key={`${src}-${rail}`}><img src={src} alt={rail ? "" : alt} loading="lazy" decoding="async" draggable="false" /></figure>)}</div>)}</div></div></section>;
 }
 
-export default function EmbarpetHome() {
+export default function EmbarpetHome({ isLp = false }: { isLp?: boolean }) {
   const { text, path } = useLocale();
+
+  useEffect(() => {
+    if (!isLp) return;
+    return setPageMetadata({ title: text.title, description: text.description, canonicalPath: "/lp", robots: "noindex,nofollow" });
+  }, [isLp, text]);
   const routeFromUrl = () => {
     const query = new URLSearchParams(window.location.search);
     return { origin: query.get("origin") ?? "", destination: query.get("destination") ?? "", period: query.get("period") ?? "" };
@@ -247,9 +253,15 @@ export default function EmbarpetHome() {
     openAnalysis({ destination });
   };
 
+  const lpNavigation = [
+    { label: "Modalidades", href: "#modalidades" },
+    { label: "Como funciona", href: "#como-funciona" },
+    { label: "Histórias", href: "#historias" },
+  ];
+
   return <>
     <AnalysisModal open={analysisOpen} onClose={closeAnalysis} initialRoute={analysisRoute} analyticsSource="index_modal" />
-    <SiteHeader overlay logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" /><main className="ep-home-main">
+    <AdaptiveHeader overlay logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" isLp={isLp} sections={lpNavigation} ctaLabel="Começar minha análise" onCtaClick={() => openAnalysis()} /><main className="ep-home-main">
     <ConversionHero aside={<aside className="ep-hero-showcase" aria-label="Embarpet em operação"><img className="ep-hero-showcase__pet" src="/embarpet-hero-pets-air-travel.webp" alt="Cachorro, gato, coelho, hamster e ave em uma composição sobre viagem internacional de pets" /><section className="ep-hero-showcase__vsl"><div className="ep-hero-showcase__video">{heroVideoFullLoaded ? <><video ref={heroVideoRef} src="/embarpet-hero-vsl.mp4" poster="/embarpet-hero-vsl-poster.jpg" aria-label="Acompanhamento Embarpet em contexto de viagem" autoPlay playsInline preload="auto" onPause={() => setHeroVideoPaused(true)} onPlay={() => setHeroVideoPaused(false)} /><button type="button" aria-label={heroVideoPaused ? "Reproduzir vídeo" : "Pausar vídeo"} className="ep-hero-video__sound is-playing" onClick={() => { if (heroVideoRef.current?.paused) void heroVideoRef.current.play(); else heroVideoRef.current?.pause(); }}>{heroVideoPaused ? <Play size={14} /> : <Pause size={14} />}</button></> : <button type="button" className="ep-hero-showcase__poster" aria-label="Reproduzir vídeo sobre a Embarpet" onClick={() => { setHeroVideoFullLoaded(true); setHeroVideoPaused(false); }}><img src="/embarpet-hero-vsl-poster.jpg" alt="Thamires Félix apresentando a operação da Embarpet" fetchPriority="high" decoding="async" /><span><Play size={18} fill="currentColor" /></span></button>}</div></section></aside>}>
       <div className="ep-hero-proof" aria-label="Mais de dois mil embarques realizados e avaliação 4,9 no Google"><div className="ep-hero-proof__metric"><span className="ep-team-avatars" aria-hidden="true"><i /><i /><i /><i /></span><strong>+2.000</strong><small>embarques<br />realizados</small></div><div className="ep-hero-proof__metric"><img src="/logo-google.svg" alt="Google" /><strong>4,9</strong><small>avaliação<br />no Google</small></div></div>
       <h1 className="ep-title-xl">{text.heroTitleBefore}<span className="ep-hero-highlight">{text.heroTitleHighlight}</span><span className="ep-hero-flags" aria-hidden="true">{["BR", "US", "PT", "ES", "IT"].map((code) => <img key={code} src={countryFlagSvg(code)} alt="" />)}</span></h1>

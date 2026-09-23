@@ -713,6 +713,25 @@ export function SiteHeader({
   );
 }
 
+/**
+ * Header com dois modos, decididos pela própria página via `isLp`:
+ * institucional (mega-menu completo, padrão do site) ou LP (só âncoras
+ * da própria página + 1 CTA, sem link de saída — para tráfego pago).
+ */
+export function AdaptiveHeader({ logoSrc, isLp, sections, ctaLabel, onCtaClick, overlay, activeLabel }: {
+  logoSrc: string;
+  isLp: boolean;
+  sections: NavigationLink[];
+  ctaLabel: string;
+  onCtaClick: () => void;
+  overlay?: boolean;
+  activeLabel?: string;
+}) {
+  return isLp
+    ? <SiteHeader logoSrc={logoSrc} overlay={overlay} items={sections} cta={{ label: ctaLabel, href: "#planejar" }} showMobileJourney={false} mobileCtaLabel="Começar análise" onCtaClick={onCtaClick} />
+    : <SiteHeader logoSrc={logoSrc} overlay={overlay} activeLabel={activeLabel} mobileCtaLabel="Começar análise" onCtaClick={onCtaClick} />;
+}
+
 export function Breadcrumbs({ items }: { items: Array<{ label: string; href?: string }> }) {
   return (
     <nav className="ep-breadcrumbs" aria-label="Breadcrumb">

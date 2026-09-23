@@ -10,6 +10,7 @@ const siteUrl = "https://www.embarpet.com.br";
 
 const pages = {
   "pt-BR": { path: "/", lang: "pt-BR", title: "Transporte Internacional de Pets | Embarpet", description: "Planeje o transporte internacional do seu pet com análise de rota, documentação e possibilidades de embarque." },
+  "lp": { path: "/lp", lang: "pt-BR", title: "Transporte Internacional de Pets | Embarpet", description: "Planeje o transporte internacional do seu pet com análise de rota, documentação e possibilidades de embarque.", robots: "noindex,nofollow" },
   en: { path: "/en/", lang: "en", title: "International Pet Transport | Embarpet", description: "Plan your pet’s international trip with route analysis, documentation and air-travel options." },
   es: { path: "/es/", lang: "es", title: "Transporte Internacional de Mascotas | Embarpet", description: "Planifica el viaje internacional de tu mascota con análisis de ruta, documentación y opciones de transporte aéreo." },
   ja: { path: "/ja/", lang: "ja", title: "国際ペット輸送 | Embarpet", description: "ルート、書類、航空輸送の選択肢を確認しながら、ペットの国際移動を計画できます。" },
@@ -21,6 +22,7 @@ const pages = {
   "destinos/uruguai": { path: "/destinos/uruguai", lang: "pt-BR", title: "Transporte Internacional de Pets para o Uruguai | Embarpet", description: "Planeje a viagem do seu pet para o Uruguai com análise de normas sanitárias MGAP, vacinas, CVI e logística de transporte." },
   "destinos/paraguai": { path: "/destinos/paraguai", lang: "pt-BR", title: "Transporte Internacional de Pets para o Paraguai | Embarpet", description: "Planeje o transporte internacional do seu pet para o Paraguai com suporte em documentação Mercosul, CVI e análise de rota." },
   "sobre": { path: "/sobre", lang: "pt-BR", title: "Quem Somos | Sobre a Embarpet — Especialistas em Transporte Internacional de Pets", description: "Conheça a Embarpet: empresa do Grupo Embarcompany especializada em mobilidade aérea internacional de animais. Conheça nossa base em Guarulhos, equipe, valores e credenciais." },
+  "sobre-lp": { path: "/sobre-lp", lang: "pt-BR", title: "Quem Somos | Sobre a Embarpet — Especialistas em Transporte Internacional de Pets", description: "Conheça a Embarpet: empresa do Grupo Embarcompany especializada em mobilidade aérea internacional de animais. Conheça nossa base em Guarulhos, equipe, valores e credenciais.", robots: "noindex,nofollow" },
   "modalidades/viagem-na-cabine": { path: "/modalidades/viagem-na-cabine", lang: "pt-BR", title: "Viagem de Pet na Cabine | Embarpet", description: "Saiba quando um pet pode viajar na cabine e entenda os critérios de porte, rota, caixa de transporte e documentação internacional." },
   "modalidades/bagagem-acompanhada": { path: "/modalidades/bagagem-acompanhada", lang: "pt-BR", title: "Bagagem Acompanhada para Pets | Embarpet", description: "Entenda como funciona a bagagem acompanhada para transporte internacional de pets no mesmo voo do tutor." },
   "modalidades/compartimento-de-cargas": { path: "/modalidades/compartimento-de-cargas", lang: "pt-BR", title: "Compartimento de Cargas para Pets | Embarpet", description: "Entenda como funciona o transporte internacional de pets em compartimento de cargas e receba uma análise da rota, do pet e da documentação." },
@@ -62,7 +64,7 @@ function renderPage(locale, page) {
 }
 
 for (const [locale, page] of Object.entries(pages)) {
-  const renderLocale = page.path.startsWith("/destinos/") || page.path.startsWith("/modalidades/") || page.path === "/sobre" || page.path.startsWith("/pet-luxo") ? "pt-BR" : locale;
+  const renderLocale = page.path.startsWith("/destinos/") || page.path.startsWith("/modalidades/") || page.path.startsWith("/sobre") || page.path.startsWith("/pet-luxo") || page.path === "/lp" ? "pt-BR" : locale;
   const isRoot = locale === "pt-BR";
   const destination = isRoot ? templatePath : resolve(dist, locale, "index.html");
   if (!isRoot) await mkdir(resolve(dist, locale), { recursive: true });

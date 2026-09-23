@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { SiteFooter } from "../../components/ui/footer";
-import { SiteHeader } from "../../components/ui/navigation";
+import { AdaptiveHeader } from "../../components/ui/navigation";
 import { setPageMetadata } from "../../lib/seo";
 import { AnalysisButton } from "../../components/ui/buttons";
 import { AnalysisModal, type AnalysisRouteContext } from "../../components/ui/analysis-modal";
@@ -65,9 +65,7 @@ export function DestinationPage({ destination, isLp = false }: { destination: De
   ];
 
   return <>
-    {isLp
-      ? <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" items={pageNavigation} cta={{ label: "Começar o planejamento", href: "#planejar" }} showMobileJourney={false} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />
-      : <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />}
+    <AdaptiveHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" isLp={isLp} sections={pageNavigation} ctaLabel="Começar o planejamento" onCtaClick={() => startPlanning("header")} />
     <main className="ep-destination-lp">
       <HeroPlannerSection destination={destination} period={period} routeInverted={routeInverted} heroVisible={heroVisible} heroRef={heroRef} onPeriodChange={setPeriod} onToggleRoute={() => setRouteInverted((current) => !current)} onEditDestination={() => startPlanning("route_edit")} onStartPlanning={() => startPlanning()} />
       <AuthoritySection onStartPlanning={() => startPlanning("authority")} />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ChevronRight, CircleAlert, ClipboardCheck, Crown, HeartHandshake, ShieldCheck, Star } from "lucide-react";
-import { SiteHeader } from "../../components/ui/navigation";
+import { AdaptiveHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisButton } from "../../components/ui/buttons";
 import { AnalysisModal, type AnalysisRouteContext } from "../../components/ui/analysis-modal";
@@ -28,9 +28,7 @@ export default function PetLuxoPage({ isLp = false }: { isLp?: boolean }) {
   ];
 
   return <>
-    {isLp
-      ? <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" overlay items={pageNavigation} cta={{ label: "Saiba mais sobre o PetLuxo", href: "#planejar" }} showMobileJourney={false} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />
-      : <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" overlay mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />}
+    <AdaptiveHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" overlay isLp={isLp} sections={pageNavigation} ctaLabel="Saiba mais sobre o PetLuxo" onCtaClick={() => startPlanning("header")} />
     <main className="ep-petluxo-page">
       <section className="ep-petluxo-hero" id="planejar">
         <div className="ep-container ep-petluxo-hero__grid">

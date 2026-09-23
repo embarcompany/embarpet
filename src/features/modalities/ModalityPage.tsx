@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, FileText, HeartHandshake, Package, Route, ShieldCheck } from "lucide-react";
-import { SiteHeader } from "../../components/ui/navigation";
+import { AdaptiveHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisButton } from "../../components/ui/buttons";
 import { AnalysisModal, type AnalysisRouteContext } from "../../components/ui/analysis-modal";
@@ -74,9 +74,7 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
   ];
 
   return <>
-    {isLp
-      ? <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" items={pageNavigation} cta={{ label: "Começar minha análise", href: "#planejar" }} showMobileJourney={false} mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />
-      : <SiteHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" mobileCtaLabel="Começar análise" onCtaClick={() => startPlanning("header")} />}
+    <AdaptiveHeader logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" isLp={isLp} sections={pageNavigation} ctaLabel="Começar minha análise" onCtaClick={() => startPlanning("header")} />
     <main className={`ep-modality-page ep-modality-page--${modality.slug}`}>
       <section className="ep-modality-hero" id="planejar">
         <div className="ep-container ep-modality-hero__grid">

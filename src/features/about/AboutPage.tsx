@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { ScrollFlyIn } from "../../components/ui/hero-section-3";
 import { CaseDragCards } from "../../components/ui/case-drag-cards";
-import { SiteHeader } from "../../components/ui/navigation";
+import { AdaptiveHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisModal } from "../../components/ui/analysis-modal";
 import { setPageMetadata } from "../../lib/seo";
@@ -263,7 +263,7 @@ function CenteredMethodologyTimeline({ onOpenAnalysis }: { onOpenAnalysis: () =>
   );
 }
 
-export default function AboutPage() {
+export default function AboutPage({ isLp = false }: { isLp?: boolean }) {
   const [analysisOpen, setAnalysisOpen] = useState(false);
   const [analysisRoute, setAnalysisRoute] = useState<{ origin?: string; destination?: string }>({});
 
@@ -272,9 +272,16 @@ export default function AboutPage() {
       title: "Nossa História & Propósito | Embarpet — Transporte Aéreo Internacional de Pets",
       description:
         "Conheça a história da Embarpet: fundada em 2018 por Daiane Sarmento e Thamires Felix para transformar a complexidade de viajar com pets em um plano seguro. O destino pode mudar. A família vai junto.",
-      canonicalPath: "/sobre",
+      canonicalPath: isLp ? "/sobre-lp" : "/sobre",
+      robots: isLp ? "noindex,nofollow" : "index,follow",
     });
-  }, []);
+  }, [isLp]);
+
+  const pageNavigation = [
+    { label: "Nossa história", href: "#origem" },
+    { label: "Como atuamos", href: "#metodologia" },
+    { label: "Casos reais", href: "#historias" },
+  ];
 
   const openAnalysis = (route = {}) => {
     setAnalysisRoute(route);
@@ -294,7 +301,7 @@ export default function AboutPage() {
         analyticsSource="about_modal"
       />
 
-      <SiteHeader overlay logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" activeLabel="Sobre" />
+      <AdaptiveHeader overlay logoSrc="/brand/embarpet_full_logo_word-white_support-cyan_tagline-cyan.svg" activeLabel="Sobre" isLp={isLp} sections={pageNavigation} ctaLabel="Começar minha análise" onCtaClick={() => openAnalysis()} />
 
       <main className="ep-about-main">
         {/* ==================================================================
