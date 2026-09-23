@@ -111,7 +111,7 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
       </div></section>
 
       <section className="ep-section ep-modality-decision">
-        <div className="ep-container ep-modality-decision__heading"><p className="ep-eyebrow">Quando ela pode fazer sentido</p><h2 className="ep-title-lg">{modality.decisionTitle}</h2></div>
+        <div className="ep-container ep-modality-decision__heading"><p className="ep-eyebrow">Quando ela pode fazer sentido</p><h2 className="ep-title-lg">{modality.decisionTitle} <em>{modality.decisionTitleHighlight}</em></h2></div>
         <div className="ep-container">
           <ul className="ep-modality-decision__points">{modality.decisionPoints.map((point, index) => { const PointIcon = decisionIcons[index]; return <li key={point.title}><PointIcon aria-hidden="true" /><h3>{point.title}</h3><p>{point.copy}</p></li>; })}</ul>
         </div>
@@ -121,7 +121,7 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
       {modality.slug === "bagagem-acompanhada" ? <BagagemDecisionMap onStartPlanning={startPlanning} /> : null}
 
       <section className="ep-section ep-modality-pain">
-        <div className="ep-container ep-modality-pain__heading"><p className="ep-eyebrow">Antes de decidir</p><h2 className="ep-title-lg">{storytelling.painTitle}</h2><p className="ep-copy">{storytelling.painCopy}</p></div>
+        <div className="ep-container ep-modality-pain__heading"><h2 className="ep-title-lg">{storytelling.painTitle} <em>{storytelling.painTitleHighlight}</em></h2><p className="ep-copy">{storytelling.painCopy}</p></div>
         <div className="ep-container ep-modality-pain__content">
           <div className="ep-modality-pain__visual"><img src={storytelling.painImage} alt={storytelling.painImageAlt} loading="lazy" /></div>
           <ul className="ep-modality-pain__questions">{storytelling.painPoints.map((point) => <li key={point}><CircleAlert aria-hidden="true" /><span>{point}</span></li>)}</ul>
@@ -129,7 +129,7 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
       </section>
 
       <section className="ep-section ep-modality-reassurance">
-        <div className="ep-container ep-modality-reassurance__heading"><p className="ep-eyebrow">O que muda com uma boa análise</p><h2 className="ep-title-lg">{storytelling.reassuranceTitle}</h2><p className="ep-copy">{storytelling.reassuranceCopy}</p></div>
+        <div className="ep-container ep-modality-reassurance__heading"><p className="ep-eyebrow">O que muda com uma boa análise</p><h2 className="ep-title-lg">{storytelling.reassuranceTitle} <em>{storytelling.reassuranceTitleHighlight}</em></h2><p className="ep-copy">{storytelling.reassuranceCopy}</p></div>
         <div className="ep-container ep-modality-reassurance__content">
           <div className="ep-modality-reassurance__visual"><img src={storytelling.reassuranceImage} alt={storytelling.reassuranceImageAlt} loading="lazy" /></div>
           <ol className="ep-modality-reassurance__points">{storytelling.reassurancePoints.map((point, index) => <li key={point}><span>0{index + 1}</span><p>{point}</p></li>)}</ol>
@@ -140,7 +140,7 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
       <RiskSection />
 
       <section className="ep-section ep-modality-benefits"><div className="ep-container ep-modality-benefits__grid">
-        <div><p className="ep-eyebrow">O que esta escolha resolve</p><h2 className="ep-title-lg">{modality.benefitTitle}</h2><p className="ep-copy">{modality.benefitCopy}</p></div>
+        <div><p className="ep-eyebrow">O que esta escolha resolve</p><h2 className="ep-title-lg">{modality.benefitTitle} <em>{modality.benefitTitleHighlight}</em></h2><p className="ep-copy">{modality.benefitCopy}</p></div>
         <ul>{modality.benefits.map((benefit, index) => { const BenefitIcon = benefitIcons[index]; return <li key={benefit}><BenefitIcon aria-hidden="true" /><span>{benefit}</span></li>; })}</ul>
       </div></section>
 

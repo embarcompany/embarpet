@@ -91,6 +91,7 @@
 .ep-modality-benefits__grid{ grid-template-columns:1fr; justify-items:center; text-align:center; }
 .ep-modality-benefits__grid > div{ display:grid; justify-items:center; gap:var(--ep-stack-title-copy); max-width:700px; }
 .ep-modality-benefits__grid .ep-title-lg,.ep-modality-benefits__grid .ep-copy{ margin:0; }
+.ep-modality-benefits__grid .ep-title-lg em{ color:var(--ep-turq-deep); font-style:normal; }
 .ep-modality-benefits__grid ul{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:0; padding:0; list-style:none; }
 .ep-modality-benefits__grid li{ display:grid; align-content:start; gap:14px; min-height:158px; padding:18px; border:1px solid var(--ep-line); border-radius:var(--ep-radius-sm); background:linear-gradient(145deg,var(--ep-soft),rgba(232,249,247,.92)); color:var(--ep-teal); font-size:14px; font-weight:700; line-height:1.35; transition:background .25s ease,border-color .25s ease,transform .25s ease,box-shadow .25s ease; }
 .ep-modality-benefits__grid li:hover{ border-color:rgba(0,157,172,.45); background:#e5f9f7; box-shadow:0 12px 24px rgba(5,67,74,.06); transform:translateY(-3px); }
