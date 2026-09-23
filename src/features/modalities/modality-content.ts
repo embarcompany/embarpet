@@ -103,6 +103,8 @@ export const modalityStorytelling: Record<ModalitySlug, {
   reassuranceTitle: string;
   reassuranceCopy: string;
   reassurancePoints: string[];
+  reassuranceImage: string;
+  reassuranceImageAlt: string;
 }> = {
   "viagem-na-cabine": {
     painTitle: "Querer o pet perto não elimina as dúvidas da viagem.",
@@ -113,6 +115,8 @@ export const modalityStorytelling: Record<ModalitySlug, {
     reassuranceTitle: "A proximidade é considerada. O contexto decide.",
     reassuranceCopy: "Em vez de prometer cabine, a Embarpet verifica os critérios que sustentam essa possibilidade e apresenta alternativas quando a jornada pede outra escolha.",
     reassurancePoints: ["Preferência da família considerada desde o início", "Critérios conferidos antes de reservar", "Alternativas explicadas sem perder a clareza"],
+    reassuranceImage: "/embarpet-mosaico-cabine.jpeg",
+    reassuranceImageAlt: "Pet em viagem internacional na cabine",
   },
   "bagagem-acompanhada": {
     painTitle: "Estar no mesmo avião não é o mesmo que estar com ele.",
@@ -123,6 +127,8 @@ export const modalityStorytelling: Record<ModalitySlug, {
     reassuranceTitle: "Saber como a área funciona é o que devolve a sensação de controle.",
     reassuranceCopy: "A área de animais vivos do porão é pressurizada e climatizada dentro de padrões internacionais. Não é uma área de carga comum. O ponto mais sensível não é o voo em si, mas a operação em solo, por isso rota, horário e raça do pet entram na análise antes da reserva do mesmo voo.",
     reassurancePoints: ["Área pressurizada e climatizada, separada da carga comum", "Horário e rota avaliados para evitar temperaturas extremas", "Restrição avaliada para raças de focinho curto (braquicefálicas)"],
+    reassuranceImage: "/embarpet-bagagem-operacao-cutout.png",
+    reassuranceImageAlt: "Operação de bagagem acompanhada organizada",
   },
   "compartimento-de-cargas": {
     painTitle: "O medo real não é a burocracia. É não saber se o porão é seguro.",
@@ -133,6 +139,8 @@ export const modalityStorytelling: Record<ModalitySlug, {
     reassuranceTitle: "Entender o risco real é o que permite reduzi-lo.",
     reassuranceCopy: "A área de animais vivos do porão é pressurizada e climatizada, dentro de faixas de temperatura seguras. Não é a mesma coisa que a área de carga comum. Isso não elimina risco: o ponto mais sensível é a operação em solo (embarque, desembarque, espera na pista), por isso data, horário, rota e a raça do pet entram na análise antes de qualquer reserva.",
     reassurancePoints: ["Área pressurizada e climatizada, dentro de padrões internacionais", "Datas e horários avaliados para evitar calor ou frio extremos", "Restrição avaliada para raças de focinho curto (braquicefálicas)"],
+    reassuranceImage: "/embarpet-crate-preparation.png",
+    reassuranceImageAlt: "Preparação de caixa de transporte para pet",
   },
   "suporte-emocional": {
     painTitle: "A necessidade da família merece acolhimento, não promessa vazia.",
@@ -143,5 +151,7 @@ export const modalityStorytelling: Record<ModalitySlug, {
     reassuranceTitle: "A resposta responsável também protege a sua viagem.",
     reassuranceCopy: "Lemos o caso com cuidado, explicamos o que precisa ser confirmado e indicamos o próximo caminho viável, mesmo que ele seja diferente da expectativa inicial.",
     reassurancePoints: ["Orientação honesta antes de qualquer compromisso", "Critérios e documentos avaliados com contexto", "Alternativas quando a modalidade não se aplica"],
+    reassuranceImage: "/embarpet-mosaico-familia.jpg",
+    reassuranceImageAlt: "Família e pet em momento de cuidado",
   },
 };

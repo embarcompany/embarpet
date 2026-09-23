@@ -8,7 +8,6 @@ import { openWhatsAppModal } from "../../components/ui/whatsapp-float";
 import { setPageMetadata } from "../../lib/seo";
 import { AuthoritySection } from "../destinations/sections/AuthoritySection";
 import { RiskSection } from "../destinations/sections/RiskSection";
-import { AiWarningSection } from "../destinations/sections/AiWarningSection";
 import { GoogleReviewsSection } from "../destinations/sections/GoogleReviewsSection";
 import { WhatsappSupportSection } from "../destinations/sections/WhatsappSupportSection";
 import { ComparisonSection } from "../destinations/sections/ComparisonSection";
@@ -110,14 +109,16 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
         </div>
       </section>
 
-      <section className="ep-section ep-modality-reassurance"><div className="ep-container ep-modality-reassurance__grid">
-        {modality.slug === "bagagem-acompanhada" ? <img className="ep-modality-cutout ep-modality-cutout--operation" src="/embarpet-bagagem-operacao-cutout.png" alt="" aria-hidden="true" loading="lazy" /> : null}
-        <div><p className="ep-eyebrow">O que muda com uma boa análise</p><h2 className="ep-title-lg">{storytelling.reassuranceTitle}</h2><p className="ep-copy">{storytelling.reassuranceCopy}</p><AnalysisButton onClick={() => startPlanning("reassurance")}>Começar minha análise</AnalysisButton></div>
-        <ol>{storytelling.reassurancePoints.map((point, index) => <li key={point}><span>0{index + 1}</span><p>{point}</p></li>)}</ol>
-      </div></section>
+      <section className="ep-section ep-modality-reassurance">
+        <div className="ep-container ep-modality-reassurance__heading"><p className="ep-eyebrow">O que muda com uma boa análise</p><h2 className="ep-title-lg">{storytelling.reassuranceTitle}</h2><p className="ep-copy">{storytelling.reassuranceCopy}</p></div>
+        <div className="ep-container ep-modality-reassurance__content">
+          <div className="ep-modality-reassurance__visual"><img src={storytelling.reassuranceImage} alt={storytelling.reassuranceImageAlt} loading="lazy" /></div>
+          <ol className="ep-modality-reassurance__points">{storytelling.reassurancePoints.map((point, index) => <li key={point}><span>0{index + 1}</span><p>{point}</p></li>)}</ol>
+        </div>
+        <div className="ep-modality-reassurance__cta"><AnalysisButton onClick={() => startPlanning("reassurance")}>Começar minha análise</AnalysisButton></div>
+      </section>
 
       <RiskSection />
-      <AiWarningSection />
 
       <section className="ep-section ep-modality-process" id="processo"><div className="ep-container">
         <div className="ep-modality-section-heading"><p className="ep-eyebrow">Do primeiro contato ao embarque</p><h2 className="ep-title-lg">Cada etapa existe para dar <em>clareza à decisão.</em></h2></div>

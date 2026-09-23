@@ -2,7 +2,7 @@
 .ep-modality-page .ep-section{ margin:10px; padding-block:clamp(64px,7vw,104px); border-radius:var(--ep-radius-lg); overflow:hidden; }
 .ep-modality-page .ep-eyebrow{ display:inline-flex; align-items:center; min-height:32px; margin:0; padding:5px 12px; border:1px solid rgba(0,157,172,.2); border-radius:999px; background:rgba(232,249,247,.72); color:var(--ep-teal); font-size:10px; font-weight:800; letter-spacing:.01em; line-height:1; text-transform:none; }
 .ep-modality-hero{ overflow:hidden; padding-block:clamp(58px,7vw,104px); background:var(--ep-gradient-idv); }
-.ep-modality-hero__grid,.ep-modality-introduction__grid,.ep-modality-decision__grid,.ep-modality-benefits__grid,.ep-modality-reassurance__grid,.ep-modality-faq__grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:center; gap:var(--ep-layout-gap); }
+.ep-modality-hero__grid,.ep-modality-introduction__grid,.ep-modality-decision__grid,.ep-modality-benefits__grid,.ep-modality-faq__grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:center; gap:var(--ep-layout-gap); }
 .ep-modality-hero__content{ display:grid; justify-items:start; gap:var(--ep-stack-copy-content); max-width:600px; }
 .ep-modality-hero__content .ep-title-xl,.ep-modality-hero__content .ep-copy{ margin:0; }
 .ep-modality-hero__content .ep-title-xl{ max-width:11ch; }
@@ -31,8 +31,6 @@
 .ep-modality-pain .ep-title-lg{ color:#262626; }
 .ep-modality-pain .ep-title-lg em{ color:#b02230; }
 .ep-modality-pain .ep-copy{ color:var(--ep-muted); }
-.ep-modality-reassurance__grid > div{ display:grid; justify-items:start; gap:var(--ep-stack-title-copy); }
-.ep-modality-reassurance__grid .ep-title-lg,.ep-modality-reassurance__grid .ep-copy{ margin:0; }
 .ep-modality-pain__heading{ max-width:720px; margin:0 auto; text-align:center; }
 .ep-modality-pain__heading .ep-title-lg{ max-width:18ch; margin:8px auto 0; }
 .ep-modality-pain__heading .ep-copy{ max-width:52ch; margin:12px auto 0; }
@@ -88,16 +86,24 @@
 .ep-modality-benefits__grid li{ display:grid; align-content:start; gap:14px; min-height:158px; padding:18px; border:1px solid var(--ep-line); border-radius:var(--ep-radius-sm); background:linear-gradient(145deg,var(--ep-soft),rgba(232,249,247,.92)); color:var(--ep-teal); font-size:14px; font-weight:700; line-height:1.35; transition:background .25s ease,border-color .25s ease,transform .25s ease,box-shadow .25s ease; }
 .ep-modality-benefits__grid li:hover{ border-color:rgba(0,157,172,.45); background:#e5f9f7; box-shadow:0 12px 24px rgba(5,67,74,.06); transform:translateY(-3px); }
 .ep-modality-benefits__grid li svg{ width:22px; height:22px; color:var(--ep-turq-deep); }
-.ep-modality-reassurance{ background:var(--ep-teal); color:var(--ep-paper); }
-.ep-modality-reassurance__grid > div{ order:2; }
-.ep-modality-reassurance__grid ol{ order:1; }
-.ep-modality-reassurance .ep-eyebrow{ border-color:rgba(255,255,255,.26); background:rgba(255,255,255,.1); color:var(--ep-paper); }
-.ep-modality-reassurance .ep-copy{ color:#c5e5e2; }
-.ep-modality-reassurance__grid ol{ display:grid; gap:10px; margin:0; padding:0; list-style:none; }
-.ep-modality-reassurance__grid li{ display:grid; grid-template-columns:48px 1fr; gap:14px; align-items:center; min-height:82px; padding:16px; border:1px solid rgba(255,255,255,.18); border-radius:var(--ep-radius-sm); background:rgba(255,255,255,.06); transition:background .25s ease,transform .25s ease; }
-.ep-modality-reassurance__grid li:hover{ background:rgba(255,255,255,.11); transform:translateX(-4px); }
-.ep-modality-reassurance__grid li > span{ color:var(--ep-turq); font-size:13px; font-weight:800; }
-.ep-modality-reassurance__grid li p{ margin:0; color:var(--ep-paper); font-size:15px; font-weight:700; line-height:1.35; }
+.ep-modality-reassurance{ position:relative; background:var(--ep-page); color:var(--ep-ink); }
+.ep-modality-reassurance .ep-eyebrow{ border-color:#c6ecdd; background:#eafbf3; color:#087b66; }
+.ep-modality-reassurance .ep-title-lg{ color:#262626; }
+.ep-modality-reassurance .ep-title-lg em{ color:#0a9467; }
+.ep-modality-reassurance .ep-copy{ color:var(--ep-muted); }
+.ep-modality-reassurance__heading{ max-width:720px; margin:0 auto; text-align:center; }
+.ep-modality-reassurance__heading .ep-title-lg{ max-width:18ch; margin:8px auto 0; }
+.ep-modality-reassurance__heading .ep-copy{ max-width:52ch; margin:12px auto 0; }
+.ep-modality-reassurance__content{ display:grid; grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr); align-items:center; gap:clamp(32px,6vw,72px); max-width:960px; margin:36px auto 0; }
+.ep-modality-reassurance__points{ display:grid; gap:10px; margin:0; padding:0; list-style:none; }
+.ep-modality-reassurance__points li{ display:grid; grid-template-columns:36px 1fr; gap:14px; align-items:center; min-height:76px; padding:16px 18px; border:0; border-radius:12px; background:#d6f4e9; color:#0a4f3c; font-size:15px; font-weight:700; transition:transform .25s ease,background .25s ease; }
+.ep-modality-reassurance__points li:hover{ background:#c3eedd; transform:translateX(-4px); }
+.ep-modality-reassurance__points li > span{ color:#087b66; font-size:13px; font-weight:800; }
+.ep-modality-reassurance__points li p{ margin:0; color:#0a4f3c; font-size:15px; font-weight:700; line-height:1.35; }
+.ep-modality-reassurance__visual{ position:relative; display:flex; min-height:320px; align-items:flex-end; justify-content:center; }
+.ep-modality-reassurance__visual::before{ position:absolute; width:88%; aspect-ratio:1; border-radius:50%; background:radial-gradient(circle,rgba(10,148,103,.24) 0%,rgba(10,148,103,.1) 42%,rgba(10,148,103,0) 72%); content:""; }
+.ep-modality-reassurance__visual img{ position:relative; z-index:1; width:100%; max-width:320px; height:auto; object-fit:contain; }
+.ep-modality-reassurance__cta{ display:flex; justify-content:center; margin-top:30px; }
 .ep-modality-faq{ background:var(--ep-soft); }
 .ep-modality-faq__grid{ align-items:start; }
 .ep-modality-faq__grid > div:last-child{ display:grid; gap:8px; }
@@ -153,13 +159,6 @@
 .ep-modality-page--bagagem-acompanhada .ep-modality-benefits__grid ul{ width:min(100%,1000px); margin-top:clamp(12px,2vw,28px); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-benefits__grid li{ min-height:186px; padding:24px; text-align:left; font-size:16px; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-benefits__grid li svg{ width:28px; height:28px; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance{ padding-block:clamp(78px,8vw,122px); background:linear-gradient(125deg,#043f46 0%,#064e55 58%,#075f66 100%); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid{ grid-template-columns:minmax(360px,.88fr) minmax(360px,1.12fr); grid-template-rows:auto minmax(190px,1fr); align-items:start; gap:clamp(24px,3vw,44px) clamp(60px,8vw,132px); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid > div{ grid-column:1; grid-row:1; order:initial; max-width:510px; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid ol{ grid-column:2; grid-row:1 / span 2; order:initial; align-self:center; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid .ep-title-lg{ max-width:11ch; font-size:clamp(38px,3.7vw,59px); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid li{ min-height:102px; padding:20px 22px; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-cutout--operation{ display:block; grid-column:1; grid-row:2; align-self:end; width:clamp(330px,31vw,530px); max-height:500px; margin:0 0 -16% -13%; object-fit:contain; object-position:center bottom; filter:drop-shadow(0 24px 32px rgba(0,0,0,.24)); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-faq{ padding-block:clamp(80px,8vw,122px); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-faq__grid{ grid-template-columns:minmax(0,.76fr) minmax(420px,1.24fr); gap:clamp(42px,7vw,110px); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-faq .ep-title-lg{ max-width:10ch; font-size:clamp(38px,3.8vw,60px); }
@@ -171,25 +170,18 @@
 .ep-modality-page--compartimento-de-cargas .ep-modality-decision .ep-copy{ color:#c5e5e2; }
 .ep-modality-page--compartimento-de-cargas .ep-modality-decision li{ border-color:rgba(255,255,255,.2); background:rgba(255,255,255,.08); color:var(--ep-paper); }
 .ep-modality-page--compartimento-de-cargas .ep-modality-decision li svg{ color:var(--ep-turq); }
-.ep-modality-page--suporte-emocional .ep-modality-reassurance{ background:#e7f7f5; color:var(--ep-teal); }
-.ep-modality-page--suporte-emocional .ep-modality-reassurance .ep-eyebrow{ border-color:rgba(0,157,172,.22); background:rgba(255,255,255,.66); color:var(--ep-teal); }
-.ep-modality-page--suporte-emocional .ep-modality-reassurance .ep-copy{ color:var(--ep-muted); }
-.ep-modality-page--suporte-emocional .ep-modality-reassurance .ep-title-lg{ color:var(--ep-teal); }
-.ep-modality-page--suporte-emocional .ep-modality-reassurance__grid li{ border-color:rgba(0,157,172,.22); background:rgba(255,255,255,.66); }
-.ep-modality-page--suporte-emocional .ep-modality-reassurance__grid li p{ color:var(--ep-teal); }
-.ep-modality-page--suporte-emocional .ep-modality-reassurance__grid li > span{ color:var(--ep-turq-deep); }
-@media (max-width:900px) {.ep-modality-hero__grid,.ep-modality-introduction__grid,.ep-modality-decision__grid,.ep-modality-benefits__grid,.ep-modality-reassurance__grid,.ep-modality-faq__grid{ grid-template-columns:1fr; }
-.ep-modality-pain__content{ grid-template-columns:1fr; max-width:560px; }
-.ep-modality-pain__heading{ text-align:left; margin:0; }
+@media (max-width:900px) {.ep-modality-hero__grid,.ep-modality-introduction__grid,.ep-modality-decision__grid,.ep-modality-benefits__grid,.ep-modality-faq__grid{ grid-template-columns:1fr; }
+.ep-modality-pain__content,.ep-modality-reassurance__content{ grid-template-columns:1fr; max-width:560px; }
+.ep-modality-pain__heading,.ep-modality-reassurance__heading{ text-align:left; margin:0; }
 .ep-modality-hero__content .ep-title-xl{ max-width:15ch; overflow-wrap:break-word; font-size:clamp(34px,7.4vw,54px); }
 .ep-modality-steps{ grid-template-columns:1fr 1fr; }
 .ep-modality-steps li:nth-child(3){ border-left:1px solid var(--ep-line); }
 .ep-modality-page--viagem-na-cabine .ep-modality-benefits__grid ul{ grid-template-columns:1fr; }
-.ep-modality-decision__grid > div,.ep-modality-decision__grid ul,.ep-modality-reassurance__grid > div,.ep-modality-reassurance__grid ol{ grid-column:auto; grid-row:auto; order:initial; }
+.ep-modality-decision__grid > div,.ep-modality-decision__grid ul{ grid-column:auto; grid-row:auto; order:initial; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content,.ep-modality-page--bagagem-acompanhada .ep-modality-hero__visual{ order:initial; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-process .ep-container{ grid-template-columns:1fr; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-steps{ grid-column:auto; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-introduction__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-fit__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-faq__grid{ grid-template-columns:1fr; }
+.ep-modality-page--bagagem-acompanhada .ep-modality-introduction__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-fit__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid,.ep-modality-page--bagagem-acompanhada .ep-modality-faq__grid{ grid-template-columns:1fr; }
 .ep-modality-fit__cards article:nth-child(n){ transform:none; }
 .ep-modality-fit__cards article:nth-child(n):hover{ transform:translateY(-3px); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-steps li:nth-child(n){ transform:none; }
@@ -197,10 +189,8 @@
 .ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid{ min-height:0; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid::before{ display:none; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid > div,.ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid ul{ grid-column:auto; grid-row:auto; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid > div,.ep-modality-page--bagagem-acompanhada .ep-modality-reassurance__grid ol{ order:initial; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-cutout--family{ grid-column:auto; grid-row:auto; width:min(90%,480px); max-height:460px; margin:0 auto -10%; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-decision__grid ul{ grid-template-columns:1fr; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-cutout--operation{ grid-column:auto; width:min(76%,380px); margin:0 auto -12%; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-cutout--passport{ opacity:.26; right:-12%; width:min(78vw,430px); }
 .ep-modality-benefits__grid ul{ grid-template-columns:1fr; }
 }
