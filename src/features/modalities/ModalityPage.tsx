@@ -101,7 +101,7 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
 
       <section className="ep-section ep-modality-process" id="processo"><div className="ep-container">
         <div className="ep-modality-section-heading"><p className="ep-eyebrow">Do primeiro contato ao embarque</p><h2 className="ep-title-lg">Cada etapa existe para dar <em>clareza à decisão.</em></h2></div>
-        <ol className="ep-modality-steps">{modality.howItWorks.map((step, index) => { const StepIcon = modalityStepIcons[index]; return <li key={step.number}><span>{step.number}</span><StepIcon className="ep-modality-steps__icon" aria-hidden="true" /><div><h3>{step.title}</h3><p>{step.copy}</p></div>{index < modality.howItWorks.length - 1 ? <ChevronRight className="ep-modality-steps__arrow" aria-hidden="true" /> : null}</li>; })}</ol>
+        <ol className="ep-modality-steps">{modality.howItWorks.map((step, index) => { const StepIcon = modalityStepIcons[index]; return <li key={step.number}><div className="ep-modality-steps__icon-wrap"><span aria-hidden="true">{step.number}</span><StepIcon className="ep-modality-steps__icon" aria-hidden="true" /></div><div><h3>{step.title}</h3><p>{step.copy}</p></div></li>; })}</ol>
         <div className="ep-modality-inline-cta"><span>Quer saber se essa possibilidade se aplica à sua viagem?</span><AnalysisButton onClick={() => startPlanning("process")}>Iniciar uma análise</AnalysisButton></div>
       </div></section>
 
