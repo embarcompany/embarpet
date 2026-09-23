@@ -102,7 +102,6 @@ export const modalityStorytelling: Record<ModalitySlug, {
   painTitle: string;
   painTitleHighlight: string;
   painCopy: string;
-  painPoints: string[];
   painImage: string;
   painImageAlt: string;
   reassuranceTitle: string;
@@ -116,7 +115,6 @@ export const modalityStorytelling: Record<ModalitySlug, {
     painTitle: "Querer o pet perto não elimina",
     painTitleHighlight: "as dúvidas da viagem.",
     painCopy: "Muitas famílias escolhem a cabine sem confirmar se peso, bolsa e companhia aérea realmente permitem a viagem.",
-    painPoints: ["Medo de criar expectativa antes de validar a rota", "Insegurança sobre peso, medidas e acomodação", "Receio de uma regra mudar perto do embarque"],
     painImage: "/embarpet-pet-na-cabine.jpeg",
     painImageAlt: "Pet em uma bolsa de transporte dentro da aeronave",
     reassuranceTitle: "A proximidade é considerada.",
@@ -130,7 +128,6 @@ export const modalityStorytelling: Record<ModalitySlug, {
     painTitle: "Estar no mesmo avião não é o mesmo que",
     painTitleHighlight: "estar com ele.",
     painCopy: "Estar no mesmo voo não é o mesmo que estar com o pet: ele segue no porão, fora de vista do tutor.",
-    painPoints: ["Medo de que o pet fique exposto a frio, calor ou falta de ar sem o tutor perceber", "Ansiedade de ouvir o avião e não saber o que está acontecendo lá embaixo", "Insegurança sobre se a raça ou o porte do pet é adequado para essa modalidade"],
     painImage: "/embarpet-mosaico-encontro.jpg",
     painImageAlt: "Tutora com pet após uma jornada acompanhada",
     reassuranceTitle: "Saber como a área funciona é o que devolve",
@@ -144,7 +141,6 @@ export const modalityStorytelling: Record<ModalitySlug, {
     painTitle: "O medo real não é a burocracia. É não saber",
     painTitleHighlight: "se o porão é seguro.",
     painCopy: "O medo real não é a burocracia: é não saber, de fato, como funciona a área do porão.",
-    painPoints: ["Medo de que a caixa fique exposta a frio, calor ou falta de ar", "Insegurança sobre o que acontece com o pet fora da vista do tutor", "Não saber se a raça ou o porte do pet pode ser um problema"],
     painImage: "/embarpet-carga-viva-operacao.jpeg",
     painImageAlt: "Equipe Embarpet com caixas de transporte no aeroporto",
     reassuranceTitle: "Entender o risco real é o que",
@@ -158,7 +154,6 @@ export const modalityStorytelling: Record<ModalitySlug, {
     painTitle: "A necessidade da família merece",
     painTitleHighlight: "acolhimento, não promessa vazia.",
     painCopy: "As regras de suporte emocional variam, e a maior frustração é descobrir uma limitação depois de comprar a passagem.",
-    painPoints: ["Insegurança sobre aceitação pela companhia", "Documentos sem confirmação de aplicabilidade", "Receio de perder tempo ou tomar decisões irreversíveis"],
     painImage: "/embarpet-mosaico-cuidado.jpg",
     painImageAlt: "Tutor com pet em momento de cuidado",
     reassuranceTitle: "A resposta responsável também",

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowDown, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, Clock, FileText, HeartHandshake, ListChecks, Package, Route, Settings2, ShieldCheck } from "lucide-react";
+import { ArrowDown, CheckCircle2, ChevronRight, ClipboardCheck, Clock, FileText, HeartHandshake, ListChecks, Package, Route, Settings2, ShieldCheck } from "lucide-react";
 import { AdaptiveHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisButton } from "../../components/ui/buttons";
@@ -124,7 +124,6 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
         <div className="ep-container ep-modality-pain__heading"><h2 className="ep-title-lg">{storytelling.painTitle} <em>{storytelling.painTitleHighlight}</em></h2><p className="ep-copy">{storytelling.painCopy}</p></div>
         <div className="ep-container ep-modality-pain__content">
           <div className="ep-modality-pain__visual"><img src={storytelling.painImage} alt={storytelling.painImageAlt} loading="lazy" /></div>
-          <ul className="ep-modality-pain__questions">{storytelling.painPoints.map((point) => <li key={point}><CircleAlert aria-hidden="true" /><span>{point}</span></li>)}</ul>
         </div>
       </section>
 
