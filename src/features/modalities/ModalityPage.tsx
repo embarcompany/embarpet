@@ -106,9 +106,9 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
       </div></section>
 
       <section className="ep-section ep-modality-decision">
-        <div className="ep-container ep-modality-decision__heading"><p className="ep-eyebrow">Quando ela pode fazer sentido</p><h2 className="ep-title-lg">{modality.decisionTitle}</h2><p className="ep-copy">{modality.decisionCopy}</p></div>
+        <div className="ep-container ep-modality-decision__heading"><p className="ep-eyebrow">Quando ela pode fazer sentido</p><h2 className="ep-title-lg">{modality.decisionTitle}</h2></div>
         <div className="ep-container">
-          <ul className="ep-modality-decision__points">{modality.decisionPoints.map((point, index) => { const PointIcon = decisionIcons[index]; return <li key={point}><PointIcon aria-hidden="true" /><span>{point}</span></li>; })}</ul>
+          <ul className="ep-modality-decision__points">{modality.decisionPoints.map((point, index) => { const PointIcon = decisionIcons[index]; return <li key={point.title}><PointIcon aria-hidden="true" /><h3>{point.title}</h3><p>{point.copy}</p></li>; })}</ul>
         </div>
         <div className="ep-modality-decision__cta"><AnalysisButton onClick={() => startPlanning("decision")}>Analisar esta possibilidade</AnalysisButton></div>
       </section>
