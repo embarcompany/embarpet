@@ -33,3 +33,5 @@ O território emocional é adequado, mas genérico no setor. A diferenciação d
 ## Tom de voz
 
 Calmo, humano, preciso e responsável. Evitar promessas absolutas como “zero risco”, “garantido” ou “sem burocracia”; trocar por “assessoria para reduzir complexidade e antecipar exigências”.
+
+**Nunca usar travessão (—) ou hífen como pontuação no meio da frase.** Reescrever com ponto final, vírgula ou parênteses. Não se aplica a compostos com hífen já padronizados (ex.: nomes de arquivo, slugs de URL).

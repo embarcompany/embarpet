@@ -716,7 +716,7 @@ export function SiteHeader({
 /**
  * Header com dois modos, decididos pela própria página via `isLp`:
  * institucional (mega-menu completo, padrão do site) ou LP (só âncoras
- * da própria página + 1 CTA, sem link de saída — para tráfego pago).
+ * da própria página + 1 CTA, sem link de saída (para tráfego pago).
  */
 export function AdaptiveHeader({ logoSrc, isLp, sections, ctaLabel, onCtaClick, overlay, activeLabel }: {
   logoSrc: string;

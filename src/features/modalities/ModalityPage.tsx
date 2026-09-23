@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, FileText, HeartHandshake, Package, Route, ShieldCheck } from "lucide-react";
+import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, Clock, FileText, HeartHandshake, ListChecks, Package, Route, Settings2, ShieldCheck } from "lucide-react";
 import { AdaptiveHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisButton } from "../../components/ui/buttons";
@@ -18,6 +18,7 @@ import { FinalCtaSection } from "../destinations/sections/FinalCtaSection";
 import { modalityContent, modalityStorytelling, type ModalityContent } from "./modality-content";
 
 const modalityStepIcons = [Route, ShieldCheck, FileText, ClipboardCheck];
+const whatCardIcons = [Settings2, Clock, ListChecks];
 const decisionIcons = [Route, ShieldCheck, Package];
 const benefitIcons = [HeartHandshake, ClipboardCheck, CheckCircle2];
 
@@ -94,17 +95,20 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
         <div className="ep-modality-introduction__content">
           <p className="ep-eyebrow">Entenda esta modalidade</p>
           <h2 className="ep-title-lg">{modality.whatTitle} <em>{modality.whatTitleHighlight}</em></h2>
-          <ul className="ep-modality-introduction__cards">{modality.whatCards.map((card) => <li key={card.title}><h3>{card.title}</h3><p>{card.copy}</p></li>)}</ul>
+          <ul className="ep-modality-introduction__cards">{modality.whatCards.map((card, index) => { const CardIcon = whatCardIcons[index]; return <li key={card.title}><CardIcon aria-hidden="true" /><div><h3>{card.title}</h3><p>{card.copy}</p></div></li>; })}</ul>
         </div>
         <div className="ep-modality-introduction__media"><img src={modality.whatImage} alt={modality.whatImageAlt} loading="lazy" /></div>
       </div></section>
 
       {modality.slug === "bagagem-acompanhada" ? <BagagemDecisionMap onStartPlanning={startPlanning} /> : null}
 
-      <section className="ep-section ep-modality-pain"><div className="ep-container ep-modality-pain__grid">
-        <div><p className="ep-eyebrow">Antes de decidir</p><h2 className="ep-title-lg">{storytelling.painTitle}</h2><p className="ep-copy">{storytelling.painCopy}</p></div>
-        <ul>{storytelling.painPoints.map((point) => <li key={point}><CircleAlert aria-hidden="true" /><span>{point}</span></li>)}</ul>
-      </div></section>
+      <section className="ep-section ep-modality-pain">
+        <div className="ep-container ep-modality-pain__heading"><p className="ep-eyebrow">Antes de decidir</p><h2 className="ep-title-lg">{storytelling.painTitle}</h2><p className="ep-copy">{storytelling.painCopy}</p></div>
+        <div className="ep-container ep-modality-pain__content">
+          <div className="ep-modality-pain__visual"><img src={storytelling.painImage} alt={storytelling.painImageAlt} loading="lazy" /></div>
+          <ul className="ep-modality-pain__questions">{storytelling.painPoints.map((point) => <li key={point}><CircleAlert aria-hidden="true" /><span>{point}</span></li>)}</ul>
+        </div>
+      </section>
 
       <section className="ep-section ep-modality-reassurance"><div className="ep-container ep-modality-reassurance__grid">
         {modality.slug === "bagagem-acompanhada" ? <img className="ep-modality-cutout ep-modality-cutout--operation" src="/embarpet-bagagem-operacao-cutout.png" alt="" aria-hidden="true" loading="lazy" /> : null}
