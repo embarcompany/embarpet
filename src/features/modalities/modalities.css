@@ -1,17 +1,19 @@
 .ep-modality-page{ padding-top:0; padding-bottom:10px; background:var(--ep-page); }
 .ep-modality-page .ep-section{ margin:10px; padding-block:clamp(64px,7vw,104px); border-radius:var(--ep-radius-lg); overflow:hidden; }
 .ep-modality-page .ep-eyebrow{ display:inline-flex; align-items:center; min-height:32px; margin:0; padding:5px 12px; border:1px solid rgba(0,157,172,.2); border-radius:999px; background:rgba(232,249,247,.72); color:var(--ep-teal); font-size:10px; font-weight:800; letter-spacing:.01em; line-height:1; text-transform:none; }
-.ep-modality-hero{ overflow:hidden; background:var(--ep-gradient-idv); }
+.ep-modality-hero{ height:100vh; overflow:hidden; background:var(--ep-gradient-idv); }
 .ep-modality-hero__grid,.ep-modality-introduction__grid,.ep-modality-benefits__grid,.ep-modality-faq__grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:center; gap:var(--ep-layout-gap); }
-.ep-modality-hero__grid{ align-items:stretch; gap:0; min-height:clamp(480px,42vw,620px); }
+.ep-modality-hero__grid{ align-items:stretch; gap:0; height:100%; }
 .ep-modality-hero__content-wrap{ display:flex; align-items:center; padding:clamp(48px,6vw,96px) clamp(24px,5vw,64px); }
 .ep-modality-hero__content{ display:grid; justify-items:start; gap:var(--ep-stack-copy-content); max-width:560px; width:100%; }
 .ep-modality-hero__content .ep-title-xl,.ep-modality-hero__content .ep-copy{ margin:0; }
 .ep-modality-hero__content .ep-title-xl{ max-width:11ch; }
 .ep-modality-hero__content .ep-title-xl em,.ep-modality-section-heading em,.ep-modality-faq em{ color:var(--ep-turq-deep); font-style:normal; }
-.ep-modality-hero__facts{ display:grid; gap:10px; margin:2px 0 0; padding:0; list-style:none; }
-.ep-modality-hero__facts li{ display:flex; align-items:center; gap:9px; color:var(--ep-teal); font-size:13px; font-weight:700; line-height:1.3; }
-.ep-modality-hero__facts svg{ flex:0 0 auto; color:var(--ep-turq-deep); }
+.ep-modality-hero__actions{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.ep-modality-hero__actions .ep-button--outline{ display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border:1.5px solid rgba(0,157,172,.4); border-radius:999px; background:transparent; color:var(--ep-teal); font-size:13.5px; font-weight:750; text-decoration:none; transition:all .22s cubic-bezier(.2,.8,.2,1); }
+.ep-modality-hero__actions .ep-button--outline:hover,.ep-modality-hero__actions .ep-button--outline:focus-visible{ background:rgba(0,157,172,.08); border-color:var(--ep-teal); transform:translateY(-2px); }
+.ep-modality-hero__actions .ep-button--outline svg{ flex-shrink:0; color:var(--ep-turq-deep); transition:transform .22s ease; }
+.ep-modality-hero__actions .ep-button--outline:hover svg{ transform:translateY(3px); }
 .ep-modality-hero__visual{ position:relative; width:100%; height:100%; overflow:hidden; background:var(--ep-soft); }
 .ep-modality-hero__visual > img{ display:block; width:100%; height:100%; object-fit:cover; transition:transform .7s cubic-bezier(.2,.8,.2,1); }
 .ep-modality-hero__visual:hover > img{ transform:scale(1.035); }
@@ -127,12 +129,12 @@
 .ep-modality-page--viagem-na-cabine .ep-modality-benefits__grid > div{ max-width:620px; }
 .ep-modality-page--viagem-na-cabine .ep-modality-benefits__grid ul{ grid-template-columns:repeat(3,minmax(0,1fr)); }
 .ep-modality-page--viagem-na-cabine .ep-modality-benefits__grid li{ min-height:136px; align-items:flex-start; }
+.ep-modality-page--compartimento-de-cargas .ep-modality-hero__content{ max-width:600px; }
+.ep-modality-page--compartimento-de-cargas .ep-modality-hero__content .ep-title-xl{ max-width:24ch; font-size:clamp(36px,3.4vw,54px); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content-wrap{ order:2; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__visual{ order:1; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-hero__grid{ min-height:clamp(470px,43vw,640px); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content{ max-width:620px; }
-.ep-modality-page--bagagem-acompanhada .ep-modality-hero__content .ep-title-xl{ max-width:10ch; font-size:clamp(48px,5.05vw,82px); }
-.ep-modality-page--bagagem-acompanhada .ep-modality-hero__content .ep-copy{ max-width:50ch; font-size:clamp(17px,1.38vw,20px); }
+.ep-modality-page--bagagem-acompanhada .ep-modality-hero__content .ep-title-xl{ max-width:20ch; font-size:clamp(38px,3.6vw,58px); }
 /* Bagagem acompanhada: a sequência alterna prova,decisão e orientação para
    evitar a repetição de duas colunas com a mesma leitura em toda a LP. */
 .ep-modality-page--bagagem-acompanhada .ep-modality-introduction{ margin-top:-54px; padding-block:0 clamp(54px,6vw,86px); background:linear-gradient(180deg,rgba(232,249,247,0) 0%,var(--ep-page) 42%); }
@@ -161,7 +163,8 @@
 .ep-modality-page--bagagem-acompanhada .ep-modality-faq summary{ min-height:86px; padding:0 22px; font-size:17px; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-cutout--passport{ display:block; position:absolute; z-index:0; right:-3%; bottom:-20%; width:clamp(340px,34vw,570px); max-height:610px; object-fit:contain; object-position:right bottom; filter:drop-shadow(0 28px 30px rgba(0,0,0,.24)); }
 @media (max-width:900px) {.ep-modality-hero__grid,.ep-modality-introduction__grid,.ep-modality-benefits__grid,.ep-modality-faq__grid{ grid-template-columns:1fr; }
-.ep-modality-hero__grid{ min-height:auto; }
+.ep-modality-hero{ height:auto; }
+.ep-modality-hero__grid{ height:auto; }
 .ep-modality-hero__visual{ height:clamp(320px,62vw,440px); }
 .ep-modality-pain__content,.ep-modality-reassurance__content{ grid-template-columns:1fr; max-width:560px; }
 .ep-modality-pain__heading,.ep-modality-reassurance__heading{ text-align:left; margin:0; }

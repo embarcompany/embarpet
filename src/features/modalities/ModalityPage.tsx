@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Check, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, Clock, FileText, HeartHandshake, ListChecks, Package, Route, Settings2, ShieldCheck } from "lucide-react";
+import { ArrowDown, CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, Clock, FileText, HeartHandshake, ListChecks, Package, Route, Settings2, ShieldCheck } from "lucide-react";
 import { AdaptiveHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisButton } from "../../components/ui/buttons";
@@ -83,8 +83,10 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
               <p className="ep-eyebrow">{modality.eyebrow}</p>
               <h1 className="ep-title-xl">{modality.title} <em>{modality.titleHighlight}</em></h1>
               <p className="ep-copy">{modality.intro}</p>
-              <ul className="ep-modality-hero__facts">{modality.heroFacts.map((fact) => <li key={fact}><Check size={15} aria-hidden="true" />{fact}</li>)}</ul>
-              <AnalysisButton size="lg" onClick={() => startPlanning("hero")}>Começar minha análise</AnalysisButton>
+              <div className="ep-modality-hero__actions">
+                <AnalysisButton size="lg" onClick={() => startPlanning("hero")}>Começar minha análise</AnalysisButton>
+                <a href="#entenda" className="ep-button ep-button--outline">Entender modalidade <ArrowDown size={15} aria-hidden="true" /></a>
+              </div>
             </div>
           </div>
           <div className="ep-modality-hero__visual"><img src={modality.heroImage} alt={modality.heroAlt} /></div>
@@ -93,7 +95,7 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
 
       <AuthoritySection onStartPlanning={() => startPlanning("authority")} />
 
-      <section className="ep-section ep-modality-introduction"><div className="ep-container ep-modality-introduction__grid">
+      <section className="ep-section ep-modality-introduction" id="entenda"><div className="ep-container ep-modality-introduction__grid">
         <div className="ep-modality-introduction__content">
           <p className="ep-eyebrow">Entenda esta modalidade</p>
           <h2 className="ep-title-lg">{modality.whatTitle} <em>{modality.whatTitleHighlight}</em></h2>
