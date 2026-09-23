@@ -120,13 +120,6 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
 
       {modality.slug === "bagagem-acompanhada" ? <BagagemDecisionMap onStartPlanning={startPlanning} /> : null}
 
-      <section className="ep-section ep-modality-pain">
-        <div className="ep-container ep-modality-pain__heading"><h2 className="ep-title-lg">{storytelling.painTitle} <em>{storytelling.painTitleHighlight}</em></h2><p className="ep-copy">{storytelling.painCopy}</p></div>
-        <div className="ep-container ep-modality-pain__content">
-          <div className="ep-modality-pain__visual"><img src={storytelling.painImage} alt={storytelling.painImageAlt} loading="lazy" /></div>
-        </div>
-      </section>
-
       <section className="ep-section ep-modality-reassurance">
         <div className="ep-container ep-modality-reassurance__heading"><p className="ep-eyebrow">O que muda com uma boa análise</p><h2 className="ep-title-lg">{storytelling.reassuranceTitle} <em>{storytelling.reassuranceTitleHighlight}</em></h2><p className="ep-copy">{storytelling.reassuranceCopy}</p></div>
         <div className="ep-container ep-modality-reassurance__content">

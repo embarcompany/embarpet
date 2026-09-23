@@ -99,11 +99,6 @@ export const modalityContent: Record<ModalitySlug, ModalityContent> = {
 /** Conteúdo de tensão e resolução: evita uma LP técnica demais e faz cada
  * modalidade responder à dúvida que a família realmente traz para a conversa. */
 export const modalityStorytelling: Record<ModalitySlug, {
-  painTitle: string;
-  painTitleHighlight: string;
-  painCopy: string;
-  painImage: string;
-  painImageAlt: string;
   reassuranceTitle: string;
   reassuranceTitleHighlight: string;
   reassuranceCopy: string;
@@ -112,11 +107,6 @@ export const modalityStorytelling: Record<ModalitySlug, {
   reassuranceImageAlt: string;
 }> = {
   "viagem-na-cabine": {
-    painTitle: "Querer o pet perto não elimina",
-    painTitleHighlight: "as dúvidas da viagem.",
-    painCopy: "Muitas famílias escolhem a cabine sem confirmar se peso, bolsa e companhia aérea realmente permitem a viagem.",
-    painImage: "/embarpet-pet-na-cabine.jpeg",
-    painImageAlt: "Pet em uma bolsa de transporte dentro da aeronave",
     reassuranceTitle: "A proximidade é considerada.",
     reassuranceTitleHighlight: "O contexto decide.",
     reassuranceCopy: "Em vez de prometer cabine, a Embarpet verifica os critérios que sustentam essa possibilidade e apresenta alternativas quando a jornada pede outra escolha.",
@@ -125,11 +115,6 @@ export const modalityStorytelling: Record<ModalitySlug, {
     reassuranceImageAlt: "Pet em viagem internacional na cabine",
   },
   "bagagem-acompanhada": {
-    painTitle: "Estar no mesmo avião não é o mesmo que",
-    painTitleHighlight: "estar com ele.",
-    painCopy: "Estar no mesmo voo não é o mesmo que estar com o pet: ele segue no porão, fora de vista do tutor.",
-    painImage: "/embarpet-mosaico-encontro.jpg",
-    painImageAlt: "Tutora com pet após uma jornada acompanhada",
     reassuranceTitle: "Saber como a área funciona é o que devolve",
     reassuranceTitleHighlight: "a sensação de controle.",
     reassuranceCopy: "A área de animais vivos do porão é pressurizada e climatizada, diferente de uma área de carga comum. Rota, horário e raça do pet entram na análise antes da reserva.",
@@ -138,11 +123,6 @@ export const modalityStorytelling: Record<ModalitySlug, {
     reassuranceImageAlt: "Operação de bagagem acompanhada organizada",
   },
   "compartimento-de-cargas": {
-    painTitle: "O medo real não é a burocracia. É não saber",
-    painTitleHighlight: "se o porão é seguro.",
-    painCopy: "O medo real não é a burocracia: é não saber, de fato, como funciona a área do porão.",
-    painImage: "/embarpet-carga-viva-operacao.jpeg",
-    painImageAlt: "Equipe Embarpet com caixas de transporte no aeroporto",
     reassuranceTitle: "Entender o risco real é o que",
     reassuranceTitleHighlight: "permite reduzi-lo.",
     reassuranceCopy: "A área de animais vivos do porão é pressurizada e climatizada, dentro de faixas de temperatura seguras. Data, horário, rota e raça entram na análise antes da reserva.",
@@ -151,11 +131,6 @@ export const modalityStorytelling: Record<ModalitySlug, {
     reassuranceImageAlt: "Preparação de caixa de transporte para pet",
   },
   "suporte-emocional": {
-    painTitle: "A necessidade da família merece",
-    painTitleHighlight: "acolhimento, não promessa vazia.",
-    painCopy: "As regras de suporte emocional variam, e a maior frustração é descobrir uma limitação depois de comprar a passagem.",
-    painImage: "/embarpet-mosaico-cuidado.jpg",
-    painImageAlt: "Tutor com pet em momento de cuidado",
     reassuranceTitle: "A resposta responsável também",
     reassuranceTitleHighlight: "protege a sua viagem.",
     reassuranceCopy: "Lemos o caso com cuidado, explicamos o que precisa ser confirmado e indicamos o próximo caminho viável, mesmo que ele seja diferente da expectativa inicial.",
