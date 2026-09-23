@@ -126,11 +126,13 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
         <div className="ep-modality-inline-cta"><span>Quer saber se essa possibilidade se aplica à sua viagem?</span><AnalysisButton onClick={() => startPlanning("process")}>Iniciar uma análise</AnalysisButton></div>
       </div></section>
 
-      <section className="ep-section ep-modality-decision"><div className="ep-container ep-modality-decision__grid">
-        {modality.slug === "bagagem-acompanhada" ? <img className="ep-modality-cutout ep-modality-cutout--family" src="/embarpet-familia-pet-cutout.png" alt="" aria-hidden="true" loading="lazy" /> : null}
-        <div><p className="ep-eyebrow">Quando ela pode fazer sentido</p><h2 className="ep-title-lg">{modality.decisionTitle}</h2><p className="ep-copy">{modality.decisionCopy}</p><AnalysisButton onClick={() => startPlanning("decision")}>Analisar esta possibilidade</AnalysisButton></div>
-        <ul>{modality.decisionPoints.map((point, index) => { const PointIcon = decisionIcons[index]; return <li key={point}><PointIcon aria-hidden="true" /><span>{point}</span></li>; })}</ul>
-      </div></section>
+      <section className="ep-section ep-modality-decision">
+        <div className="ep-container ep-modality-decision__heading"><p className="ep-eyebrow">Quando ela pode fazer sentido</p><h2 className="ep-title-lg">{modality.decisionTitle}</h2><p className="ep-copy">{modality.decisionCopy}</p></div>
+        <div className="ep-container">
+          <ul className="ep-modality-decision__points">{modality.decisionPoints.map((point, index) => { const PointIcon = decisionIcons[index]; return <li key={point}><PointIcon aria-hidden="true" /><span>{point}</span></li>; })}</ul>
+        </div>
+        <div className="ep-modality-decision__cta"><AnalysisButton onClick={() => startPlanning("decision")}>Analisar esta possibilidade</AnalysisButton></div>
+      </section>
 
       <section className="ep-section ep-modality-benefits"><div className="ep-container ep-modality-benefits__grid">
         <div><p className="ep-eyebrow">O que esta escolha resolve</p><h2 className="ep-title-lg">{modality.benefitTitle}</h2><p className="ep-copy">{modality.benefitCopy}</p></div>
