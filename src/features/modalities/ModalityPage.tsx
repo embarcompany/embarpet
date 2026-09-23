@@ -99,6 +99,20 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
         <div className="ep-modality-introduction__media"><img src={modality.whatImage} alt={modality.whatImageAlt} loading="lazy" /></div>
       </div></section>
 
+      <section className="ep-section ep-modality-process" id="processo"><div className="ep-container">
+        <div className="ep-modality-section-heading"><p className="ep-eyebrow">Do primeiro contato ao embarque</p><h2 className="ep-title-lg">Cada etapa existe para dar <em>clareza à decisão.</em></h2></div>
+        <ol className="ep-modality-steps">{modality.howItWorks.map((step, index) => { const StepIcon = modalityStepIcons[index]; return <li key={step.number}><span>{step.number}</span><StepIcon className="ep-modality-steps__icon" aria-hidden="true" /><div><h3>{step.title}</h3><p>{step.copy}</p></div>{index < modality.howItWorks.length - 1 ? <ChevronRight className="ep-modality-steps__arrow" aria-hidden="true" /> : null}</li>; })}</ol>
+        <div className="ep-modality-inline-cta"><span>Quer saber se essa possibilidade se aplica à sua viagem?</span><AnalysisButton onClick={() => startPlanning("process")}>Iniciar uma análise</AnalysisButton></div>
+      </div></section>
+
+      <section className="ep-section ep-modality-decision">
+        <div className="ep-container ep-modality-decision__heading"><p className="ep-eyebrow">Quando ela pode fazer sentido</p><h2 className="ep-title-lg">{modality.decisionTitle}</h2><p className="ep-copy">{modality.decisionCopy}</p></div>
+        <div className="ep-container">
+          <ul className="ep-modality-decision__points">{modality.decisionPoints.map((point, index) => { const PointIcon = decisionIcons[index]; return <li key={point}><PointIcon aria-hidden="true" /><span>{point}</span></li>; })}</ul>
+        </div>
+        <div className="ep-modality-decision__cta"><AnalysisButton onClick={() => startPlanning("decision")}>Analisar esta possibilidade</AnalysisButton></div>
+      </section>
+
       {modality.slug === "bagagem-acompanhada" ? <BagagemDecisionMap onStartPlanning={startPlanning} /> : null}
 
       <section className="ep-section ep-modality-pain">
@@ -119,20 +133,6 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
       </section>
 
       <RiskSection />
-
-      <section className="ep-section ep-modality-process" id="processo"><div className="ep-container">
-        <div className="ep-modality-section-heading"><p className="ep-eyebrow">Do primeiro contato ao embarque</p><h2 className="ep-title-lg">Cada etapa existe para dar <em>clareza à decisão.</em></h2></div>
-        <ol className="ep-modality-steps">{modality.howItWorks.map((step, index) => { const StepIcon = modalityStepIcons[index]; return <li key={step.number}><span>{step.number}</span><StepIcon className="ep-modality-steps__icon" aria-hidden="true" /><div><h3>{step.title}</h3><p>{step.copy}</p></div>{index < modality.howItWorks.length - 1 ? <ChevronRight className="ep-modality-steps__arrow" aria-hidden="true" /> : null}</li>; })}</ol>
-        <div className="ep-modality-inline-cta"><span>Quer saber se essa possibilidade se aplica à sua viagem?</span><AnalysisButton onClick={() => startPlanning("process")}>Iniciar uma análise</AnalysisButton></div>
-      </div></section>
-
-      <section className="ep-section ep-modality-decision">
-        <div className="ep-container ep-modality-decision__heading"><p className="ep-eyebrow">Quando ela pode fazer sentido</p><h2 className="ep-title-lg">{modality.decisionTitle}</h2><p className="ep-copy">{modality.decisionCopy}</p></div>
-        <div className="ep-container">
-          <ul className="ep-modality-decision__points">{modality.decisionPoints.map((point, index) => { const PointIcon = decisionIcons[index]; return <li key={point}><PointIcon aria-hidden="true" /><span>{point}</span></li>; })}</ul>
-        </div>
-        <div className="ep-modality-decision__cta"><AnalysisButton onClick={() => startPlanning("decision")}>Analisar esta possibilidade</AnalysisButton></div>
-      </section>
 
       <section className="ep-section ep-modality-benefits"><div className="ep-container ep-modality-benefits__grid">
         <div><p className="ep-eyebrow">O que esta escolha resolve</p><h2 className="ep-title-lg">{modality.benefitTitle}</h2><p className="ep-copy">{modality.benefitCopy}</p></div>
