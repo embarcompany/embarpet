@@ -66,6 +66,7 @@ export function WhatsAppFloat({
   onStart?: (context: LeadContext) => void;
 }) {
   const [nudgePhase, setNudgePhase] = useState<"hidden" | "typing" | "message">("hidden");
+  const [personaRevealed, setPersonaRevealed] = useState(false);
   const [chatModalOpen, setChatModalOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState<{ origin?: string; destination?: string; period?: string }>({
     origin: context.origin,
@@ -88,13 +89,15 @@ export function WhatsAppFloat({
     let typingTimer: ReturnType<typeof setTimeout> | undefined;
     let messageTimer: ReturnType<typeof setTimeout> | undefined;
     let autoDismissTimer: ReturnType<typeof setTimeout> | undefined;
+    let hasTriggered = false;
 
     const startTypingSequence = () => {
+      if (hasTriggered) return;
+      hasTriggered = true;
+      setPersonaRevealed(true);
       setNudgePhase("typing");
-      if (messageTimer) clearTimeout(messageTimer);
       messageTimer = setTimeout(() => {
         setNudgePhase("message");
-        if (autoDismissTimer) clearTimeout(autoDismissTimer);
         autoDismissTimer = setTimeout(() => setNudgePhase("hidden"), 11000);
       }, 1400);
     };
@@ -103,8 +106,9 @@ export function WhatsAppFloat({
       startTypingSequence();
     }, 2600);
 
+    // "A dobra" = uma tela inteira rolada, não só um leve scroll.
     const revealOnScroll = () => {
-      if (window.scrollY > 80) {
+      if (window.scrollY > window.innerHeight) {
         startTypingSequence();
         window.removeEventListener("scroll", revealOnScroll);
       }
@@ -223,13 +227,21 @@ export function WhatsAppFloat({
         ) : null}
 
         <button
-          className="ep-whatsapp-trigger"
+          className={`ep-whatsapp-trigger ${personaRevealed ? "ep-whatsapp-trigger--persona" : ""}`}
           type="button"
-          aria-label="Abrir ajuda pelo WhatsApp"
+          aria-label={personaRevealed ? "Abrir conversa com a Maya no WhatsApp" : "Abrir ajuda pelo WhatsApp"}
           aria-expanded={chatModalOpen}
           onClick={handleDirectTrigger}
         >
-          <img src="/icons/social/whatsapp-white.svg" alt="" width="26" height="26" />
+          <span className="ep-whatsapp-trigger__flip">
+            <span className="ep-whatsapp-trigger__face ep-whatsapp-trigger__face--front">
+              <img src="/icons/social/whatsapp-white.svg" alt="" width="26" height="26" />
+            </span>
+            <span className="ep-whatsapp-trigger__face ep-whatsapp-trigger__face--back">
+              <img className="ep-whatsapp-trigger__avatar" src="/embarpet-maya.webp" alt="" />
+              <span className="ep-whatsapp-trigger__online-dot" aria-label="Online" />
+            </span>
+          </span>
         </button>
       </aside>
 

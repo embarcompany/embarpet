@@ -321,6 +321,16 @@ main section[id] { scroll-margin-top:84px; }
 @keyframes ep-whatsapp-pulse { 0% { opacity:.75; transform:scale(1); } 68%,100% { opacity:0; transform:scale(1.58); } }
 @media (prefers-reduced-motion:reduce) { .ep-whatsapp-trigger::after { animation:none; } }
 
+/* Flip: ícone do WhatsApp vira a foto da Maya quando a persona é revelada. */
+.ep-whatsapp-trigger { perspective:700px; }
+.ep-whatsapp-trigger__flip { position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .6s cubic-bezier(.4,.2,.2,1); }
+.ep-whatsapp-trigger--persona .ep-whatsapp-trigger__flip { transform:rotateY(180deg); }
+.ep-whatsapp-trigger__face { position:absolute; inset:0; display:grid; place-items:center; -webkit-backface-visibility:hidden; backface-visibility:hidden; }
+.ep-whatsapp-trigger__face--back { transform:rotateY(180deg); }
+.ep-whatsapp-trigger .ep-whatsapp-trigger__avatar { width:100%; height:100%; border-radius:50%; object-fit:cover; }
+.ep-whatsapp-trigger__online-dot { position:absolute; right:2px; bottom:2px; width:14px; height:14px; border-radius:50%; background:#25d366; border:2px solid #ffffff; }
+@media (prefers-reduced-motion:reduce) { .ep-whatsapp-trigger__flip { transition:none; } }
+
 /* Footer na cor assinatura: turquesa Embarpet, com contraste claro e sem peso visual. */
 .ep-site-footer { background:var(--ep-turq-deep); color:#eafffd; }.ep-footer-cta { border-bottom-color:rgba(255,255,255,.3); }.ep-footer-cta .ep-eyebrow,.ep-footer-brand > a { color:#edfffe; }.ep-footer-cta h2,.ep-footer-group b { color:#fff; }.ep-footer-cta > a { border-color:#fff; background:#fff; color:var(--ep-turq-deep); }.ep-footer-cta > a:hover { background:rgba(255,255,255,.86); }.ep-footer-brand p { color:#d4fbf8; }.ep-footer-group a { color:#d4fbf8; }.ep-footer-group a:hover { color:#fff; }.ep-footer-bottom { border-top-color:rgba(255,255,255,.3); color:#c1f2ee; }
 
