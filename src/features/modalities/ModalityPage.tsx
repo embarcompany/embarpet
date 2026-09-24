@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ChevronRight, ClipboardCheck, Clock, FileText, ListChecks, MessageCircleQuestion, Package, Route, Settings2, ShieldCheck } from "lucide-react";
 import { AdaptiveHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
@@ -19,6 +19,80 @@ import { modalityContent, modalityStorytelling, type ModalityContent } from "./m
 const modalityStepIcons = [Route, ShieldCheck, FileText, ClipboardCheck];
 const whatCardIcons = [Settings2, Clock, ListChecks];
 const decisionIcons = [Route, ShieldCheck, Package];
+const reassuranceIcons = [ClipboardCheck, ShieldCheck, ListChecks, MessageCircleQuestion];
+
+function ReassuranceTimeline({ points }: { points: string[] }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [progressHeight, setProgressHeight] = useState(0);
+  const [activeStep, setActiveStep] = useState(0);
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const rect = container.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const startOffset = windowHeight * 0.65;
+      const endOffset = windowHeight * 0.35;
+
+      const totalDistance = rect.height;
+      const currentScroll = startOffset - rect.top;
+
+      if (currentScroll <= 0) {
+        setProgressHeight(0);
+      } else if (currentScroll >= totalDistance) {
+        setProgressHeight(100);
+      } else {
+        setProgressHeight(Math.min(Math.max((currentScroll / totalDistance) * 100, 0), 100));
+      }
+
+      stepRefs.current.forEach((el, idx) => {
+        if (!el) return;
+        const stepRect = el.getBoundingClientRect();
+        if (stepRect.top <= startOffset && stepRect.bottom >= endOffset) {
+          setActiveStep(idx);
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div className="ep-modality-reassurance__timeline" ref={containerRef}>
+      <div className="ep-modality-reassurance__timeline-spine" aria-hidden="true">
+        <div className="ep-modality-reassurance__timeline-bar" style={{ height: `${progressHeight}%` }} />
+      </div>
+      <div className="ep-modality-reassurance__timeline-steps">
+        {points.map((point, index) => {
+          const Icon = reassuranceIcons[index];
+          const isPassed = (progressHeight / 100) * points.length >= index + 0.35;
+          const isCurrent = activeStep === index;
+          const isEven = index % 2 === 0;
+          return (
+            <div
+              key={point}
+              ref={(el) => { stepRefs.current[index] = el; }}
+              className={`ep-modality-reassurance__timeline-item ${isEven ? "is-left" : "is-right"} ${isPassed ? "is-passed" : ""} ${isCurrent ? "is-active" : ""}`}
+            >
+              <div className="ep-modality-reassurance__timeline-item__center">
+                <div className="ep-modality-reassurance__timeline-item__node"><span>0{index + 1}</span></div>
+              </div>
+              <div className="ep-modality-reassurance__timeline-item__card">
+                <div className="ep-modality-reassurance__timeline-item__icon"><Icon size={17} strokeWidth={2.2} aria-hidden="true" /></div>
+                <p className="ep-modality-reassurance__timeline-item__text">{point}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 function BagagemDecisionMap({ onStartPlanning }: { onStartPlanning: (placement: string) => void }) {
   const cards = [
@@ -126,21 +200,7 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
       <section className="ep-section ep-modality-reassurance">
         <div className="ep-container ep-modality-reassurance__heading"><p className="ep-eyebrow">O que muda com uma boa análise</p><h2 className="ep-title-lg">{storytelling.reassuranceTitle} <em>{storytelling.reassuranceTitleHighlight}</em></h2><p className="ep-copy">{storytelling.reassuranceCopy}</p></div>
         <div className="ep-container">
-          <ul className="ep-modality-reassurance__points">{storytelling.reassurancePoints.map((point, index) => {
-            const cardImage = [
-              { src: storytelling.reassuranceImage, alt: storytelling.reassuranceImageAlt },
-              { src: modality.whatImage, alt: modality.whatImageAlt },
-              { src: modality.heroImage, alt: modality.heroAlt },
-              { src: storytelling.reassuranceImage, alt: storytelling.reassuranceImageAlt },
-            ][index];
-            return <li key={point} className="ep-modality-reassurance__card">
-              <div className="ep-modality-reassurance__card-media">
-                <img src={cardImage.src} alt={cardImage.alt} loading="lazy" />
-                <span className="ep-modality-reassurance__card-number" aria-hidden="true">0{index + 1}</span>
-              </div>
-              <p className="ep-modality-reassurance__card-text">{point}</p>
-            </li>;
-          })}</ul>
+          <ReassuranceTimeline points={storytelling.reassurancePoints} />
         </div>
         <div className="ep-modality-reassurance__cta"><AnalysisButton onClick={() => startPlanning("reassurance")}>Começar minha análise</AnalysisButton></div>
       </section>
