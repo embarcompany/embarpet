@@ -108,8 +108,11 @@ export function WhatsAppChatModal({
         <header className="ep-wa-header">
           <div className="ep-wa-header__profile">
             <div className="ep-wa-header__avatar-wrap">
-              {/* TODO: swap for Maya's real photo once available; placeholder avatar in the meantime */}
-              <div className="ep-wa-header__avatar ep-wa-header__avatar--placeholder" aria-hidden="true">M</div>
+              <img
+                className="ep-wa-header__avatar"
+                src="/embarpet-maya.webp"
+                alt="Maya — Especialista Embarpet"
+              />
               <span className="ep-wa-header__online-dot" aria-label="Online" />
             </div>
 

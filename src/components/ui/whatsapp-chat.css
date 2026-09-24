@@ -108,16 +108,6 @@
   background: #ffffff;
 }
 
-.ep-wa-header__avatar--placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #00d1e2, #009dac);
-  color: #05434a;
-  font-size: 16px;
-  font-weight: 800;
-}
-
 .ep-wa-header__online-dot {
   position: absolute;
   bottom: 1px;
