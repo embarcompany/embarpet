@@ -125,9 +125,22 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
 
       <section className="ep-section ep-modality-reassurance">
         <div className="ep-container ep-modality-reassurance__heading"><p className="ep-eyebrow">O que muda com uma boa análise</p><h2 className="ep-title-lg">{storytelling.reassuranceTitle} <em>{storytelling.reassuranceTitleHighlight}</em></h2><p className="ep-copy">{storytelling.reassuranceCopy}</p></div>
-        <div className="ep-container ep-modality-reassurance__content">
-          <div className="ep-modality-reassurance__visual"><img src={storytelling.reassuranceImage} alt={storytelling.reassuranceImageAlt} loading="lazy" /></div>
-          <ol className="ep-modality-reassurance__points">{storytelling.reassurancePoints.map((point, index) => <li key={point}><span>0{index + 1}</span><p>{point}</p></li>)}</ol>
+        <div className="ep-container">
+          <ul className="ep-modality-reassurance__points">{storytelling.reassurancePoints.map((point, index) => {
+            const cardImage = [
+              { src: storytelling.reassuranceImage, alt: storytelling.reassuranceImageAlt },
+              { src: modality.whatImage, alt: modality.whatImageAlt },
+              { src: modality.heroImage, alt: modality.heroAlt },
+              { src: storytelling.reassuranceImage, alt: storytelling.reassuranceImageAlt },
+            ][index];
+            return <li key={point} className="ep-modality-reassurance__card">
+              <div className="ep-modality-reassurance__card-media">
+                <img src={cardImage.src} alt={cardImage.alt} loading="lazy" />
+                <span className="ep-modality-reassurance__card-number" aria-hidden="true">0{index + 1}</span>
+              </div>
+              <p className="ep-modality-reassurance__card-text">{point}</p>
+            </li>;
+          })}</ul>
         </div>
         <div className="ep-modality-reassurance__cta"><AnalysisButton onClick={() => startPlanning("reassurance")}>Começar minha análise</AnalysisButton></div>
       </section>
