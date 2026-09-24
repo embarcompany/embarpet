@@ -226,23 +226,25 @@ export function WhatsAppFloat({
           </div>
         ) : null}
 
-        <button
-          className={`ep-whatsapp-trigger ${personaRevealed ? "ep-whatsapp-trigger--persona" : ""}`}
-          type="button"
-          aria-label={personaRevealed ? "Abrir conversa com a Maya no WhatsApp" : "Abrir ajuda pelo WhatsApp"}
-          aria-expanded={chatModalOpen}
-          onClick={handleDirectTrigger}
-        >
-          <span className="ep-whatsapp-trigger__flip">
-            <span className="ep-whatsapp-trigger__face ep-whatsapp-trigger__face--front">
-              <img src="/icons/social/whatsapp-white.svg" alt="" width="26" height="26" />
+        <span className="ep-whatsapp-trigger-wrap">
+          <button
+            className={`ep-whatsapp-trigger ${personaRevealed ? "ep-whatsapp-trigger--persona" : ""}`}
+            type="button"
+            aria-label={personaRevealed ? "Abrir conversa com a Maya no WhatsApp" : "Abrir ajuda pelo WhatsApp"}
+            aria-expanded={chatModalOpen}
+            onClick={handleDirectTrigger}
+          >
+            <span className="ep-whatsapp-trigger__flip">
+              <span className="ep-whatsapp-trigger__face ep-whatsapp-trigger__face--front">
+                <img src="/icons/social/whatsapp-white.svg" alt="" width="26" height="26" />
+              </span>
+              <span className="ep-whatsapp-trigger__face ep-whatsapp-trigger__face--back">
+                <img className="ep-whatsapp-trigger__avatar" src="/embarpet-maya.webp" alt="" />
+              </span>
             </span>
-            <span className="ep-whatsapp-trigger__face ep-whatsapp-trigger__face--back">
-              <img className="ep-whatsapp-trigger__avatar" src="/embarpet-maya.webp" alt="" />
-              <span className="ep-whatsapp-trigger__online-dot" aria-label="Online" />
-            </span>
-          </span>
-        </button>
+          </button>
+          {personaRevealed ? <span className="ep-whatsapp-trigger__online-dot" aria-label="Online" /> : null}
+        </span>
       </aside>
 
       <WhatsAppChatModal
