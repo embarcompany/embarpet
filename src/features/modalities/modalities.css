@@ -81,21 +81,19 @@
 .ep-modality-benefits__grid li:hover{ border-color:rgba(0,157,172,.45); background:#e5f9f7; box-shadow:0 12px 24px rgba(5,67,74,.06); transform:translateY(-3px); }
 .ep-modality-benefits__grid li svg{ width:22px; height:22px; color:var(--ep-turq-deep); }
 .ep-modality-reassurance{ position:relative; background:var(--ep-page); color:var(--ep-ink); }
-.ep-modality-reassurance .ep-eyebrow{ border-color:#c6ecdd; background:#eafbf3; color:#087b66; }
-.ep-modality-reassurance .ep-title-lg{ color:#262626; }
-.ep-modality-reassurance .ep-title-lg em{ color:#0a9467; }
+.ep-modality-reassurance .ep-title-lg em{ color:var(--ep-turq-deep); font-style:normal; }
 .ep-modality-reassurance .ep-copy{ color:var(--ep-muted); }
 .ep-modality-reassurance__heading{ max-width:720px; margin:0 auto; text-align:center; }
 .ep-modality-reassurance__heading .ep-title-lg{ max-width:18ch; margin:8px auto 0; }
 .ep-modality-reassurance__heading .ep-copy{ max-width:52ch; margin:12px auto 0; }
 .ep-modality-reassurance__content{ display:grid; grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr); align-items:center; gap:clamp(32px,6vw,72px); max-width:960px; margin:36px auto 0; }
-.ep-modality-reassurance__points{ display:grid; gap:10px; margin:0; padding:0; list-style:none; }
-.ep-modality-reassurance__points li{ display:grid; grid-template-columns:36px 1fr; gap:14px; align-items:center; min-height:76px; padding:16px 18px; border:0; border-radius:12px; background:#d6f4e9; color:#0a4f3c; font-size:15px; font-weight:700; transition:transform .25s ease,background .25s ease; }
-.ep-modality-reassurance__points li:hover{ background:#c3eedd; transform:translateX(-4px); }
-.ep-modality-reassurance__points li > span{ color:#087b66; font-size:13px; font-weight:800; }
-.ep-modality-reassurance__points li p{ margin:0; color:#0a4f3c; font-size:15px; font-weight:700; line-height:1.35; }
+.ep-modality-reassurance__points{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin:0; padding:0; list-style:none; }
+.ep-modality-reassurance__points li{ display:grid; align-content:start; gap:12px; min-height:132px; padding:20px; border:1px solid rgba(0,157,172,.26); border-radius:16px; background:rgba(0,157,172,.08); color:var(--ep-teal); font-size:15px; font-weight:700; transition:transform .25s ease,background .25s ease,border-color .25s ease; }
+.ep-modality-reassurance__points li:hover{ background:rgba(0,157,172,.14); border-color:rgba(0,157,172,.46); transform:translateY(-3px); }
+.ep-modality-reassurance__points li > span{ display:flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:rgba(0,157,172,.16); color:var(--ep-turq-deep); font-size:11px; font-weight:800; }
+.ep-modality-reassurance__points li p{ margin:0; color:var(--ep-teal); font-size:15px; font-weight:700; line-height:1.35; }
 .ep-modality-reassurance__visual{ position:relative; display:flex; min-height:320px; align-items:flex-end; justify-content:center; }
-.ep-modality-reassurance__visual::before{ position:absolute; width:88%; aspect-ratio:1; border-radius:50%; background:radial-gradient(circle,rgba(10,148,103,.24) 0%,rgba(10,148,103,.1) 42%,rgba(10,148,103,0) 72%); content:""; }
+.ep-modality-reassurance__visual::before{ position:absolute; width:88%; aspect-ratio:1; border-radius:50%; background:radial-gradient(circle,rgba(0,157,172,.2) 0%,rgba(0,157,172,.08) 42%,rgba(0,157,172,0) 72%); content:""; }
 .ep-modality-reassurance__visual img{ position:relative; z-index:1; width:100%; max-width:320px; height:auto; object-fit:contain; }
 .ep-modality-reassurance__cta{ display:flex; justify-content:center; margin-top:30px; }
 .ep-modality-faq{ background:var(--ep-soft); }
@@ -177,6 +175,7 @@
 .ep-modality-page .ep-section{ padding-block:64px; }
 .ep-modality-steps{ grid-template-columns:1fr; }
 .ep-modality-fit__cards{ grid-template-columns:1fr; }
+.ep-modality-reassurance__points{ grid-template-columns:1fr; }
 .ep-modality-fit__content .ep-title-lg{ max-width:14ch; }
 .ep-modality-fit__cards article{ min-height:auto; padding:18px; }
 .ep-modality-fit__cards svg{ margin-bottom:16px; }
