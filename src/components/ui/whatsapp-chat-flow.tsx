@@ -48,7 +48,7 @@ type ChatStep = "greeting" | "pet_details" | "origin" | "destination" | "period"
 
 type ChatMessage = {
   id: string;
-  sender: "thamires" | "user" | "system";
+  sender: "maya" | "user" | "system";
   text?: string;
   time: string;
   card?: ReactNode;
@@ -463,7 +463,7 @@ export function WhatsAppChatFlow({
             ...prev,
             {
               id: followUpId,
-              sender: "thamires",
+              sender: "maya",
               text: followUpText,
               time: getNowTime(),
               card: (
@@ -570,8 +570,8 @@ export function WhatsAppChatFlow({
     setMessages((prev) => [
       ...prev,
       {
-        id: `thamires-${Date.now()}-${Math.random()}`,
-        sender: "thamires",
+        id: `maya-${Date.now()}-${Math.random()}`,
+        sender: "maya",
         text,
         time: getNowTime(),
       },
@@ -723,13 +723,13 @@ export function WhatsAppChatFlow({
     setCurrentStep(nextStep);
   };
 
-  // Initial Greeting Sequence from Thamires Felix (Guarded to prevent duplication)
+  // Initial Greeting Sequence from Maya (Guarded to prevent duplication)
   useEffect(() => {
     if (hasSentGreeting.current) return;
     hasSentGreeting.current = true;
     deliverBotSequence([
       {
-        text: "Olá! Sou a **Thamires Felix** da **Embarpet**. Vou te ajudar com o **diagnóstico e rota internacional** do seu pet.",
+        text: "Olá! Sou a **Maya** da **Embarpet**. Vou te ajudar com o **diagnóstico e rota internacional** do seu pet.",
       },
       {
         text: "Qual pet vai viajar com você?",

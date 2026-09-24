@@ -1,5 +1,5 @@
 /* ==========================================================================
-   WhatsApp Conversational Chat Modal - Embarpet (Thamires Felix)
+   WhatsApp Conversational Chat Modal - Embarpet (Maya)
    Right-Aligned Quick Replies • Soft Outgoing Green Palette • Authentic Chat Feel
    ========================================================================== */
 
@@ -106,6 +106,16 @@
   object-fit: cover;
   border: 1.5px solid rgba(255, 255, 255, 0.8);
   background: #ffffff;
+}
+
+.ep-wa-header__avatar--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #00d1e2, #009dac);
+  color: #05434a;
+  font-size: 16px;
+  font-weight: 800;
 }
 
 .ep-wa-header__online-dot {

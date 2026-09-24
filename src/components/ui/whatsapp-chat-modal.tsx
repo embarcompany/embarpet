@@ -94,7 +94,7 @@ export function WhatsAppChatModal({
       role="dialog"
       aria-modal="true"
       aria-hidden={!open}
-      aria-label="Atendimento WhatsApp com Thamires Felix"
+      aria-label="Atendimento WhatsApp com Maya"
     >
       <button
         className="ep-wa-modal__backdrop"
@@ -104,21 +104,18 @@ export function WhatsAppChatModal({
       />
 
       <section className="ep-wa-modal__panel" data-lenis-prevent>
-        {/* Minimalist WhatsApp Top Bar with Thamires Felix */}
+        {/* Minimalist WhatsApp Top Bar with Maya */}
         <header className="ep-wa-header">
           <div className="ep-wa-header__profile">
             <div className="ep-wa-header__avatar-wrap">
-              <img
-                className="ep-wa-header__avatar"
-                src="/embarpet-thamires-felix.webp"
-                alt="Thamires Felix — Especialista Embarpet"
-              />
+              {/* TODO: swap for Maya's real photo once available; placeholder avatar in the meantime */}
+              <div className="ep-wa-header__avatar ep-wa-header__avatar--placeholder" aria-hidden="true">M</div>
               <span className="ep-wa-header__online-dot" aria-label="Online" />
             </div>
 
             <div className="ep-wa-header__info">
               <div className="ep-wa-header__name-row">
-                <span className="ep-wa-header__name">Thamires Felix</span>
+                <span className="ep-wa-header__name">Maya</span>
                 <WhatsAppVerifiedBadge size={16} />
               </div>
               <span className={`ep-wa-header__status ${headerStatus !== "Online" ? "ep-wa-header__status--active" : ""}`}>
