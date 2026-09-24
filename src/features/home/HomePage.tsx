@@ -16,7 +16,6 @@ import { InternalLink } from "../../components/ui/buttons";
 import { PetLuxoSection } from "../../components/ui/pet-luxo-section";
 import { useLocale } from "../../i18n/locale";
 import { countryFlagSvg } from "../../lib/country-flag";
-import { setPageMetadata } from "../../lib/seo";
 
 const images = {
   planning: "/embarpet-trip-planning.png",
@@ -182,10 +181,6 @@ function EmbarkationMarquee() {
 export default function EmbarpetHome({ isLp = false }: { isLp?: boolean }) {
   const { text, path } = useLocale();
 
-  useEffect(() => {
-    if (!isLp) return;
-    return setPageMetadata({ title: text.title, description: text.description, canonicalPath: "/lp", robots: "noindex,nofollow" });
-  }, [isLp, text]);
   const routeFromUrl = () => {
     const query = new URLSearchParams(window.location.search);
     return { origin: query.get("origin") ?? "", destination: query.get("destination") ?? "", period: query.get("period") ?? "" };

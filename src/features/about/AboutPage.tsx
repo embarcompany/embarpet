@@ -272,10 +272,9 @@ export default function AboutPage({ isLp = false }: { isLp?: boolean }) {
       title: "Nossa História & Propósito | Embarpet — Transporte Aéreo Internacional de Pets",
       description:
         "Conheça a história da Embarpet: fundada em 2018 por Daiane Sarmento e Thamires Felix para transformar a complexidade de viajar com pets em um plano seguro. O destino pode mudar. A família vai junto.",
-      canonicalPath: isLp ? "/sobre-lp" : "/sobre",
-      robots: isLp ? "noindex,nofollow" : "index,follow",
+      canonicalPath: "/sobre",
     });
-  }, [isLp]);
+  }, []);
 
   const pageNavigation = [
     { label: "Nossa história", href: "#origem" },

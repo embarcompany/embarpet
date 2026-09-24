@@ -14,7 +14,7 @@ export default function PetLuxoPage({ isLp = false }: { isLp?: boolean }) {
   const [analysisSource, setAnalysisSource] = useState("pet_luxo_hero");
   const analysisRoute: AnalysisRouteContext = {};
 
-  useEffect(() => setPageMetadata({ title: petLuxoContent.seo.title, description: petLuxoContent.seo.description, canonicalPath: isLp ? "/pet-luxo-lp" : "/pet-luxo", robots: isLp ? "noindex,nofollow" : "index,follow" }), [isLp]);
+  useEffect(() => setPageMetadata({ title: petLuxoContent.seo.title, description: petLuxoContent.seo.description, canonicalPath: "/pet-luxo" }), []);
 
   const startPlanning = (placement = "hero") => {
     setAnalysisSource(`pet_luxo_${placement}`);

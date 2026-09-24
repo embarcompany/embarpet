@@ -55,7 +55,7 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
   const [analysisSource, setAnalysisSource] = useState(`modality_${modality.slug}_hero`);
   const analysisRoute: AnalysisRouteContext = {};
 
-  useEffect(() => setPageMetadata({ title: modality.seo.title, description: modality.seo.description, canonicalPath: `/modalidades/${modality.slug}${isLp ? "-lp" : ""}`, robots: isLp ? "noindex,nofollow" : "index,follow" }), [modality, isLp]);
+  useEffect(() => setPageMetadata({ title: modality.seo.title, description: modality.seo.description, canonicalPath: `/modalidades/${modality.slug}` }), [modality]);
 
   const startPlanning = (placement = "hero") => {
     setAnalysisSource(`modality_${modality.slug}_${placement}`);

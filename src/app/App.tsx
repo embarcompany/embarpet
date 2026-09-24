@@ -13,30 +13,27 @@ import { WhatsAppFloat } from "../components/ui/whatsapp-float";
 import { SmoothScroll } from "../components/ui/smooth-scroll";
 
 /** Application shell. Future routes should be composed here, never inside the design system. */
-export function App({ initialLocale = "pt-BR", initialPath = "/" }: { initialLocale?: Locale; initialPath?: string }) {
+export function App({ initialLocale = "pt-BR", initialPath = "/", initialSearch = "" }: { initialLocale?: Locale; initialPath?: string; initialSearch?: string }) {
   const pathname = typeof window !== "undefined" ? window.location.pathname : initialPath;
+  const search = typeof window !== "undefined" ? window.location.search : initialSearch;
   const locale = typeof window !== "undefined" ? getLocaleFromPath(pathname) : initialLocale;
   const localePrefix = locales.filter((item) => item !== "pt-BR").join("|");
   const route = pathname.replace(new RegExp(`^/(${localePrefix})(?=/|$)`), "") || "/";
-  const rawDestinationSlug = route.startsWith("/destinos/") ? route.slice("/destinos/".length).replace(/\/+$/, "") : null;
-  const destinationIsLp = rawDestinationSlug?.endsWith("-lp") ?? false;
-  const destinationSlug = rawDestinationSlug?.replace(/-lp$/, "") ?? null;
+  // Modo LP (header enxuto, sem saída, para tráfego pago) é decidido por query param, nunca por
+  // path: um path próprio (`-lp`) cria uma URL indexável a mais e duplica conteúdo para o Google.
+  const isLp = new URLSearchParams(search).get("lp") === "1";
+  const destinationSlug = route.startsWith("/destinos/") ? route.slice("/destinos/".length).replace(/\/+$/, "") : null;
   const destination = destinationSlug ? getDestinationLanding(destinationSlug) : undefined;
-  const rawModalitySlug = route.startsWith("/modalidades/") ? route.slice("/modalidades/".length).replace(/\/+$/, "") : null;
-  const modalityIsLp = rawModalitySlug?.endsWith("-lp") ?? false;
-  const modalitySlug = (rawModalitySlug?.replace(/-lp$/, "") ?? null) as ModalitySlug | null;
+  const modalitySlug = (route.startsWith("/modalidades/") ? route.slice("/modalidades/".length).replace(/\/+$/, "") : null) as ModalitySlug | null;
   const modality = modalitySlug && modalityContent[modalitySlug] ? modalityContent[modalitySlug] : undefined;
-  const petLuxoIsLp = route === "/pet-luxo-lp";
-  const aboutIsLp = route === "/sobre-lp";
-  const homeIsLp = route === "/lp";
-  const page = destination ? <DestinationPage destination={destination} isLp={destinationIsLp} />
-    : modality ? <ModalityPage modality={modality} isLp={modalityIsLp} />
-    : (route === "/pet-luxo" || petLuxoIsLp) ? <PetLuxoPage isLp={petLuxoIsLp} />
-    : (route === "/sobre" || route === "/quem-somos" || aboutIsLp) ? <AboutPage isLp={aboutIsLp} />
+  const page = destination ? <DestinationPage destination={destination} isLp={isLp} />
+    : modality ? <ModalityPage modality={modality} isLp={isLp} />
+    : route === "/pet-luxo" ? <PetLuxoPage isLp={isLp} />
+    : (route === "/sobre" || route === "/quem-somos") ? <AboutPage isLp={isLp} />
     : route === "/viajar" ? <AnalysisPage />
     : route === "/obrigado" ? <ThankYouPage />
     : route === "/design-system/botoes" ? <ButtonsPage />
-    : <EmbarpetHome isLp={homeIsLp} />;
+    : <EmbarpetHome isLp={isLp} />;
   return (
     <LocaleProvider locale={locale}>
       <SmoothScroll />

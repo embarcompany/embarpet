@@ -33,9 +33,8 @@ export function DestinationPage({ destination, isLp = false }: { destination: De
   useEffect(() => setPageMetadata({
     title: destination.meta.title,
     description: destination.meta.description,
-    canonicalPath: `/destinos/${destination.slug}${isLp ? "-lp" : ""}`,
-    robots: isLp ? "noindex,nofollow" : "index,follow",
-  }), [destination, isLp]);
+    canonicalPath: `/destinos/${destination.slug}`,
+  }), [destination]);
 
   useEffect(() => {
     const hero = heroRef.current;

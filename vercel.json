@@ -25,6 +25,22 @@
       ]
     }
   ],
+  "redirects": [
+    { "source": "/lp", "destination": "/?lp=1", "permanent": true },
+    { "source": "/sobre-lp", "destination": "/sobre?lp=1", "permanent": true },
+    { "source": "/pet-luxo-lp", "destination": "/pet-luxo?lp=1", "permanent": true },
+    { "source": "/modalidades/viagem-na-cabine-lp", "destination": "/modalidades/viagem-na-cabine?lp=1", "permanent": true },
+    { "source": "/modalidades/bagagem-acompanhada-lp", "destination": "/modalidades/bagagem-acompanhada?lp=1", "permanent": true },
+    { "source": "/modalidades/compartimento-de-cargas-lp", "destination": "/modalidades/compartimento-de-cargas?lp=1", "permanent": true },
+    { "source": "/modalidades/suporte-emocional-lp", "destination": "/modalidades/suporte-emocional?lp=1", "permanent": true },
+    { "source": "/destinos/estados-unidos-lp", "destination": "/destinos/estados-unidos?lp=1", "permanent": true },
+    { "source": "/destinos/portugal-lp", "destination": "/destinos/portugal?lp=1", "permanent": true },
+    { "source": "/destinos/espanha-lp", "destination": "/destinos/espanha?lp=1", "permanent": true },
+    { "source": "/destinos/italia-lp", "destination": "/destinos/italia?lp=1", "permanent": true },
+    { "source": "/destinos/argentina-lp", "destination": "/destinos/argentina?lp=1", "permanent": true },
+    { "source": "/destinos/uruguai-lp", "destination": "/destinos/uruguai?lp=1", "permanent": true },
+    { "source": "/destinos/paraguai-lp", "destination": "/destinos/paraguai?lp=1", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/sobre", "destination": "/index.html" },
     { "source": "/quem-somos", "destination": "/index.html" },
@@ -32,7 +48,6 @@
     { "source": "/destinos/(.*)", "destination": "/index.html" },
     { "source": "/modalidades/(.*)", "destination": "/index.html" },
     { "source": "/pet-luxo", "destination": "/index.html" },
-    { "source": "/pet-luxo-lp", "destination": "/index.html" },
     { "source": "/analise", "destination": "/index.html" },
     { "source": "/viajar", "destination": "/index.html" },
     { "source": "/obrigado", "destination": "/index.html" },
