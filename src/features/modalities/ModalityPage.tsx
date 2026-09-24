@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowDown, ChevronRight, ClipboardCheck, Clock, FileText, ListChecks, Package, Route, Settings2, ShieldCheck } from "lucide-react";
+import { ArrowDown, ChevronRight, ClipboardCheck, Clock, FileText, ListChecks, MessageCircleQuestion, Package, Route, Settings2, ShieldCheck } from "lucide-react";
 import { AdaptiveHeader } from "../../components/ui/navigation";
 import { SiteFooter } from "../../components/ui/footer";
 import { AnalysisButton } from "../../components/ui/buttons";
@@ -47,6 +47,24 @@ function BagagemDecisionMap({ onStartPlanning }: { onStartPlanning: (placement: 
       </div>
     </div>
   </section>;
+}
+
+function FaqAccordion({ faqs }: { faqs: Array<{ question: string; answer: string }> }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  return <div className="ep-modality-faq__list">
+    {faqs.map((faq, index) => {
+      const isOpen = index === openIndex;
+      return <div key={faq.question} className={`ep-modality-faq__item${isOpen ? " is-open" : ""}`}>
+        <button type="button" className="ep-modality-faq__question" aria-expanded={isOpen} aria-controls={`faq-panel-${index}`} onClick={() => setOpenIndex(isOpen ? null : index)}>
+          <span>{faq.question}</span>
+          <ChevronRight aria-hidden="true" />
+        </button>
+        <div className="ep-modality-faq__answer-wrap" id={`faq-panel-${index}`} role="region">
+          <div className="ep-modality-faq__answer-inner"><p>{faq.answer}</p></div>
+        </div>
+      </div>;
+    })}
+  </div>;
 }
 
 export function ModalityPage({ modality, isLp = false }: { modality: ModalityContent; isLp?: boolean }) {
@@ -133,7 +151,26 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
       <GoogleReviewsSection onStartPlanning={() => startPlanning("google_reviews")} />
       <EmbarkationMosaicSection onStartPlanning={() => startPlanning("embarkations")} />
 
-      <section className="ep-section ep-modality-faq" id="faq"><div className="ep-container ep-modality-faq__grid"><div><p className="ep-eyebrow">Dúvidas sobre {modality.label.toLocaleLowerCase("pt-BR")}</p><h2 className="ep-title-lg">Respostas antes de <em>decidir.</em></h2></div><div>{modality.faqs.map((faq) => <details key={faq.question}><summary>{faq.question}<ChevronRight aria-hidden="true" /></summary><p>{faq.answer}</p></details>)}</div></div></section>
+      <section className="ep-section ep-modality-faq" id="faq">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: modality.faqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })),
+        }) }} />
+        <div className="ep-container ep-modality-faq__grid">
+          <div>
+            <p className="ep-eyebrow">Dúvidas sobre {modality.label.toLocaleLowerCase("pt-BR")}</p>
+            <h2 className="ep-title-lg">Respostas antes de <em>decidir.</em></h2>
+            <div className="ep-modality-faq__support">
+              <MessageCircleQuestion aria-hidden="true" />
+              <h3>Ainda com dúvidas?</h3>
+              <p>Fale direto com a Maya pelo WhatsApp e tire suas dúvidas sobre {modality.label.toLocaleLowerCase("pt-BR")} antes de decidir.</p>
+              <AnalysisButton onClick={() => startPlanning("whatsapp")}>Falar com a Maya</AnalysisButton>
+            </div>
+          </div>
+          <FaqAccordion faqs={modality.faqs} />
+        </div>
+      </section>
 
       <PetLuxoSection />
 
