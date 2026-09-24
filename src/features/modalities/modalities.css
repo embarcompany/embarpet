@@ -110,6 +110,8 @@
 /* Cada modalidade usa a mesma base,mas não a mesma distribuição. */
 .ep-modality-page--compartimento-de-cargas .ep-modality-hero__content{ max-width:600px; }
 .ep-modality-page--compartimento-de-cargas .ep-modality-hero__content .ep-title-xl{ max-width:24ch; font-size:clamp(36px,3.4vw,54px); }
+.ep-modality-page--suporte-emocional .ep-modality-hero__content{ max-width:600px; }
+.ep-modality-page--suporte-emocional .ep-modality-hero__content .ep-title-xl{ max-width:22ch; font-size:clamp(36px,3.4vw,54px); }
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content-wrap{ order:2; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__visual{ order:1; }
 .ep-modality-page--bagagem-acompanhada .ep-modality-hero__content{ max-width:620px; }
