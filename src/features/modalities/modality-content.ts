@@ -97,27 +97,27 @@ export const modalityStorytelling: Record<ModalitySlug, {
   reassurancePoints: string[];
 }> = {
   "viagem-na-cabine": {
-    reassuranceTitle: "A proximidade é considerada.",
-    reassuranceTitleHighlight: "O contexto decide.",
-    reassuranceCopy: "Em vez de prometer cabine, a Embarpet verifica os critérios que sustentam essa possibilidade e apresenta alternativas quando a jornada pede outra escolha.",
+    reassuranceTitle: "Leve seu pet na cabine",
+    reassuranceTitleHighlight: "com você.",
+    reassuranceCopy: "Conferimos peso, bolsa e a política da companhia antes de confirmar a reserva, para que a cabine seja uma opção real, não uma promessa.",
     reassurancePoints: ["Preferência da família considerada desde o início", "Critérios conferidos antes de reservar", "Alternativas explicadas sem perder a clareza", "Orientação sobre bolsa, peso e disponibilidade da rota"],
   },
   "bagagem-acompanhada": {
-    reassuranceTitle: "Saber como a área funciona é o que devolve",
-    reassuranceTitleHighlight: "a sensação de controle.",
-    reassuranceCopy: "A área de animais vivos do porão é pressurizada e climatizada, diferente de uma área de carga comum. Rota, horário e raça do pet entram na análise antes da reserva.",
+    reassuranceTitle: "Viaje no mesmo voo",
+    reassuranceTitleHighlight: "do seu pet.",
+    reassuranceCopy: "Avaliamos rota, porte e raça antes da reserva, na mesma área pressurizada e climatizada usada em padrões internacionais de transporte.",
     reassurancePoints: ["Área pressurizada e climatizada, separada da carga comum", "Horário e rota avaliados para evitar temperaturas extremas", "Restrição avaliada para raças de focinho curto (braquicefálicas)", "Reserva alinhada ao mesmo voo e itinerário da família"],
   },
   "compartimento-de-cargas": {
-    reassuranceTitle: "Entender o risco real é o que",
-    reassuranceTitleHighlight: "permite reduzi-lo.",
-    reassuranceCopy: "A área de animais vivos do porão é pressurizada e climatizada, dentro de faixas de temperatura seguras. Data, horário, rota e raça entram na análise antes da reserva.",
+    reassuranceTitle: "Envie seu pet com segurança",
+    reassuranceTitleHighlight: "na área climatizada do avião.",
+    reassuranceCopy: "Avaliamos rota, raça e a data escolhida antes da reserva, na mesma área pressurizada usada em padrões internacionais de transporte de animais vivos.",
     reassurancePoints: ["Área pressurizada e climatizada, dentro de padrões internacionais", "Datas e horários avaliados para evitar calor ou frio extremos", "Restrição avaliada para raças de focinho curto (braquicefálicas)", "Caixa de transporte aprovada conforme padrão IATA"],
   },
   "suporte-emocional": {
-    reassuranceTitle: "A resposta responsável também",
-    reassuranceTitleHighlight: "protege a sua viagem.",
-    reassuranceCopy: "Lemos o caso com cuidado, explicamos o que precisa ser confirmado e indicamos o próximo caminho viável, mesmo que ele seja diferente da expectativa inicial.",
+    reassuranceTitle: "Descubra se o seu pet se qualifica",
+    reassuranceTitleHighlight: "para o suporte emocional.",
+    reassuranceCopy: "Analisamos documentação, política da companhia aérea e regras do destino antes de qualquer expectativa de embarque.",
     reassurancePoints: ["Orientação honesta antes de qualquer compromisso", "Critérios e documentos avaliados com contexto", "Alternativas quando a modalidade não se aplica", "Leitura atualizada da política de cada companhia aérea"],
   },
 };
