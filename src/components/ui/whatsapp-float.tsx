@@ -85,8 +85,7 @@ export function WhatsAppFloat({
       }));
     }
 
-    // 2. Temporizador suave com efeito de balão digitando
-    let typingTimer: ReturnType<typeof setTimeout> | undefined;
+    // 2. Efeito de balão digitando, disparado só ao passar a primeira dobra (nunca por timer).
     let messageTimer: ReturnType<typeof setTimeout> | undefined;
     let autoDismissTimer: ReturnType<typeof setTimeout> | undefined;
     let hasTriggered = false;
@@ -101,10 +100,6 @@ export function WhatsAppFloat({
         autoDismissTimer = setTimeout(() => setNudgePhase("hidden"), 11000);
       }, 1400);
     };
-
-    typingTimer = setTimeout(() => {
-      startTypingSequence();
-    }, 2600);
 
     // "A dobra" = uma tela inteira rolada, não só um leve scroll.
     const revealOnScroll = () => {
@@ -156,7 +151,6 @@ export function WhatsAppFloat({
       window.removeEventListener("embarp:open-whatsapp", handleGlobalOpen);
       window.removeEventListener("embarp:open-analysis", handleAnalysisOpen);
       window.removeEventListener("popstate", handlePopState);
-      if (typingTimer) clearTimeout(typingTimer);
       if (messageTimer) clearTimeout(messageTimer);
       if (autoDismissTimer) clearTimeout(autoDismissTimer);
     };
