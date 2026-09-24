@@ -72,10 +72,12 @@
 .ep-modality-reassurance .ep-title-lg em{ color:var(--ep-turq-deep); font-style:normal; }
 .ep-modality-reassurance .ep-copy{ color:var(--ep-muted); }
 .ep-modality-reassurance__heading{ max-width:720px; margin:0 auto; text-align:center; }
-.ep-modality-reassurance__heading .ep-title-lg{ max-width:18ch; margin:8px auto 0; }
-.ep-modality-reassurance__heading .ep-copy{ max-width:52ch; margin:12px auto 0; }
-.ep-modality-reassurance__points{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:28px; max-width:1120px; margin:48px auto 0; padding:0; list-style:none; }
-.ep-modality-reassurance__card{ display:grid; gap:14px; }
+.ep-modality-reassurance__heading .ep-title-lg{ max-width:36ch; margin:8px auto 0; text-wrap:balance; }
+.ep-modality-reassurance__heading .ep-copy{ max-width:52ch; margin:12px auto 0; font-size:13.5px; }
+.ep-modality-reassurance__points{ display:flex; align-items:stretch; gap:20px; max-width:1120px; margin:48px auto 0; padding:0; list-style:none; }
+.ep-modality-reassurance__card{ display:grid; align-content:start; gap:14px; flex:1 1 0%; min-width:0; transition:flex-grow .45s cubic-bezier(.4,.2,.2,1); }
+.ep-modality-reassurance__points:hover .ep-modality-reassurance__card{ flex-grow:.6; }
+.ep-modality-reassurance__points .ep-modality-reassurance__card:hover{ flex-grow:2.2; }
 .ep-modality-reassurance__card-media{ position:relative; aspect-ratio:4/3; border-radius:16px; overflow:hidden; background:var(--ep-soft); }
 .ep-modality-reassurance__card-media img{ display:block; width:100%; height:100%; object-fit:cover; transition:transform .35s cubic-bezier(.4,.2,.2,1); }
 .ep-modality-reassurance__card:hover .ep-modality-reassurance__card-media img{ transform:scale(1.06); }
@@ -130,7 +132,7 @@
 .ep-modality-hero{ height:auto; }
 .ep-modality-hero__grid{ height:auto; }
 .ep-modality-hero__visual{ height:clamp(320px,62vw,440px); }
-.ep-modality-reassurance__points{ grid-template-columns:repeat(2,minmax(0,1fr)); max-width:560px; }
+.ep-modality-reassurance__points{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); max-width:560px; }
 .ep-modality-reassurance__heading{ text-align:left; margin:0; }
 .ep-modality-decision__points{ grid-template-columns:1fr; max-width:560px; }
 .ep-modality-hero__content .ep-title-xl{ max-width:15ch; overflow-wrap:break-word; font-size:clamp(34px,7.4vw,54px); }
