@@ -280,7 +280,7 @@ export function SiteHeader({
           },
           {
             label: "PetLuxo",
-            href: path("/#modalidades"),
+            href: path("/pet-luxo"),
             badges: ["Exclusivo", "Acompanhamento VIP"],
             description: "Consultor dedicado acompanhando cada marco da jornada até a entrega com a família.",
             icon: Crown,

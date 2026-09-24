@@ -135,7 +135,7 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
 
       <section className="ep-section ep-modality-faq" id="faq"><div className="ep-container ep-modality-faq__grid"><div><p className="ep-eyebrow">Dúvidas sobre {modality.label.toLocaleLowerCase("pt-BR")}</p><h2 className="ep-title-lg">Respostas antes de <em>decidir.</em></h2></div><div>{modality.faqs.map((faq) => <details key={faq.question}><summary>{faq.question}<ChevronRight aria-hidden="true" /></summary><p>{faq.answer}</p></details>)}</div></div></section>
 
-      <PetLuxoSection onStartPlanning={() => startPlanning("petluxo")} />
+      <PetLuxoSection />
 
       <WhatsappSupportSection onStartPlanning={() => startPlanning("whatsapp")} />
 
