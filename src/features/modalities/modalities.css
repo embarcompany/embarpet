@@ -1,4 +1,4 @@
-.ep-modality-page{ padding-top:0; padding-bottom:10px; background:var(--ep-page); }
+.ep-modality-page{ padding-top:0; background:var(--ep-page); }
 .ep-modality-page .ep-section{ margin:10px; padding-block:clamp(64px,7vw,104px); border-radius:var(--ep-radius-lg); overflow:hidden; }
 .ep-modality-page .ep-eyebrow{ display:inline-flex; align-items:center; min-height:32px; margin:0; padding:5px 12px; border:1px solid rgba(0,157,172,.2); border-radius:999px; background:rgba(232,249,247,.72); color:var(--ep-teal); font-size:10px; font-weight:800; letter-spacing:.01em; line-height:1; text-transform:none; }
 .ep-modality-hero{ height:100vh; overflow:hidden; background:var(--ep-gradient-idv); }
@@ -161,7 +161,7 @@
 .ep-modality-page--bagagem-acompanhada .ep-modality-cutout--passport{ opacity:.26; right:-12%; width:min(78vw,430px); }
 }
 
-@media (max-width:600px) {.ep-modality-page{ padding-top:0; padding-bottom:4px; }
+@media (max-width:600px) {.ep-modality-page{ padding-top:0; }
 .ep-modality-page .ep-section{ margin:6px; border-radius:var(--ep-radius-md); }
 .ep-modality-hero__content .ep-title-xl{ max-width:100%; font-size:clamp(30px,9vw,40px); }
 .ep-modality-page .ep-section{ padding-block:64px; }
