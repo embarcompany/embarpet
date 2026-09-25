@@ -1424,7 +1424,7 @@
   .ep-hero-showcase__video .ep-hero-video__sound { top:50%; right:auto; bottom:auto; left:50%; min-height:36px; padding:0 12px; font-size:10px; transform:translate(-50%,-50%); }
   .ep-hero-showcase__video .ep-hero-video__sound.is-playing { top:auto; right:7px; bottom:7px; left:auto; width:29px; min-height:29px; padding:0; justify-content:center; transform:none; }
 }
-@media (max-width:620px) { .ep-conversion-hero__aside { order:2; } }
+@media (max-width:620px) { .ep-conversion-hero__aside { order:2; width:100%; flex:0 0 auto; } }
 .ep-embarkation-marquee {
   --ep-marquee-gap:12px;
   overflow:hidden;
