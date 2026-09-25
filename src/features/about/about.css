@@ -817,4 +817,8 @@
     font-size: 11px;
     padding: 4px 10px;
   }
+  .ep-about-centered-hero__title {
+    font-size: clamp(30px, 8.6vw, 40px);
+    line-height: 1.12;
+  }
 }

@@ -607,11 +607,6 @@
     color:var(--ep-teal);
   }
 
-  .ep-eyebrow {
-    width:fit-content;
-    margin-inline:auto!important;
-  }
-
   .ep-home-process--cycle .ep-home-process__intro {
     align-items:center;
     text-align:center;
