@@ -86,9 +86,9 @@
 .ep-nav-cta:hover .ep-nav-cta__plane { animation:ep-nav-plane-cross 1s cubic-bezier(.4,.4,.6,.6) both; }
 .ep-nav-cta:hover > span { opacity:.2; }
 @keyframes ep-nav-plane-cross { 0% { left:-76px; opacity:0; transform:translateY(-50%); } 5% { opacity:1; } 95% { opacity:1; } 100% { left:calc(100% + 8px); opacity:0; transform:translateY(-50%); } }
-.ep-nav-mobile-toggle { display:none; width:38px; height:38px; place-items:center; border:1px solid rgba(255,255,255,.2); border-radius:9px; background:rgba(255,255,255,.08); color:inherit; cursor:pointer; }
+.ep-nav-mobile-toggle { display:none; width:38px; height:38px; place-items:center; border:0; background:transparent; color:inherit; cursor:pointer; }
 .ep-site-nav__mobile-controls { display:none; align-items:center; gap:8px; }
-.ep-language-selector--compact > button { min-height:34px; padding:0 8px; border-color:rgba(255,255,255,.28); background:rgba(255,255,255,.08); color:#fff; font-size:10px; }
+.ep-site-nav__mobile-controls .ep-language-selector--compact > button { min-height:34px; padding:0 8px; border-color:rgba(255,255,255,.28); background:rgba(255,255,255,.08); color:#fff; font-size:10px; }
 .ep-language-selector--compact .ep-language-selector__menu { position:fixed; top:70px; right:16px; left:16px; width:auto; transform:none; }
 .ep-mobile-menu { position:fixed; top:73px; left:0; right:0; bottom:0; border-top:1px solid var(--ep-line); background:var(--ep-paper); color:var(--ep-teal); box-shadow:0 16px 36px rgba(0,32,36,.18); }
 .ep-mobile-menu__inner { display:flex; flex-direction:column; gap:12px; height:100%; padding:14px 16px 20px; overflow-y:auto; }
@@ -137,14 +137,14 @@
     box-shadow:0 2px 8px rgba(0,210,196,.25);
   }
   .ep-nav-mobile-cta:active { transform:scale(.97); }
+  .ep-site-nav__mobile-controls .ep-language-selector--compact > button { min-height:36px; }
   .ep-nav-mobile-toggle {
     display:grid!important;
-    width:38px;
-    height:38px;
+    width:36px;
+    height:36px;
     place-items:center;
-    border:1px solid rgba(255,255,255,.22);
-    border-radius:9px;
-    background:rgba(255,255,255,.08);
+    border:0;
+    background:transparent;
     color:#ffffff;
   }
 }
@@ -175,6 +175,7 @@
   }
   .ep-site-logo img { width:96px; }
   .ep-site-nav__mobile-controls { display:flex!important; align-items:center; gap:8px; }
+  .ep-site-nav__mobile-controls .ep-language-selector--compact > button { min-height:34px; }
   .ep-nav-mobile-cta {
     display:inline-flex!important;
     min-height:34px;
@@ -185,6 +186,8 @@
     display:grid!important;
     width:34px;
     height:34px;
+    border:0;
+    background:transparent;
   }
   .ep-nav-mobile-toggle svg { width:18px; height:18px; }
   .ep-conversion-hero__form { display:none!important; }
