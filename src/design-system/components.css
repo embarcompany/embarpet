@@ -88,23 +88,8 @@
 @keyframes ep-nav-plane-cross { 0% { left:-76px; opacity:0; transform:translateY(-50%); } 5% { opacity:1; } 95% { opacity:1; } 100% { left:calc(100% + 8px); opacity:0; transform:translateY(-50%); } }
 .ep-nav-mobile-toggle { display:none; width:38px; height:38px; place-items:center; border:1px solid rgba(255,255,255,.2); border-radius:9px; background:rgba(255,255,255,.08); color:inherit; cursor:pointer; }
 .ep-site-nav__mobile-controls { display:none; align-items:center; gap:8px; }
-.ep-mobile-menu { border-top:1px solid var(--ep-line); background:var(--ep-paper); color:var(--ep-teal); box-shadow:0 16px 36px rgba(0,32,36,.18); }
-.ep-mobile-menu__inner { display:flex; flex-direction:column; gap:12px; padding:14px 16px 20px; max-height:calc(100dvh - 65px); overflow-y:auto; }
-.ep-mobile-menu__search { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:8px; min-height:46px; padding:4px 5px 4px 12px; border:1px solid var(--ep-line); border-radius:12px; background:#ffffff; color:var(--ep-muted); box-shadow:0 2px 8px rgba(0,58,64,.05); }
-.ep-mobile-menu__search-icon { color:var(--ep-turq-deep); flex-shrink:0; }
-.ep-mobile-menu__search-trigger { min-width:0; overflow:hidden; padding:0; border:0; background:transparent; color:var(--ep-teal); font:inherit; font-size:12.5px; font-weight:750; text-align:left; text-overflow:ellipsis; white-space:nowrap; cursor:pointer; }
-.ep-mobile-menu__search-cta { min-width:96px; height:36px; padding:0 12px; border:0; border-radius:999px; background:var(--ep-teal); color:var(--ep-paper); font-size:10px; font-weight:850; white-space:nowrap; cursor:pointer; transition:background .16s ease; }
-.ep-mobile-menu__search-cta:hover { background:var(--ep-turq-deep); }
-.ep-mobile-menu__shortcuts { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; padding:10px 8px; border:1px solid rgba(0,157,172,.15); border-radius:12px; background:var(--ep-soft); }
-.ep-mobile-menu__shortcut-item { display:flex; flex-direction:column; align-items:center; gap:5px; color:var(--ep-teal); font-size:9.5px; font-weight:800; line-height:1.1; text-align:center; text-decoration:none; }
-.ep-mobile-menu__shortcut-icon { display:grid; width:36px; height:36px; place-items:center; border-radius:50%; background:#ffffff; color:var(--ep-turq-deep); border:1px solid rgba(0,157,172,.2); box-shadow:0 2px 6px rgba(0,58,64,.06); transition:transform .16s ease,background .16s ease; }
-.ep-mobile-menu__shortcut-item:active .ep-mobile-menu__shortcut-icon { transform:scale(.94); background:var(--ep-turq); color:var(--ep-teal); }
-.ep-mobile-menu__whatsapp-bar { display:flex; align-items:center; gap:10px; padding:10px 12px; border:1px solid rgba(37,211,102,.3); border-radius:10px; background:#eaf8f1; color:#064e2d; text-decoration:none; }
-.ep-mobile-menu__whatsapp-bar svg:first-child { flex:0 0 18px; color:#25d366; }
-.ep-mobile-menu__whatsapp-bar div { flex:1; min-width:0; }
-.ep-mobile-menu__whatsapp-bar b { display:block; color:#064e2d; font-size:12.5px; font-weight:800; }
-.ep-mobile-menu__whatsapp-bar small { display:block; color:#167a4d; font-size:10.5px; }
-.ep-mobile-menu__whatsapp-bar svg:last-child { color:#167a4d; }
+.ep-mobile-menu { position:fixed; top:73px; left:0; right:0; bottom:0; border-top:1px solid var(--ep-line); background:var(--ep-paper); color:var(--ep-teal); box-shadow:0 16px 36px rgba(0,32,36,.18); }
+.ep-mobile-menu__inner { display:flex; flex-direction:column; gap:12px; height:100%; padding:14px 16px 20px; overflow-y:auto; }
 .ep-mobile-menu__links { display:flex; flex-direction:column; }
 .ep-mobile-menu__direct-link { display:flex; align-items:center; justify-content:space-between; padding:12px 6px; border-bottom:1px solid var(--ep-line); color:var(--ep-teal); font-size:13.5px; font-weight:800; text-decoration:none; }
 .ep-mobile-menu__direct-link svg { color:var(--ep-muted); }
@@ -201,7 +186,7 @@
   }
   .ep-nav-mobile-toggle svg { width:18px; height:18px; }
   .ep-conversion-hero__form { display:none!important; }
-  .ep-mobile-menu { width:100%; }
+  .ep-mobile-menu { top:64px; width:100%; }
   .ep-mobile-menu .ep-container { width:100%; padding-inline:16px; }
 }
 @media (max-width:359px) {

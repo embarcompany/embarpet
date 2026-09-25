@@ -957,7 +957,8 @@
 
 /* Index mobile: mesma narrativa, com composição própria para toque e telas estreitas. */
 @media (max-width:620px) {
-  html,body { max-width:100%; overflow-x:hidden; }
+  html,body { max-width:100%; }
+  html { overflow-x:hidden; }
   .ep-container { width:calc(100% - 40px); }
   /* O header é uma faixa de viewport; o recuo pertence apenas aos seus conteúdos. */
   .ep-site-header { width:100%; min-height:64px; margin-inline:0; padding-inline:0; }

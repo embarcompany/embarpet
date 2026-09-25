@@ -13,9 +13,7 @@ import {
   Globe2,
   HeartHandshake,
   HelpCircle,
-  MapPin,
   Menu,
-  MessageCircle,
   Package,
   Plane,
   Route,
@@ -28,7 +26,6 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "../../lib/utils";
-import { DEFAULT_EMBARPET_WHATSAPP, getSmartWhatsAppUrl, openWhatsApp } from "../../lib/whatsapp";
 import { languageOptions, localizePath, useLocale } from "../../i18n/locale";
 import { countryFlagSvg } from "../../lib/country-flag";
 
@@ -549,51 +546,6 @@ export function SiteHeader({
         {mobileOpen ? (
           <div className="ep-mobile-menu">
             <div className="ep-container ep-mobile-menu__inner">
-              {/* Quick Trip Search inside Megamenu */}
-              <div className="ep-mobile-menu__search">
-                <MapPin size={17} className="ep-mobile-menu__search-icon" aria-hidden="true" />
-                <button
-                  className="ep-mobile-menu__search-trigger"
-                  type="button"
-                  onClick={openPrimaryCta}
-                >
-                  Analisar a viagem
-                </button>
-                <button
-                  className="ep-mobile-menu__search-cta"
-                  type="button"
-                  onClick={openPrimaryCta}
-                >
-                  {text.startTrip}
-                </button>
-              </div>
-
-
-              {/* WhatsApp Fast Header on Mobile */}
-              <a
-                href={getSmartWhatsAppUrl(
-                  DEFAULT_EMBARPET_WHATSAPP,
-                  "Olá, gostaria de informações sobre viagem internacional com meu pet."
-                )}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ep-mobile-menu__whatsapp-bar"
-                onClick={(e) => {
-                  e.preventDefault();
-                  openWhatsApp(
-                    DEFAULT_EMBARPET_WHATSAPP,
-                    "Olá, gostaria de informações sobre viagem internacional com meu pet."
-                  );
-                }}
-              >
-                <MessageCircle size={18} />
-                <div>
-                  <b>Falar com Especialista</b>
-                  <small>Atendimento direto no WhatsApp</small>
-                </div>
-                <ArrowRight size={15} />
-              </a>
-
               {/* Navigation Items with Accordions */}
               <div className="ep-mobile-menu__links">
                 {navigationItems.map((item) => {
