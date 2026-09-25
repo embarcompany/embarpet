@@ -525,8 +525,9 @@ export function SiteHeader({
             </a>
           </div>
 
-          {/* Mobile Right Controls: Fast CTA + Burger Trigger */}
+          {/* Mobile Right Controls: Language + Fast CTA + Burger Trigger */}
           <div className="ep-site-nav__mobile-controls">
+            {showLanguage ? <LanguageSelector compact /> : null}
             <button className="ep-nav-mobile-cta" type="button" onClick={openPrimaryCta}>
               <span>{mobileCtaLabel ?? (resolvedCta.label === text.analyze ? "Analisar viagem" : resolvedCta.label)}</span>
             </button>
@@ -638,12 +639,6 @@ export function SiteHeader({
 
               {/* Bottom Actions in Drawer */}
               <div className="ep-mobile-menu__bottom">
-                {showLanguage ? (
-                  <div className="ep-mobile-menu__lang-wrap">
-                    <LanguageSelector />
-                  </div>
-                ) : null}
-
                 <button type="button" className="ep-button ep-button--primary ep-mobile-menu__cta-btn" onClick={openPrimaryCta}>
                   <span>Iniciar Análise da Viagem</span>
                   <ArrowRight size={16} />
