@@ -10,7 +10,7 @@
 .ep-modality-hero__content .ep-title-xl{ max-width:11ch; }
 .ep-modality-hero__content .ep-title-xl em,.ep-modality-section-heading em,.ep-modality-faq em{ color:var(--ep-turq-deep); font-style:normal; }
 .ep-modality-hero__actions{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
-.ep-modality-hero__actions .ep-button--outline{ display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border:1.5px solid rgba(0,157,172,.4); border-radius:999px; background:transparent; color:var(--ep-teal); font-size:13.5px; font-weight:750; text-decoration:none; transition:all .22s cubic-bezier(.2,.8,.2,1); }
+.ep-modality-hero__actions .ep-button--outline{ display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:54px; padding:0 23px; border:1.5px solid rgba(0,157,172,.4); border-radius:999px; background:transparent; color:var(--ep-teal); font-size:15px; font-weight:750; text-decoration:none; transition:all .22s cubic-bezier(.2,.8,.2,1); }
 .ep-modality-hero__actions .ep-button--outline:hover,.ep-modality-hero__actions .ep-button--outline:focus-visible{ background:rgba(0,157,172,.08); border-color:var(--ep-teal); transform:translateY(-2px); }
 .ep-modality-hero__actions .ep-button--outline svg{ flex-shrink:0; color:var(--ep-turq-deep); transition:transform .22s ease; }
 .ep-modality-hero__actions .ep-button--outline:hover svg{ transform:translateY(3px); }
