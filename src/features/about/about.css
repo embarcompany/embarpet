@@ -788,21 +788,49 @@
 }
 
 @media (max-width: 768px) {
+  .ep-about-methodology-section {
+    padding-block: clamp(48px, 9vw, 64px);
+  }
+  .ep-about-methodology-header {
+    margin-bottom: 28px;
+  }
   .ep-about-centered-timeline__spine {
-    left: 22px;
+    left: 18px;
     transform: none;
+  }
+  .ep-about-centered-timeline__steps {
+    gap: 14px;
   }
   .ep-about-timeline-item {
     justify-content: flex-start !important;
   }
   .ep-about-timeline-item__center {
-    left: 22px;
+    left: 18px;
     transform: translateX(-50%);
   }
+  .ep-about-timeline-item__node {
+    width: 36px;
+    height: 36px;
+    font-size: 11px;
+  }
   .ep-about-timeline-item__card {
-    width: calc(100% - 56px);
-    margin-left: 56px !important;
+    width: calc(100% - 48px);
+    margin-left: 48px !important;
     margin-right: 0 !important;
+    padding: 14px 16px;
+  }
+  .ep-about-timeline-item__card-head {
+    margin-bottom: 4px;
+  }
+  .ep-about-timeline-item__card-icon {
+    width: 30px;
+    height: 30px;
+  }
+  .ep-about-timeline-item__subtitle {
+    display: none;
+  }
+  .ep-about-timeline-item__copy {
+    margin-top: 4px;
   }
   .ep-about-pillars-grid {
     grid-template-columns: 1fr;
