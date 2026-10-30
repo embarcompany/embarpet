@@ -90,8 +90,8 @@ export default function PetLuxoPage({ isLp = false }: { isLp?: boolean }) {
       </div></section>
     </main>
     <AnalysisModal open={analysisOpen} onClose={() => setAnalysisOpen(false)} initialRoute={analysisRoute} analyticsSource={analysisSource} />
-    <SiteFooter logoSrc="/logo-embarpet-dark.png" note="Acompanhamento dedicado para a viagem internacional do seu pet." onAnalysisClick={() => startPlanning("footer")} groups={[
-      { title: "Planeje a viagem", links: [{ label: "Como funciona", href: "/#como-funciona" },{ label: "Modalidades", href: "/#modalidades" },{ label: "Destinos", href: "/#destinos" }] },
+    <SiteFooter minimal logoSrc="/logo-embarpet-dark.png" note="Acompanhamento dedicado para a viagem internacional do seu pet." brandCta={{ label: "Falar sobre a viagem", href: "#planejar" }} quickLinks={[]} onAnalysisClick={() => startPlanning("footer")} groups={[
+      { title: "Planeje a viagem", links: [{ label: "Como funciona", href: "/#como-funciona" },{ label: "Modalidades", href: "/#modalidades" },{ label: "Destinos", href: "/destinos/estados-unidos" }] },
       { title: "Conteúdo", links: [{ label: "Histórias reais", href: "/#historias" },{ label: "Perguntas frequentes", href: "/#faq" }] },
       { title: "Embarpet", links: [{ label: "Sobre nós", href: "/sobre" },{ label: "Fale com a equipe", href: "#planejar" }] },
     ]} />

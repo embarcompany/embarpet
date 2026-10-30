@@ -253,7 +253,7 @@ export function ModalityPage({ modality, isLp = false }: { modality: ModalityCon
     </main>
     <AnalysisModal open={analysisOpen} onClose={() => setAnalysisOpen(false)} initialRoute={analysisRoute} analyticsSource={analysisSource} />
     <SiteFooter minimal logoSrc="/logo-embarpet-dark.png" note={`Planejamento individual para a modalidade de ${modality.label.toLocaleLowerCase("pt-BR")}.`} brandCta={{ label: "Começar minha análise", href: "#planejar" }} quickLinks={[]} onAnalysisClick={() => startPlanning("footer")} groups={[
-      { title: "Planeje a viagem", links: [{ label: "Como funciona", href: "/#como-funciona" },{ label: "Modalidades", href: "/#modalidades" },{ label: "Destinos", href: "/#destinos" }] },
+      { title: "Planeje a viagem", links: [{ label: "Como funciona", href: "/#como-funciona" },{ label: "Modalidades", href: "/#modalidades" },{ label: "Destinos", href: "/destinos/estados-unidos" }] },
       { title: "Conteúdo", links: [{ label: "Histórias reais", href: "/#historias" },{ label: "Perguntas frequentes", href: "/#faq" }] },
       { title: "Embarpet", links: [{ label: "Sobre nós", href: "/sobre" },{ label: "Fale com a equipe", href: "#planejar" }] },
     ]} showLanguageLink={false} />

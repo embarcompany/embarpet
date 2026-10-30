@@ -216,7 +216,7 @@ export function SiteHeader({
     () => [
       {
         label: text.navDestinations,
-        href: path("/#destinos"),
+        href: path("/destinos/estados-unidos"),
         children: [
           { label: "Estados Unidos", href: path("/destinos/estados-unidos"), description: "Conformidade CDC e entrada ágil", flagSrc: countryFlagSvg("US") },
           { label: "Portugal & Europa", href: path("/destinos/portugal"), description: "Porta de entrada na UE com microchip", flagSrc: countryFlagSvg("PT") },
@@ -227,7 +227,7 @@ export function SiteHeader({
           { label: "Paraguai", href: path("/destinos/paraguai"), description: "Requisitos de entrada", flagSrc: countryFlagSvg("PY") },
           {
             label: "Outros 80+ Destinos",
-            href: path("/#destinos"),
+            href: path("/destinos/estados-unidos"),
             description: "Consulte sua rota sob medida para mais de 80 países atendidos",
             badge: "Rotas Globais",
             icon: Globe2,

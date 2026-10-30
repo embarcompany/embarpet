@@ -12,7 +12,7 @@ export const defaultFooterGroups: FooterGroup[] = [
     links: [
       { label: "Como funciona", href: "/#como-funciona" },
       { label: "Modalidades de voo", href: "/#modalidades" },
-      { label: "Destinos internacionais", href: "/#destinos" },
+      { label: "Destinos internacionais", href: "/destinos/estados-unidos" },
       { label: "Estados Unidos", href: "/destinos/estados-unidos" },
       { label: "Portugal & Europa", href: "/destinos/portugal" },
     ],
@@ -89,6 +89,6 @@ export function SiteFooter({ logoSrc, groups = defaultFooterGroups, note = "Tran
 
 const defaultQuickLinks: FooterQuickLink[] = [
   { label: "Começar uma análise", description: "Conte a rota do seu pet", href: "#analise", icon: MessageCircle },
-  { label: "Ver destinos atendidos", description: "Planeje a rota com contexto", href: "#destinos", icon: MapPinned },
+  { label: "Ver destinos atendidos", description: "Planeje a rota com contexto", href: "/destinos/estados-unidos", icon: MapPinned },
   { label: "Tirar dúvidas da viagem", description: "Informações antes do embarque", href: "#faq", icon: ShieldCheck },
 ];

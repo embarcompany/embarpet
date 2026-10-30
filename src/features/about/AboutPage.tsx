@@ -559,9 +559,17 @@ export default function AboutPage({ isLp = false }: { isLp?: boolean }) {
       </main>
 
       <SiteFooter
+        minimal
         logoSrc="/logo-embarpet-dark.png"
         note="Especialistas em transporte aéreo internacional de animais — Grupo Embarcompany."
+        brandCta={{ label: "Falar sobre a viagem", href: "#planejar" }}
+        quickLinks={[]}
         onAnalysisClick={() => openAnalysis()}
+        groups={[
+          { title: "Planeje a viagem", links: [{ label: "Como funciona", href: "/#como-funciona" },{ label: "Modalidades", href: "/#modalidades" },{ label: "Destinos", href: "/destinos/estados-unidos" }] },
+          { title: "Conteúdo", links: [{ label: "Histórias reais", href: "/#historias" },{ label: "Perguntas frequentes", href: "/#faq" }] },
+          { title: "Embarpet", links: [{ label: "PetLuxo", href: "/pet-luxo" },{ label: "Fale com a equipe", href: "#planejar" }] },
+        ]}
       />
     </div>
   );
