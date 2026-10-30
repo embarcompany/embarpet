@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { PublicLead } from "../../lead-contract";
 import { trackConversionEvent } from "../../lib/analytics";
 import { WhatsAppChatModal } from "./whatsapp-chat-modal";
@@ -21,6 +21,28 @@ export function openWhatsAppModal(route?: { origin?: string; destination?: strin
   if (typeof window !== "undefined") {
     window.dispatchEvent(new CustomEvent("embarp:open-whatsapp", { detail: route }));
   }
+}
+
+const BALLOON_TEXT_TAGS = new Set(["P", "H1", "H2", "H3", "H4", "H5", "H6", "BUTTON", "A", "STRONG", "LI", "SPAN"]);
+
+/** Evita que o balão cubra texto/CTAs reais da página: amostra alguns pontos da área onde ele apareceria. */
+function regionHasForegroundContent(rect: { left: number; top: number; right: number; bottom: number }): boolean {
+  if (typeof document === "undefined") return false;
+  const points: Array<[number, number]> = [
+    [rect.left + 10, rect.top + 10],
+    [(rect.left + rect.right) / 2, (rect.top + rect.bottom) / 2],
+    [rect.right - 10, rect.bottom - 10],
+    [rect.left + 10, rect.bottom - 10],
+  ];
+  for (const [x, y] of points) {
+    if (x < 0 || y < 0) continue;
+    const stack = document.elementsFromPoint(x, y);
+    for (const el of stack) {
+      if (el.closest(".ep-whatsapp-float")) continue;
+      if (BALLOON_TEXT_TAGS.has(el.tagName) && (el.textContent || "").trim().length > 0) return true;
+    }
+  }
+  return false;
 }
 
 function getRouteFromLocation(): { origin?: string; destination?: string; period?: string } {
@@ -68,6 +90,7 @@ export function WhatsAppFloat({
   const [nudgePhase, setNudgePhase] = useState<"hidden" | "typing" | "message">("hidden");
   const [personaRevealed, setPersonaRevealed] = useState(false);
   const [chatModalOpen, setChatModalOpen] = useState(false);
+  const triggerWrapRef = useRef<HTMLSpanElement>(null);
   const [activeRoute, setActiveRoute] = useState<{ origin?: string; destination?: string; period?: string }>({
     origin: context.origin,
     destination: context.destination,
@@ -102,11 +125,25 @@ export function WhatsAppFloat({
     };
 
     // "A dobra" = uma tela inteira rolada, não só um leve scroll.
+    let firstEligibleY: number | null = null;
+    let lastCheckAt = 0;
     const revealOnScroll = () => {
-      if (window.scrollY > window.innerHeight) {
-        startTypingSequence();
-        window.removeEventListener("scroll", revealOnScroll);
+      if (window.scrollY <= window.innerHeight) return;
+      const now = Date.now();
+      if (now - lastCheckAt < 150) return;
+      lastCheckAt = now;
+      if (firstEligibleY === null) firstEligibleY = window.scrollY;
+      // Depois de rolar 2 telas sem achar um ponto livre, mostra mesmo assim (nunca fica em silêncio pra sempre).
+      const forceShow = window.scrollY - firstEligibleY > window.innerHeight * 2;
+      if (!forceShow) {
+        const anchor = triggerWrapRef.current?.getBoundingClientRect();
+        if (anchor) {
+          const balloonRect = { left: Math.max(4, anchor.left - 292), top: anchor.top - 12, right: anchor.left - 12, bottom: anchor.bottom + 12 };
+          if (regionHasForegroundContent(balloonRect)) return;
+        }
       }
+      startTypingSequence();
+      window.removeEventListener("scroll", revealOnScroll);
     };
     window.addEventListener("scroll", revealOnScroll, { passive: true });
 
@@ -220,7 +257,7 @@ export function WhatsAppFloat({
           </div>
         ) : null}
 
-        <span className="ep-whatsapp-trigger-wrap">
+        <span className="ep-whatsapp-trigger-wrap" ref={triggerWrapRef}>
           <button
             className={`ep-whatsapp-trigger ${personaRevealed ? "ep-whatsapp-trigger--persona" : ""}`}
             type="button"

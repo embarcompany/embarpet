@@ -435,10 +435,10 @@ export default function AboutPage({ isLp = false }: { isLp?: boolean }) {
                 </div>
                 <span className="ep-about-pillar-card__label">Nossos Valores</span>
                 <ul className="ep-about-pillar-values-list">
-                  <li><CheckCircle2 size={14} /> <strong>Bem-estar animal:</strong> Prioridade zero em qualquer decisão.</li>
-                  <li><CheckCircle2 size={14} /> <strong>Rigor técnico:</strong> Conformidade absoluta com órgãos oficiais.</li>
-                  <li><CheckCircle2 size={14} /> <strong>Empatia ativa:</strong> Cuidado genuíno com o tutor e sua família.</li>
-                  <li><CheckCircle2 size={14} /> <strong>Presença real:</strong> Acompanhamento presencial no aeroporto.</li>
+                  <li><CheckCircle2 size={14} /> <span><strong>Bem-estar animal:</strong> Prioridade zero em qualquer decisão.</span></li>
+                  <li><CheckCircle2 size={14} /> <span><strong>Rigor técnico:</strong> Conformidade absoluta com órgãos oficiais.</span></li>
+                  <li><CheckCircle2 size={14} /> <span><strong>Empatia ativa:</strong> Cuidado genuíno com o tutor e sua família.</span></li>
+                  <li><CheckCircle2 size={14} /> <span><strong>Presença real:</strong> Acompanhamento presencial no aeroporto.</span></li>
                 </ul>
               </div>
             </div>

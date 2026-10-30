@@ -59,7 +59,7 @@ export default function PetLuxoPage({ isLp = false }: { isLp?: boolean }) {
       </div></section>
 
       <section className="ep-section ep-petluxo-eligibility" id="elegibilidade"><div className="ep-container ep-petluxo-eligibility__grid">
-        <div><p className="ep-eyebrow">{petLuxoContent.eligibility.eyebrow}</p><h2 className="ep-title-lg">{petLuxoContent.eligibility.title}</h2><p className="ep-copy">{petLuxoContent.eligibility.copy}</p><AnalysisButton className="ep-ds-button--luxury" onClick={() => startPlanning("eligibility")}>Avaliar meu caso</AnalysisButton></div>
+        <div><p className="ep-eyebrow">{petLuxoContent.eligibility.eyebrow}</p><h2 className="ep-title-lg">{petLuxoContent.eligibility.title}</h2><p className="ep-copy">{petLuxoContent.eligibility.copy}</p><AnalysisButton className="ep-ds-button--luxury" size="lg" onClick={() => startPlanning("eligibility")}>Avaliar meu caso</AnalysisButton></div>
         <ul>{petLuxoContent.eligibility.points.map((point, index) => { const PointIcon = eligibilityIcons[index]; return <li key={point}><PointIcon aria-hidden="true" /><span>{point}</span></li>; })}</ul>
       </div></section>
 
