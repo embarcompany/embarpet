@@ -218,28 +218,28 @@ export function SiteHeader({
         label: text.navDestinations,
         href: path("/destinos/estados-unidos"),
         children: [
-          { label: "Estados Unidos", href: path("/destinos/estados-unidos"), description: "Conformidade CDC e entrada ágil", flagSrc: countryFlagSvg("US") },
-          { label: "Portugal & Europa", href: path("/destinos/portugal"), description: "Porta de entrada na UE com microchip", flagSrc: countryFlagSvg("PT") },
-          { label: "Espanha", href: path("/destinos/espanha"), description: "Planejamento e CVI oficial", flagSrc: countryFlagSvg("ES") },
-          { label: "Itália", href: path("/destinos/italia"), description: "Rotas e trânsito comunitário", flagSrc: countryFlagSvg("IT") },
-          { label: "Argentina", href: path("/destinos/argentina"), description: "Conexões e MERCOSUL", flagSrc: countryFlagSvg("AR") },
-          { label: "Uruguai", href: path("/destinos/uruguai"), description: "Documentação fronteiriça", flagSrc: countryFlagSvg("UY") },
-          { label: "Paraguai", href: path("/destinos/paraguai"), description: "Requisitos de entrada", flagSrc: countryFlagSvg("PY") },
+          { label: text.destUsaLabel, href: path("/destinos/estados-unidos"), description: text.destUsaDesc, flagSrc: countryFlagSvg("US") },
+          { label: text.destPortugalLabel, href: path("/destinos/portugal"), description: text.destPortugalDesc, flagSrc: countryFlagSvg("PT") },
+          { label: text.destSpainLabel, href: path("/destinos/espanha"), description: text.destSpainDesc, flagSrc: countryFlagSvg("ES") },
+          { label: text.destItalyLabel, href: path("/destinos/italia"), description: text.destItalyDesc, flagSrc: countryFlagSvg("IT") },
+          { label: text.destArgentinaLabel, href: path("/destinos/argentina"), description: text.destArgentinaDesc, flagSrc: countryFlagSvg("AR") },
+          { label: text.destUruguayLabel, href: path("/destinos/uruguai"), description: text.destUruguayDesc, flagSrc: countryFlagSvg("UY") },
+          { label: text.destParaguayLabel, href: path("/destinos/paraguai"), description: text.destParaguayDesc, flagSrc: countryFlagSvg("PY") },
           {
-            label: "Outros 80+ Destinos",
+            label: text.destOtherLabel,
             href: path("/destinos/estados-unidos"),
-            description: "Consulte sua rota sob medida para mais de 80 países atendidos",
-            badge: "Rotas Globais",
+            description: text.destOtherDesc,
+            badge: text.destOtherBadge,
             icon: Globe2,
             colSpan: 2,
           },
         ],
         promoAction: {
-          badge: "Planejamento Sob Medida",
+          badge: text.destPromoBadge,
           icon: Compass,
-          title: "Vai para outro país?",
-          description: "Planejamos rotas personalizadas com sincronia de laudos, vacinas e microchip para mais de 80 destinos internacionais.",
-          buttonLabel: "Consultar Especialista",
+          title: text.destPromoTitle,
+          description: text.destPromoDesc,
+          buttonLabel: text.destPromoButton,
           imageSrc: "/embarpet-megamenu-destinos.jpg",
         },
       },
@@ -248,57 +248,57 @@ export function SiteHeader({
         href: path("/#modalidades"),
         children: [
           {
-            label: "Viagem na Cabine",
+            label: text.modCabinLabel,
             href: path("/modalidades/viagem-na-cabine"),
-            badge: "Até 8–10kg",
-            description: "Com o tutor dentro da cabine de passageiros, quando rota e porte permitem.",
+            badge: text.modCabinBadge,
+            description: text.modCabinDesc,
             icon: Plane,
           },
           {
-            label: "Bagagem Acompanhada",
+            label: text.modLuggageLabel,
             href: path("/modalidades/bagagem-acompanhada"),
-            badge: "Mesmo Voo",
-            description: "No mesmo voo do tutor, em compartimento apropriado, pressurizado e climatizado.",
+            badge: text.modLuggageBadge,
+            description: text.modLuggageDesc,
             icon: Package,
           },
           {
-            label: "Compartimento de Cargas",
+            label: text.modCargoLabel,
             href: path("/modalidades/compartimento-de-cargas"),
-            badge: "Carga Viva",
-            description: "Operação dedicada para portes médios/grandes ou quando o tutor viaja em outra data.",
+            badge: text.modCargoBadge,
+            description: text.modCargoDesc,
             icon: Route,
           },
           {
-            label: "Suporte Emocional & Cão Guia",
+            label: text.modEmotionalLabel,
             href: path("/modalidades/suporte-emocional"),
-            badge: "Casos Especiais",
-            description: "Orientação e conformidade técnica para animais de assistência em viagens internacionais.",
+            badge: text.modEmotionalBadge,
+            description: text.modEmotionalDesc,
             icon: HeartHandshake,
           },
           {
-            label: "PetLuxo",
+            label: text.modPetluxoLabel,
             href: path("/pet-luxo"),
-            badges: ["Exclusivo", "Acompanhamento VIP"],
-            description: "Consultor dedicado acompanhando cada marco da jornada até a entrega com a família.",
+            badges: [...text.modPetluxoBadges],
+            description: text.modPetluxoDesc,
             icon: Crown,
           },
         ],
         promoAction: {
-          badge: "Diagnóstico Veterinário",
+          badge: text.modPromoBadge,
           icon: Stethoscope,
-          title: "Dúvida sobre a modalidade?",
-          description: "Nossa equipe avalia raça, medidas anatômicas e peso para indicar a modalidade 100% segura para seu pet.",
-          buttonLabel: "Avaliar Modalidade",
+          title: text.modPromoTitle,
+          description: text.modPromoDesc,
+          buttonLabel: text.modPromoButton,
           imageSrc: "/embarpet-megamenu-modalidades.jpg",
         },
       },
       {
-        label: "Sobre Nós",
+        label: text.navAboutLabel,
         href: path("/sobre"),
-        badges: ["Aeroporto GRU", "Desde 2018"],
+        badges: [...text.navAboutBadges],
       },
     ],
-    [path, text.navDestinations, text.navModalities]
+    [path, text]
   );
 
   const navigationItems = items ?? standardItems;
@@ -389,7 +389,7 @@ export function SiteHeader({
                             {/* Main Options Grid */}
                             <div className="ep-mega-menu__main-col">
                               <span className="ep-mega-menu__section-label">
-                                {item.label === text.navDestinations ? "Destinos Internacionais" : "Modalidades de Voo"}
+                                {item.label === text.navDestinations ? text.megaDestSectionLabel : text.megaModSectionLabel}
                               </span>
                               <div className="ep-mega-menu__grid">
                                 {item.children?.map((child) => {
@@ -447,7 +447,7 @@ export function SiteHeader({
                             {item.promoAction ? (
                               <div className="ep-mega-menu__promo-col">
                                 <span className="ep-mega-menu__section-label">
-                                  {item.label === text.navDestinations ? "Assessoria Personalizada" : "Diagnóstico Seguro"}
+                                  {item.label === text.navDestinations ? text.megaDestPromoLabel : text.megaModPromoLabel}
                                 </span>
                                 <div className="ep-mega-menu__promo-card">
                                   <div className="ep-mega-menu__promo-top">
