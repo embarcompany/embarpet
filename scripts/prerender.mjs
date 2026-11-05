@@ -32,8 +32,10 @@ const { render } = await import(pathToFileURL(resolve(serverOutput, "entry-serve
 const template = await readFile(templatePath, "utf8");
 const localePages = Object.entries(pages).filter(([key]) => ["pt-BR", "en", "es", "ja"].includes(key));
 const alternateLinks = `${localePages.map(([locale, page]) => `<link rel="alternate" hreflang="${locale}" href="${siteUrl}${page.path}" />`).join("\n    ")}\n    <link rel="alternate" hreflang="x-default" href="${siteUrl}/" />`;
+const ogLocales = { "pt-BR": "pt_BR", en: "en_US", es: "es_ES", ja: "ja_JP" };
 
-function renderPage(locale, page) {
+// hreflang só vale entre traduções da mesma página; as rotas só em português não têm equivalentes.
+function renderPage(locale, page, hasTranslations) {
   const renderedRoot = `<div id="root">${render(locale, page.path)}</div>`;
   if (!template.includes('<div id="root"></div>')) throw new Error("Could not find the application root for prerendering.");
   return template
@@ -46,7 +48,8 @@ function renderPage(locale, page) {
     .replace(/<meta property="og:title" content="[^"]*"\s*\/>/, `<meta property="og:title" content="${page.title}" />`)
     .replace(/<meta property="og:description" content="[^"]*"\s*\/>/, `<meta property="og:description" content="${page.description}" />`)
     .replace(/<meta property="og:url" content="[^"]*"\s*\/>/, `<meta property="og:url" content="${siteUrl}${page.path}" />`)
-    .replace("</head>", `    ${alternateLinks}\n  </head>`);
+    .replace(/<meta property="og:locale" content="[^"]*"\s*\/>/, `<meta property="og:locale" content="${ogLocales[page.lang]}" />`)
+    .replace("</head>", hasTranslations ? `    ${alternateLinks}\n  </head>` : "</head>");
 }
 
 for (const [locale, page] of Object.entries(pages)) {
@@ -54,7 +57,7 @@ for (const [locale, page] of Object.entries(pages)) {
   const isRoot = locale === "pt-BR";
   const destination = isRoot ? templatePath : resolve(dist, locale, "index.html");
   if (!isRoot) await mkdir(resolve(dist, locale), { recursive: true });
-  await writeFile(destination, renderPage(renderLocale, page), "utf8");
+  await writeFile(destination, renderPage(renderLocale, page, localePages.some(([key]) => key === locale)), "utf8");
 }
 
 await rm(serverOutput, { recursive: true, force: true });
