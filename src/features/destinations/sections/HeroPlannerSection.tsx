@@ -29,11 +29,11 @@ export function HeroPlannerSection({
   destination,
 }: HeroPlannerSectionProps) {
   const origin = routeInverted
-    ? { country: destination.country, flag: destination.flag, alt: `Bandeira dos ${destination.country}` }
+    ? { country: destination.country, flag: destination.flag, alt: `Bandeira ${destination.countryOf}` }
     : { country: "Brasil", flag: "/flags/br.svg", alt: "Bandeira do Brasil" };
   const routeDestination = routeInverted
     ? { country: "Brasil", flag: "/flags/br.svg", alt: "Bandeira do Brasil" }
-    : { country: destination.country, flag: destination.flag, alt: `Bandeira dos ${destination.country}` };
+    : { country: destination.country, flag: destination.flag, alt: `Bandeira ${destination.countryOf}` };
 
   return <section ref={heroRef} className={heroVisible ? "ep-us-hero is-in-view" : "ep-us-hero"} id="planejar">
     <div className="ep-container ep-us-hero__grid">

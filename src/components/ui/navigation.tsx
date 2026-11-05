@@ -97,8 +97,8 @@ export function LanguageSelector({ compact = false }: { compact?: boolean }) {
   return (
     <div
       className={cn("ep-language-selector", compact && "ep-language-selector--compact")}
-      onMouseEnter={openMenu}
-      onMouseLeave={scheduleClose}
+      onPointerEnter={(event) => event.pointerType === "mouse" && openMenu()}
+      onPointerLeave={(event) => event.pointerType === "mouse" && scheduleClose()}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) close();
       }}
@@ -178,6 +178,7 @@ export function SiteHeader({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const touchFocusRef = useRef(false);
 
   const handleMenuEnter = (label: string) => {
     if (closeTimeoutRef.current) {
@@ -315,6 +316,14 @@ export function SiteHeader({
     window.dispatchEvent(new CustomEvent("embarp:open-analysis", { detail }));
   };
 
+  const skipToContent = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const main = document.querySelector("main");
+    if (!main) return;
+    event.preventDefault();
+    if (!main.hasAttribute("tabindex")) main.setAttribute("tabindex", "-1");
+    main.focus();
+  };
+
   const openPrimaryCta = () => {
     if (onCtaClick) {
       setMobileOpen(false);
@@ -331,6 +340,7 @@ export function SiteHeader({
 
   return (
     <>
+      <a className="ep-skip-link" href="#conteudo" onClick={skipToContent}>{text.skipToContent}</a>
       <header className={cn("ep-site-header", overlay && "ep-site-header--overlay", !showMobileJourney && "ep-site-header--compact-mobile")}>
         <nav className="ep-site-nav ep-container" aria-label="Main navigation">
           {/* Left: Logo + Desktop Menu */}
@@ -361,9 +371,19 @@ export function SiteHeader({
                   <div
                     key={item.label}
                     className="ep-nav-dropdown"
-                    onMouseEnter={() => handleMenuEnter(item.label)}
-                    onMouseLeave={handleMenuLeave}
-                    onFocus={() => handleMenuEnter(item.label)}
+                    onPointerEnter={(event) => event.pointerType === "mouse" && handleMenuEnter(item.label)}
+                    onPointerLeave={(event) => event.pointerType === "mouse" && handleMenuLeave()}
+                    onPointerDown={(event) => {
+                      touchFocusRef.current = event.pointerType !== "mouse";
+                    }}
+                    onFocus={() => {
+                      // Toque já foca o botão antes do clique; abrir aqui faria o clique fechar logo em seguida.
+                      if (touchFocusRef.current) {
+                        touchFocusRef.current = false;
+                        return;
+                      }
+                      handleMenuEnter(item.label);
+                    }}
                     onBlur={(event) => {
                       if (!event.currentTarget.contains(event.relatedTarget)) handleMenuLeave();
                     }}

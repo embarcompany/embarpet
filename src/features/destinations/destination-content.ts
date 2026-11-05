@@ -4,6 +4,8 @@ export type DestinationLandingContent = {
   slug: string;
   analyticsKey: string;
   country: string;
+  /** Nome do país já com a preposição correta, ex.: "dos Estados Unidos", "da Espanha". */
+  countryOf: string;
   countryCode: string;
   flag: string;
   meta: { title: string; description: string };
@@ -50,6 +52,7 @@ export const unitedStatesDestination: DestinationLandingContent = {
   slug: "estados-unidos",
   analyticsKey: "us",
   country: "Estados Unidos",
+  countryOf: "dos Estados Unidos",
   countryCode: "US",
   flag: "/flags/us.svg",
   meta: {
@@ -97,6 +100,7 @@ export const portugalDestination: DestinationLandingContent = {
   slug: "portugal",
   analyticsKey: "pt",
   country: "Portugal",
+  countryOf: "de Portugal",
   countryCode: "PT",
   flag: "/flags/pt.svg",
   meta: {
@@ -144,6 +148,7 @@ export const spainDestination: DestinationLandingContent = {
   slug: "espanha",
   analyticsKey: "es",
   country: "Espanha",
+  countryOf: "da Espanha",
   countryCode: "ES",
   flag: "/flags/es.svg",
   meta: {
@@ -191,6 +196,7 @@ export const italyDestination: DestinationLandingContent = {
   slug: "italia",
   analyticsKey: "it",
   country: "Itália",
+  countryOf: "da Itália",
   countryCode: "IT",
   flag: "/flags/it.svg",
   meta: {
@@ -238,6 +244,7 @@ export const argentinaDestination: DestinationLandingContent = {
   slug: "argentina",
   analyticsKey: "ar",
   country: "Argentina",
+  countryOf: "da Argentina",
   countryCode: "AR",
   flag: "/flags/ar.svg",
   meta: {
@@ -285,6 +292,7 @@ export const uruguayDestination: DestinationLandingContent = {
   slug: "uruguai",
   analyticsKey: "uy",
   country: "Uruguai",
+  countryOf: "do Uruguai",
   countryCode: "UY",
   flag: "/flags/uy.svg",
   meta: {
@@ -332,6 +340,7 @@ export const paraguayDestination: DestinationLandingContent = {
   slug: "paraguai",
   analyticsKey: "py",
   country: "Paraguai",
+  countryOf: "do Paraguai",
   countryCode: "PY",
   flag: "/flags/py.svg",
   meta: {

@@ -823,3 +823,10 @@ main section[id] { scroll-margin-top:84px; }
 .ep-weight-input > i { position:absolute; top:50%; right:11px; color:var(--ep-muted); font-size:10px; font-style:normal; font-weight:850; pointer-events:none; transform:translateY(-50%); }
 .ep-pet-detail__fields > label.is-undefined input:disabled { border-color:rgba(0,157,172,.14); background:#f0f7f6; color:#739194; text-decoration:line-through; text-decoration-color:rgba(0,73,77,.48); text-decoration-thickness:1.5px; }
 .ep-pet-detail__fields > label.is-undefined > span { color:#739194; }
+
+/* Entre o carrossel mobile (≤620px) e o desktop, 4 colunas espremem o CTA "Avaliar modalidade" até cortar o texto. */
+@media (min-width:621px) and (max-width:1023px) { .ep-modality-rail { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
+.ep-skip-link { position:fixed; z-index:100; top:10px; left:10px; padding:10px 16px; border-radius:999px; background:var(--ep-teal); color:var(--ep-paper); font-size:14px; font-weight:800; text-decoration:none; transform:translateY(-160%); transition:transform .18s ease; }
+.ep-skip-link:focus { transform:translateY(0); outline:3px solid var(--ep-turq); outline-offset:2px; }
+main[tabindex="-1"]:focus { outline:none; }

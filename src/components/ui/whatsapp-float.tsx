@@ -250,7 +250,7 @@ export function WhatsAppFloat({
               </div>
             ) : (
               <p className="ep-whatsapp-balloon__text">
-                Vamos começar a analisar a viagem sua e do seu pet?
+                Vamos começar a analisar a sua viagem e a do seu pet?
               </p>
             )}
             <span className="ep-whatsapp-balloon__tail" aria-hidden="true" />

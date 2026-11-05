@@ -126,7 +126,7 @@
 .ep-us-destination-context__visual img { position:absolute; inset:0; display:block; width:100%; height:100%; object-fit:cover; transition:transform .5s cubic-bezier(.2,.8,.2,1); }
 .ep-us-destination-context__card:hover .ep-us-destination-context__visual img { transform:scale(1.045); }
 .ep-us-destination-context__visual span { position:relative; z-index:1; display:block; }
-.ep-us-destination-context__visual span { max-width:9ch; font-size:clamp(26px,2.3vw,34px); font-weight:850; letter-spacing:-.06em; line-height:.94; }
+.ep-us-destination-context__visual span { max-width:13ch; overflow-wrap:normal; text-wrap:balance; font-size:clamp(26px,2.3vw,34px); font-weight:850; letter-spacing:-.06em; line-height:.94; }
 .ep-us-destination-context__copy { padding:20px; }
 .ep-us-destination-context__copy > small { color:#008791; font-size:10px; font-weight:850; letter-spacing:.07em; text-transform:uppercase; }
 .ep-us-destination-context__copy h3 { margin:10px 0 0; color:var(--ep-teal); font-size:23px; letter-spacing:-.055em; line-height:1; }
