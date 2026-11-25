@@ -18,7 +18,7 @@ export function App({ initialLocale = "pt-BR", initialPath = "/", initialSearch 
   const search = typeof window !== "undefined" ? window.location.search : initialSearch;
   const locale = typeof window !== "undefined" ? getLocaleFromPath(pathname) : initialLocale;
   const localePrefix = locales.filter((item) => item !== "pt-BR").join("|");
-  const route = pathname.replace(new RegExp(`^/(${localePrefix})(?=/|$)`), "") || "/";
+  const route = pathname.replace(new RegExp(`^/(${localePrefix})(?=/|$)`), "").replace(/\/+$/, "") || "/";
   // Modo LP (header enxuto, sem saída, para tráfego pago) é decidido por query param, nunca por
   // path: um path próprio (`-lp`) cria uma URL indexável a mais e duplica conteúdo para o Google.
   const isLp = new URLSearchParams(search).get("lp") === "1";

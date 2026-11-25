@@ -30,6 +30,9 @@ const pages = {
 
 const { render } = await import(pathToFileURL(resolve(serverOutput, "entry-server.js")).href);
 const template = await readFile(templatePath, "utf8");
+// Rotas só do cliente (/viajar, /obrigado…) não têm HTML próprio. Hidratar o HTML da home nelas
+// mostrava a home até o JS carregar; com #root vazio, o main.tsx monta a página com createRoot.
+await writeFile(resolve(dist, "app-shell.html"), template, "utf8");
 const localePages = Object.entries(pages).filter(([key]) => ["pt-BR", "en", "es", "ja"].includes(key));
 const alternateLinks = `${localePages.map(([locale, page]) => `<link rel="alternate" hreflang="${locale}" href="${siteUrl}${page.path}" />`).join("\n    ")}\n    <link rel="alternate" hreflang="x-default" href="${siteUrl}/" />`;
 const ogLocales = { "pt-BR": "pt_BR", en: "en_US", es: "es_ES", ja: "ja_JP" };
